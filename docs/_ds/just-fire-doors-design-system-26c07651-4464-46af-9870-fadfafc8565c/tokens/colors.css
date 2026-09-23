@@ -1,0 +1,22 @@
+:root{
+/* Brand */
+--jfd-azure:#29A9E9;--jfd-azure-soft:#6FC4F2;--jfd-azure-pale:#A8D7F3;--jfd-azure-mist:#C8E4F7;
+--jfd-action:#0E6FAF;--jfd-action-hover:#0B5789;--jfd-underline:#A9C6DB;
+/* Neutrals */
+--jfd-graphite:#23282C;--jfd-ink-2:#40474D;--jfd-ink-3:#5B646B;--jfd-ink-4:#5F6970;
+--jfd-ground:#F4F6F8;--jfd-surface:#FFFFFF;--jfd-tint:#E9EDF1;
+--jfd-rule:#D7DDE3;--jfd-rule-strong:#C9D2DA;--jfd-rule-soft:#EAEEF2;
+--jfd-media-bg:#E4E9EE;--jfd-meta-rule:#E5EAEF;
+/* Dark surface */
+--jfd-dark-rule:#3C4348;--jfd-dark-rule-2:#363C41;--jfd-dark-border:#424A50;--jfd-dark-ink:#E4E9ED;--jfd-dark-ink-2:#9BA7B1;--jfd-dark-heading:#EEF3F7;
+/* Status (job-sheet vocabulary) */
+--jfd-status-closed:#1F6B4D;--jfd-status-onsite:#8A6100;--jfd-status-decide:#A33A2A;--jfd-status-neutral:#5B646B;
+
+/* Semantic aliases */
+--text-primary:var(--jfd-graphite);--text-lead:var(--jfd-ink-2);--text-body:var(--jfd-ink-3);--text-caption:var(--jfd-ink-4);
+--text-accent:var(--jfd-action);--text-link:var(--jfd-action);--text-link-hover:var(--jfd-action-hover);
+--text-on-dark:var(--jfd-dark-ink);--text-on-dark-muted:var(--jfd-dark-ink-2);--text-on-action:#FFFFFF;--text-on-action-body:var(--jfd-azure-mist);--text-on-action-label:var(--jfd-azure-pale);
+--surface-page:var(--jfd-ground);--surface-card:var(--jfd-surface);--surface-tint:var(--jfd-tint);--surface-dark:var(--jfd-graphite);--surface-action:var(--jfd-action);
+--border-default:var(--jfd-rule);--border-strong:var(--jfd-rule-strong);--border-soft:var(--jfd-rule-soft);--border-dark:var(--jfd-dark-border);
+--accent-mark:var(--jfd-azure);
+}
