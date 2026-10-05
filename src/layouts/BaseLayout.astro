@@ -93,6 +93,8 @@ const nodes: JsonLdNode[] = [
       type="font/woff2"
       crossorigin
     />
+    <!-- Page extras, e.g. a preload for an LCP image found late in the HTML. -->
+    <slot name="head" />
     <Seo {title} {description} {canonical} {ogImage} {ogType} {noindex} />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

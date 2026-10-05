@@ -12,10 +12,14 @@ import Img from '../../components/ui/Img.astro';
 import { business } from '../../data/business';
 import { paths } from '../../data/paths';
 import { quoteHref } from '../../data/quote-routes';
+import { avifPreloadSrcset } from '../../lib/images';
 import { localBusiness } from '../../lib/schema';
 import installer from '../../assets/images/photos/bodmin-installer.jpeg';
 
 const { phone, email, hours, serviceArea } = business;
+const photoSizes = '(min-width: 800px) 560px, 100vw';
+// The photo is the LCP element but sits after the hero copy, so preload it from <head>.
+const photoSrcset = await avifPreloadSrcset(installer);
 const crumbs = [{ name: 'Contact', path: paths.contact }];
 
 const docs = [
@@ -31,6 +35,15 @@ const docs = [
   breadcrumbs={crumbs}
   schema={[localBusiness(Astro.site!)]}
 >
+  <link
+    slot="head"
+    rel="preload"
+    as="image"
+    type="image/avif"
+    imagesrcset={photoSrcset}
+    imagesizes={photoSizes}
+    fetchpriority="high"
+  />
   <PageHero breadcrumbs={crumbs} density="compact" align="center" contentWidth={560}>
     <Fragment slot="title">
       Talk to <span class="jfd-accent">Just Fire Doors</span>
@@ -58,7 +71,7 @@ const docs = [
           src={installer}
           alt="JFD installer checking a door frame on site in a hospital corridor"
           position="40% 40%"
-          sizes="(min-width: 800px) 560px, 100vw"
+          sizes={photoSizes}
           priority
         />
         {phone && (

@@ -154,9 +154,13 @@ const home = variant === 'home';
     max-width: 440px;
     flex: 1 1 300px;
   }
-  .why--home .why__aside {
-    position: sticky;
-    top: 108px;
+  /* Sticky only while the columns sit side by side (two 300px columns + 80px gap + gutters,
+     with room for a scrollbar). Stacked, the reasons would scroll up under the aside. */
+  @media (min-width: 760px) {
+    .why--home .why__aside {
+      position: sticky;
+      top: 108px;
+    }
   }
   .why__title {
     margin: 0 0 26px;
