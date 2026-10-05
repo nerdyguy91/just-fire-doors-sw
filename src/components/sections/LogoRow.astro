@@ -1,0 +1,84 @@
+---
+/**
+ * Accreditation and client logos: BlueSky badge (round), Door Data Systems, a divider, then
+ * client logos. Credentials come from business.ts by id, so removing one there removes its logo.
+ *   strip  proof strip on service pages (52 / 60 / 34 px)
+ *   home   home credibility block (58 / 70 / 40 px, with divider)
+ */
+import { Image } from 'astro:assets';
+import { getCredential } from '../../data/business';
+import { clientLogos } from '../../data/proof';
+
+interface Props {
+  size?: 'strip' | 'home';
+}
+
+const { size = 'strip' } = Astro.props;
+const dims =
+  size === 'home' ? { badge: 58, dds: 70, client: 40 } : { badge: 52, dds: 60, client: 34 };
+const bluesky = getCredential('bluesky');
+const dds = getCredential('dds');
+---
+
+<div class:list={['logos', `logos--${size}`]}>
+  {bluesky?.logo && (
+    <Image
+      src={bluesky.logo.src}
+      alt={bluesky.logo.alt}
+      width={dims.badge}
+      height={dims.badge}
+      densities={[1, 2]}
+      class="logos__badge"
+    />
+  )}
+  {dds?.logo && (
+    <Image
+      src={dds.logo.src}
+      alt={dds.logo.alt}
+      width={dims.dds}
+      height={dims.dds}
+      densities={[1, 2]}
+      class="logos__dds"
+    />
+  )}
+  {size === 'home' && clientLogos.length > 0 && <span class="logos__divider" aria-hidden="true" />}
+  {clientLogos.map((logo) => (
+    <Image
+      src={logo.src}
+      alt={logo.alt}
+      height={dims.client}
+      width={Math.round((dims.client * logo.src.width) / logo.src.height)}
+      densities={[1, 2]}
+      class="logos__client"
+    />
+  ))}
+</div>
+
+<style>
+  .logos {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+  .logos--home {
+    gap: 26px;
+  }
+  .logos :global(.logos__badge) {
+    border-radius: 50%;
+    object-fit: cover;
+    transform: scale(1.03);
+  }
+  .logos :global(.logos__dds) {
+    width: auto;
+    mix-blend-mode: multiply;
+  }
+  .logos :global(.logos__client) {
+    width: auto;
+  }
+  .logos__divider {
+    width: 1px;
+    height: 40px;
+    background: #d0d7de;
+  }
+</style>

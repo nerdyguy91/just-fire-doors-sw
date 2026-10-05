@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/colors.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/typography.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/layout.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/effects.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/css/jfd.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/styles.css">
+<script src="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/_ds_bundle.js"></script>
+</helmet>
+<article id="{{ anchor }}" aria-labelledby="{{ headId }}" style="borderBottom: 1px solid var(--jfd-rule); scrollMarginTop: 72px">
+  <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px)">
+
+    <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 32px 64px; alignItems: end; marginBottom: 28px">
+      <div style="minWidth: 0">
+        <p style="display: flex; flexWrap: wrap; alignItems: center; gap: 8px 14px; fontFamily: var(--jfd-font-mono); fontSize: 11.5px; letterSpacing: '0.1em'; textTransform: uppercase; color: var(--jfd-action); margin: 0 0 18px"><span style="color: var(--jfd-ink-4)">{{ n }}</span><span>{{ useCase }}</span></p>
+        <h2 id="{{ headId }}" class="jfd-h2" style="margin: 0 0 16px; textWrap: pretty">{{ projectName }}</h2>
+        <p style="fontFamily: var(--jfd-font-display); fontSize: clamp(23px, 2.4vw, 29px); fontWeight: 500; lineHeight: 1.22; letterSpacing: '-0.01em'; color: var(--jfd-ink-2); margin: 0 0 22px; maxWidth: 32ch; textWrap: pretty">{{ subhead }}</p>
+        <div style="display: flex; flexWrap: wrap; gap: 6px">
+          <sc-for list="{{ tags }}" as="tg" hint-placeholder-count="3">
+            <span class="jfd-chip" style="padding: 6px 10px; fontSize: 11px">{{ tg }}</span>
+          </sc-for>
+        </div>
+      </div>
+      <figure style="minWidth: 0; margin: 0">
+        <sc-if value="{{ hasImg }}" hint-placeholder-val="{{ true }}">
+          <div style="aspectRatio: 16 / 10; overflow: hidden; background: #E4E9EE; border: 1px solid var(--jfd-rule)"><sc-if value="{{ img }}" hint-placeholder-val="{{ false }}"><img src="{{ img }}" alt="{{ imgAlt }}" loading="lazy" style="width: 100%; height: 100%; objectFit: cover; display: block; objectPosition: {{ imgPos }}"></sc-if></div>
+        </sc-if>
+        <sc-if value="{{ noImg }}" hint-placeholder-val="{{ false }}">
+          <div style="aspectRatio: 16 / 10; display: grid; placeItems: center; padding: 24px; background: repeating-linear-gradient(135deg, #E4E9EE 0 10px, #DCE3E9 10px 20px); border: 1px dashed #B4BEC7"><span style="fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.07em'; textTransform: uppercase; color: var(--jfd-ink-3); textAlign: center; lineHeight: 1.7">{{ placeholder }}</span></div>
+        </sc-if>
+        <figcaption style="fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.07em'; textTransform: uppercase; color: var(--jfd-ink-4); marginTop: 10px">{{ caption }}</figcaption>
+      </figure>
+    </div>
+
+    <dl style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 1px; background: transparent; border: 1px solid var(--jfd-rule); margin: 0 0 56px">
+      <sc-for list="{{ factRows }}" as="fc" hint-placeholder-count="4">
+        <div style="outline: 1px solid var(--jfd-rule); background: {{ fc.bg }}; padding: 14px 16px 16px; minWidth: 0">
+          <dt style="fontFamily: var(--jfd-font-mono); fontSize: 10px; letterSpacing: '0.08em'; textTransform: uppercase; color: var(--jfd-ink-3); marginBottom: 6px">{{ fc.k }}</dt>
+          <dd style="margin: 0; fontSize: 15.5px; lineHeight: 1.35; fontWeight: 500; color: {{ fc.ink }}">{{ fc.v }}</dd>
+        </div>
+      </sc-for>
+    </dl>
+
+    <div style="display: flex; flexWrap: wrap; gap: 20px 48px; paddingBottom: 36px">
+      <div style="flex: 0 0 180px; minWidth: 0">
+        <span style="display: block; fontFamily: var(--jfd-font-mono); fontSize: 13px; letterSpacing: '0.14em'; textTransform: uppercase; color: var(--jfd-graphite); paddingTop: 14px; borderTop: 2px solid var(--jfd-graphite)">Situation</span>
+      </div>
+      <div style="flex: 1 1 460px; minWidth: 0; paddingTop: 12px">
+        <sc-for list="{{ situation }}" as="sl" hint-placeholder-count="2">
+          <p style="fontSize: 17px; lineHeight: 1.62; color: var(--jfd-ink-2); margin: 0 0 12px; maxWidth: 62ch; textWrap: pretty">{{ sl }}</p>
+        </sc-for>
+      </div>
+    </div>
+
+    <sc-for list="{{ stageRows }}" as="st" hint-placeholder-count="3">
+      <div style="display: flex; flexWrap: wrap; gap: 20px 48px; paddingBottom: 36px">
+        <div style="flex: 0 0 180px; minWidth: 0">
+          <span style="display: flex; alignItems: center; gap: 10px; paddingTop: 14px; borderTop: 2px solid {{ st.dot }}">
+            <span style="width: 9px; height: 9px; borderRadius: 50%; background: {{ st.dot }}"></span>
+            <span style="fontFamily: var(--jfd-font-mono); fontSize: 13px; letterSpacing: '0.14em'; textTransform: uppercase; color: var(--jfd-action)">{{ st.label }}</span>
+          </span>
+          <span style="display: block; fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.06em'; textTransform: uppercase; color: var(--jfd-ink-3); marginTop: 8px; lineHeight: 1.5">{{ st.weightLabel }}</span>
+        </div>
+        <div style="flex: 1 1 460px; minWidth: 0; paddingTop: 12px; border: {{ st.frame }}; padding: {{ st.pad }}; background: {{ st.bg }}">
+          <h3 style="fontFamily: var(--jfd-font-display); fontSize: {{ st.titleSize }}; fontWeight: 600; lineHeight: 1.2; letterSpacing: '-0.015em'; margin: 0 0 10px; maxWidth: 36ch; textWrap: pretty">{{ st.title }}</h3>
+          <sc-for list="{{ st.lines }}" as="ln" hint-placeholder-count="1">
+            <p style="fontSize: 16px; lineHeight: 1.6; color: {{ st.bodyInk }}; margin: 0 0 10px; maxWidth: 62ch">{{ ln }}</p>
+          </sc-for>
+          <sc-if value="{{ st.hasCallouts }}" hint-placeholder-val="{{ false }}">
+            <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 1px; background: transparent; border: 1px solid var(--jfd-rule); marginTop: 18px">
+              <sc-for list="{{ st.callouts }}" as="co" hint-placeholder-count="3">
+                <div style="outline: 1px solid var(--jfd-rule); background: #FFFFFF; padding: 18px 18px 20px; minWidth: 0">
+                  <span style="display: block; fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.08em'; textTransform: uppercase; color: var(--jfd-ink-3); marginBottom: 8px">{{ co.k }}</span>
+                  <span style="display: block; fontFamily: var(--jfd-font-display); fontSize: 24px; fontWeight: 600; lineHeight: 1.15">{{ co.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ st.hasTimeline }}" hint-placeholder-val="{{ false }}">
+            <ol style="listStyle: none; margin: 20px 0 0; padding: 0; display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 12px 0">
+              <sc-for list="{{ st.timeline }}" as="tl" hint-placeholder-count="4">
+                <li style="minWidth: 0; paddingRight: 14px">
+                  <span style="display: flex; alignItems: center; marginBottom: 12px"><span style="width: 12px; height: 12px; flexShrink: 0; background: {{ tl.fill }}; border: 2px solid #0E6FAF"></span><span style="flex: 1; height: 2px; background: {{ tl.line }}"></span></span>
+                  <span style="display: block; fontSize: 15.5px; fontWeight: 600; lineHeight: 1.3">{{ tl.t }}</span>
+                  <span style="display: block; fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.06em'; textTransform: uppercase; color: var(--jfd-ink-3); marginTop: 4px">{{ tl.when }}</span>
+                </li>
+              </sc-for>
+            </ol>
+          </sc-if>
+          <sc-if value="{{ st.hasShot }}" hint-placeholder-val="{{ false }}">
+            <figure style="margin: 18px 0 0; display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px; maxWidth: 680px">
+              <sc-for list="{{ st.shots }}" as="sh" hint-placeholder-count="2">
+                <span style="display: block; minWidth: 0">
+                  <span style="display: block; aspectRatio: 4 / 3; overflow: hidden; background: #E4E9EE; border: 1px solid var(--jfd-rule)"><sc-if value="{{ sh.src }}" hint-placeholder-val="{{ false }}"><img src="{{ sh.src }}" alt="{{ sh.alt }}" loading="lazy" style="width: 100%; height: 100%; objectFit: cover; display: block; objectPosition: {{ sh.pos }}"></sc-if></span>
+                  <span style="display: block; fontFamily: var(--jfd-font-mono); fontSize: 10px; letterSpacing: '0.07em'; textTransform: uppercase; color: var(--jfd-ink-4); marginTop: 8px">{{ sh.label }}</span>
+                </span>
+              </sc-for>
+            </figure>
+          </sc-if>
+        </div>
+      </div>
+    </sc-for>
+
+    <div style="background: var(--jfd-graphite); color: #EEF3F7; padding: 34px clamp(20px, 5.5vw, 32px) 36px; display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 24px 48px; alignItems: end">
+      <div style="minWidth: 0">
+        <span class="jfd-status" style="color: #6FC4F2; marginBottom: 14px">Outcome</span>
+        <p style="fontFamily: var(--jfd-font-display); fontSize: clamp(28px, 3.2vw, 40px); fontWeight: 600; lineHeight: 1.1; letterSpacing: '-0.02em'; margin: 0; maxWidth: 24ch; textWrap: pretty">{{ outcome }}</p>
+      </div>
+      <div style="minWidth: 0">
+        <p style="fontSize: 16px; lineHeight: 1.6; color: var(--jfd-dark-ink); margin: 0 0 18px; maxWidth: 46ch">{{ outcomeSub }}</p>
+        <div style="display: flex; flexWrap: wrap; gap: 10px 26px">
+          <sc-for list="{{ links }}" as="lk" hint-placeholder-count="1">
+            <a href="{{ lk.href }}" style="fontSize: 15.5px; fontWeight: 500; color: #FFFFFF; borderBottom: 1px solid rgba(255,255,255,0.5); paddingBottom: 3px" style-hover="color: #6FC4F2; borderBottom: 1px solid #6FC4F2">{{ lk.label }}</a>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{ showPending }}" hint-placeholder-val="{{ false }}">
+      <div style="display: grid; gap: 8px; marginTop: 18px">
+        <sc-for list="{{ pendingNotes }}" as="pn" hint-placeholder-count="2">
+          <p style="fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.05em'; textTransform: uppercase; color: #8A6100; border: 1px dashed #C9B27A; background: #FBF7EC; padding: 8px 12px; margin: 0; lineHeight: 1.6">To add · {{ pn }}</p>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+</article>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;1280px&quot;,&quot;height&quot;:&quot;1600px&quot;},&quot;anchor&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;project&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;n&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Project 01&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;useCase&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Specialist healthcare environment&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;name&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Project name&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;subhead&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;tags&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string[]&quot;},&quot;img&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;imgAlt&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;placeholder&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Project photography to supply&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;caption&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;facts&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;{k,v,pending?}[]&quot;},&quot;situation&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string[]&quot;},&quot;stages&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;object[]&quot;},&quot;outcome&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;outcomeSub&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;links&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;{label,href}[]&quot;},&quot;pending&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string[]&quot;},&quot;showNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  _r(x) { if (!x || typeof x !== 'string' || x.indexOf('assets/') !== 0) return x; const k = x.slice(7).replace(/\W/g, '_'); return (window.__resources || {})[k] || x; }
+  renderVals() {
+    const p = this.props;
+    const show = !!p.showNotes;
+    const DOT = { decide: '#A33A2A', deliver: '#8A6100', close: '#1F6B4D' };
+    const LABEL = { decide: 'Decide', deliver: 'Deliver', close: 'Close' };
+    const facts = (p.facts ?? []).filter(f => !f.pending || show).map(f => f.pending
+      ? { k: f.k, v: 'To confirm', bg: '#FBF7EC', ink: '#8A6100' }
+      : { k: f.k, v: f.v, bg: '#FFFFFF', ink: '#23282C' });
+    const stages = (p.stages ?? []).filter(s => !s.pendingOnly || show).map(s => {
+      const brief = s.weight === 'brief', pend = !!s.pendingOnly;
+      const tl = s.timeline ?? [];
+      return {
+        label: LABEL[s.key], dot: DOT[s.key],
+        weightLabel: pend ? 'Evidence to add' : (s.weightLabel ?? (brief ? 'Requirement received' : '')),
+        title: s.title, lines: s.lines ?? [],
+        titleSize: brief ? '22px' : '27px',
+        bodyInk: pend ? '#6B5A2E' : '#40474D',
+        frame: pend ? '1px dashed #C9B27A' : '0',
+        pad: pend ? '16px 18px' : '12px 0 0',
+        bg: pend ? '#FBF7EC' : 'transparent',
+        hasCallouts: !!(s.callouts && s.callouts.length), callouts: s.callouts ?? [],
+        hasTimeline: tl.length > 0,
+        timeline: tl.map((t, i) => ({ ...t, fill: i === tl.length - 1 ? '#0E6FAF' : '#FFFFFF', line: i === tl.length - 1 ? 'transparent' : '#A9C6DB' })),
+        hasShot: !!(s.shots && s.shots.length), shots: s.shots ?? []
+      };
+    });
+    const pending = p.pending ?? [];
+    return {
+      headId: (p.anchor ?? 'project') + '-title',
+      hasImg: !!p.img, noImg: !p.img, img: this._r(p.img),
+      imgPos: p.imgPos ?? '50% 50%',
+      factRows: facts, stageRows: stages,
+      situation: p.situation ?? [],
+      links: p.links ?? [],
+      pendingNotes: pending, showPending: show && pending.length > 0
+    };
+  }
+}
+</script>
+</body>
+</html>

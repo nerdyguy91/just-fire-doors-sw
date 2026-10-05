@@ -1,0 +1,67 @@
+---
+/**
+ * /get-a-quote/thanks/. Where /api/enquiry redirects after a quote form sent without JavaScript
+ * (with JavaScript the receipt shows in the page). noindex, not in the sitemap. Copy is the
+ * prototype's quote success state.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import { business } from '../../data/business';
+import { paths } from '../../data/paths';
+
+const { phone } = business;
+const crumbs = [
+  { name: 'Get a quote', path: paths.quote },
+  { name: 'Received', path: `${paths.quote}thanks/` },
+];
+---
+
+<BaseLayout
+  title="Enquiry received | Just Fire Doors"
+  description="Thanks for your enquiry. Just Fire Doors SW will review what you’ve sent and use your contact details if anything else is needed."
+  breadcrumbs={crumbs}
+  noindex
+>
+  <PageHero breadcrumbs={crumbs} size="large">
+    <Fragment slot="title">
+      Thanks. <span class="jfd-accent">We’ve got it.</span>
+    </Fragment>
+    <p
+      class="jfd-status jfd-status--closed thanks__status"
+      data-track-load="form_submit_success"
+      data-form="quote"
+    >
+      Received
+    </p>
+    <p class="hero-lead">
+      We’ll review what you’ve sent and use the contact details provided if we need anything else
+      before confirming the next step.
+    </p>
+    <div class="hero-actions thanks__actions">
+      {phone && (
+        <span>
+          Something urgent?{' '}
+          <a class="jfd-link" href={`tel:${phone.e164}`} data-track="tel">
+            Call JFD: {phone.display}
+          </a>
+        </span>
+      )}
+      <a class="jfd-link" href={paths.projects}>
+        See our projects →
+      </a>
+      <a class="jfd-link" href={`${paths.quote}#router`}>
+        Send something else →
+      </a>
+    </div>
+  </PageHero>
+</BaseLayout>
+
+<style>
+  .thanks__status {
+    display: flex;
+    margin: 0 0 16px;
+  }
+  .thanks__actions {
+    margin-top: 28px;
+  }
+</style>

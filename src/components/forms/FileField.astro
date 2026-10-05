@@ -1,0 +1,257 @@
+---
+/**
+ * File upload field. The drop zone is a <label> around a native <input type="file" multiple>, so
+ * clicking or pressing Enter/Space anywhere in it opens the file picker. src/scripts/forms.ts adds
+ * drag and drop, the list of chosen files (built from the <template>), size and type checks, and
+ * real upload progress when the form is sent.
+ *
+ * Uploads need JavaScript (Turnstile and the streamed upload both depend on it), so without it
+ * the drop zone is replaced by a short note.
+ */
+import type { FieldDef } from '../../lib/enquiry/fields';
+import { acceptAttribute } from '../../lib/enquiry/uploads';
+import { noJsFilesNote } from './copy';
+
+interface Props {
+  field: FieldDef;
+  prefix: string;
+}
+
+const { field, prefix } = Astro.props;
+const id = `${prefix}-${field.id}`;
+const labelId = `${id}-label`;
+const hintId = `${id}-hint`;
+---
+
+<div class="upload" data-upload>
+  <p class="upload__label" id={labelId}>
+    {field.label}
+    <span class="upload__tag">Optional</span>
+  </p>
+  <label class:list={['upload__zone', { 'upload__zone--primary': field.primary }]} data-dropzone>
+    <span class="upload__title">
+      {field.primary ? 'Drop your survey, job sheet or report here' : 'Drop files here'}
+    </span>
+    <span class="upload__choose">or choose files</span>
+    <span class="upload__hint" id={hintId}>
+      {field.hint}
+    </span>
+    <input
+      class="jfd-visually-hidden"
+      type="file"
+      multiple
+      accept={acceptAttribute}
+      id={id}
+      aria-labelledby={labelId}
+      aria-describedby={hintId}
+    />
+  </label>
+  <ul class="upload__files" role="list" aria-live="polite" data-file-list></ul>
+  <p class="upload__nojs">{noJsFilesNote}</p>
+  <template>
+    <li class="file">
+      <span class="file__ext" data-file-ext></span>
+      <span class="file__main">
+        <span class="file__name" data-file-name></span>
+        <span class="file__meta">
+          <span class="file__bar">
+            <span data-file-bar></span>
+          </span>
+          <span class="file__status" data-file-status></span>
+          <span class="file__size" data-file-size></span>
+        </span>
+      </span>
+      <button type="button" class="file__remove" data-file-remove>
+        Remove
+      </button>
+    </li>
+  </template>
+</div>
+
+<style>
+  .upload {
+    min-width: 0;
+    grid-column: 1 / -1;
+  }
+  .upload__label {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .upload__tag {
+    letter-spacing: normal;
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+    font-weight: 400;
+    margin-left: 6px;
+  }
+
+  .upload__zone {
+    position: relative;
+    display: block;
+    margin-top: 10px;
+    border: 2px dashed var(--jfd-rule-strong);
+    background: var(--jfd-surface);
+    padding: 20px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition:
+      background var(--jfd-ease),
+      border-color var(--jfd-ease);
+  }
+  .upload__zone--primary {
+    border-color: #7fa6c2;
+    padding: 36px 20px;
+  }
+  .upload__zone:hover {
+    border-color: var(--jfd-action);
+  }
+  .upload__zone:focus-within {
+    outline: var(--focus-ring-width) solid var(--focus-ring);
+    outline-offset: var(--focus-ring-offset);
+  }
+  .upload__zone.is-drag {
+    border-color: var(--jfd-action);
+    background: #e6f1f9;
+  }
+  .upload__title {
+    display: block;
+    font-family: var(--jfd-font-display);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--jfd-graphite);
+  }
+  .upload__zone--primary .upload__title {
+    font-size: 24px;
+  }
+  .upload__choose {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--jfd-action);
+    border-bottom: 1px solid var(--jfd-underline);
+  }
+  .upload__hint {
+    display: block;
+    margin-top: 10px;
+    font-size: 13.5px;
+    color: var(--jfd-ink-3);
+  }
+
+  .upload__nojs {
+    display: none;
+    margin: 10px 0 0;
+    padding: 14px 16px;
+    border: 1px dashed var(--jfd-rule-strong);
+    background: var(--jfd-surface);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--jfd-ink-2);
+  }
+  :global(.no-js) .upload__zone {
+    display: none;
+  }
+  :global(.no-js) .upload__nojs {
+    display: block;
+  }
+
+  .upload__files {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 6px;
+  }
+  .upload__files:empty {
+    display: none;
+  }
+  .file {
+    display: grid;
+    grid-template-columns: 46px minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 12px;
+    background: var(--jfd-surface);
+    border: 1px solid var(--jfd-rule);
+  }
+  .file__ext {
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    color: #ffffff;
+    background: var(--jfd-status-neutral);
+    padding: 4px 0;
+    text-align: center;
+  }
+  .file__main {
+    min-width: 0;
+  }
+  .file__name {
+    display: block;
+    font-size: 14.5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .file__meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .file__bar {
+    flex: 0 0 90px;
+    height: 3px;
+    background: var(--jfd-media-bg);
+  }
+  .file__bar span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: var(--jfd-status-closed);
+    transition: width 0.6s ease;
+  }
+  .file__status {
+    letter-spacing: normal;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-status-closed);
+  }
+  .file__size {
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    color: var(--jfd-ink-4);
+  }
+  .file[data-state='uploading'] .file__bar span {
+    background: var(--jfd-action);
+  }
+  .file[data-state='uploading'] .file__status {
+    color: var(--jfd-ink-3);
+  }
+  .file[data-state='rejected'] .file__bar span,
+  .file[data-state='failed'] .file__bar span {
+    background: var(--jfd-status-decide);
+  }
+  .file[data-state='rejected'] .file__status,
+  .file[data-state='failed'] .file__status {
+    color: var(--jfd-status-decide);
+  }
+  .file__remove {
+    min-height: 44px;
+    padding: 0 12px;
+    background: none;
+    border: 1px solid var(--jfd-rule);
+    font: inherit;
+    font-size: 13.5px;
+    color: var(--jfd-graphite);
+    cursor: pointer;
+  }
+  .file__remove:hover {
+    border-color: var(--jfd-status-decide);
+    color: var(--jfd-status-decide);
+  }
+</style>

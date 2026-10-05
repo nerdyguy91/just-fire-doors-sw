@@ -1,0 +1,127 @@
+---
+/**
+ * Page shell used by every page.
+ *
+ * Props (plan section 4):
+ *   title, description   required; unique per page
+ *   canonicalPath        defaults to the current path
+ *   ogImage, ogType      default social image / "website"
+ *   noindex              thanks pages, 404
+ *   breadcrumbs          trail after Home, e.g. [{ name: 'Services', path: '/services/' }].
+ *                        Drives the BreadcrumbList JSON-LD. Pages render the visible trail
+ *                        with <Breadcrumbs items={...}> inside their hero, from the same array.
+ *   schema               extra JSON-LD nodes for this page (WebSite, Service, FAQPage…).
+ *                        Organization is always added; null entries are ignored.
+ */
+import '../styles/global.css';
+import Seo from '../components/seo/Seo.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import ConsentBanner from '../components/layout/ConsentBanner.astro';
+import SiteFooter from '../components/layout/SiteFooter.astro';
+import SiteHeader from '../components/layout/SiteHeader.astro';
+import { gaCookieless, gaId } from '../lib/analytics';
+import { noJsSwap } from '../lib/inline-scripts';
+import { breadcrumbList, organization, type JsonLdNode } from '../lib/schema';
+import {
+  absoluteUrl,
+  checkMeta,
+  siteMeta,
+  withTrailingSlash,
+  type Breadcrumb,
+  type OgImage,
+} from '../lib/seo';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  ogImage?: OgImage;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  breadcrumbs?: Breadcrumb[];
+  schema?: (JsonLdNode | null)[];
+}
+
+const {
+  title,
+  description,
+  canonicalPath = Astro.url.pathname,
+  ogImage = siteMeta.defaultOgImage,
+  ogType = 'website',
+  noindex = false,
+  breadcrumbs = [],
+  schema = [],
+} = Astro.props;
+
+const site = Astro.site!;
+const path = withTrailingSlash(canonicalPath);
+const canonical = absoluteUrl(path, site);
+checkMeta(path, title, description);
+
+const trail: Breadcrumb[] = breadcrumbs.length ? [{ name: 'Home', path: '/' }, ...breadcrumbs] : [];
+
+const nodes: JsonLdNode[] = [
+  organization(site),
+  ...(trail.length ? [breadcrumbList(site, trail)] : []),
+  ...schema.filter((n): n is JsonLdNode => n !== null),
+];
+---
+
+<!doctype html>
+<html
+  lang={siteMeta.lang}
+  class="no-js"
+  data-ga={gaId}
+  data-ga-before={gaId && (gaCookieless ? 'cookieless' : 'off')}
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline set:html={noJsSwap} />
+    <!-- Preload only the fonts behind LCP text: display 600 (H1) and body 400. -->
+    <link
+      rel="preload"
+      href="/fonts/barlow-condensed-600-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/barlow-400-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <Seo {title} {description} {canonical} {ogImage} {ogType} {noindex} />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <JsonLd {nodes} />
+  </head>
+  <body>
+    <a class="jfd-skip-link" href="#main">
+      Skip to content
+    </a>
+    <div class="header-sentinel" data-header-sentinel aria-hidden="true"></div>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+    {gaId && <ConsentBanner />}
+  </body>
+</html>
+
+<style>
+  /* Scroll marker for the header shrink (src/scripts/nav.ts). */
+  .header-sentinel {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+  }
+</style>

@@ -1,0 +1,910 @@
+---
+/**
+ * Fire Door Repairs & Remedial Works: the priority commercial page.
+ * Ported from docs/prototype/pages/service-repairs.dc.html. Prototype "To confirm" notes are
+ * tracked in CONTENT-TODO.md and never rendered.
+ */
+import { getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import QuoteSheet from '../../components/records/QuoteSheet.astro';
+import ProgrammeView from '../../components/records/ProgrammeView.astro';
+import BacklogHandoff from '../../components/records/BacklogHandoff.astro';
+import ProofStrip from '../../components/sections/ProofStrip.astro';
+import Section from '../../components/sections/Section.astro';
+import SectionHead from '../../components/sections/SectionHead.astro';
+import DecisionTriad from '../../components/sections/DecisionTriad.astro';
+import EvidenceBlock from '../../components/sections/EvidenceBlock.astro';
+import RelatedServices from '../../components/sections/RelatedServices.astro';
+import WhyJfd from '../../components/sections/WhyJfd.astro';
+import FaqList from '../../components/sections/FaqList.astro';
+import FinalCta from '../../components/sections/FinalCta.astro';
+import StatusLabel from '../../components/records/StatusLabel.astro';
+import { paths } from '../../data/paths';
+import { quoteHref } from '../../data/quote-routes';
+import { getService } from '../../data/services';
+import { faqPage, service as serviceNode } from '../../lib/schema';
+import councilHinges from '../../assets/images/photos/council-hinges.jpeg';
+
+const site = Astro.site!;
+const svc = getService('remedial-works');
+const faqs = (await getEntry('faqs', 'remedial-works'))!.data;
+const description =
+  'Fire door repairs and remedial works across Plymouth and the South West. Send us your survey, remedial list or job sheet and we’ll scope, complete and evidence the work.';
+const quote = quoteHref(svc.quoteRoute);
+
+const inputs = [
+  { t: 'Fire door survey', fmt: 'PDF' },
+  { t: 'Inspection report', fmt: 'PDF / export' },
+  { t: 'Remedial schedule', fmt: 'XLS' },
+  { t: 'Job sheet', fmt: 'Any format' },
+  { t: 'Backlog of outstanding actions', fmt: 'However it’s kept' },
+];
+
+const capGroups = [
+  {
+    label: 'Hardware',
+    items: [
+      {
+        t: 'Door closers',
+        b: 'Adjustment, repair or replacement where the closer is not performing as required.',
+      },
+      { t: 'Hinges', b: 'Addressing worn, damaged or unsuitable hinges where appropriate.' },
+      {
+        t: 'Latches and ironmongery',
+        b: 'Repairing or replacing relevant components where required.',
+      },
+    ],
+  },
+  {
+    label: 'Door assembly',
+    items: [
+      { t: 'Smoke and intumescent seals', b: 'Replacing damaged, missing or worn seals.' },
+      {
+        t: 'Excessive gaps',
+        b: 'Correcting gap issues where an appropriate remedial solution is available.',
+      },
+      {
+        t: 'Alignment',
+        b: 'Adjusting doors that are not sitting or closing correctly within the frame.',
+      },
+      { t: 'Door leaves and frames', b: 'Addressing damage or defects where repair is suitable.' },
+      {
+        t: 'Glazing-related issues',
+        b: 'Remedial work around fire-rated glazing and associated components where appropriate.',
+      },
+    ],
+  },
+  {
+    label: 'Larger actions',
+    items: [
+      {
+        t: 'Upgrades or retrofits',
+        b: 'Where an existing doorset can be suitably improved rather than replaced.',
+      },
+      { t: 'Replacement doors', b: 'Where repair is no longer the right action.' },
+    ],
+  },
+];
+
+const priceFactors = [
+  'the type of defect',
+  'the number of doors',
+  'the parts and materials required',
+  'whether the door can be repaired or needs replacing',
+  'access and site conditions',
+  'the number and location of sites',
+  'programme or sequencing requirements',
+];
+
+const scheduleCols = [
+  { label: 'Repair', t: 'What is being repaired', tone: 'closed' as const },
+  { label: 'Replace', t: 'What is being replaced', tone: 'onsite' as const },
+  { label: 'Investigate', t: 'What needs further investigation', tone: 'decide' as const },
+  { label: 'Cost', t: 'What the work costs', tone: null },
+];
+---
+
+<BaseLayout
+  title="Fire Door Remedial Works & Repairs | South West | Just Fire Doors"
+  {description}
+  canonicalPath={svc.path}
+  breadcrumbs={[
+    { name: 'Services', path: paths.services },
+    { name: svc.shortTitle, path: svc.path },
+  ]}
+  schema={[serviceNode(site, svc, description), faqPage(site, svc.path, faqs.items)]}
+>
+  <PageHero
+    breadcrumbs={[
+      { name: 'Services', path: paths.services },
+      { name: svc.shortTitle, path: svc.path },
+    ]}
+    eyebrow="Commercial fire door repairs across the South West"
+  >
+    <Fragment slot="title">
+      Fire Door Repairs <span class="jfd-accent">&amp; Remedial Works</span>
+    </Fragment>
+    <p class="hero-display">Already have a fire door survey, remedial list or job sheet?</p>
+    <p class="hero-sub">
+      Send it over. We’ll help clarify what needs repairing, replacing or further investigation,
+      then get the agreed remedial work moving.
+    </p>
+    <div class="hero-actions">
+      <a class="jfd-btn" href={quote}>
+        Send us your remedial list or job sheet
+      </a>
+      <a class="jfd-link" href={quoteHref()}>
+        Talk through the work →
+      </a>
+    </div>
+    <p class="hero-note">
+      One site, one backlog or a defined piece of overflow work.{' '}
+      <strong>You don’t need to move your whole estate to JFD.</strong>
+    </p>
+    <QuoteSheet
+      slot="aside"
+      title="Quotation · Q-2291 · from your job sheet"
+      meta="Site: redacted"
+      caption="Illustrative example"
+      rows={[
+        {
+          id: 'FD30-014',
+          finding: 'Gaps over 4mm, head and hinge side',
+          work: 'Adjust leaf, replace seals',
+          treatment: 'Repair',
+          tone: 'closed',
+          cost: '185',
+        },
+        {
+          id: 'FD60-003',
+          finding: 'Damaged self-closer, plant room',
+          work: 'Replace closer',
+          treatment: 'Repair',
+          tone: 'closed',
+          cost: '240',
+        },
+        {
+          id: 'FD30-021',
+          finding: 'Leaf delaminated, frame split',
+          work: 'Supply & fit doorset',
+          treatment: 'Replace',
+          tone: 'onsite',
+          cost: '1,420',
+        },
+        {
+          id: 'FD30-033',
+          finding: 'Hinges worn, leaf dropping',
+          work: 'Replace hinges, rehang',
+          treatment: 'Repair',
+          tone: 'closed',
+          cost: '160',
+        },
+        {
+          id: 'FD30-045',
+          finding: 'Unknown specification, stair core',
+          work: 'Site check before specifying',
+          treatment: 'Investigate',
+          tone: 'decide',
+          cost: '—',
+        },
+        {
+          id: 'FD30-052',
+          finding: 'Vision panel bead missing',
+          work: 'Refit glazing bead',
+          treatment: 'Repair',
+          tone: 'closed',
+          cost: '95',
+        },
+      ]}
+      totals={[
+        { label: 'Repair', value: '4 doors · £680', tone: 'closed' },
+        { label: 'Replace', value: '1 door · £1,420', tone: 'onsite' },
+        { label: 'Investigate', value: '1 door · priced after visit', tone: 'decide' },
+      ]}
+    />
+  </PageHero>
+
+  <ProofStrip />
+
+  <!-- 01 · Start from what exists -->
+  <Section layout="split" align="center" gap={80} labelledby="start-title">
+    <div class="start__text">
+      <SectionHead
+        id="start-title"
+        eyebrow="01 · Start from what exists"
+        title="You don’t need to start again."
+      />
+      <p class="t-lead">If the findings already exist, start there.</p>
+      <p class="t-body">
+        Send us what you already have and we can help establish the clearest route forward. That may
+        mean straightforward repair work. It may mean replacement. In some cases, something may need
+        checking more closely before the right action can be confirmed.
+      </p>
+      <p class="t-body start__last">
+        The point is to <strong>use the information you already have and move the work on</strong>,
+        rather than automatically starting the process again.
+      </p>
+      <a class="jfd-btn jfd-btn--sm" href={quote}>
+        Send us your existing list
+      </a>
+    </div>
+    <div>
+      <p class="t-mono-label">JFD can work from an existing</p>
+      <ol class="inputs" role="list">
+        {inputs.map((input, i) => (
+          <li>
+            <span class="inputs__n" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <span class="inputs__t">{input.t}</span>
+            <span class="inputs__fmt">{input.fmt}</span>
+          </li>
+        ))}
+      </ol>
+      <div class="inputs__join" aria-hidden="true">
+        <span></span>
+      </div>
+      <p class="inputs__result">
+        <span class="inputs__result-title">Send us what you already have</span>
+        <span class="inputs__result-note">
+          <span aria-hidden="true">→ </span>clear route forward
+        </span>
+      </p>
+    </div>
+  </Section>
+
+  <!-- 02 · Decide -->
+  <Section tone="tint" labelledby="decide-title">
+    <SectionHead
+      id="decide-title"
+      layout="split"
+      eyebrow="02 · Decide"
+      title="Make the right call before the work starts."
+      titleWidth={16}
+    >
+      <p class="t-lead">Not every fire door finding needs the same treatment.</p>
+      <p class="t-muted">
+        Some can be resolved with a practical repair. Some doors need replacing. Others need a
+        closer look before anyone should confidently specify the work.
+      </p>
+    </SectionHead>
+    <DecisionTriad
+      items={[
+        {
+          label: 'Repair',
+          body: 'Where a suitable remedial action can resolve the identified issue, JFD can carry out the required repair.',
+        },
+        {
+          label: 'Replace',
+          body: 'Where the door or doorset is no longer suitable for repair, replacement may be the right route.',
+        },
+        {
+          label: 'Investigate',
+          body: 'Sometimes the existing information isn’t enough to make the right call. Rather than guess, the next step may be to establish what is actually there before specifying the work.',
+        },
+      ]}
+      outcome="Know what needs repairing, replacing or further investigation before the work is instructed."
+    />
+  </Section>
+
+  <!-- 03 · Scope of work -->
+  <Section tone="surface" labelledby="scope-title">
+    <SectionHead
+      id="scope-title"
+      layout="split"
+      eyebrow="03 · Scope of work"
+      title="What can fire door remedial work include?"
+      titleWidth={18}
+      spacing={44}
+    >
+      <p class="t-lead scope__intro">
+        Fire door repairs can involve anything from relatively small component issues to more
+        involved work on the door assembly. Depending on the defect and the door, remedial work can
+        include:
+      </p>
+    </SectionHead>
+    <div class="scope">
+      {capGroups.map((g) => (
+        <div class="scope__group">
+          <p class="scope__label">
+            <span>{g.label}</span>
+            <span class="scope__count" aria-hidden="true">
+              {String(g.items.length).padStart(2, '0')}
+            </span>
+          </p>
+          {g.items.map((item) => (
+            <div class="scope__item">
+              <h3>{item.t}</h3>
+              <p>{item.b}</p>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+    <p class="t-statement scope__close">
+      The right remedial action depends on the door, the defect and the evidence supporting the
+      assembly.
+    </p>
+  </Section>
+
+  <!-- 04 · Deliver -->
+  <section class="deliver" aria-labelledby="deliver-title">
+    <div class="deliver__grid">
+      <div class="deliver__text">
+        <SectionHead
+          id="deliver-title"
+          eyebrow="04 · Deliver"
+          title="Get the work off the list and onto site."
+          titleWidth={16}
+        />
+        <p class="t-lead">
+          Identifying the problem is one thing. Getting a batch of outstanding actions organised,
+          instructed and completed is usually the harder part.
+        </p>
+        <p class="t-muted deliver__list-intro">JFD can take on remedial work covering:</p>
+        <ul class="ruled-list" role="list">
+          <li>an ageing list of outstanding actions</li>
+          <li>a batch of doors at one site</li>
+          <li>work spread across several properties</li>
+          <li>a defined package of overflow work</li>
+          <li>part of a wider fire door programme</li>
+        </ul>
+        <p class="t-body">
+          Once the scope is agreed, the work can move into a clear programme for delivery.
+        </p>
+        <p class="t-body">
+          You should know what is planned, what is underway and what has been completed without
+          having to chase for every update.
+        </p>
+      </div>
+      <ProgrammeView
+        title="Programme · Remedial package A"
+        meta="38 actions · 3 buildings"
+        caption="Illustrative example"
+        progress={[
+          { label: 'Complete', count: 21, tone: 'closed' },
+          { label: 'Underway', count: 9, tone: 'onsite' },
+          { label: 'Planned', count: 8, tone: 'neutral' },
+        ]}
+        rows={[
+          {
+            area: 'Block A · Ground floor',
+            when: 'Completed 3–5 Mar',
+            actions: '12',
+            status: 'Complete',
+            tone: 'closed',
+          },
+          {
+            area: 'Block A · First floor',
+            when: 'Completed 6–7 Mar',
+            actions: '9',
+            status: 'Complete',
+            tone: 'closed',
+          },
+          {
+            area: 'Block B · Science wing',
+            when: 'On site this week',
+            actions: '9',
+            status: 'Underway',
+            tone: 'onsite',
+          },
+          {
+            area: 'Block C · Admin',
+            when: 'Booked 24 Mar',
+            actions: '6',
+            status: 'Planned',
+            tone: 'neutral',
+          },
+          {
+            area: 'Stair cores',
+            when: 'Booked 26 Mar',
+            actions: '2',
+            status: 'Planned',
+            tone: 'neutral',
+          },
+        ]}
+      />
+    </div>
+    <div class="deliver__footer">
+      <div class="deliver__footer-inner">
+        <p class="deliver__flow">
+          Planned <span aria-hidden="true">→</span> Underway <span aria-hidden="true">→</span>
+          <span class="deliver__complete">Complete</span>
+        </p>
+        <p class="t-statement deliver__statement">
+          Get the work done with a clear view of what’s complete along the way.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Backlog & overflow -->
+  <Section
+    tone="dark"
+    size="large"
+    layout="split"
+    min={340}
+    align="center"
+    id="backlog"
+    labelledby="backlog-title"
+  >
+    <div>
+      <p class="backlog__eyebrow">Backlog &amp; overflow</p>
+      <h2 id="backlog-title" class="backlog__title">
+        A backlog doesn’t have to become a supplier change.
+      </h2>
+      <p class="t-lead">
+        Sometimes the issue isn’t that your current contractor is doing a bad job. They simply don’t
+        have the capacity to take everything on when you need it.
+      </p>
+      <p class="t-muted">JFD can potentially take:</p>
+      <ul class="ruled-list backlog__list" role="list">
+        <li>one defined remedial list</li>
+        <li>one problem site</li>
+        <li>a batch of ageing actions</li>
+        <li>a package of overflow work</li>
+        <li>work your existing provider can’t currently accommodate</li>
+      </ul>
+      <p class="t-body">
+        You don’t need to turn a capacity problem into a wholesale supplier change.
+      </p>
+      <p class="backlog__kicker">Give us the piece of work that needs moving.</p>
+      <a class="jfd-btn" href={quoteHref('backlog')}>
+        Send us the list
+      </a>
+    </div>
+    <BacklogHandoff
+      title="Estate remedial programme · 214 open actions"
+      summary="One defined package handed to JFD · existing contractor keeps the rest"
+      rows={[
+        { id: 'RA-102', text: 'Closer adjustment · Block C', jfd: false },
+        { id: 'RA-117', text: 'Signage replacement · Block C', jfd: false },
+        { id: 'RA-131', text: 'Seal replacement · Science wing', jfd: true },
+        { id: 'RA-132', text: 'Gap correction · Science wing', jfd: true },
+        { id: 'RA-138', text: 'Hinge replacement · Science wing', jfd: true },
+        { id: 'RA-141', text: 'Doorset replacement · Science wing', jfd: true },
+        { id: 'RA-150', text: 'Glazing bead refit · Sports hall', jfd: false },
+        { id: 'RA-163', text: 'Latch repair · Admin', jfd: false },
+        { id: 'RA-171', text: 'Closer replacement · Admin', jfd: false },
+      ]}
+    />
+  </Section>
+
+  <EvidenceBlock
+    eyebrow="05 · Close"
+    title="Finish with clear evidence of what’s been completed."
+    intro={['The job isn’t finished simply because someone attended site.']}
+    listTitle="Your team still needs to know"
+    items={[
+      'which actions were completed',
+      'what work was carried out',
+      'which doors the evidence relates to',
+      'whether anything is still outstanding',
+      'what needs to happen next',
+    ]}
+    outcome="Finish with clear evidence of what’s closed on the job sheet."
+    closing="Anything still open should be clearly identified with the next action required."
+  />
+
+  <RelatedServices
+    eyebrow="If the list points somewhere else"
+    items={[
+      {
+        service: 'installation',
+        verb: 'Replace',
+        tone: 'onsite',
+        title: 'What if the door can’t be repaired?',
+        lines: [
+          'Not every defect should or can be repaired. Where the right action is replacement, JFD can help scope and deliver the appropriate replacement doorset and installation.',
+          'That means you don’t have to split the problem between one contractor diagnosing it and another picking up the replacement work.',
+        ],
+      },
+      {
+        service: 'maintenance',
+        verb: 'Maintain',
+        title: 'Want to stop the remedial list building up again?',
+        lines: [
+          'Clearing the current list solves today’s problem. A more planned inspection and maintenance programme can help stop the next backlog forming in the same way.',
+          'Scheduled checks and maintenance give Estates and Facilities teams a clearer view of developing issues and make it easier to deal with them before they accumulate.',
+        ],
+      },
+    ]}
+  />
+
+  <!-- 06 · Pricing -->
+  <Section tone="surface" layout="split" min={340} labelledby="pricing-title">
+    <div>
+      <SectionHead
+        id="pricing-title"
+        eyebrow="06 · Pricing"
+        title="How are fire door remedial works priced?"
+        titleWidth={16}
+      />
+      <p class="t-lead pricing__intro">
+        The cost depends on the work identified. Factors can include:
+      </p>
+      <ul class="ruled-list ruled-list--cols" role="list">
+        {priceFactors.map((f) => (
+          <li>{f}</li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <p class="t-display">
+        The important thing is that the quote should be easy to pull apart and understand.
+      </p>
+      <p class="t-muted pricing__cols-intro">Where possible, the scope should make clear:</p>
+      <dl class="pricing__cols">
+        {scheduleCols.map((c) => (
+          <div class:list={{ 'is-cost': !c.tone }}>
+            <dt>
+              {c.tone ? (
+                <StatusLabel tone={c.tone}>{c.label}</StatusLabel>
+              ) : (
+                <span class="pricing__cost-label">{c.label}</span>
+              )}
+            </dt>
+            <dd>{c.t}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="t-body pricing__outro">
+        So your team can see what they are approving rather than being handed one unexplained total.
+      </p>
+      <a class="jfd-btn jfd-btn--sm" href={quote}>
+        Send us your existing list for a quote
+      </a>
+    </div>
+  </Section>
+
+  <WhyJfd
+    title="Why JFD for fire door remedial works?"
+    image={{
+      src: councilHinges,
+      alt: 'Remedial work to hinges on a fire door leaf edge, local council project',
+      position: '70% 30%',
+      caption: 'Remedial work to leaf edge · Local council',
+    }}
+    items={[
+      {
+        title: 'Fire doors are our specialist focus.',
+        lines: [
+          'JFD is focused on fire doors, giving the team practical experience across inspection, repair, replacement and maintenance.',
+        ],
+      },
+      {
+        title: 'Start with the work you actually need help with.',
+        lines: [
+          'One site. One list. One backlog. One overflow package.',
+          'You don’t have to appoint JFD across the whole estate.',
+        ],
+      },
+      {
+        title: 'We understand what comes before and after the repair.',
+        lines: [
+          'The job may start with an inspection finding and finish with evidence of completion.',
+          'JFD can support that wider journey without making every service compulsory.',
+        ],
+      },
+      {
+        title: 'Experience in occupied environments.',
+        lines: [
+          'JFD has relevant experience across healthcare and education projects where the work has to fit around the building, its users and the wider programme.',
+        ],
+      },
+      {
+        title: 'Based in the South West.',
+        lines: [
+          'We support commercial customers across Plymouth, Devon, Cornwall and the wider region.',
+        ],
+      },
+    ]}
+  />
+
+  <FaqList title={faqs.title} items={faqs.items} />
+
+  <FinalCta
+    labelA="Have the list?"
+    title="Already have fire door remedials waiting to be completed?"
+    body={[
+      'Send us your survey, job sheet or remedial list.',
+      'We’ll review the work and help give it a clear route forward.',
+    ]}
+    cta={{ label: 'Send us your remedial list or job sheet', href: quote }}
+    labelB="Not sure yet?"
+    altTitle="Don’t yet know what work is required?"
+    altBody="Start with an inspection that’s built to make the next decision easier."
+    altCta={{ label: 'Arrange a fire door inspection', href: paths.inspections }}
+  />
+</BaseLayout>
+
+<style>
+  .hero-sub {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0 0 32px;
+    max-width: 50ch;
+    text-wrap: pretty;
+  }
+
+  /* Start from what exists */
+  .start__text {
+    max-width: 520px;
+  }
+  .start__last {
+    margin-bottom: 28px;
+  }
+  .inputs {
+    display: grid;
+    gap: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .inputs li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--jfd-surface);
+    border: 1px solid var(--jfd-rule);
+    padding: 14px 18px;
+  }
+  .inputs__n {
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    color: var(--jfd-ink-4);
+  }
+  .inputs__t {
+    font-size: 17px;
+    font-weight: 500;
+    flex: 1;
+  }
+  .inputs__fmt {
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+  }
+  .inputs__join {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+  }
+  .inputs__join span {
+    width: 1px;
+    height: 28px;
+    background: var(--jfd-action);
+  }
+  .inputs__result {
+    background: var(--jfd-action);
+    color: #ffffff;
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 0;
+  }
+  .inputs__result-title {
+    font-family: var(--jfd-font-display);
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .inputs__result-note {
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    /* Production: white (prototype azure-mist is 4.06:1 on action blue; AA needs 4.5:1). */
+    color: #ffffff;
+  }
+
+  /* Scope of work */
+  .scope__intro {
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .scope {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: clamp(28px, 6vw, 40px) 48px;
+    align-items: start;
+  }
+  .scope__group {
+    min-width: 0;
+  }
+  .scope__label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--jfd-graphite);
+    margin: 0 0 2px;
+    font-family: var(--jfd-font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--jfd-graphite);
+  }
+  .scope__count {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--jfd-ink-4);
+  }
+  .scope__item {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .scope__item h3 {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.35;
+    margin: 0 0 4px;
+  }
+  .scope__item p {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--jfd-ink-3);
+    margin: 0;
+  }
+  .scope__close {
+    font-size: clamp(24px, 2.4vw, 30px);
+    line-height: 1.2;
+    margin-top: 44px;
+  }
+
+  /* Deliver */
+  .deliver {
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .deliver__grid {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: var(--jfd-section-y-fluid) var(--jfd-gutter-fluid);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: clamp(28px, 6vw, 56px) 72px;
+    align-items: start;
+  }
+  .deliver__text {
+    min-width: 0;
+    max-width: 520px;
+  }
+  .deliver__list-intro {
+    margin-bottom: 6px;
+  }
+  .deliver__footer {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: 0 var(--jfd-gutter-fluid) var(--jfd-section-y-fluid);
+  }
+  .deliver__footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 20px;
+    padding-top: 28px;
+    border-top: 1px solid var(--jfd-rule);
+  }
+  .deliver__flow {
+    font-family: var(--jfd-font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+    margin: 0;
+  }
+  .deliver__flow span[aria-hidden] {
+    color: var(--jfd-underline);
+  }
+  .deliver__complete {
+    color: var(--jfd-status-closed);
+  }
+  .deliver__statement {
+    flex: 1 1 420px;
+  }
+
+  /* Backlog */
+  .backlog__eyebrow {
+    font-family: var(--jfd-font-mono);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    color: var(--jfd-azure-soft);
+    margin: 0 0 20px;
+  }
+  .backlog__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(38px, 4.6vw, 58px);
+    font-weight: 600;
+    line-height: 1.06;
+    margin: 0 0 24px;
+    max-width: 16ch;
+  }
+  .backlog__list {
+    max-width: 48ch;
+    margin-bottom: 24px;
+  }
+  .backlog__list > li {
+    line-height: normal;
+  }
+  #backlog .t-lead {
+    margin-bottom: 12px;
+    max-width: 48ch;
+  }
+  #backlog .t-muted {
+    margin-bottom: 8px;
+  }
+  #backlog .t-body {
+    line-height: 1.6;
+    margin-bottom: 6px;
+    max-width: 48ch;
+  }
+  .backlog__kicker {
+    font-family: var(--jfd-font-display);
+    font-size: 26px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 28px;
+  }
+
+  /* Pricing */
+  .pricing__intro {
+    font-size: 17px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .pricing__cols-intro {
+    margin-bottom: 20px;
+  }
+  .pricing__cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--jfd-rule);
+    margin: 0 0 20px;
+  }
+  .pricing__cols > div {
+    outline: 1px solid var(--jfd-rule);
+    background: var(--jfd-surface);
+    padding: 16px 16px 18px;
+    min-width: 0;
+  }
+  .pricing__cols > div.is-cost {
+    background: var(--jfd-tint);
+  }
+  .pricing__cols dt {
+    margin-bottom: 10px;
+  }
+  .pricing__cols dt :global(.jfd-status) {
+    font-size: 10.5px;
+    letter-spacing: normal;
+  }
+  .pricing__cost-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-action);
+  }
+  .pricing__cost-label::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .pricing__cols dd {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--jfd-graphite);
+  }
+  .pricing__outro {
+    margin-bottom: 24px;
+  }
+</style>

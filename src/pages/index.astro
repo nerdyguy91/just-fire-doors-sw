@@ -1,0 +1,662 @@
+---
+/**
+ * Home. Ported from docs/prototype/pages/home-b.dc.html (split hero, ledger process).
+ * Copy is the approved prototype copy. Differences from the prototype are listed in
+ * docs/architecture-plan.md ("Flagged visual and UX changes").
+ */
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import JobSheet from '../components/records/JobSheet.astro';
+import LogoRow from '../components/sections/LogoRow.astro';
+import ProjectCard from '../components/sections/ProjectCard.astro';
+import NumberedRows from '../components/sections/NumberedRows.astro';
+import PrincipleBand from '../components/sections/PrincipleBand.astro';
+import ProcessLedger from '../components/sections/ProcessLedger.astro';
+import SituationGrid from '../components/sections/SituationGrid.astro';
+import ServiceCards from '../components/sections/ServiceCards.astro';
+import FeaturedProject from '../components/sections/FeaturedProject.astro';
+import WhyJfd from '../components/sections/WhyJfd.astro';
+import FinalCta from '../components/sections/FinalCta.astro';
+import { paths, projectPath } from '../data/paths';
+import { proofStats } from '../data/proof';
+import { quoteHref } from '../data/quote-routes';
+import { localBusiness, website } from '../lib/schema';
+import stokeLock from '../assets/images/photos/stoke-lock.jpeg';
+import daveyCorridor from '../assets/images/photos/davey-corridor.jpeg';
+import gapChecks from '../assets/images/evidence/dds-gap-checks.jpeg';
+import westonDoorsets from '../assets/images/photos/weston-doorsets.jpeg';
+import westonCorridor from '../assets/images/photos/weston-corridor.jpeg';
+import daveyLab from '../assets/images/photos/davey-lab-doorset.jpeg';
+import bodmin from '../assets/images/photos/bodmin-installer.jpeg';
+
+const site = Astro.site!;
+const mammo = await getEntry('projects', 'plymouth-mammography-unit');
+
+const tiles = [
+  { title: 'South West specialist', body: 'Plymouth-based, working across Devon and Cornwall.' },
+  { title: 'Demanding environments', body: 'Live healthcare, education and laboratory settings.' },
+  { title: 'Inspection → remedials', body: 'One contractor from finding to completed work.' },
+  { title: 'Evidence on completion', body: 'Door-level records you can hand to anyone who asks.' },
+];
+
+const problems = [
+  {
+    title: 'You have a survey. You need the actions turned into work.',
+    body: 'The findings are there. The next job is checking what can actually be repaired, what needs replacing, whether anything needs further investigation and what the work will cost.',
+  },
+  {
+    title: 'Remedials have stayed open longer than anyone wanted.',
+    body: 'Actions carry over month to month and before long, what started as a manageable list becomes another operational headache.',
+  },
+  {
+    title: 'The evidence from previous work is not good enough.',
+    body: 'Photos, records and completion information should make it easier to see what happened against each action, not create another round of chasing.',
+  },
+  {
+    title: 'Your existing contractor can do the work. They just can’t take all of it right now.',
+    body: 'You may simply need another capable fire door contractor to take a defined job sheet and get it moving.',
+  },
+  {
+    title: 'You’re tired of dealing with fire doors reactively.',
+    body: 'Instead of waiting for the next problem to appear, you want a clearer approach to inspections, remedials and planned maintenance across the estate.',
+  },
+];
+---
+
+<BaseLayout
+  title="Fire Door Contractors, Plymouth & South West | Just Fire Doors"
+  description="Fire door remedial works, inspections and maintenance for estates and facilities teams. Send us your survey or job sheet and we’ll turn it into completed, evidenced work."
+  schema={[website(site), localBusiness(site)]}
+>
+  <PageHero
+    size="home"
+    density="home"
+    contentWidth={560}
+    eyebrow="Fire door contractors for estates & facilities teams across the South West"
+  >
+    <Fragment slot="title">
+      Fire-door actions.
+      <br />
+      <span class="jfd-accent">Properly closed.</span>
+    </Fragment>
+    <p class="home-lead">
+      Already have a fire door survey, inspection or job sheet? Send it over. We'll turn the
+      findings into clear actions, complete the agreed work and give you clear evidence of what's
+      been closed.
+    </p>
+    <div class="hero-actions">
+      <a class="jfd-btn" href={quoteHref('survey')}>
+        Send us your survey or job sheet
+      </a>
+      <a class="jfd-link" href={paths.contact}>
+        Talk through your fire-door work →
+      </a>
+    </div>
+    <JobSheet
+      slot="aside"
+      title="Job sheet · JFD-1042"
+      meta="Site: redacted"
+      caption="Illustrative example"
+      summary={{
+        strong: '4 of 5 actions closed',
+        text: 'evidence attached per door',
+        date: '14 Mar',
+      }}
+      rows={[
+        {
+          id: 'FD30-014',
+          finding: 'Gaps over 4mm, head and hinge side',
+          action: 'Adjust and reseal',
+          status: 'Closed',
+          tone: 'closed',
+        },
+        {
+          id: 'FD60-003',
+          finding: 'Damaged self-closer, plant room',
+          action: 'Repair',
+          status: 'Closed',
+          tone: 'closed',
+        },
+        {
+          id: 'FD30-021',
+          finding: 'Missing intumescent to leaf edge',
+          action: 'Replace doorset',
+          status: 'On site',
+          tone: 'onsite',
+        },
+        {
+          id: 'FD30-045',
+          finding: 'Unknown specification, stair core',
+          action: 'Investigate',
+          status: 'Decide',
+          tone: 'decide',
+        },
+        {
+          id: 'FD30-052',
+          finding: 'Signage and vision panel defects',
+          action: 'Remedial',
+          status: 'Closed',
+          tone: 'closed',
+        },
+      ]}
+    />
+  </PageHero>
+
+  <!-- Credibility -->
+  <section class="cred" aria-labelledby="cred-title">
+    <div class="cred__inner">
+      <h2 id="cred-title" class="cred__title">
+        Fire door specialists. Keeping the route to finished work simple.
+      </h2>
+      <ol class="cred__tiles" role="list">
+        {tiles.map((t, i) => (
+          <li>
+            <span class="cred__n" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <span class="cred__tile-title">{t.title}</span>
+            <span class="cred__tile-body">{t.body}</span>
+          </li>
+        ))}
+      </ol>
+      <div class="cred__bottom">
+        <div class="cred__proof">
+          <LogoRow size="home" />
+          <ul class="cred__stats" role="list">
+            {proofStats.map((s) => (
+              <li>
+                <span class="cred__stat">{s.value}</span>
+                <span class="cred__stat-label">{s.label}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <ProjectCard
+          variant="side"
+          href={paths.projects}
+          image={westonCorridor}
+          position="70% 50%"
+          status={{ label: 'Completed · Weston-super-Mare', tone: 'closed' }}
+          title="150 doors, two schools, one holiday programme."
+          body="Delivered within the required programme and budget."
+          linkLabel="See all projects →"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- The actual problem -->
+  <section class="problem" aria-labelledby="problem-title">
+    <div class="problem__inner">
+      <div class="problem__intro">
+        <p class="problem__eyebrow">The actual problem</p>
+        <h2 id="problem-title" class="problem__title">
+          You don't need another fire door report. You need the actions dealt with.
+        </h2>
+        <p class="problem__lead">
+          Most estates teams we meet already know roughly what's wrong. The difficulty is getting it
+          scoped, instructed, completed and evidenced while the building stays open.
+        </p>
+      </div>
+      <div class="problem__list">
+        <NumberedRows items={problems} />
+        <p class="problem__flow">
+          <span>finding</span>
+          <span class="sep" aria-hidden="true">
+            →
+          </span>
+          <span>decision</span>
+          <span class="sep" aria-hidden="true">
+            →
+          </span>
+          <span>completed work</span>
+          <span class="sep" aria-hidden="true">
+            →
+          </span>
+          <span class="jfd-accent">clear close-out</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <PrincipleBand
+    title="We keep fire door safety simple."
+    statements={[
+      'You know what needs doing.',
+      'You know what is happening.',
+      'You know what has been completed.',
+    ]}
+  />
+
+  <ProcessLedger
+    title="How the work moves, end to end."
+    intro="Three stages. Each one ends with something you can act on or hand over."
+    stages={[
+      {
+        label: 'Decide',
+        headline: 'Know what actually needs doing before you instruct it.',
+        body: [
+          'We survey or work from yours, visit site, then split every door into repair, replace or investigate with a price against each line.',
+        ],
+        outcome: 'A scoped, priced schedule you can sign off',
+        tone: 'decide',
+        image: stokeLock,
+        alt: 'Certified lock and ironmongery detail on an installed doorset, Stoke Damerel',
+        position: '50% 30%',
+      },
+      {
+        label: 'Deliver',
+        headline: 'Get the agreed work done without losing sight of the job.',
+        body: [
+          'We plan around the building and the people using it, whether that means school holidays, live healthcare areas or occupied sites.',
+          'We work through agreed areas, keep disruption under control and make sure you have sight on progress.',
+        ],
+        outcome: 'Visible progress against the agreed programme',
+        tone: 'onsite',
+        image: daveyCorridor,
+        alt: 'JFD installer working on a laboratory corridor doorset, University of Plymouth Davey Building',
+        position: '50% 35%',
+      },
+      {
+        label: 'Close',
+        headline: 'Finish with evidence you can actually use.',
+        body: [
+          'Each door closes out with its own record in Door Data Systems (DDS): what was found, what was done, before and after, and anything still outstanding.',
+        ],
+        outcome: 'Door-level evidence, ready to hand over',
+        tone: 'closed',
+        image: gapChecks,
+        alt: 'Door Data Systems record showing gap checks with photos per door',
+        position: '50% 28%',
+      },
+    ]}
+  />
+
+  <SituationGrid
+    title="Where can we take some weight off your list?"
+    items={[
+      {
+        title: 'Clear an ageing backlog',
+        body: 'A list of open fire-door remedial actions that needs clearing in a defensible order.',
+        cta: 'Send us the list',
+        href: quoteHref('backlog'),
+      },
+      {
+        title: 'Extra specialist capacity',
+        body: 'Your existing contractor is at capacity and the fire-door work is queueing.',
+        cta: 'Talk about capacity',
+        href: quoteHref('backlog'),
+      },
+      {
+        title: 'Get clearer evidence against completed work',
+        body: 'We can establish what still needs attention and make the completion trail clearer',
+        cta: 'Ask about evidence',
+        href: quoteHref('not-sure'),
+      },
+      {
+        title: 'Planned fire-door maintenance',
+        body: 'Moving from reactive findings to a scheduled cycle across the estate.',
+        cta: 'Plan a cycle',
+        href: quoteHref('maintenance'),
+      },
+    ]}
+  />
+
+  <ServiceCards
+    title="Fire door services across the South West"
+    intro="Certification and records come as part of each."
+  />
+
+  <!-- Projects -->
+  <section class="projects" id="projects" aria-labelledby="projects-title">
+    <div class="projects__inner">
+      <h2 id="projects-title" class="projects__title">
+        Fire door work has to work in the real world.
+      </h2>
+      <div class="projects__intro">
+        <p class="projects__kicker">Specifications matter.</p>
+        <p class="projects__lead">
+          So do deadlines, occupied buildings, specialist requirements and the people who need to
+          keep using the site while the work is happening.
+        </p>
+      </div>
+      <div class="projects__grid">
+        <FeaturedProject
+          image={westonDoorsets}
+          alt="New double and single fire doorsets with vision panels, Weston-super-Mare school"
+          position="50% 55%"
+          eyebrow="Featured project · Weston-super-Mare"
+          title="150 doors. Two schools. One restricted holiday programme."
+          body="JFD was appointed relatively late to complete fire-door replacement works across two schools for an education trust — around 150 doors, with a significant amount of work to coordinate inside the available school-holiday period. The work was completed within the required programme and budget."
+          stats={[
+            { value: '~150', label: 'doors replaced' },
+            { value: 'Two', label: 'schools, one trust' },
+            { value: 'On time', label: 'and on budget' },
+          ]}
+          href={paths.projects}
+          linkLabel="See all projects →"
+        />
+        <div class="projects__list">
+          <ProjectCard
+            href={paths.projects}
+            image={daveyLab}
+            position="50% 45%"
+            eyebrow="Education · Plymouth"
+            title="University of Plymouth, Davey Building"
+            body="Refurbishment and replacement of around 35 doorsets across the Level 1 laboratories, in a PVC-wrapped finish suited to surfaces that need to be easily cleaned while maintaining the required fire performance. JFD is due to return for Level 2."
+            meta="~35 doorsets · Laboratory environment · Repeat work"
+            linkLabel="See all projects →"
+          />
+          {mammo && (
+            <ProjectCard
+              href={projectPath(mammo.id)}
+              image={mammo.data.hero.image}
+              position={mammo.data.hero.position}
+              eyebrow="Healthcare · Plymouth"
+              title={mammo.data.title}
+              body="Specialist PVC-wrapped doorsets, some incorporating lead-lined frames, architraves and associated components to provide radiation shielding around X-ray areas while maintaining the required fire performance."
+              meta="Specialist requirements · Installation"
+            />
+          )}
+          <p class="projects__all">
+            <a class="jfd-link" href={paths.projects}>
+              All projects →
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <WhyJfd
+    variant="home"
+    title="Why Just Fire Doors?"
+    lead="It's in the name."
+    image={{
+      src: bodmin,
+      alt: 'JFD installer checking a frame for plumb in a live hospital corridor, Bodmin',
+      position: '40% 45%',
+      caption: 'JFD installer on site · Bodmin Hospital',
+    }}
+    items={[
+      {
+        title: 'Because fire doors are what we do.',
+        badge: true,
+        lines: [
+          'The clue is in the name. JFD is a specialist fire-door contractor, with BlueSky third-party certification for fire door installation and fire stopping of penetrations.',
+          'Our installers are qualified carpenters with additional fire-door-specific training.',
+        ],
+      },
+      {
+        title: 'Because you can start with the job you actually need help with.',
+        chips: [
+          'One survey',
+          'One site',
+          'One backlog',
+          'One package your contractor can’t take on',
+        ],
+        lines: [
+          'There’s no need to turn a defined piece of work into an estate-wide supplier change.',
+        ],
+      },
+      {
+        title: 'Because we understand occupied buildings.',
+        lines: [
+          'Schools, hospitals, laboratories and residential buildings each put different demands on a programme.',
+          'We plan around access, building users and the work happening around us rather than treating every site the same.',
+        ],
+      },
+      {
+        title: 'Because clear completion matters as much as starting the job.',
+        lines: [
+          'The useful finish line isn’t simply “engineer attended”. It’s being able to see what was completed and having the records your team needs afterwards.',
+        ],
+      },
+      {
+        title: 'Because customers come back.',
+        lines: [
+          'A high proportion of JFD’s work comes from returning customers and referrals from contractors, Estates teams and other fire-safety specialists.',
+        ],
+      },
+      {
+        title: 'Because straightforward is a feature.',
+        chips: ['Clear scope', 'Clear work', 'Clear evidence'],
+        lines: [
+          'Fire door safety already carries enough complexity. Your contractor doesn’t need to add more.',
+        ],
+      },
+    ]}
+  />
+
+  <FinalCta
+    variant="home"
+    anchor="contact"
+    title="Already have a fire door survey or job sheet?"
+    kicker="Send it over."
+    body={[
+      'Share the survey or job sheet, tell us the site and anything we need to know about access. We’ll come back with the actions, the schedule and a price.',
+    ]}
+    cta={{ label: 'Send us your survey or job sheet', href: quoteHref('survey') }}
+    altCta={{ label: 'Talk through your fire-door work', href: paths.contact }}
+  />
+</BaseLayout>
+
+<style>
+  .home-lead {
+    font-size: 18.5px;
+    line-height: 1.62;
+    color: var(--jfd-ink-2);
+    margin: 0 0 32px;
+    max-width: 48ch;
+    text-wrap: pretty;
+  }
+
+  /* Credibility band */
+  .cred {
+    background: var(--jfd-tint);
+    border-top: 3px solid var(--jfd-azure);
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .cred__inner {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: 44px var(--jfd-gutter-fluid) 40px;
+  }
+  .cred__title {
+    font-family: var(--jfd-font-display);
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0 0 30px;
+  }
+  .cred__tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+    gap: 1px;
+    background: var(--jfd-rule);
+    border: 1px solid var(--jfd-rule);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .cred__tiles li {
+    background: var(--jfd-tint);
+    padding: 20px 22px;
+  }
+  .cred__n {
+    display: block;
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--jfd-action);
+    margin-bottom: 9px;
+  }
+  .cred__tile-title {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .cred__tile-body {
+    display: block;
+    font-size: 14px;
+    color: var(--jfd-ink-3);
+    line-height: 1.5;
+    margin-top: 5px;
+  }
+  .cred__bottom {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr));
+    gap: 24px 40px;
+    margin-top: 30px;
+    align-items: stretch;
+  }
+  .cred__proof {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 22px;
+  }
+  .cred__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px 44px;
+    padding: 20px 0 0;
+    margin: 0;
+    list-style: none;
+    border-top: 1px solid #d0d7de;
+  }
+  .cred__stat {
+    display: block;
+    font-family: var(--jfd-font-display);
+    font-size: 34px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .cred__stat-label {
+    display: block;
+    font-size: 13.5px;
+    color: var(--jfd-ink-3);
+    margin-top: 3px;
+  }
+
+  /* The actual problem */
+  .problem {
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .problem__inner {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: var(--jfd-section-y-fluid) var(--jfd-gutter-fluid);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: clamp(28px, 6vw, 56px) 72px;
+    align-items: start;
+  }
+  .problem__intro {
+    min-width: 0;
+    max-width: 480px;
+  }
+  .problem__eyebrow {
+    font-family: var(--jfd-font-mono);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    color: var(--jfd-action);
+    margin: 0 0 20px;
+  }
+  .problem__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(36px, 4.4vw, 56px);
+    font-weight: 600;
+    line-height: 1.08;
+    margin: 0 0 22px;
+    text-wrap: pretty;
+  }
+  .problem__lead {
+    font-size: 17.5px;
+    line-height: 1.62;
+    color: var(--jfd-ink-2);
+    margin: 0;
+    max-width: 44ch;
+    text-wrap: pretty;
+  }
+  .problem__list {
+    min-width: 0;
+  }
+  .problem__flow {
+    border-top: 1px solid var(--jfd-rule);
+    padding-top: 26px;
+    margin: 4px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+    font-family: var(--jfd-font-mono);
+    font-size: 12.5px;
+    text-transform: uppercase;
+    color: var(--jfd-graphite);
+  }
+  .problem__flow .sep {
+    color: var(--jfd-underline);
+  }
+
+  /* Projects */
+  .projects {
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .projects__inner {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: var(--jfd-section-y-fluid) var(--jfd-gutter-fluid);
+  }
+  .projects__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(34px, 4vw, 52px);
+    font-weight: 600;
+    line-height: 1.1;
+    margin: 0 0 20px;
+    max-width: 24ch;
+  }
+  .projects__intro {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 12px 48px;
+    margin-bottom: 44px;
+    max-width: 940px;
+    align-items: baseline;
+  }
+  .projects__kicker {
+    font-family: var(--jfd-font-display);
+    font-size: 27px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0;
+  }
+  .projects__lead {
+    font-size: 17.5px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0;
+    max-width: 52ch;
+    text-wrap: pretty;
+  }
+  .projects__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr));
+    gap: 40px;
+    align-items: start;
+  }
+  .projects__list {
+    min-width: 0;
+    display: grid;
+    gap: 24px;
+  }
+  .projects__all {
+    margin: 0;
+    text-align: right;
+  }
+  .projects__all :global(.jfd-link) {
+    font-size: 15.5px;
+  }
+</style>

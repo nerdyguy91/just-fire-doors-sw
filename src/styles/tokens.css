@@ -1,0 +1,123 @@
+/*
+ * Just Fire Doors design tokens.
+ * Copied verbatim from the Claude Design system (docs/prototype/design-system/tokens/).
+ * Production additions are grouped at the end and marked.
+ */
+
+/* colors.css */
+:root {
+  /* Brand */
+  --jfd-azure: #29a9e9;
+  --jfd-azure-soft: #6fc4f2;
+  --jfd-azure-pale: #a8d7f3;
+  --jfd-azure-mist: #c8e4f7;
+  --jfd-action: #0e6faf;
+  --jfd-action-hover: #0b5789;
+  --jfd-underline: #a9c6db;
+  /* Neutrals */
+  --jfd-graphite: #23282c;
+  --jfd-ink-2: #40474d;
+  --jfd-ink-3: #5b646b;
+  --jfd-ink-4: #5f6970;
+  --jfd-ground: #f4f6f8;
+  --jfd-surface: #ffffff;
+  --jfd-tint: #e9edf1;
+  --jfd-rule: #d7dde3;
+  --jfd-rule-strong: #c9d2da;
+  --jfd-rule-soft: #eaeef2;
+  --jfd-media-bg: #e4e9ee;
+  --jfd-meta-rule: #e5eaef;
+  /* Dark surface */
+  --jfd-dark-rule: #3c4348;
+  --jfd-dark-rule-2: #363c41;
+  --jfd-dark-border: #424a50;
+  --jfd-dark-ink: #e4e9ed;
+  --jfd-dark-ink-2: #9ba7b1;
+  --jfd-dark-heading: #eef3f7;
+  /* Status (job-sheet vocabulary) */
+  --jfd-status-closed: #1f6b4d;
+  --jfd-status-onsite: #8a6100;
+  --jfd-status-decide: #a33a2a;
+  --jfd-status-neutral: #5b646b;
+
+  /* Semantic aliases */
+  --text-primary: var(--jfd-graphite);
+  --text-lead: var(--jfd-ink-2);
+  --text-body: var(--jfd-ink-3);
+  --text-caption: var(--jfd-ink-4);
+  --text-accent: var(--jfd-action);
+  --text-link: var(--jfd-action);
+  --text-link-hover: var(--jfd-action-hover);
+  --text-on-dark: var(--jfd-dark-ink);
+  --text-on-dark-muted: var(--jfd-dark-ink-2);
+  --text-on-action: #ffffff;
+  --text-on-action-body: var(--jfd-azure-mist);
+  --text-on-action-label: var(--jfd-azure-pale);
+  --surface-page: var(--jfd-ground);
+  --surface-card: var(--jfd-surface);
+  --surface-tint: var(--jfd-tint);
+  --surface-dark: var(--jfd-graphite);
+  --surface-action: var(--jfd-action);
+  --border-default: var(--jfd-rule);
+  --border-strong: var(--jfd-rule-strong);
+  --border-soft: var(--jfd-rule-soft);
+  --border-dark: var(--jfd-dark-border);
+  --accent-mark: var(--jfd-azure);
+}
+
+/* typography.css */
+:root {
+  /* Production change: each family names its metric-matched fallback (see fonts.css). */
+  --jfd-font-display: 'Barlow Condensed', 'Barlow Condensed Fallback', system-ui, sans-serif;
+  --jfd-font-body: 'Barlow', 'Barlow Fallback', system-ui, sans-serif;
+  --jfd-font-mono: 'IBM Plex Mono', 'IBM Plex Mono Fallback', ui-monospace, monospace;
+  --jfd-h1: clamp(50px, 6.6vw, 84px);
+  --jfd-h2: clamp(34px, 4vw, 52px);
+  --jfd-h2-statement: clamp(40px, 5.4vw, 68px);
+  --jfd-h3: clamp(30px, 3.4vw, 40px);
+
+  --jfd-card-title: 23px;
+  --jfd-stat: 34px;
+  --jfd-lead: 18.5px;
+  --jfd-body: 16px;
+  --jfd-small: 14px;
+  --jfd-eyebrow: 11.5px;
+  --jfd-label: 10.5px;
+  /* Semantic */
+  --font-display: var(--jfd-font-display);
+  --font-body: var(--jfd-font-body);
+  --font-mono: var(--jfd-font-mono);
+}
+
+/* layout.css */
+:root {
+  --jfd-max: 1240px;
+  --jfd-gutter: 28px;
+  --jfd-section-y: 88px;
+  --jfd-header-h: 82px;
+  --jfd-header-h-scrolled: 64px;
+  --jfd-gap-grid: 24px;
+  --jfd-radius: 0;
+}
+
+/* effects.css */
+:root {
+  --jfd-shadow-panel: 0 26px 60px -34px rgba(35, 40, 44, 0.42);
+  --jfd-shadow-menu: 0 18px 44px -24px rgba(35, 40, 44, 0.4);
+  --jfd-ease: 0.18s ease;
+}
+
+/* ---------------------------------------------------------------------------
+ * Production additions
+ * ------------------------------------------------------------------------- */
+:root {
+  /* Fluid spacing used by the approved page markup (the static tokens above are the maximums). */
+  --jfd-gutter-fluid: clamp(20px, 5vw, 28px);
+  --jfd-section-y-fluid: clamp(53px, 8.8vw, 88px);
+
+  /* Focus rings: action blue on light surfaces, white on dark and action-blue surfaces. */
+  --focus-ring: var(--jfd-action);
+  --focus-ring-on-dark: #ffffff;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 3px;
+}

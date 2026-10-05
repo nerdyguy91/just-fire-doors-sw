@@ -1,0 +1,206 @@
+---
+/**
+ * Site footer. Ported from the prototype JfdFooter. Contact details and company information come
+ * from src/data/business.ts and only render once confirmed (placeholders never ship).
+ */
+import Wordmark from './Wordmark.astro';
+import { business } from '../../data/business';
+import { footerNav } from '../../data/navigation';
+import { paths } from '../../data/paths';
+import { gaId } from '../../lib/analytics';
+
+const year = new Date().getFullYear();
+const { phone, email, legalName, companyNumber, registeredOffice, serviceArea } = business;
+const office = registeredOffice
+  ? [
+      registeredOffice.streetAddress,
+      registeredOffice.addressLocality,
+      registeredOffice.postalCode,
+    ].join(', ')
+  : null;
+---
+
+<footer class="site-footer jfd-on-dark">
+  <div class="site-footer__grid">
+    <div class="site-footer__brand">
+      <a href={paths.home} aria-label="Just Fire Doors SW, home">
+        <Wordmark variant="on-dark" height={48} lazy />
+      </a>
+      <p class="site-footer__tagline">{business.tagline}</p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Footer">
+      {footerNav.groups.map((group) => (
+        <div>
+          <p class="site-footer__label">{group.label}</p>
+          <ul role="list">
+            {group.links.map((link) => (
+              <li>
+                <a class="site-footer__link" href={link.href}>
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </nav>
+
+    <div>
+      <p class="site-footer__label">Get started</p>
+      <a class="jfd-btn jfd-btn--ghost-dark" href={footerNav.cta.href}>
+        {footerNav.cta.label}
+      </a>
+    </div>
+
+    <div>
+      <p class="site-footer__label">Contact</p>
+      <p class="site-footer__contact">
+        {phone && (
+          <>
+            <a href={`tel:${phone.e164}`} data-track="tel">
+              {phone.display}
+            </a>
+            <br />
+          </>
+        )}
+        {email && (
+          <>
+            <a href={`mailto:${email}`} data-track="mailto">
+              {email}
+            </a>
+            <br />
+          </>
+        )}
+        {serviceArea.base} · {serviceArea.region}
+      </p>
+      {!phone && !email && (
+        <a class="site-footer__link" href={paths.contact}>
+          Contact the team
+        </a>
+      )}
+    </div>
+  </div>
+
+  <div class="site-footer__legal-wrap">
+    <div class="site-footer__legal">
+      <span>
+        © {year} {legalName ?? business.name}
+      </span>
+      {companyNumber && (
+        <span>
+          Company no. {companyNumber}
+          {office && <>. Registered office: {office}</>}
+        </span>
+      )}
+      {footerNav.legal.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+      {gaId && (
+        <button type="button" class="site-footer__settings" data-consent-open>
+          Cookie settings
+        </button>
+      )}
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--jfd-graphite);
+    color: var(--jfd-dark-ink);
+  }
+  .site-footer__grid {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: clamp(43px, 7.2vw, 72px) var(--jfd-gutter-fluid) 32px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+    gap: 44px;
+  }
+  .site-footer__grid > * {
+    min-width: 0;
+  }
+  /* The link columns sit in one <nav>; display: contents keeps the prototype's grid. */
+  .site-footer__nav {
+    display: contents;
+  }
+  .site-footer__brand :global(img) {
+    height: 48px;
+    width: auto;
+    margin-bottom: 16px;
+  }
+  .site-footer__tagline {
+    font-family: var(--jfd-font-display);
+    font-size: 21px;
+    font-weight: 500;
+    margin: 0;
+    color: var(--jfd-dark-ink);
+  }
+  .site-footer__label {
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--jfd-dark-ink-2);
+    margin: 0 0 16px;
+  }
+  .site-footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .site-footer__link {
+    display: block;
+    padding: 7px 0;
+    font-size: 15px;
+    color: var(--jfd-dark-ink);
+  }
+  .site-footer__link:hover,
+  .site-footer__contact a:hover {
+    color: var(--jfd-azure-soft);
+  }
+  .site-footer__contact {
+    font-size: 15px;
+    line-height: 1.8;
+    margin: 0;
+    color: var(--jfd-dark-ink);
+  }
+  .site-footer__contact a {
+    color: var(--jfd-dark-ink);
+  }
+  .site-footer__legal-wrap {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: 0 var(--jfd-gutter-fluid) 44px;
+  }
+  .site-footer__legal {
+    border-top: 1px solid var(--jfd-dark-rule-2);
+    padding-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    align-items: center;
+    font-size: 13.5px;
+    color: var(--jfd-dark-ink-2);
+  }
+  .site-footer__legal a {
+    color: var(--jfd-dark-ink-2);
+  }
+  .site-footer__legal a:hover,
+  .site-footer__settings:hover {
+    color: var(--jfd-azure-soft);
+  }
+  .site-footer__settings {
+    padding: 0;
+    background: none;
+    border: 0;
+    font: inherit;
+    color: var(--jfd-dark-ink-2);
+    cursor: pointer;
+  }
+  /* Without JavaScript there is no analytics and nothing to set. */
+  :global(.no-js) .site-footer__settings {
+    display: none;
+  }
+</style>

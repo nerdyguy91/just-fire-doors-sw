@@ -1,0 +1,11 @@
+# Cloudflare Pages configuration for local development (`npx wrangler pages dev`).
+# Production and Preview bindings and secrets are set in the Pages dashboard (plan step 14);
+# local secrets go in .dev.vars (copy .env.example).
+name = "just-fire-doors"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-09-01"
+
+# Private bucket for enquiry uploads. Locally, Wrangler simulates it on disk (.wrangler/).
+[[r2_buckets]]
+binding = "UPLOADS"
+bucket_name = "jfd-enquiry-uploads-preview"

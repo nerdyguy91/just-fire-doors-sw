@@ -1,0 +1,10 @@
+dist/
+.astro/
+node_modules/
+package-lock.json
+public/fonts/
+.lighthouseci/
+docs/prototype/
+# GitHub Pages copy of the Claude Design prototype (published as-is)
+docs/*.html
+docs/_ds/

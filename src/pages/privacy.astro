@@ -1,0 +1,217 @@
+---
+/**
+ * Privacy notice. DRAFT: needs JFD approval (CONTENT-TODO.md, launch blocker). Statements
+ * describe how this site is actually built; controller details come from business.ts and render
+ * only once confirmed. Update the analytics section if an analytics provider is added (Decision 6),
+ * and the upload retention if Decision 5 changes the defaults.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/sections/Section.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
+import { business } from '../data/business';
+import { paths } from '../data/paths';
+import { gaCookieless, gaId } from '../lib/analytics';
+
+const crumbs = [{ name: 'Privacy', path: paths.privacy }];
+const controller = business.legalName ?? business.name;
+const office = business.registeredOffice;
+---
+
+<BaseLayout
+  title="Privacy Notice | Just Fire Doors"
+  description="How Just Fire Doors SW collects, uses and protects personal information sent through this website, including enquiries and uploaded documents."
+  breadcrumbs={crumbs}
+>
+  <Section tone="surface" labelledby="page-title">
+    <article class="legal">
+      <Breadcrumbs items={crumbs} class="legal__crumbs" />
+      <h1 id="page-title" class="legal__title">
+        Privacy notice
+      </h1>
+      <p class="legal__lead">
+        This notice explains how {controller} uses the personal information you give us through this
+        website, and your rights over it.
+      </p>
+
+      <h2>Who we are</h2>
+      <p>
+        {controller} is the controller of the personal information described in this notice.
+        {business.companyNumber && <> Company number {business.companyNumber}.</>}
+        {office && (
+          <>
+            {' '}
+            Registered office: {office.streetAddress}, {office.addressLocality}, {office.postalCode}
+            .
+          </>
+        )}
+      </p>
+      <p>
+        You can contact us about privacy through our <a href={paths.contact}>contact page</a>
+        {business.email && (
+          <>
+            {' '}
+            or by email at <a href={`mailto:${business.email}`}>{business.email}</a>
+          </>
+        )}
+        .
+      </p>
+
+      <h2>What we collect</h2>
+      <p>When you send an enquiry or request a quote, we collect what you choose to give us:</p>
+      <ul>
+        <li>your name, organisation, email address and telephone number</li>
+        <li>details about the site, the work and any deadlines</li>
+        <li>
+          documents and photos you upload, such as fire door surveys, inspection reports, job sheets
+          and remedial schedules
+        </li>
+      </ul>
+      <p>
+        Uploaded documents can contain information about buildings and, occasionally, about people.
+        Please only send what we need to understand the work.
+      </p>
+
+      <h2>How we use it</h2>
+      <p>
+        We use this information to respond to your enquiry, review the work, prepare a quotation
+        and, if you instruct us, plan and deliver the work. Our lawful basis is taking steps at your
+        request before entering into a contract, and our legitimate interest in responding to
+        business enquiries.
+      </p>
+
+      <h2>Where it goes</h2>
+      <ul>
+        <li>
+          <strong>Website hosting and file storage:</strong> Cloudflare hosts this website.
+          Documents you upload are stored in private Cloudflare storage and are only accessible to
+          our team through secure, expiring links.
+        </li>
+        <li>
+          <strong>Email delivery:</strong> enquiry details are sent to our team by a transactional
+          email service (Resend).
+        </li>
+        <li>
+          <strong>Spam protection:</strong> our forms use Cloudflare Turnstile, which checks that a
+          person, not an automated program, is sending the form.
+        </li>
+      </ul>
+      <p>We do not sell your information or share it for marketing.</p>
+
+      <h2>How long we keep it</h2>
+      <p>
+        Uploaded documents are deleted from website storage automatically after 90 days. Enquiry
+        emails and any documents we save into our own records are kept for as long as needed to
+        respond, deliver and support the work, and to meet our legal and accounting obligations.
+      </p>
+
+      <h2>Cookies and analytics</h2>
+      {gaId ? (
+        <>
+          {gaCookieless ? (
+            <>
+              <p>
+                We use Google Analytics to understand how the site is used: which pages are visited,
+                roughly where visitors are, and whether the forms are working.
+              </p>
+              <p>
+                Until you make a choice in the analytics banner, this works without cookies. Each
+                page view is reported to Google with a random number that is not stored on your
+                device and changes on every page, so visits are counted but are not joined up into a
+                browsing history. As with any web request, Google’s servers receive your IP address
+                and browser details when this happens.
+              </p>
+              <p>
+                If you accept analytics cookies, Google Analytics sets cookies (named{' '}
+                <code>_ga</code> and similar) that last up to two years, which lets us see returning
+                visits and how a visit unfolds. If you choose “Switch off”, nothing is sent to
+                Google Analytics at all and any analytics cookies are removed.
+              </p>
+            </>
+          ) : (
+            <p>
+              If you accept analytics cookies, we use Google Analytics to understand how the site is
+              used: which pages are visited, roughly where visitors are, and whether the forms are
+              working. Google Analytics sets cookies (named <code>_ga</code> and similar) that last
+              up to two years. Nothing is loaded from Google unless you accept.
+            </p>
+          )}
+          <p>
+            Google processes this information on our behalf, which can include transferring it
+            outside the UK. You can change your choice at any time with “Cookie settings” at the
+            bottom of every page. We do not use advertising cookies, and we never send what you type
+            into our forms to Google Analytics.
+          </p>
+        </>
+      ) : (
+        <p>
+          This website does not use cookies for tracking or advertising, and does not currently use
+          an analytics service.
+        </p>
+      )}
+
+      <h2>Your rights</h2>
+      <p>
+        You have the right to ask for a copy of your information, to have it corrected or deleted,
+        to restrict or object to how we use it, and to receive it in a portable format. To use any
+        of these rights, contact us using the details above.
+      </p>
+      <p>
+        If you are unhappy with how we have handled your information, you can complain to the
+        Information Commissioner’s Office at <a href="https://ico.org.uk/">ico.org.uk</a>.
+      </p>
+    </article>
+  </Section>
+</BaseLayout>
+
+<style>
+  .legal {
+    max-width: 72ch;
+  }
+  .legal :global(.legal__crumbs) {
+    margin-bottom: 26px;
+  }
+  .legal__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(40px, 6vw, 68px);
+    font-weight: 600;
+    line-height: 1.04;
+    margin: 0 0 20px;
+  }
+  .legal__lead {
+    font-size: 19px;
+    line-height: 1.58;
+    color: var(--jfd-graphite);
+    margin: 0 0 32px;
+  }
+  .legal h2 {
+    font-family: var(--jfd-font-display);
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 40px 0 12px;
+    padding-top: 20px;
+    border-top: 1px solid var(--jfd-rule);
+  }
+  .legal p,
+  .legal li {
+    font-size: 16.5px;
+    line-height: 1.62;
+    color: var(--jfd-ink-2);
+  }
+  .legal p {
+    margin: 0 0 14px;
+  }
+  .legal ul {
+    margin: 0 0 14px;
+    padding-left: 1.2em;
+  }
+  .legal li {
+    margin-bottom: 6px;
+  }
+  .legal strong {
+    color: var(--jfd-graphite);
+  }
+  .legal a {
+    border-bottom: 1px solid var(--jfd-underline);
+  }
+</style>

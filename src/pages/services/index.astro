@@ -1,0 +1,81 @@
+---
+/**
+ * /services/ hub (new; no prototype page). Built from approved components and copy:
+ * capability map and service cards. The hero lead is new copy, flagged for approval in
+ * CONTENT-TODO.md.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import Section from '../../components/sections/Section.astro';
+import SectionHead from '../../components/sections/SectionHead.astro';
+import CapabilityMap from '../../components/sections/CapabilityMap.astro';
+import ServiceCards from '../../components/sections/ServiceCards.astro';
+import FinalCta from '../../components/sections/FinalCta.astro';
+import { paths } from '../../data/paths';
+import { quoteHref } from '../../data/quote-routes';
+
+const crumbs = [{ name: 'Services', path: paths.services }];
+---
+
+<BaseLayout
+  title="Fire Door Services | South West | Just Fire Doors"
+  description="Fire door inspections, repairs and remedial works, maintenance, and replacement and installation for estates and facilities teams across Plymouth and the South West."
+  breadcrumbs={crumbs}
+>
+  <PageHero
+    breadcrumbs={crumbs}
+    size="large"
+    contentWidth={620}
+    eyebrow="Fire door services across the South West"
+  >
+    <Fragment slot="title">
+      Fire Door <span class="jfd-accent">Services</span>
+    </Fragment>
+    <p class="hero-lead">
+      Inspection, repair, maintenance and replacement for estates and facilities teams across the
+      South West, with clear evidence of what’s been completed.
+    </p>
+    <div class="hero-actions">
+      <a class="jfd-btn" href={quoteHref('survey')}>
+        Send us your survey or job sheet
+      </a>
+      <a class="jfd-link" href={paths.contact}>
+        Talk through your fire-door work →
+      </a>
+    </div>
+  </PageHero>
+
+  <Section tone="surface" labelledby="focus-title">
+    <SectionHead id="focus-title" layout="split" title="Fire doors are what we do." spacing={44}>
+      <p class="t-lead focus__strong">Just Fire Doors is focused on fire doors.</p>
+      <p class="t-body">
+        That means the work in front of you is our specialist area, whether you need:
+      </p>
+    </SectionHead>
+    <CapabilityMap closeOutHref={`${paths.about}#close-out`} />
+  </Section>
+
+  <ServiceCards
+    title="Fire door services across the South West"
+    intro="Certification and records come as part of each."
+  />
+
+  <FinalCta
+    labelA="Get a quote"
+    title="Already have a fire door survey or job sheet?"
+    body={['Send it over.', 'We’ll review the work and help give it a clear route forward.']}
+    cta={{ label: 'Send us your survey or job sheet', href: quoteHref('survey') }}
+    labelB="Not sure yet?"
+    altTitle="Don’t yet know what work is required?"
+    altBody="Start with an inspection that’s built to make the next decision easier."
+    altCta={{ label: 'Arrange a fire door inspection', href: paths.inspections }}
+  />
+</BaseLayout>
+
+<style>
+  .focus__strong {
+    color: var(--jfd-graphite);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+</style>

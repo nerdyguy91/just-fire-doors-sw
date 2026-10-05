@@ -1,0 +1,482 @@
+---
+/**
+ * /get-a-quote/. Ported from docs/prototype/pages/get-a-quote.dc.html. The router and the five
+ * route forms are in QuoteForm.astro.
+ */
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import FileStack from '../../components/records/FileStack.astro';
+import QuoteForm from '../../components/forms/QuoteForm.astro';
+import { getCredential } from '../../data/business';
+import { paths } from '../../data/paths';
+
+const crumbs = [{ name: 'Get a quote', path: paths.quote }];
+const bluesky = getCredential('bluesky');
+const dds = getCredential('dds');
+
+const heroDocs = [
+  { ext: 'PDF', name: 'Fire door survey — Block B.pdf', size: '4.2 MB' },
+  { ext: 'XLSX', name: 'Remedial schedule 2026.xlsx', size: '86 KB' },
+  { ext: 'PDF', name: 'Job sheet JS-1042.pdf', size: '640 KB' },
+  { ext: 'JPG', name: 'Stair core door, L2.jpg', size: '2.1 MB' },
+];
+const nextSteps = [
+  {
+    t: 'We review what you’ve sent',
+    b: 'That might be a survey, job sheet, remedial list, existing records or simply your description of the requirement.',
+  },
+  {
+    t: 'We clarify anything we need',
+    b: 'If something isn’t clear, we’ll talk it through with you rather than make assumptions.',
+  },
+  {
+    t: 'We give you the clearest route forward',
+    b: 'Depending on where you’re starting, that could mean:',
+    list: [
+      'a clearer scope of work',
+      'a quotation',
+      'an inspection',
+      'further investigation',
+      'a remedial programme',
+      'a conversation about ongoing maintenance',
+    ],
+  },
+];
+const noNeed = [
+  'reformat it',
+  'rewrite it',
+  'pull the actions into another spreadsheet',
+  'type the information into our form again',
+];
+const trust = [
+  {
+    t: 'Specialist fire-door contractor',
+    b: 'Inspection, remedial work, maintenance and installation focused around fire doors.',
+  },
+  {
+    t: 'Based in the South West',
+    b: 'JFD is based in Plymouth and supports commercial organisations and estates across the region.',
+  },
+  {
+    t: 'Real project experience',
+    b: 'Existing work includes healthcare and education environments across Plymouth and the South West.',
+  },
+  {
+    t: 'Clear close-out',
+    b: 'The wider JFD approach is built around knowing what has been completed and having usable evidence afterwards.',
+  },
+];
+const stats = [
+  { value: '~150', label: 'doors across two schools, one holiday programme' },
+  { value: '~35', label: 'laboratory doorsets, University of Plymouth' },
+];
+---
+
+<BaseLayout
+  title="Get a Fire Door Quote | Just Fire Doors South West"
+  description="Have a fire door survey, job sheet or remedial list? Send it to Just Fire Doors for a clear route towards scoped, completed and evidenced work."
+  breadcrumbs={crumbs}
+>
+  <PageHero breadcrumbs={crumbs} size="quote" density="compact" align="center" contentWidth={620}>
+    <Fragment slot="title">
+      Send Us Your Fire Door Survey <span class="jfd-accent">or Job Sheet</span>
+    </Fragment>
+    <p class="q-lead">
+      Already know there’s fire-door work to deal with? Send us what you have and we’ll help
+      establish the clearest route forward.
+    </p>
+    <p class="q-sub">
+      One site, one backlog or a defined piece of work. You don’t need to move your whole estate to
+      JFD to get started.
+    </p>
+    <div class="q-actions">
+      <a class="jfd-btn" href="#router">
+        Start your enquiry
+      </a>
+      <span>
+        Would you rather speak first?{' '}
+        <a class="jfd-link" href={paths.contact}>
+          Contact JFD →
+        </a>
+      </span>
+    </div>
+    <div slot="aside" class="q-docs">
+      <FileStack
+        variant="framed"
+        files={heroDocs}
+        label="What people usually send"
+        footnote="Send the version you’re working from. No need to tidy it up."
+      />
+    </div>
+  </PageHero>
+
+  <QuoteForm />
+
+  <section class="band" aria-labelledby="next-title">
+    <div class="band__inner">
+      <h2 id="next-title" class="next__title">
+        What happens after you send it?
+      </h2>
+      <ol class="next" role="list">
+        {nextSteps.map((step, i) => (
+          <li>
+            <span class="next__n">
+              <span>{i + 1}</span>
+              <span aria-hidden="true" />
+            </span>
+            <h3>{step.t}</h3>
+            <p>{step.b}</p>
+            {step.list && (
+              <ul class="next__chips" role="list">
+                {step.list.map((item) => (
+                  <li class="jfd-chip">{item}</li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ol>
+      <p class="next__close">
+        No extra hoops. <span class="jfd-accent">Just the next useful step.</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="band band--surface" aria-labelledby="tidy-title">
+    <div class="band__inner tidy">
+      <div>
+        <h2 id="tidy-title" class="jfd-h2 tidy__title">
+          Don’t worry about tidying it up for us.
+        </h2>
+        <p class="tidy__lead">
+          If you’ve already got a survey, inspection report, job sheet or remedial list, send the
+          version you’re working from.
+        </p>
+        <p class="tidy__body">
+          We’d rather start with the information you already have and ask for anything else we
+          genuinely need afterwards.
+        </p>
+      </div>
+      <div>
+        <p class="tidy__label">You don’t need to</p>
+        <ul class="tidy__list" role="list">
+          {noNeed.map((item) => (
+            <li>
+              <span class="tidy__dash" aria-hidden="true" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="tidy__close">Send us what you already have.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--tint" aria-labelledby="trust-title">
+    <div class="band__inner trust">
+      <h2 id="trust-title" class="trust__title">
+        Why send it to JFD?
+      </h2>
+      <ul class="trust__grid" role="list">
+        {trust.map((item) => (
+          <li>
+            <span class="trust__t">{item.t}</span>
+            <span class="trust__b">{item.b}</span>
+          </li>
+        ))}
+      </ul>
+      <div class="trust__proof">
+        {bluesky?.logo && (
+          <Image
+            src={bluesky.logo.src}
+            alt={bluesky.logo.alt}
+            width={52}
+            height={52}
+            densities={[1, 2]}
+            class="trust__badge"
+          />
+        )}
+        {dds?.logo && (
+          <Image
+            src={dds.logo.src}
+            alt={dds.logo.alt}
+            width={58}
+            height={58}
+            densities={[1, 2]}
+            class="trust__dds"
+          />
+        )}
+        <span class="trust__divider" aria-hidden="true"></span>
+        {stats.map((stat) => (
+          <span class="trust__stat">
+            <span>{stat.value}</span>
+            <span>{stat.label}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .q-lead {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--jfd-graphite);
+    margin: 0 0 10px;
+    max-width: 46ch;
+  }
+  .q-sub {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--jfd-ink-3);
+    margin: 0 0 28px;
+    max-width: 52ch;
+  }
+  .q-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 28px;
+    font-size: 15.5px;
+    color: var(--jfd-ink-2);
+  }
+  .q-actions .jfd-link {
+    font-size: 15.5px;
+  }
+  .q-docs {
+    width: 100%;
+    max-width: 440px;
+    margin-left: auto;
+  }
+
+  /* Section bands */
+  .band {
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .band--surface {
+    background: var(--jfd-surface);
+  }
+  .band--tint {
+    background: var(--jfd-tint);
+    border-top: 3px solid var(--jfd-azure);
+    border-bottom: 0;
+  }
+  .band__inner {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: clamp(43px, 7.2vw, 72px) var(--jfd-gutter-fluid);
+  }
+
+  /* What happens after you send it? */
+  .next__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(30px, 3.4vw, 40px);
+    font-weight: 600;
+    line-height: 1.12;
+    margin: 0 0 32px;
+  }
+  .next {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 28px;
+  }
+  .next > li {
+    min-width: 0;
+  }
+  .next__n {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .next__n span:first-child {
+    font-family: var(--jfd-font-display);
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--jfd-action);
+  }
+  .next__n span:last-child {
+    flex: 1;
+    height: 1px;
+    background: var(--jfd-rule);
+  }
+  .next h3 {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.35;
+    margin: 0 0 6px;
+  }
+  .next p {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--jfd-ink-3);
+    margin: 0;
+  }
+  .next__chips {
+    list-style: none;
+    margin: 10px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .next__chips li {
+    padding: 6px 9px;
+    font-size: 11px;
+  }
+  .next__close {
+    font-family: var(--jfd-font-display);
+    font-size: 26px;
+    font-weight: 600;
+    margin: 36px 0 0;
+    padding-top: 22px;
+    border-top: 1px solid var(--jfd-rule);
+  }
+
+  /* Don't worry about tidying it up */
+  .tidy {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 32px 80px;
+    align-items: center;
+  }
+  .tidy > div {
+    min-width: 0;
+  }
+  .tidy__title {
+    margin: 0 0 16px;
+    max-width: 16ch;
+  }
+  .tidy__lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0 0 12px;
+    max-width: 48ch;
+  }
+  .tidy__body {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--jfd-ink-3);
+    margin: 0;
+    max-width: 48ch;
+  }
+  .tidy__label {
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+    margin: 0 0 6px;
+  }
+  .tidy__list {
+    list-style: none;
+    margin: 0 0 18px;
+    padding: 0;
+  }
+  .tidy__list li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0;
+    border-top: 1px solid var(--jfd-rule);
+    font-size: 18px;
+    color: var(--jfd-ink-3);
+    text-decoration: line-through;
+    text-decoration-color: var(--jfd-rule-strong);
+  }
+  .tidy__dash {
+    width: 16px;
+    height: 1.5px;
+    background: var(--jfd-status-decide);
+    flex-shrink: 0;
+  }
+  .tidy__close {
+    font-family: var(--jfd-font-display);
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--jfd-action);
+    margin: 0;
+    padding-top: 16px;
+    border-top: 2px solid var(--jfd-graphite);
+  }
+
+  /* Why send it to JFD? */
+  .trust {
+    padding-top: clamp(34px, 5.6vw, 56px);
+    padding-bottom: clamp(38px, 6.4vw, 64px);
+  }
+  .trust__title {
+    font-family: var(--jfd-font-display);
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0 0 24px;
+  }
+  .trust__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+    gap: 1px;
+    border: 1px solid var(--jfd-rule);
+  }
+  .trust__grid li {
+    outline: 1px solid var(--jfd-rule);
+    padding: 20px 22px;
+    min-width: 0;
+  }
+  .trust__t {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.35;
+    margin-bottom: 6px;
+  }
+  .trust__b {
+    display: block;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--jfd-ink-3);
+  }
+  .trust__proof {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px 40px;
+    margin-top: 24px;
+  }
+  .trust__proof :global(.trust__badge) {
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .trust__proof :global(.trust__dds) {
+    width: auto;
+    mix-blend-mode: multiply;
+  }
+  .trust__divider {
+    width: 1px;
+    height: 40px;
+    background: #d0d7de;
+  }
+  .trust__stat span:first-child {
+    display: block;
+    font-family: var(--jfd-font-display);
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .trust__stat span:last-child {
+    display: block;
+    font-size: 13.5px;
+    color: var(--jfd-ink-3);
+    margin-top: 3px;
+  }
+</style>

@@ -1,0 +1,387 @@
+---
+/**
+ * Site header. Ported from the prototype JfdHeader, rebuilt for production:
+ * - CSS breakpoint (980px) instead of JS width detection.
+ * - All nav links are always in the DOM (crawlable). The Services menu is a disclosure button
+ *   (not an ARIA menu); without JS it falls back to a link to /services/.
+ * - Without JS the mobile nav shows expanded (html.no-js); with JS it's a toggle.
+ * Behaviour lives in src/scripts/nav.ts.
+ */
+import Wordmark from './Wordmark.astro';
+import { headerNav } from '../../data/navigation';
+import { paths } from '../../data/paths';
+import { services } from '../../data/services';
+
+const current = Astro.url.pathname;
+const inSection = (prefix: string) => current.startsWith(prefix);
+const isCurrent = (href: string) => current === href;
+const servicesActive = inSection(paths.services);
+---
+
+<header class="site-header" data-site-header>
+  <div class="site-header__inner">
+    <a class="site-header__brand" href={paths.home} aria-label="Just Fire Doors SW, home">
+      <Wordmark variant="on-light" height={52} />
+    </a>
+
+    <nav class="nav-desktop" aria-label="Primary">
+      <div class="nav-desktop__svc" data-svc>
+        <a
+          class:list={[
+            'nav-desktop__link',
+            'nav-desktop__svc-link',
+            { 'is-active': servicesActive },
+          ]}
+          href={paths.services}
+          aria-current={isCurrent(paths.services) ? 'page' : undefined}
+        >
+          {headerNav.services.label}
+        </a>
+        <button
+          type="button"
+          class:list={[
+            'nav-desktop__link',
+            'nav-desktop__svc-toggle',
+            { 'is-active': servicesActive },
+          ]}
+          aria-expanded="false"
+          aria-controls="svc-menu"
+          data-svc-toggle
+        >
+          {headerNav.services.label}
+          <span class="chevron" aria-hidden="true"></span>
+        </button>
+        <div id="svc-menu" class="svc-menu" hidden>
+          <ul role="list">
+            {headerNav.services.links.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class:list={['svc-menu__link', { 'is-current': isCurrent(link.href) }]}
+                  aria-current={isCurrent(link.href) ? 'page' : undefined}
+                >
+                  {link.label}
+                  {isCurrent(link.href) && <span class="here">You're here</span>}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      {headerNav.links.map((link) => (
+        <a
+          href={link.href}
+          class:list={['nav-desktop__link', { 'is-active': inSection(link.href) }]}
+          aria-current={isCurrent(link.href) ? 'page' : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+      <a class="jfd-btn jfd-btn--sm nav-desktop__cta" href={headerNav.cta.href}>
+        {headerNav.cta.label}
+      </a>
+    </nav>
+
+    <button
+      type="button"
+      class="menu-toggle"
+      aria-expanded="false"
+      aria-controls="mob-menu"
+      data-mobile-toggle
+    >
+      Menu
+      <span class="menu-toggle__icon" aria-hidden="true">
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+  </div>
+
+  <nav id="mob-menu" class="nav-mobile" aria-label="Primary (mobile)">
+    <p class="nav-mobile__label">Services</p>
+    <ul role="list">
+      {services.map((s) => (
+        <li>
+          <a
+            class="nav-mobile__link"
+            href={s.path}
+            aria-current={isCurrent(s.path) ? 'page' : undefined}
+          >
+            {s.title}
+            {isCurrent(s.path) && <span class="here">You're here</span>}
+          </a>
+        </li>
+      ))}
+      <li>
+        <a
+          class="nav-mobile__link"
+          href={paths.services}
+          aria-current={isCurrent(paths.services) ? 'page' : undefined}
+        >
+          All services
+        </a>
+      </li>
+    </ul>
+    <ul role="list" class="nav-mobile__main">
+      {headerNav.links.map((link) => (
+        <li>
+          <a
+            class="nav-mobile__link"
+            href={link.href}
+            aria-current={isCurrent(link.href) ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <a class="jfd-btn nav-mobile__cta" href={headerNav.cta.href}>
+      {headerNav.cta.label}
+    </a>
+  </nav>
+</header>
+
+<script>
+  import '../../scripts/nav';
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: rgba(244, 246, 248, 0.94);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--jfd-rule);
+    transition: margin-bottom 0.22s ease;
+  }
+
+  .site-header__inner {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: 0 var(--jfd-gutter-fluid);
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    height: var(--jfd-header-h);
+    transition: height 0.22s ease;
+  }
+  @media (max-width: 399px) {
+    .site-header__inner {
+      gap: 16px;
+    }
+  }
+
+  /* Production: the header shrinks on scroll without moving page content (no layout shift):
+     the lost height is given back as margin below the sticky header. */
+  .site-header:global(.is-scrolled) {
+    margin-bottom: calc(var(--jfd-header-h) - var(--jfd-header-h-scrolled));
+  }
+  .site-header:global(.is-scrolled) .site-header__inner {
+    height: var(--jfd-header-h-scrolled);
+  }
+
+  .site-header__brand {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    min-height: 44px;
+  }
+  .site-header__brand :global(img) {
+    height: 44px;
+    width: auto;
+    transition: height 0.22s ease;
+  }
+  @media (min-width: 400px) {
+    .site-header__brand :global(img) {
+      height: 52px;
+    }
+  }
+  .site-header:global(.is-scrolled) .site-header__brand :global(img) {
+    height: 44px;
+  }
+
+  /* Desktop nav */
+  .nav-desktop {
+    display: none;
+    align-items: center;
+    gap: 2px;
+    margin-left: auto;
+  }
+  .nav-desktop__link {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 44px;
+    padding: 12px 14px 10px;
+    background: none;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--jfd-graphite);
+    cursor: pointer;
+  }
+  .nav-desktop__link:hover {
+    color: var(--jfd-action);
+  }
+  .nav-desktop__link.is-active {
+    border-bottom-color: var(--jfd-azure);
+    font-weight: 600;
+  }
+  .chevron {
+    width: 6px;
+    height: 6px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    margin-top: -3px;
+  }
+  .nav-desktop__svc-toggle[aria-expanded='true'] .chevron {
+    transform: rotate(-135deg);
+    margin-top: 3px;
+  }
+
+  /* Without JS the Services item is a link to the hub; with JS it's the disclosure button. */
+  :global(.js) .nav-desktop__svc-link,
+  :global(.no-js) .nav-desktop__svc-toggle {
+    display: none;
+  }
+
+  .nav-desktop__svc {
+    position: relative;
+  }
+  .svc-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    width: 340px;
+    background: var(--jfd-surface);
+    border: 1px solid var(--jfd-rule);
+    box-shadow: var(--jfd-shadow-menu);
+    padding: 8px;
+  }
+  .svc-menu ul,
+  .nav-mobile ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .svc-menu__link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    font-size: 15px;
+    color: var(--jfd-graphite);
+    border-bottom: 1px solid var(--jfd-rule-soft);
+  }
+  .svc-menu li:last-child .svc-menu__link {
+    border-bottom: 0;
+  }
+  .svc-menu__link:hover {
+    background: var(--jfd-tint);
+    color: var(--jfd-action);
+  }
+  .svc-menu__link.is-current {
+    padding-left: 11px;
+    color: var(--jfd-action);
+    font-weight: 600;
+    background: var(--jfd-tint);
+    border-left: 3px solid var(--jfd-azure);
+  }
+  .here {
+    letter-spacing: normal;
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--jfd-ink-3);
+  }
+  .nav-desktop__cta {
+    margin-left: 12px;
+  }
+
+  /* Mobile menu toggle */
+  .menu-toggle {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 10px 14px;
+    background: none;
+    border: 1px solid var(--jfd-rule-strong);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--jfd-graphite);
+    cursor: pointer;
+  }
+  :global(.no-js) .menu-toggle {
+    display: none;
+  }
+  .menu-toggle__icon {
+    display: grid;
+    gap: 4px;
+  }
+  .menu-toggle__icon span {
+    width: 16px;
+    height: 1.5px;
+    background: currentColor;
+  }
+
+  /* Mobile nav panel */
+  .nav-mobile {
+    border-top: 1px solid var(--jfd-rule);
+    background: var(--jfd-surface);
+    padding: 8px var(--jfd-gutter-fluid) 24px;
+    max-height: calc(100vh - var(--jfd-header-h));
+    max-height: calc(100dvh - var(--jfd-header-h));
+    overflow-y: auto;
+  }
+  :global(.js) .nav-mobile:not(:global(.is-open)) {
+    display: none;
+  }
+  .nav-mobile__label {
+    letter-spacing: normal;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+    margin: 14px 0 6px;
+  }
+  .nav-mobile__link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 48px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--jfd-rule-soft);
+    color: var(--jfd-graphite);
+    font-size: 16px;
+  }
+  .nav-mobile__link .here {
+    color: var(--jfd-action);
+  }
+  .nav-mobile__main {
+    margin-bottom: 18px !important;
+  }
+  .nav-mobile__cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  @media (min-width: 980px) {
+    .nav-desktop {
+      display: flex;
+    }
+    .menu-toggle,
+    .nav-mobile {
+      display: none !important;
+    }
+  }
+</style>

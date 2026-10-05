@@ -1,0 +1,130 @@
+---
+/**
+ * Illustrative programme / progress view: stacked progress bar, status legend, and a table of
+ * areas with action counts and status (remedial works "Deliver", and similar sections).
+ */
+import type { Tone } from '../../lib/tones';
+import { toneVar } from '../../lib/tones';
+import RecordFrame from './RecordFrame.astro';
+import StatusLabel from './StatusLabel.astro';
+
+export interface ProgrammeRow {
+  area: string;
+  when: string;
+  actions: string;
+  status: string;
+  tone: Tone;
+}
+
+interface Props {
+  title: string;
+  meta?: string;
+  /** Progress segments, e.g. [{ label: 'Complete', count: 21, tone: 'closed' }, …]. */
+  progress: { label: string; count: number; tone: Tone }[];
+  rows: ProgrammeRow[];
+  caption?: string;
+  shadow?: boolean;
+}
+
+const { title, meta, progress, rows, caption, shadow = false } = Astro.props;
+// Planned (neutral) segments use the strong rule grey, as in the prototype.
+const barColour = (tone: Tone) => (tone === 'neutral' ? 'var(--jfd-rule-strong)' : toneVar(tone));
+---
+
+<RecordFrame {title} {meta} {caption} {shadow} class="programme">
+  <div class="programme__progress">
+    <div class="programme__bar" aria-hidden="true">
+      {progress.map((p) => (
+        <span style={`flex: ${p.count}; background: ${barColour(p.tone)}`} />
+      ))}
+    </div>
+    <ul class="programme__legend" role="list">
+      {progress.map((p) => (
+        <li>
+          <StatusLabel tone={p.tone}>
+            {p.label} · {p.count}
+          </StatusLabel>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <table class="pg-table">
+    <caption class="jfd-visually-hidden">
+      Illustrative programme: each area, its number of actions and status
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Area</th>
+        <th scope="col">Actions</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((r) => (
+        <tr>
+          <td>
+            <span class="programme__area">{r.area}</span>
+            <span class="programme__when">{r.when}</span>
+          </td>
+          <td class="record__id">{r.actions}</td>
+          <td>
+            <StatusLabel tone={r.tone}>{r.status}</StatusLabel>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</RecordFrame>
+
+<style>
+  .programme__progress {
+    padding: 20px 18px 18px;
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .programme__bar {
+    display: flex;
+    height: 14px;
+    gap: 2px;
+    margin-bottom: 12px;
+  }
+  .programme__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  table.pg-table th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  table.pg-table td {
+    padding-top: 13px;
+    padding-bottom: 13px;
+  }
+  table.pg-table th:nth-child(2),
+  table.pg-table td:nth-child(2) {
+    width: clamp(48px, 14vw, 70px);
+  }
+  table.pg-table th:nth-child(3),
+  table.pg-table td:nth-child(3) {
+    width: calc(clamp(80px, 22vw, 110px) + 18px);
+  }
+  table.pg-table td:nth-child(2) {
+    font-size: 12.5px;
+  }
+  table.pg-table td :global(.jfd-status) {
+    font-size: 10.5px;
+  }
+  .programme__area {
+    display: block;
+    font-size: 14.5px;
+    color: var(--jfd-graphite);
+  }
+  .programme__when {
+    display: block;
+    font-size: 12.5px;
+    color: var(--jfd-ink-3);
+  }
+</style>

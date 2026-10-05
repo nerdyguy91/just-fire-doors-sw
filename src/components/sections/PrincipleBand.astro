@@ -1,0 +1,86 @@
+---
+/**
+ * Dark centred statement band (home "We keep fire door safety simple.").
+ */
+interface Props {
+  title: string;
+  statements: string[];
+  footer?: string[];
+  id?: string;
+}
+
+const {
+  title,
+  statements,
+  footer = ['Decide', 'Deliver', 'Close'],
+  id = 'principle-title',
+} = Astro.props;
+---
+
+<section class="principle jfd-on-dark" aria-labelledby={id}>
+  <div class="principle__inner">
+    <h2 {id} class="principle__title">
+      {title}
+    </h2>
+    <ul class="principle__list" role="list">
+      {statements.map((s) => (
+        <li>{s}</li>
+      ))}
+    </ul>
+    {footer.length > 0 && (
+      <p class="principle__footer">
+        {footer.map((word, i) => (
+          <>
+            {i > 0 && <span aria-hidden="true">&nbsp;→&nbsp;</span>}
+            {word}
+          </>
+        ))}
+      </p>
+    )}
+  </div>
+</section>
+
+<style>
+  .principle {
+    background: var(--jfd-graphite);
+    color: var(--jfd-dark-heading);
+  }
+  .principle__inner {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: clamp(62px, 10.4vw, 104px) var(--jfd-gutter-fluid);
+    text-align: center;
+  }
+  .principle__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(40px, 5.4vw, 68px);
+    font-weight: 600;
+    line-height: 1.06;
+    margin: 0 auto 44px;
+    max-width: 20ch;
+  }
+  .principle__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+    gap: 32px;
+    max-width: 900px;
+    margin: 0 auto 56px;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+  }
+  .principle__list li {
+    font-size: 19px;
+    line-height: 1.5;
+    padding-top: 18px;
+    border-top: 1px solid var(--jfd-dark-rule);
+    color: var(--jfd-dark-heading);
+  }
+  .principle__footer {
+    font-family: var(--jfd-font-mono);
+    font-size: 13px;
+    text-transform: uppercase;
+    color: var(--jfd-azure-soft);
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,26 @@
+---
+/**
+ * Error summary above a form. Empty and hidden until src/scripts/forms.ts fills it with the count
+ * of fields to fix, or with the "couldn't send" message. role="alert" announces it when it changes.
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={['form-alert', className]} role="alert" data-form-alert hidden></div>
+
+<style>
+  .form-alert {
+    padding: 14px 16px;
+    border: 1px solid var(--jfd-status-decide);
+    background: #fbf1ef;
+    font-size: 15px;
+    color: #7e2a1e;
+  }
+  .form-alert[hidden] {
+    display: none;
+  }
+</style>

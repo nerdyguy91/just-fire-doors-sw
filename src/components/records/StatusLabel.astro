@@ -1,0 +1,23 @@
+---
+/**
+ * Status dot + label (job-sheet vocabulary). Colour is never the only signal: the label is text.
+ */
+import type { Tone } from '../../lib/tones';
+
+interface Props {
+  tone: Tone;
+  class?: string;
+}
+
+const { tone, class: className } = Astro.props;
+const modifier = {
+  closed: 'jfd-status--closed',
+  onsite: 'jfd-status--onsite',
+  decide: 'jfd-status--decide',
+  neutral: '',
+}[tone];
+---
+
+<span class:list={['jfd-status', modifier, className]}>
+  <slot />
+</span>

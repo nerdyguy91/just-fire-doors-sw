@@ -1,0 +1,63 @@
+---
+/**
+ * 404. Served by Cloudflare Pages for unknown paths (dist/404.html). noindex, not in the sitemap.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import { paths } from '../data/paths';
+import { quoteHref } from '../data/quote-routes';
+import { services } from '../data/services';
+---
+
+<BaseLayout
+  title="Page not found | Just Fire Doors"
+  description="The page you were looking for couldn’t be found. Find fire door services, projects and contact details for Just Fire Doors SW."
+  canonicalPath="/404/"
+  noindex
+>
+  <PageHero size="large" eyebrow="Error 404">
+    <Fragment slot="title">
+      Page <span class="jfd-accent">not found.</span>
+    </Fragment>
+    <p class="hero-lead">
+      The page you were looking for has moved or no longer exists. These might help:
+    </p>
+    <ul class="links" role="list">
+      {services.map((s) => (
+        <li>
+          <a class="jfd-link" href={s.path}>
+            {s.title} →
+          </a>
+        </li>
+      ))}
+      <li>
+        <a class="jfd-link" href={paths.projects}>
+          Projects →
+        </a>
+      </li>
+      <li>
+        <a class="jfd-link" href={paths.contact}>
+          Contact →
+        </a>
+      </li>
+    </ul>
+    <div class="hero-actions">
+      <a class="jfd-btn" href={quoteHref('survey')}>
+        Send us your survey or job sheet
+      </a>
+      <a class="jfd-link" href={paths.home}>
+        Back to the home page →
+      </a>
+    </div>
+  </PageHero>
+</BaseLayout>
+
+<style>
+  .links {
+    list-style: none;
+    margin: 0 0 32px;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+</style>

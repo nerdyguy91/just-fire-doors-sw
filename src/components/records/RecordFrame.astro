@@ -1,0 +1,117 @@
+---
+/**
+ * Shared frame for the job-sheet style records: white panel, mono header strip, and the visible
+ * "Illustrative" caption (plan Decision 8: illustrative records stay labelled until replaced by
+ * real anonymised JFD documents).
+ */
+interface Props {
+  title: string;
+  meta?: string;
+  /** Floating panel shadow (hero records). */
+  shadow?: boolean;
+  caption?: string;
+  class?: string;
+}
+
+const { title, meta, shadow = false, caption, class: className } = Astro.props;
+---
+
+<figure class:list={['record', className]}>
+  <div class:list={['record__panel', { 'record__panel--shadow': shadow }]}>
+    <div class="record__head">
+      <span>{title}</span>
+      {meta && <span>{meta}</span>}
+    </div>
+    <slot />
+  </div>
+  {caption && <figcaption class="record__caption">{caption}</figcaption>}
+</figure>
+
+<style>
+  .record {
+    margin: 0;
+    min-width: 0;
+  }
+  .record__panel {
+    background: var(--jfd-surface);
+    border: 1px solid var(--jfd-rule-strong);
+  }
+  .record__panel--shadow {
+    box-shadow: var(--jfd-shadow-panel);
+  }
+  .record__head {
+    letter-spacing: normal;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--jfd-rule);
+    background: var(--jfd-tint);
+    font-family: var(--jfd-font-mono);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+  }
+  .record__caption {
+    letter-spacing: normal;
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-4);
+    margin: 12px 0 0;
+  }
+
+  /* Shared table styles for records built on this frame. */
+  .record :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  .record :global(th) {
+    letter-spacing: normal;
+    padding: 11px 0;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: left;
+    color: var(--jfd-ink-3);
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .record :global(td) {
+    padding: 15px 0;
+    vertical-align: baseline;
+    border-bottom: 1px solid var(--jfd-rule-soft);
+  }
+  .record :global(th:first-child),
+  .record :global(td:first-child) {
+    padding-left: 18px;
+  }
+  .record :global(th:last-child),
+  .record :global(td:last-child) {
+    padding-right: 18px;
+    text-align: right;
+  }
+  /* Prototype record rows styled status inline, so their letter-spacing never rendered. */
+  .record :global(td .jfd-status) {
+    letter-spacing: normal;
+  }
+  .record :global(.record__id) {
+    font-family: var(--jfd-font-mono);
+    font-size: 13px;
+    color: var(--jfd-graphite);
+  }
+  .record :global(.record__main) {
+    display: block;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--jfd-graphite);
+  }
+  .record :global(.record__sub) {
+    display: block;
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: var(--jfd-ink-3);
+  }
+</style>

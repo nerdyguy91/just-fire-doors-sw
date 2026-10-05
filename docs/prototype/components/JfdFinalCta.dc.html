@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/colors.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/typography.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/layout.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/effects.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/css/jfd.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/styles.css">
+<script src="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/_ds_bundle.js"></script>
+</helmet>
+<section id="quote" aria-label="Get a quote" style="background: var(--jfd-action-hover); color: #FFFFFF">
+  <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(58px, 9.6vw, 96px) clamp(20px, 5vw, 28px); display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: clamp(28px, 6vw, 48px) 72px; alignItems: start">
+    <div style="minWidth: 0">
+      <p style="fontFamily: var(--jfd-font-mono); fontSize: 11.5px; letterSpacing: '0.1em'; textTransform: uppercase; color: var(--jfd-azure-pale); margin: 0 0 20px">{{ labelA }}</p>
+      <h2 style="fontFamily: var(--jfd-font-display); fontSize: clamp(38px, 4.6vw, 60px); fontWeight: 600; lineHeight: 1.06; letterSpacing: '-0.025em'; margin: 0 0 18px; textWrap: pretty">{{ title }}</h2>
+      <sc-for list="{{ bodyLines }}" as="ln" hint-placeholder-count="1">
+        <p style="fontSize: 17.5px; lineHeight: 1.6; color: var(--jfd-azure-mist); margin: 0 0 12px; maxWidth: 46ch">{{ ln }}</p>
+      </sc-for>
+      <a href="Get%20a%20Quote.dc.html" class="jfd-btn jfd-btn--inverse jfd-btn--lg" style="marginTop: 14px">{{ cta }}</a>
+      <sc-if value="{{ hasFields }}" hint-placeholder-val="{{ false }}">
+        <p style="fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.1em'; textTransform: uppercase; color: var(--jfd-azure-pale); margin: 36px 0 6px">Useful to tell us</p>
+        <ul style="listStyle: none; margin: 0; padding: 0; display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); columnGap: 28px; maxWidth: 560px">
+          <sc-for list="{{ fieldRows }}" as="fd" hint-placeholder-count="5">
+            <li style="display: flex; gap: 12px; alignItems: baseline; padding: 11px 0; borderTop: 1px solid rgba(255,255,255,0.22); fontSize: 15.5px; color: #FFFFFF"><span style="fontFamily: var(--jfd-font-mono); fontSize: 11px; color: var(--jfd-azure-pale)">{{ fd.n }}</span>{{ fd.t }}</li>
+          </sc-for>
+        </ul>
+      </sc-if>
+    </div>
+    <div style="minWidth: 0; border: 1px solid rgba(255,255,255,0.35); padding: 34px clamp(20px, 5.5vw, 32px) 32px">
+      <p style="fontFamily: var(--jfd-font-mono); fontSize: 11.5px; letterSpacing: '0.1em'; textTransform: uppercase; color: var(--jfd-azure-pale); margin: 0 0 18px">{{ labelB }}</p>
+      <h3 style="fontFamily: var(--jfd-font-display); fontSize: clamp(28px, 3vw, 36px); fontWeight: 600; lineHeight: 1.12; letterSpacing: '-0.02em'; margin: 0 0 12px; textWrap: pretty">{{ altTitle }}</h3>
+      <p style="fontSize: 17px; lineHeight: 1.6; color: var(--jfd-azure-mist); margin: 0 0 24px; maxWidth: 40ch">{{ altBody }}</p>
+      <a href="{{ altHref }}" class="jfd-link jfd-link--on-dark" style="fontSize: 16.5px">{{ altCta }} →</a>
+      <p style="fontFamily: var(--jfd-font-mono); fontSize: 12px; letterSpacing: '0.08em'; textTransform: uppercase; color: var(--jfd-azure-pale); margin: 32px 0 0; paddingTop: 20px; borderTop: 1px solid rgba(255,255,255,0.22); lineHeight: 1.8">One site. One backlog.<br>One defined piece of work.</p>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;1280px&quot;,&quot;height&quot;:&quot;620px&quot;},&quot;labelA&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Get a quote&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;title&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Already have a fire door survey or job sheet?&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;body&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string[]&quot;},&quot;cta&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Send us your job sheet&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;fields&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string[]&quot;},&quot;labelB&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Or&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;altTitle&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Don’t yet know what work is required?&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;altBody&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;altCta&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Arrange a fire door inspection&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;altHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props;
+    const fields = p.fields ?? [];
+    return {
+      bodyLines: p.body ?? [],
+      hasFields: fields.length > 0,
+      fieldRows: fields.map((t, i) => ({ t, n: String(i + 1).padStart(2, '0') })),
+      labelA: p.labelA ?? 'Get a quote',
+      labelB: p.labelB ?? 'Or',
+      altHref: p.altHref ?? 'Get%20a%20Quote.dc.html#route-e'
+    };
+  }
+}
+</script>
+</body>
+</html>

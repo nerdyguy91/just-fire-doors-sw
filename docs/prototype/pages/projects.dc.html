@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="support.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Fire Door Projects | South West | Just Fire Doors</title>
+<meta name="description" content="Fire door projects across the South West: specialist healthcare doorsets, deadline-led education work and campus installation — from requirement to completed work.">
+<style>/* Webfonts — Google Fonts (as specified in source). */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+<style>:root{
+/* Brand */
+--jfd-azure:#29A9E9;--jfd-azure-soft:#6FC4F2;--jfd-azure-pale:#A8D7F3;--jfd-azure-mist:#C8E4F7;
+--jfd-action:#0E6FAF;--jfd-action-hover:#0B5789;--jfd-underline:#A9C6DB;
+/* Neutrals */
+--jfd-graphite:#23282C;--jfd-ink-2:#40474D;--jfd-ink-3:#5B646B;--jfd-ink-4:#5F6970;
+--jfd-ground:#F4F6F8;--jfd-surface:#FFFFFF;--jfd-tint:#E9EDF1;
+--jfd-rule:#D7DDE3;--jfd-rule-strong:#C9D2DA;--jfd-rule-soft:#EAEEF2;
+--jfd-media-bg:#E4E9EE;--jfd-meta-rule:#E5EAEF;
+/* Dark surface */
+--jfd-dark-rule:#3C4348;--jfd-dark-rule-2:#363C41;--jfd-dark-border:#424A50;--jfd-dark-ink:#E4E9ED;--jfd-dark-ink-2:#9BA7B1;--jfd-dark-heading:#EEF3F7;
+/* Status (job-sheet vocabulary) */
+--jfd-status-closed:#1F6B4D;--jfd-status-onsite:#8A6100;--jfd-status-decide:#A33A2A;--jfd-status-neutral:#5B646B;
+
+/* Semantic aliases */
+--text-primary:var(--jfd-graphite);--text-lead:var(--jfd-ink-2);--text-body:var(--jfd-ink-3);--text-caption:var(--jfd-ink-4);
+--text-accent:var(--jfd-action);--text-link:var(--jfd-action);--text-link-hover:var(--jfd-action-hover);
+--text-on-dark:var(--jfd-dark-ink);--text-on-dark-muted:var(--jfd-dark-ink-2);--text-on-action:#FFFFFF;--text-on-action-body:var(--jfd-azure-mist);--text-on-action-label:var(--jfd-azure-pale);
+--surface-page:var(--jfd-ground);--surface-card:var(--jfd-surface);--surface-tint:var(--jfd-tint);--surface-dark:var(--jfd-graphite);--surface-action:var(--jfd-action);
+--border-default:var(--jfd-rule);--border-strong:var(--jfd-rule-strong);--border-soft:var(--jfd-rule-soft);--border-dark:var(--jfd-dark-border);
+--accent-mark:var(--jfd-azure);
+}
+</style>
+<style>:root{
+--jfd-font-display:"Barlow Condensed",system-ui,sans-serif;
+--jfd-font-body:"Barlow",system-ui,sans-serif;
+--jfd-font-mono:"IBM Plex Mono",ui-monospace,monospace;
+--jfd-h1:clamp(50px,6.6vw,84px); /* @kind font */
+--jfd-h2:clamp(34px,4vw,52px); /* @kind font */
+--jfd-h2-statement:clamp(40px,5.4vw,68px); /* @kind font */
+--jfd-h3:clamp(30px,3.4vw,40px); /* @kind font */
+
+--jfd-card-title:23px;--jfd-stat:34px;--jfd-lead:18.5px;--jfd-body:16px;--jfd-small:14px;--jfd-eyebrow:11.5px;--jfd-label:10.5px;
+/* Semantic */
+--font-display:var(--jfd-font-display);--font-body:var(--jfd-font-body);--font-mono:var(--jfd-font-mono);
+}
+</style>
+<style>:root{
+--jfd-max:1240px;--jfd-gutter:28px;--jfd-section-y:88px;--jfd-header-h:82px;--jfd-header-h-scrolled:64px;
+--jfd-gap-grid:24px;--jfd-radius:0;
+}
+</style>
+<style>:root{
+--jfd-shadow-panel:0 26px 60px -34px rgba(35,40,44,0.42);
+--jfd-shadow-menu:0 18px 44px -24px rgba(35,40,44,0.4);
+--jfd-ease:.18s ease; /* @kind other */
+}
+</style>
+<style>/* Just Fire Doors — base + class library (verbatim from source, tokens in /tokens). */
+/* Base */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--jfd-ground); color: var(--jfd-graphite); font-family: var(--jfd-font-body); -webkit-font-smoothing: antialiased; }
+a { color: var(--jfd-action); text-decoration: none; }
+a:hover { color: var(--jfd-action-hover); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--jfd-action); outline-offset: 3px; }
+img { max-width: 100%; display: block; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+
+/* Layout */
+.jfd-container { max-width: var(--jfd-max); margin: 0 auto; padding: 0 var(--jfd-gutter); }
+.jfd-section { padding: var(--jfd-section-y) 0; border-bottom: 1px solid var(--jfd-rule); }
+.jfd-section--surface { background: var(--jfd-surface); }
+.jfd-section--tint { background: var(--jfd-tint); }
+.jfd-section--dark { background: var(--jfd-graphite); color: #EEF3F7; }
+.jfd-section--action { background: var(--jfd-action); color: #FFFFFF; }
+.jfd-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); }
+.jfd-grid > * { min-width: 0; }
+.jfd-hairline-grid { display: grid; gap: 1px; background: var(--jfd-rule); border: 1px solid var(--jfd-rule); grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+.jfd-divider-azure { height: 3px; background: var(--jfd-azure); border: 0; margin: 0; }
+
+/* Type */
+.jfd-h1, .jfd-h2, .jfd-h3, .jfd-statement { font-family: var(--jfd-font-display); font-weight: 600; letter-spacing: -0.025em; margin: 0; text-wrap: pretty; }
+.jfd-h1 { font-size: var(--jfd-h1); line-height: 1.02; }
+.jfd-h2 { font-size: var(--jfd-h2); line-height: 1.1; }
+.jfd-statement { font-size: var(--jfd-h2-statement); line-height: 1.06; }
+.jfd-h3 { font-size: var(--jfd-h3); line-height: 1.16; letter-spacing: -0.02em; }
+.jfd-card-title { font-family: var(--jfd-font-display); font-size: var(--jfd-card-title); font-weight: 600; line-height: 1.22; letter-spacing: -0.015em; }
+.jfd-lead { font-size: var(--jfd-lead); line-height: 1.62; color: var(--jfd-ink-2); max-width: 48ch; text-wrap: pretty; }
+.jfd-body { font-size: var(--jfd-body); line-height: 1.58; color: var(--jfd-ink-3); }
+.jfd-accent { color: var(--jfd-action); }
+.jfd-eyebrow { font-family: var(--jfd-font-mono); font-size: var(--jfd-eyebrow); letter-spacing: 0.1em; text-transform: uppercase; color: var(--jfd-action); margin: 0 0 20px; }
+.jfd-label { font-family: var(--jfd-font-mono); font-size: var(--jfd-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--jfd-ink-3); line-height: 1.6; }
+.jfd-index { font-family: var(--jfd-font-mono); font-size: 12px; color: var(--jfd-ink-4); }
+.jfd-stat { font-family: var(--jfd-font-display); font-size: 34px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; }
+.jfd-stat + span { display: block; font-size: 13.5px; color: var(--jfd-ink-3); margin-top: 3px; }
+
+/* Buttons & links */
+.jfd-btn { display: inline-flex; align-items: center; min-height: 52px; padding: 17px 26px; background: var(--jfd-action); color: #FFFFFF; font: 500 16.5px/1 var(--jfd-font-body); border: 0; cursor: pointer; transition: background var(--jfd-ease); }
+.jfd-btn:hover { background: var(--jfd-action-hover); color: #FFFFFF; }
+.jfd-btn--sm { min-height: 46px; padding: 13px 20px; font-size: 15px; }
+.jfd-btn--lg { min-height: 56px; padding: 19px 28px; font-size: 17px; font-weight: 600; }
+.jfd-btn--inverse { background: #FFFFFF; color: var(--jfd-action-hover); }
+.jfd-btn--inverse:hover { background: var(--jfd-graphite); color: #FFFFFF; }
+.jfd-btn--ghost-dark { background: transparent; border: 1px solid var(--jfd-dark-border); color: var(--jfd-dark-ink); min-height: 46px; padding: 12px 18px; font-size: 15px; }
+.jfd-btn--ghost-dark:hover { background: transparent; border-color: var(--jfd-azure-soft); color: var(--jfd-azure-soft); }
+.jfd-link { font-size: 16.5px; font-weight: 500; border-bottom: 1px solid var(--jfd-underline); padding-bottom: 3px; }
+.jfd-link:hover { border-bottom-color: var(--jfd-action); }
+.jfd-link--on-dark { color: #FFFFFF; border-bottom-color: rgba(255,255,255,0.5); }
+.jfd-link--on-dark:hover { color: #FFFFFF; border-bottom-color: #FFFFFF; }
+
+/* Header / nav */
+.jfd-header { position: sticky; top: 0; z-index: 60; background: rgba(244,246,248,0.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--jfd-rule); }
+.jfd-header__inner { display: flex; align-items: center; gap: 32px; height: var(--jfd-header-h); transition: height .22s ease; }
+.jfd-header.is-scrolled .jfd-header__inner { height: var(--jfd-header-h-scrolled); }
+.jfd-wordmark { font-family: var(--jfd-font-display); font-size: 23px; font-weight: 700; letter-spacing: -0.005em; color: var(--jfd-graphite); }
+.jfd-wordmark sup { font-size: 11px; font-weight: 600; letter-spacing: 0.04em; margin-left: 2px; }
+.jfd-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.jfd-nav__link { padding: 12px 14px; min-height: 44px; font-size: 15px; font-weight: 500; color: var(--jfd-graphite); background: none; border: 0; font-family: inherit; cursor: pointer; }
+.jfd-nav__link:hover { color: var(--jfd-action); }
+.jfd-menu { position: absolute; top: calc(100% + 6px); left: 0; width: 320px; background: var(--jfd-surface); border: 1px solid var(--jfd-rule); box-shadow: var(--jfd-shadow-menu); padding: 8px; }
+.jfd-menu a { display: block; padding: 12px 14px; font-size: 15px; color: var(--jfd-graphite); border-bottom: 1px solid var(--jfd-rule-soft); }
+.jfd-menu a:last-child { border-bottom: 0; }
+.jfd-menu a:hover { background: var(--jfd-tint); color: var(--jfd-action); }
+
+/* Cards */
+.jfd-card { display: block; background: var(--jfd-surface); border: 1px solid var(--jfd-rule); color: var(--jfd-graphite); transition: border-color .2s ease; }
+a.jfd-card:hover { border-color: var(--jfd-action); color: var(--jfd-graphite); }
+.jfd-card__media { aspect-ratio: 3 / 2; overflow: hidden; background: #E4E9EE; border-bottom: 1px solid var(--jfd-rule); }
+.jfd-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.jfd-card__body { padding: 24px 24px 26px; }
+.jfd-card__meta { padding-top: 10px; border-top: 1px solid #E5EAEF; }
+.jfd-tile { background: var(--jfd-tint); padding: 20px 22px; }  /* inside .jfd-hairline-grid */
+.jfd-panel { background: var(--jfd-surface); border: 1px solid var(--jfd-rule-strong); box-shadow: var(--jfd-shadow-panel); }
+.jfd-chip { font-family: var(--jfd-font-mono); font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase; background: var(--jfd-tint); color: var(--jfd-graphite); padding: 8px 12px; }
+
+/* Photography */
+.jfd-photo { overflow: hidden; background: #E4E9EE; border: 1px solid var(--jfd-rule); }
+.jfd-photo img { width: 100%; height: 100%; object-fit: cover; }
+.jfd-photo--16x10 { aspect-ratio: 16 / 10; }
+.jfd-photo--5x4 { aspect-ratio: 5 / 4; }
+.jfd-photo--4x3 { aspect-ratio: 4 / 3; }
+.jfd-caption { font-family: var(--jfd-font-mono); font-size: 10.5px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--jfd-ink-4); margin-top: 10px; }
+.jfd-placeholder { display: grid; place-items: center; padding: 20px; border: 1px dashed #B4BEC7; background: repeating-linear-gradient(135deg, #E4E9EE 0 10px, #DCE3E9 10px 20px); }
+
+/* Job-sheet record (status vocabulary) */
+.jfd-status { display: inline-flex; align-items: center; gap: 7px; font-family: var(--jfd-font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--jfd-status-neutral); }
+.jfd-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.jfd-status--closed { color: var(--jfd-status-closed); }
+.jfd-status--onsite { color: var(--jfd-status-onsite); }
+.jfd-status--decide { color: var(--jfd-status-decide); }
+.jfd-record__head { display: flex; justify-content: space-between; gap: 16px; padding: 14px 18px; background: var(--jfd-tint); border-bottom: 1px solid var(--jfd-rule); font-family: var(--jfd-font-mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--jfd-ink-3); }
+.jfd-record__row { display: grid; grid-template-columns: 88px 1fr 92px; padding: 15px 18px; border-bottom: 1px solid var(--jfd-rule-soft); align-items: baseline; }
+.jfd-record__id { font-family: var(--jfd-font-mono); font-size: 13px; }
+
+/* Numbered list rows (problems, reasons) */
+.jfd-row { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 4px 18px; padding: 22px 0; border-top: 1px solid var(--jfd-rule); align-items: start; }
+.jfd-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-family: var(--jfd-font-mono); font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+.jfd-flow .sep { color: var(--jfd-underline); }
+
+/* Footer */
+.jfd-footer { background: var(--jfd-graphite); color: var(--jfd-dark-ink); }
+.jfd-footer__label { font-family: var(--jfd-font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--jfd-dark-ink-2); margin: 0 0 16px; }
+.jfd-footer a { display: block; padding: 7px 0; font-size: 15px; color: var(--jfd-dark-ink); }
+.jfd-footer a:hover { color: var(--jfd-azure-soft); }
+.jfd-footer__legal { border-top: 1px solid var(--jfd-dark-rule-2); padding-top: 22px; font-size: 13.5px; color: var(--jfd-dark-ink-2); }
+</style>
+<style>/* Webfonts — Google Fonts (as specified in source). */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root{
+/* Brand */
+--jfd-azure:#29A9E9;--jfd-azure-soft:#6FC4F2;--jfd-azure-pale:#A8D7F3;--jfd-azure-mist:#C8E4F7;
+--jfd-action:#0E6FAF;--jfd-action-hover:#0B5789;--jfd-underline:#A9C6DB;
+/* Neutrals */
+--jfd-graphite:#23282C;--jfd-ink-2:#40474D;--jfd-ink-3:#5B646B;--jfd-ink-4:#5F6970;
+--jfd-ground:#F4F6F8;--jfd-surface:#FFFFFF;--jfd-tint:#E9EDF1;
+--jfd-rule:#D7DDE3;--jfd-rule-strong:#C9D2DA;--jfd-rule-soft:#EAEEF2;
+--jfd-media-bg:#E4E9EE;--jfd-meta-rule:#E5EAEF;
+/* Dark surface */
+--jfd-dark-rule:#3C4348;--jfd-dark-rule-2:#363C41;--jfd-dark-border:#424A50;--jfd-dark-ink:#E4E9ED;--jfd-dark-ink-2:#9BA7B1;--jfd-dark-heading:#EEF3F7;
+/* Status (job-sheet vocabulary) */
+--jfd-status-closed:#1F6B4D;--jfd-status-onsite:#8A6100;--jfd-status-decide:#A33A2A;--jfd-status-neutral:#5B646B;
+
+/* Semantic aliases */
+--text-primary:var(--jfd-graphite);--text-lead:var(--jfd-ink-2);--text-body:var(--jfd-ink-3);--text-caption:var(--jfd-ink-4);
+--text-accent:var(--jfd-action);--text-link:var(--jfd-action);--text-link-hover:var(--jfd-action-hover);
+--text-on-dark:var(--jfd-dark-ink);--text-on-dark-muted:var(--jfd-dark-ink-2);--text-on-action:#FFFFFF;--text-on-action-body:var(--jfd-azure-mist);--text-on-action-label:var(--jfd-azure-pale);
+--surface-page:var(--jfd-ground);--surface-card:var(--jfd-surface);--surface-tint:var(--jfd-tint);--surface-dark:var(--jfd-graphite);--surface-action:var(--jfd-action);
+--border-default:var(--jfd-rule);--border-strong:var(--jfd-rule-strong);--border-soft:var(--jfd-rule-soft);--border-dark:var(--jfd-dark-border);
+--accent-mark:var(--jfd-azure);
+}
+
+:root{
+--jfd-font-display:"Barlow Condensed",system-ui,sans-serif;
+--jfd-font-body:"Barlow",system-ui,sans-serif;
+--jfd-font-mono:"IBM Plex Mono",ui-monospace,monospace;
+--jfd-h1:clamp(50px,6.6vw,84px); /* @kind font */
+--jfd-h2:clamp(34px,4vw,52px); /* @kind font */
+--jfd-h2-statement:clamp(40px,5.4vw,68px); /* @kind font */
+--jfd-h3:clamp(30px,3.4vw,40px); /* @kind font */
+
+--jfd-card-title:23px;--jfd-stat:34px;--jfd-lead:18.5px;--jfd-body:16px;--jfd-small:14px;--jfd-eyebrow:11.5px;--jfd-label:10.5px;
+/* Semantic */
+--font-display:var(--jfd-font-display);--font-body:var(--jfd-font-body);--font-mono:var(--jfd-font-mono);
+}
+
+:root{
+--jfd-max:1240px;--jfd-gutter:28px;--jfd-section-y:88px;--jfd-header-h:82px;--jfd-header-h-scrolled:64px;
+--jfd-gap-grid:24px;--jfd-radius:0;
+}
+
+:root{
+--jfd-shadow-panel:0 26px 60px -34px rgba(35,40,44,0.42);
+--jfd-shadow-menu:0 18px 44px -24px rgba(35,40,44,0.4);
+--jfd-ease:.18s ease; /* @kind other */
+}
+
+/* Just Fire Doors — base + class library (verbatim from source, tokens in /tokens). */
+/* Base */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--jfd-ground); color: var(--jfd-graphite); font-family: var(--jfd-font-body); -webkit-font-smoothing: antialiased; }
+a { color: var(--jfd-action); text-decoration: none; }
+a:hover { color: var(--jfd-action-hover); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--jfd-action); outline-offset: 3px; }
+img { max-width: 100%; display: block; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+
+/* Layout */
+.jfd-container { max-width: var(--jfd-max); margin: 0 auto; padding: 0 var(--jfd-gutter); }
+.jfd-section { padding: var(--jfd-section-y) 0; border-bottom: 1px solid var(--jfd-rule); }
+.jfd-section--surface { background: var(--jfd-surface); }
+.jfd-section--tint { background: var(--jfd-tint); }
+.jfd-section--dark { background: var(--jfd-graphite); color: #EEF3F7; }
+.jfd-section--action { background: var(--jfd-action); color: #FFFFFF; }
+.jfd-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); }
+.jfd-grid > * { min-width: 0; }
+.jfd-hairline-grid { display: grid; gap: 1px; background: var(--jfd-rule); border: 1px solid var(--jfd-rule); grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+.jfd-divider-azure { height: 3px; background: var(--jfd-azure); border: 0; margin: 0; }
+
+/* Type */
+.jfd-h1, .jfd-h2, .jfd-h3, .jfd-statement { font-family: var(--jfd-font-display); font-weight: 600; letter-spacing: -0.025em; margin: 0; text-wrap: pretty; }
+.jfd-h1 { font-size: var(--jfd-h1); line-height: 1.02; }
+.jfd-h2 { font-size: var(--jfd-h2); line-height: 1.1; }
+.jfd-statement { font-size: var(--jfd-h2-statement); line-height: 1.06; }
+.jfd-h3 { font-size: var(--jfd-h3); line-height: 1.16; letter-spacing: -0.02em; }
+.jfd-card-title { font-family: var(--jfd-font-display); font-size: var(--jfd-card-title); font-weight: 600; line-height: 1.22; letter-spacing: -0.015em; }
+.jfd-lead { font-size: var(--jfd-lead); line-height: 1.62; color: var(--jfd-ink-2); max-width: 48ch; text-wrap: pretty; }
+.jfd-body { font-size: var(--jfd-body); line-height: 1.58; color: var(--jfd-ink-3); }
+.jfd-accent { color: var(--jfd-action); }
+.jfd-eyebrow { font-family: var(--jfd-font-mono); font-size: var(--jfd-eyebrow); letter-spacing: 0.1em; text-transform: uppercase; color: var(--jfd-action); margin: 0 0 20px; }
+.jfd-label { font-family: var(--jfd-font-mono); font-size: var(--jfd-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--jfd-ink-3); line-height: 1.6; }
+.jfd-index { font-family: var(--jfd-font-mono); font-size: 12px; color: var(--jfd-ink-4); }
+.jfd-stat { font-family: var(--jfd-font-display); font-size: 34px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; }
+.jfd-stat + span { display: block; font-size: 13.5px; color: var(--jfd-ink-3); margin-top: 3px; }
+
+/* Buttons & links */
+.jfd-btn { display: inline-flex; align-items: center; min-height: 52px; padding: 17px 26px; background: var(--jfd-action); color: #FFFFFF; font: 500 16.5px/1 var(--jfd-font-body); border: 0; cursor: pointer; transition: background var(--jfd-ease); }
+.jfd-btn:hover { background: var(--jfd-action-hover); color: #FFFFFF; }
+.jfd-btn--sm { min-height: 46px; padding: 13px 20px; font-size: 15px; }
+.jfd-btn--lg { min-height: 56px; padding: 19px 28px; font-size: 17px; font-weight: 600; }
+.jfd-btn--inverse { background: #FFFFFF; color: var(--jfd-action-hover); }
+.jfd-btn--inverse:hover { background: var(--jfd-graphite); color: #FFFFFF; }
+.jfd-btn--ghost-dark { background: transparent; border: 1px solid var(--jfd-dark-border); color: var(--jfd-dark-ink); min-height: 46px; padding: 12px 18px; font-size: 15px; }
+.jfd-btn--ghost-dark:hover { background: transparent; border-color: var(--jfd-azure-soft); color: var(--jfd-azure-soft); }
+.jfd-link { font-size: 16.5px; font-weight: 500; border-bottom: 1px solid var(--jfd-underline); padding-bottom: 3px; }
+.jfd-link:hover { border-bottom-color: var(--jfd-action); }
+.jfd-link--on-dark { color: #FFFFFF; border-bottom-color: rgba(255,255,255,0.5); }
+.jfd-link--on-dark:hover { color: #FFFFFF; border-bottom-color: #FFFFFF; }
+
+/* Header / nav */
+.jfd-header { position: sticky; top: 0; z-index: 60; background: rgba(244,246,248,0.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--jfd-rule); }
+.jfd-header__inner { display: flex; align-items: center; gap: 32px; height: var(--jfd-header-h); transition: height .22s ease; }
+.jfd-header.is-scrolled .jfd-header__inner { height: var(--jfd-header-h-scrolled); }
+.jfd-wordmark { font-family: var(--jfd-font-display); font-size: 23px; font-weight: 700; letter-spacing: -0.005em; color: var(--jfd-graphite); }
+.jfd-wordmark sup { font-size: 11px; font-weight: 600; letter-spacing: 0.04em; margin-left: 2px; }
+.jfd-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.jfd-nav__link { padding: 12px 14px; min-height: 44px; font-size: 15px; font-weight: 500; color: var(--jfd-graphite); background: none; border: 0; font-family: inherit; cursor: pointer; }
+.jfd-nav__link:hover { color: var(--jfd-action); }
+.jfd-menu { position: absolute; top: calc(100% + 6px); left: 0; width: 320px; background: var(--jfd-surface); border: 1px solid var(--jfd-rule); box-shadow: var(--jfd-shadow-menu); padding: 8px; }
+.jfd-menu a { display: block; padding: 12px 14px; font-size: 15px; color: var(--jfd-graphite); border-bottom: 1px solid var(--jfd-rule-soft); }
+.jfd-menu a:last-child { border-bottom: 0; }
+.jfd-menu a:hover { background: var(--jfd-tint); color: var(--jfd-action); }
+
+/* Cards */
+.jfd-card { display: block; background: var(--jfd-surface); border: 1px solid var(--jfd-rule); color: var(--jfd-graphite); transition: border-color .2s ease; }
+a.jfd-card:hover { border-color: var(--jfd-action); color: var(--jfd-graphite); }
+.jfd-card__media { aspect-ratio: 3 / 2; overflow: hidden; background: #E4E9EE; border-bottom: 1px solid var(--jfd-rule); }
+.jfd-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.jfd-card__body { padding: 24px 24px 26px; }
+.jfd-card__meta { padding-top: 10px; border-top: 1px solid #E5EAEF; }
+.jfd-tile { background: var(--jfd-tint); padding: 20px 22px; }  /* inside .jfd-hairline-grid */
+.jfd-panel { background: var(--jfd-surface); border: 1px solid var(--jfd-rule-strong); box-shadow: var(--jfd-shadow-panel); }
+.jfd-chip { font-family: var(--jfd-font-mono); font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase; background: var(--jfd-tint); color: var(--jfd-graphite); padding: 8px 12px; }
+
+/* Photography */
+.jfd-photo { overflow: hidden; background: #E4E9EE; border: 1px solid var(--jfd-rule); }
+.jfd-photo img { width: 100%; height: 100%; object-fit: cover; }
+.jfd-photo--16x10 { aspect-ratio: 16 / 10; }
+.jfd-photo--5x4 { aspect-ratio: 5 / 4; }
+.jfd-photo--4x3 { aspect-ratio: 4 / 3; }
+.jfd-caption { font-family: var(--jfd-font-mono); font-size: 10.5px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--jfd-ink-4); margin-top: 10px; }
+.jfd-placeholder { display: grid; place-items: center; padding: 20px; border: 1px dashed #B4BEC7; background: repeating-linear-gradient(135deg, #E4E9EE 0 10px, #DCE3E9 10px 20px); }
+
+/* Job-sheet record (status vocabulary) */
+.jfd-status { display: inline-flex; align-items: center; gap: 7px; font-family: var(--jfd-font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--jfd-status-neutral); }
+.jfd-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.jfd-status--closed { color: var(--jfd-status-closed); }
+.jfd-status--onsite { color: var(--jfd-status-onsite); }
+.jfd-status--decide { color: var(--jfd-status-decide); }
+.jfd-record__head { display: flex; justify-content: space-between; gap: 16px; padding: 14px 18px; background: var(--jfd-tint); border-bottom: 1px solid var(--jfd-rule); font-family: var(--jfd-font-mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--jfd-ink-3); }
+.jfd-record__row { display: grid; grid-template-columns: 88px 1fr 92px; padding: 15px 18px; border-bottom: 1px solid var(--jfd-rule-soft); align-items: baseline; }
+.jfd-record__id { font-family: var(--jfd-font-mono); font-size: 13px; }
+
+/* Numbered list rows (problems, reasons) */
+.jfd-row { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 4px 18px; padding: 22px 0; border-top: 1px solid var(--jfd-rule); align-items: start; }
+.jfd-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-family: var(--jfd-font-mono); font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+.jfd-flow .sep { color: var(--jfd-underline); }
+
+/* Footer */
+.jfd-footer { background: var(--jfd-graphite); color: var(--jfd-dark-ink); }
+.jfd-footer__label { font-family: var(--jfd-font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--jfd-dark-ink-2); margin: 0 0 16px; }
+.jfd-footer a { display: block; padding: 7px 0; font-size: 15px; color: var(--jfd-dark-ink); }
+.jfd-footer a:hover { color: var(--jfd-azure-soft); }
+.jfd-footer__legal { border-top: 1px solid var(--jfd-dark-rule-2); padding-top: 22px; font-size: 13.5px; color: var(--jfd-dark-ink-2); }
+
+</style>
+<script src="support.js"></script>
+</helmet>
+
+
+<dc-import name="JfdHeader" active="projects" style="position: sticky; top: 0; zIndex: 60; display: block" hint-size="100%,82px"></dc-import>
+
+<main id="top" style="display: block">
+
+  <section data-screen-label="01 Hero" aria-label="Fire Door Projects" style="borderBottom: 1px solid var(--jfd-rule)">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(38px, 6.4vw, 64px) clamp(20px, 5vw, 28px) clamp(43px, 7.2vw, 72px); display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(28px, 6vw, 48px) 64px; alignItems: center">
+      <div style="minWidth: 0; maxWidth: 540px">
+        <nav aria-label="Breadcrumb" style="display: flex; flexWrap: wrap; gap: 8px; fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.08em'; textTransform: uppercase; color: var(--jfd-ink-3); marginBottom: 26px">
+          <a href="Just%20Fire%20Doors%20Home%20B.dc.html" style="color: var(--jfd-ink-3)" style-hover="color: #0E6FAF">Home</a><span>/</span><span aria-current="page" style="color: var(--jfd-graphite)">Projects</span>
+        </nav>
+        <p style="fontFamily: var(--jfd-font-mono); fontSize: 12.5px; letterSpacing: '0.1em'; textTransform: uppercase; color: var(--jfd-ink-3); margin: 0 0 22px; paddingBottom: 18px; borderBottom: 1px solid var(--jfd-rule); lineHeight: 1.6">Healthcare · Education · Occupied buildings · Specialist doorsets</p>
+        <h1 style="fontFamily: var(--jfd-font-display); fontWeight: 600; fontSize: clamp(40px, 6.4vw, 84px); lineHeight: 1.02; letterSpacing: '-0.025em'; margin: 0 0 24px">Fire Door <span style="color: var(--jfd-action)">Projects</span></h1>
+        <p style="fontSize: 19px; lineHeight: 1.58; color: var(--jfd-graphite); margin: 0 0 32px; maxWidth: 44ch; textWrap: pretty">See how JFD approaches fire-door work in real buildings, from understanding the requirement through installation and clear close-out.</p>
+        <div style="display: flex; flexDirection: column; alignItems: flex-start; gap: 10px">
+          <span style="fontSize: 15.5px; fontWeight: 600; color: var(--jfd-graphite)">Have a similar requirement?</span>
+          <a href="Get%20a%20Quote.dc.html" class="jfd-btn">Talk through the work</a>
+        </div>
+      </div>
+      <div style="minWidth: 0; display: grid; gridTemplateColumns: repeat(2, minmax(0, 1fr)); gap: 10px">
+        <figure style="margin: 0; gridColumn: 1 / -1; position: relative; aspectRatio: 16 / 9; overflow: hidden; background: #E4E9EE; border: 1px solid var(--jfd-rule)">
+          <img src="src/assets/images/photos/torbridge-sign.jpeg" alt="Tor Bridge High school building signage on brick wall" style="width: 100%; height: 100%; objectFit: cover; display: block; objectPosition: 50% 55%">
+          <figcaption style="position: absolute; left: 0; bottom: 0; background: #FFFFFF; padding: 8px 12px; fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.07em'; textTransform: uppercase; color: var(--jfd-graphite)">Education · Tor Bridge High</figcaption>
+        </figure>
+        <figure style="margin: 0; position: relative; aspectRatio: 4 / 3; overflow: hidden; background: #E4E9EE; border: 1px solid var(--jfd-rule)">
+          <img src="src/assets/images/photos/bodmin-ward-double-doorset.jpeg" alt="Double fire doorset on a hospital ward corridor, Bodmin Hospital" style="width: 100%; height: 100%; objectFit: cover; display: block; objectPosition: 50% 45%">
+          <figcaption style="position: absolute; left: 0; bottom: 0; background: #FFFFFF; padding: 8px 12px; fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.07em'; textTransform: uppercase; color: var(--jfd-graphite)">Healthcare · Bodmin</figcaption>
+        </figure>
+        <figure style="margin: 0; position: relative; aspectRatio: 4 / 3; overflow: hidden; background: #E4E9EE; border: 1px solid var(--jfd-rule)">
+          <img src="src/assets/images/photos/stoke-room.jpeg" alt="Completed room with installed fire door, Stoke Damerel Community College Sixth Form campus" style="width: 100%; height: 100%; objectFit: cover; display: block; objectPosition: 50% 50%">
+          <figcaption style="position: absolute; left: 0; bottom: 0; background: #FFFFFF; padding: 8px 12px; fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.07em'; textTransform: uppercase; color: var(--jfd-graphite)">Campus · Stoke Damerel</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="02 How to read" aria-label="The job is rarely just fitting a door" style="background: #FFFFFF; borderBottom: 1px solid var(--jfd-rule)">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(48px, 8.0vw, 80px) clamp(20px, 5vw, 28px)">
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 24px 80px; alignItems: end; marginBottom: 36px">
+        <div style="minWidth: 0">
+          <p class="jfd-eyebrow">How to read these projects</p>
+          <h2 class="jfd-h2" style="margin: 0; maxWidth: 16ch">The job is rarely just fitting a door.</h2>
+        </div>
+        <p style="fontSize: 17px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 0; maxWidth: 50ch">Real projects come with specifications, access, live buildings, deadlines, technical requirements and other contractors on site. Each one below is read through the same three stages.</p>
+      </div>
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1px; background: transparent; border: 1px solid var(--jfd-rule)">
+        <sc-for list="{{ lenses }}" as="ls" hint-placeholder-count="3">
+          <div style="outline: 1px solid var(--jfd-rule); background: #FFFFFF; padding: 24px 24px 26px; minWidth: 0">
+            <div style="display: flex; alignItems: center; gap: 12px; marginBottom: 14px">
+              <span style="width: 9px; height: 9px; borderRadius: 50%; background: {{ ls.dot }}"></span>
+              <h3 style="fontFamily: var(--jfd-font-mono); fontSize: 14px; fontWeight: 500; letterSpacing: '0.14em'; textTransform: uppercase; color: var(--jfd-action); margin: 0">{{ ls.label }}</h3>
+              <span style="flex: 1; height: 1px; background: var(--jfd-rule)"></span>
+              <span style="fontFamily: var(--jfd-font-mono); color: #A9C6DB">{{ ls.arrow }}</span>
+            </div>
+            <p style="fontFamily: var(--jfd-font-display); fontSize: 25px; fontWeight: 600; lineHeight: 1.2; margin: 0">{{ ls.t }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <p style="fontSize: 15.5px; lineHeight: 1.6; color: var(--jfd-ink-3); margin: 20px 0 0; maxWidth: 70ch">Stages are shown only where JFD genuinely owned them. Where a principal contractor handed over a defined package, we say so.</p>
+    </div>
+  </section>
+
+  <section data-screen-label="03 Project index" aria-label="Featured projects" style="borderBottom: 1px solid var(--jfd-rule)">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px)">
+      <p class="jfd-eyebrow">Featured projects</p>
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 24px; alignItems: stretch">
+        <a href="#mammography" style="display: flex; flexDirection: column; background: #FFFFFF; border: 1px solid var(--jfd-rule); color: var(--jfd-graphite); transition: border-color .2s ease" style-hover="border-color: #0E6FAF; color: #23282C">
+          <span style="display: block; aspectRatio: 16 / 10; overflow: hidden; background: #E4E9EE; borderBottom: 1px solid var(--jfd-rule)"><img src="src/assets/images/photos/mammo-rooms.jpeg" alt="Lead-lined doorsets to Mammography Rooms 1 and 2 with radiation warning signage, Plymouth Mammography Unit" style="width: 100%; height: 100%; objectFit: cover; display: block; objectPosition: 50% 45%"></span>
+          <span style="display: flex; flexDirection: column; flex: 1; padding: 26px 26px 28px">
+            <span style="display: block; fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.09em'; textTransform: uppercase; color: var(--jfd-action); marginBottom: 12px">Specialist healthcare environment</span>
+            <span style="display: block; fontFamily: var(--jfd-font-display); fontSize: clamp(30px, 3.2vw, 38px); fontWeight: 600; lineHeight: 1.1; letterSpacing: '-0.02em'; marginBottom: 12px">Plymouth Mammography Unit</span>
+            <span style="display: block; fontSize: 16.5px; lineHeight: 1.55; color: var(--jfd-ink-2); marginBottom: 18px; maxWidth: 44ch">Lead-lined doorsets with integrated privacy blinds, replaced after flood damage.</span>
+            <span style="display: flex; flexWrap: wrap; gap: 6px; marginBottom: 20px"><span class="jfd-chip" style="padding: 6px 10px; fontSize: 11px">Healthcare</span><span class="jfd-chip" style="padding: 6px 10px; fontSize: 11px">Specialist requirements</span><span class="jfd-chip" style="padding: 6px 10px; fontSize: 11px">Installation</span></span>
+            <span style="marginTop: auto; display: inline-block; alignSelf: flex-start; fontSize: 15px; fontWeight: 500; color: #0E6FAF; borderBottom: 1px solid #A9C6DB; paddingBottom: 2px">View project ↓</span>
+          </span>
+        </a>
+        <div style="minWidth: 0; display: grid; gap: 24px">
+          <a href="#tor-bridge" style="display: flex; flexWrap: wrap; background: #FFFFFF; border: 1px solid var(--jfd-rule); color: var(--jfd-graphite); transition: border-color .2s ease" style-hover="border-color: #0E6FAF; color: #23282C">
+              <span style="flex: 1 1 200px; position: relative; display: block; overflow: hidden; borderRight: 1px solid var(--jfd-rule); background: #E4E9EE; minHeight: 220px"><img src="src/assets/images/photos/torbridge-doorset.jpeg" alt="Custom-coloured fire doorset, Tor Bridge High" style="position: absolute; inset: 0; width: 100%; height: 100%; objectFit: cover; display: block; objectPosition: 50% 40%"></span>
+              <span style="flex: 1.5 1 240px; display: flex; flexDirection: column; padding: 22px 22px 24px; minWidth: 0">
+                <span style="display: block; fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.09em'; textTransform: uppercase; color: var(--jfd-action); marginBottom: 10px">Deadline-led education project</span>
+                <span style="display: block; fontFamily: var(--jfd-font-display); fontSize: 26px; fontWeight: 600; lineHeight: 1.12; marginBottom: 8px">Tor Bridge High</span>
+                <span style="display: block; fontSize: 15px; lineHeight: 1.5; color: var(--jfd-ink-2); marginBottom: 14px">Custom-coloured doorsets, programmed around the return to school.</span>
+                <span style="display: block; fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.07em'; textTransform: uppercase; color: var(--jfd-ink-3); marginBottom: 14px; lineHeight: 1.6">Education · Deadline-led · Installation</span>
+                <span style="marginTop: auto; display: inline-block; alignSelf: flex-start; fontSize: 15px; fontWeight: 500; color: #0E6FAF; borderBottom: 1px solid #A9C6DB; paddingBottom: 2px">View project ↓</span>
+              </span>
+            </a>
+          <a href="#stoke-damerel" style="display: flex; flexWrap: wrap; background: #FFFFFF; border: 1px solid var(--jfd-rule); color: var(--jfd-graphite); transition: border-color .2s ease" style-hover="border-color: #0E6FAF; color: #23282C">
+              <span style="flex: 1 1 200px; position: relative; display: block; overflow: hidden; borderRight: 1px solid var(--jfd-rule); background: #E4E9EE; minHeight: 220px"><img src="src/assets/images/photos/stoke-room.jpeg" alt="Installed fire door in a Sixth Form teaching room, Stoke Damerel" style="position: absolute; inset: 0; width: 100%; height: 100%; objectFit: cover; display: block; objectPosition: 50% 50%"></span>
+              <span style="flex: 1.5 1 240px; display: flex; flexDirection: column; padding: 22px 22px 24px; minWidth: 0">
+                <span style="display: block; fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.09em'; textTransform: uppercase; color: var(--jfd-action); marginBottom: 10px">Campus installation</span>
+                <span style="display: block; fontFamily: var(--jfd-font-display); fontSize: 26px; fontWeight: 600; lineHeight: 1.12; marginBottom: 8px">Stoke Damerel Community College</span>
+                <span style="display: block; fontSize: 15px; lineHeight: 1.5; color: var(--jfd-ink-2); marginBottom: 14px">Doors and doorsets installed across a Sixth Form campus, with Obedair.</span>
+                <span style="display: block; fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.07em'; textTransform: uppercase; color: var(--jfd-ink-3); marginBottom: 14px; lineHeight: 1.6">Education · Campus project · Installation</span>
+                <span style="marginTop: auto; display: inline-block; alignSelf: flex-start; fontSize: 15px; fontWeight: 500; color: #0E6FAF; borderBottom: 1px solid #A9C6DB; paddingBottom: 2px">View project ↓</span>
+              </span>
+            </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <dc-import name="JfdCaseStudy" anchor="mammography" n="Project 01" use-case="Specialist healthcare environment" project-name="Plymouth Mammography Unit" subhead="A doorset that had to protect, screen and perform — restored after flood damage." tags="{{ mammoTags }}" img="assets/mammo-rooms.jpeg" img-alt="Lead-lined doorsets to Mammography Rooms 1 and 2 with radiation warning signage, Plymouth Mammography Unit" img-pos="50% 45%" caption="Mammography Rooms 1 &amp; 2 · Plymouth Mammography Unit" facts="{{ mammoFacts }}" situation="{{ mammoSituation }}" stages="{{ mammoStages }}" outcome="Specialist doorsets meeting radiation-protection and privacy requirements." outcome-sub="Installed while maintaining the required fire performance — the right doorset for the room, the building and the people using it." links="{{ linksInstall }}" pending="{{ mammoPending }}" show-notes="{{ showNotes }}" hint-size="100%,1600px"></dc-import>
+
+  <dc-import name="JfdCaseStudy" anchor="tor-bridge" n="Project 02" use-case="Deadline-led education project" project-name="Tor Bridge High" subhead="Custom-coloured doorsets, programmed around the return to school." tags="{{ torTags }}" img="assets/torbridge-doorset.jpeg" img-alt="Custom-coloured orange fire doorset with vision panel and oak frame, Tor Bridge High" img-pos="50% 40%" caption="Custom-coloured doorset · Tor Bridge High" facts="{{ torFacts }}" situation="{{ torSituation }}" stages="{{ torStages }}" outcome="Custom-coloured doorsets delivered alongside Mercury Construction to a return-to-school programme." outcome-sub="A deadline-led education project where the programme mattered as much as the product." links="{{ linksInstall }}" pending="{{ torPending }}" show-notes="{{ showNotes }}" hint-size="100%,1600px"></dc-import>
+
+  <dc-import name="JfdCaseStudy" anchor="stoke-damerel" n="Project 03" use-case="Campus installation" project-name="Stoke Damerel Community College" subhead="A defined installation package across a Sixth Form campus." tags="{{ stokeTags }}" img="assets/stoke-room.jpeg" img-alt="Completed teaching room with installed fire door, Stoke Damerel Community College Sixth Form campus" img-pos="50% 50%" caption="Sixth Form campus · Stoke Damerel Community College" facts="{{ stokeFacts }}" situation="{{ stokeSituation }}" stages="{{ stokeStages }}" outcome="Doors and doorsets installed across one campus, with compliance checks." outcome-sub="A defined package delivered within Obedair’s wider campus project in 2025." links="{{ linksInstall }}" pending="{{ stokePending }}" show-notes="{{ showNotes }}" hint-size="100%,1500px"></dc-import>
+
+  <section data-screen-label="07 Common approach" aria-label="Different projects, the same need for clarity" style="background: var(--jfd-graphite); color: #EEF3F7">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(58px, 9.6vw, 96px) clamp(20px, 5vw, 28px)">
+      <h2 style="fontFamily: var(--jfd-font-display); fontSize: clamp(40px, 5.2vw, 66px); fontWeight: 600; lineHeight: 1.04; letterSpacing: '-0.025em'; margin: 0 0 18px; maxWidth: 18ch">Different projects. <span style="color: var(--jfd-azure-soft)">The same need for clarity.</span></h2>
+      <p style="fontSize: 17.5px; lineHeight: 1.6; color: var(--jfd-dark-ink); margin: 0 0 48px; maxWidth: 56ch">A specialist healthcare doorset, a school deadline and a campus package look nothing alike. What the people responsible for the building need from each is the same.</p>
+      <ol style="listStyle: none; margin: 0; padding: 0; display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1px; background: transparent; border: 1px solid #3C4348">
+        <sc-for list="{{ synthesis }}" as="sy" hint-placeholder-count="3">
+          <li style="outline: 1px solid #3C4348; background: #23282C; padding: 28px 26px 30px; minWidth: 0">
+            <span style="display: flex; alignItems: center; gap: 12px; fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.1em'; textTransform: uppercase; color: var(--jfd-dark-ink-2); marginBottom: 18px"><span>{{ sy.n }}</span><span style="flex: 1; height: 1px; background: #3C4348"></span><span style="color: #6FC4F2">{{ sy.arrow }}</span></span>
+            <span style="display: block; fontFamily: var(--jfd-font-display); fontSize: 30px; fontWeight: 600; lineHeight: 1.1; color: #FFFFFF; marginBottom: 8px">{{ sy.t }}</span>
+            <span style="display: block; fontSize: 16px; lineHeight: 1.55; color: var(--jfd-dark-ink-2)">{{ sy.b }}</span>
+          </li>
+        </sc-for>
+      </ol>
+    </div>
+  </section>
+
+  <dc-import name="JfdFinalCta" label-a="Similar work?" title="Got a similar piece of fire-door work?" body="{{ ctaBody }}" cta="Send us your survey or job sheet" label-b="Or" alt-title="Prefer to talk it through first?" alt-body="Tell us about the building, the doors and the programme." alt-cta="Talk through your fire-door work" hint-size="100%,560px"></dc-import>
+</main>
+
+<dc-import name="JfdFooter" hint-size="100%,360px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;showNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Review&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const tbc = (k) => ({ k, pending: true });
+    return {
+      showNotes: this.props.showNotes ?? true,
+      lenses: [
+        { label: 'Decide', t: 'Understand the requirement', dot: '#A33A2A', arrow: '→' },
+        { label: 'Deliver', t: 'Work around the real site', dot: '#8A6100', arrow: '→' },
+        { label: 'Close', t: 'Leave a clear completion record', dot: '#1F6B4D', arrow: '' }
+      ],
+      minorCards: [
+        { href: '#tor-bridge', useCase: 'Deadline-led education project', name: 'Tor Bridge High', proof: 'Custom-coloured doorsets, programmed around the return to school.', tags: 'Education · Deadline-led · Installation', img: ((window.__resources||{})["src/assets/images/photos/torbridge-doorset.jpeg"]||"assets/torbridge-doorset.jpeg"), alt: 'Custom-coloured fire doorset, Tor Bridge High', pos: '50% 40%' },
+        { href: '#stoke-damerel', useCase: 'Campus installation', name: 'Stoke Damerel Community College', proof: 'Doors and doorsets installed across a Sixth Form campus, with Obedair.', tags: 'Education · Campus project · Installation', img: ((window.__resources||{})["src/assets/images/photos/stoke-room.jpeg"]||"assets/stoke-room.jpeg"), alt: 'Installed fire door in a Sixth Form teaching room, Stoke Damerel', pos: '50% 50%' }
+      ],
+      linksInstall: [{ label: 'Fire Door Replacement & Installation →', href: 'Service%20Replacement.dc.html' }],
+
+      mammoTags: ['Healthcare', 'Specialist requirements', 'Installation'],
+      mammoFacts: [
+        { k: 'Sector', v: 'Healthcare' }, { k: 'Location', v: 'Plymouth' }, { k: 'Trigger', v: 'Flood damage' }, { k: 'Scope', v: 'Specialist replacement doorsets' },
+        tbc('Doorsets'), tbc('Project year'), tbc('Programme'), tbc('Client / contractor')
+      ],
+      mammoSituation: [
+        'The unit needed its doors replaced following significant flood damage.',
+        'These weren’t standard openings. Doors around the X-ray areas had to provide radiation protection as well as the required fire performance, and patient privacy still had to be maintained.'
+      ],
+      mammoStages: [
+        { key: 'decide', title: 'Define a doorset that does more than one job.', lines: ['Before anything could be ordered, each opening’s requirement had to be clear: fire performance, radiation protection and privacy, together.'],
+          callouts: [{ k: 'Clinical requirement', v: 'Radiation protection' }, { k: 'Doorset response', v: 'Lead-lined core' }, { k: 'Privacy requirement', v: 'Integrated blinds' }] },
+        { key: 'deliver', title: 'Specialist replacement doorsets installed.', lines: ['JFD supplied and installed specialist PVC-wrapped doorsets, some incorporating lead-lined frames, architraves and associated components around the X-ray areas.'],
+          shots: [{ src: ((window.__resources||{})["src/assets/images/photos/mammo-blind-door.jpeg"]||"assets/mammo-blind-door.jpeg"), alt: 'Single fire doorset with integrated privacy blind in the vision panel, FR30 marked', label: 'Integrated privacy blind · vision panel', pos: '50% 45%' }, { src: ((window.__resources||{})["src/assets/images/photos/mammo-double-door.jpeg"]||"assets/mammo-double-door.jpeg"), alt: 'Access-controlled double doorset with powered operator', label: 'Access-controlled double doorset', pos: '50% 50%' }, { src: ((window.__resources||{})["src/assets/images/photos/mammo-corridor.jpeg"]||"assets/mammo-corridor.jpeg"), alt: 'Reception corridor with replacement doorsets in a live healthcare unit', label: 'Reception corridor · live unit', pos: '50% 55%' }] },
+        { key: 'close', pendingOnly: true, title: 'Door-level close-out record', lines: ['Reserved for the DDS record or handover document once supplied. Hidden on the live page until then.'] }
+      ],
+      mammoPending: ['number of doorsets, project date and programme', 'client / principal contractor and live-site status', 'close-out evidence (DDS record or handover)', 'testimonial'],
+
+      torTags: ['Education', 'Deadline-led', 'Installation'],
+      torFacts: [
+        { k: 'Sector', v: 'Education' }, { k: 'Principal contractor', v: 'Mercury Construction' }, { k: 'Scope', v: 'Custom-coloured doorsets' }, { k: 'Deadline', v: 'Return to school' },
+        tbc('Doors / doorsets'), tbc('Project year'), tbc('Programme dates')
+      ],
+      torSituation: [
+        'Tor Bridge High needed its fire doorsets installed around the school calendar, with the work programmed to finish before students returned.',
+        'JFD worked alongside principal contractor Mercury Construction, with doorsets specified in custom colours for the school.'
+      ],
+      torStages: [
+        { key: 'decide', weight: 'brief', title: 'Defined package received through the principal contractor.', lines: ['The doorset requirement, including the custom colours, came as part of the wider project package.'] },
+        { key: 'deliver', title: 'A programme built around the return to school.', lines: ['The installation had to be sequenced so the building would be ready for students coming back, while sharing the site with Mercury Construction’s wider works.'],
+          timeline: [{ t: 'Work begins', when: 'Programme start' }, { t: 'Installation sequence', when: 'Area by area' }, { t: 'Final checks', when: 'Before handover' }, { t: 'Students return', when: 'Start of term' }],
+          shots: [{ src: ((window.__resources||{})["src/assets/images/photos/torbridge-mercury.jpeg"]||"assets/torbridge-mercury.jpeg"), alt: 'Mercury Construction site hoarding outside the school building', label: 'Shared site · Mercury Construction', pos: '50% 60%' }, { src: ((window.__resources||{})["src/assets/images/photos/torbridge-sign.jpeg"]||"assets/torbridge-sign.jpeg"), alt: 'Tor Bridge High building signage', label: 'Live school site', pos: '50% 50%' }] },
+        { key: 'close', pendingOnly: true, title: 'Completion confirmation and records', lines: ['Reserved for confirmation the programme finished before students returned, plus completion records.'] }
+      ],
+      torPending: ['door count and exact programme', 'confirmation the deadline was achieved (then upgrade the outcome line)', 'sequencing / progress evidence and completion records', 'testimonial'],
+
+      stokeTags: ['Education', 'Campus project', 'Installation'],
+      stokeFacts: [
+        { k: 'Sector', v: 'Education' }, { k: 'Contractor', v: 'Obedair' }, { k: 'Year', v: '2025' }, { k: 'Scope', v: 'Full installation across campus' },
+        tbc('Doors / doorsets'), tbc('Programme'), tbc('Occupied during works')
+      ],
+      stokeSituation: [
+        'Stoke Damerel Community College needed doors and doorsets installed across its Sixth Form campus as a defined installation package.',
+        'JFD worked with Obedair on the project in 2025.'
+      ],
+      stokeStages: [
+        { key: 'decide', weight: 'brief', title: 'Defined installation package received.', lines: ['The scope was set as a full installation of doors and doorsets across the campus.'] },
+        { key: 'deliver', title: 'Full installation across a Sixth Form campus.', lines: ['Doors and doorsets were installed across the campus, coordinated with Obedair’s wider programme.'],
+          shots: [{ src: ((window.__resources||{})["src/assets/images/photos/stoke-lock.jpeg"]||"assets/stoke-lock.jpeg"), alt: 'Certified lock and ironmongery detail on an installed doorset, Stoke Damerel', label: 'Ironmongery detail · installed doorset', pos: '50% 30%' }] },
+        { key: 'close', weightLabel: 'Compliance checks', title: 'Compliance checks carried out on the installed doors.', lines: ['Compliance checks formed part of the installation package.'] }
+      ],
+      stokePending: ['door / doorset count, programme and project trigger', 'occupied status during works', 'exact compliance / QA process and close-out evidence', 'testimonial'],
+
+      synthesis: [
+        { t: 'Requirement', b: 'What the requirement actually is.' },
+        { t: 'Work on site', b: 'What is happening on site.' },
+        { t: 'Completed evidence', b: 'What has actually been completed.' }
+      ].map((s, i, a) => ({ ...s, n: String(i + 1).padStart(2, '0'), arrow: i < a.length - 1 ? '→' : '' })),
+      ctaBody: ['Start with the survey, job sheet, specification or requirement you already have.']
+    };
+  }
+}
+</script>
+
+
+</body></html>

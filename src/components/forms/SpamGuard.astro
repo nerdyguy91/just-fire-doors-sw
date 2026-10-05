@@ -1,0 +1,29 @@
+---
+/**
+ * Spam protection fields shared by both forms (plan section 9):
+ *   - a honeypot that people never see or reach by keyboard
+ *   - `ts`, set by src/scripts/forms.ts to the time the form was ready, for the minimum fill time
+ *   - the Turnstile widget container. The widget loads when the form is first focused and only
+ *     shows itself if Cloudflare needs the visitor to interact.
+ */
+interface Props {
+  /** DOM id prefix, unique per form. */
+  prefix: string;
+}
+
+const { prefix } = Astro.props;
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+
+<div class="jfd-visually-hidden" aria-hidden="true">
+  <label for={`${prefix}-website`}>Leave this field empty</label>
+  <input type="text" id={`${prefix}-website`} name="website" tabindex="-1" autocomplete="off" />
+</div>
+<input type="hidden" name="ts" />
+<div class="turnstile" data-turnstile data-sitekey={siteKey}></div>
+
+<style>
+  .turnstile:not(:empty) {
+    margin-top: 20px;
+  }
+</style>

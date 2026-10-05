@@ -1,0 +1,78 @@
+# Checks every pull request and every push to main (plan section 14).
+# Cloudflare Pages builds and deploys separately; this workflow only verifies.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Formatting
+        run: npm run format:check
+
+      - name: Types
+        run: npm run check
+
+      - name: Unit and function tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: HTML validity
+        run: npm run lint:html
+
+      # Placeholder text, internal links and anchors, per-page JS and CSS budgets.
+      - name: Built-site checks
+        run: npm run check:dist
+
+      - name: Install Chrome for the accessibility check
+        run: npx puppeteer browsers install chrome
+
+      - name: Start the built site
+        run: |
+          npm run preview -- --port 4321 &
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:4321/sitemap-0.xml > /dev/null && exit 0
+            sleep 1
+          done
+          echo "Preview server did not start" && exit 1
+
+      # axe, WCAG 2 AA, every page in the sitemap. "Needs review" items are listed, not failed.
+      - name: Accessibility
+        run: npm run a11y
+
+      # Mobile preset on five key pages, against the budgets in lighthouserc.json.
+      - name: Lighthouse
+        run: npm run lhci
+
+      - name: Keep Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci/reports
+          if-no-files-found: ignore
+          retention-days: 14

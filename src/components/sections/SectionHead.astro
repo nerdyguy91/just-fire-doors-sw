@@ -1,0 +1,66 @@
+---
+/**
+ * Section heading: optional eyebrow and an H2 (jfd-h2), with an optional intro.
+ *   stack  eyebrow, title, then the slot underneath
+ *   split  title block on the left, slot (intro copy) on the right, bottom-aligned
+ */
+interface Props {
+  id: string;
+  title: string;
+  eyebrow?: string;
+  /** max-width of the title in ch. */
+  titleWidth?: number;
+  layout?: 'stack' | 'split';
+  /** Space below the head in px. */
+  spacing?: number;
+  /** Eyebrow colour on dark sections. */
+  dark?: boolean;
+}
+
+const { id, title, eyebrow, titleWidth, layout = 'stack', spacing, dark = false } = Astro.props;
+const hasIntro = Astro.slots.has('default');
+const titleStyle = titleWidth ? `max-width: ${titleWidth}ch` : undefined;
+---
+
+<div
+  class:list={['head', `head--${layout}`]}
+  style={spacing !== undefined ? `margin-bottom: ${spacing}px` : undefined}
+>
+  <div class="head__title-block">
+    {eyebrow && <p class:list={['jfd-eyebrow', { 'head__eyebrow--dark': dark }]}>{eyebrow}</p>}
+    <h2 {id} class="jfd-h2 head__title" style={titleStyle}>
+      {title}
+    </h2>
+  </div>
+  {hasIntro && (
+    <div class="head__intro">
+      <slot />
+    </div>
+  )}
+</div>
+
+<style>
+  .head--stack .head__title {
+    margin: 0 0 22px;
+  }
+  .head--split {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 24px 80px;
+    align-items: end;
+    margin-bottom: 40px;
+  }
+  .head--split .head__title {
+    margin: 0;
+  }
+  .head__title-block,
+  .head__intro {
+    min-width: 0;
+  }
+  .head__intro :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  .head__eyebrow--dark {
+    color: var(--jfd-azure-soft);
+  }
+</style>

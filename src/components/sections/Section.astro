@@ -1,0 +1,83 @@
+---
+/**
+ * Page section shell: full-width band with the standard container and fluid padding.
+ *   tone     ground (default), surface (white), tint, dark (graphite)
+ *   layout   stack (default) or split: two-column auto-fit grid (prototype pattern)
+ *   size     default padding, or large (clamp 58–96px, used by dark feature bands)
+ */
+interface Props {
+  tone?: 'ground' | 'surface' | 'tint' | 'dark';
+  layout?: 'stack' | 'split';
+  size?: 'default' | 'large';
+  /** Split grid: minimum column width (px), column gap (px) and vertical alignment. */
+  min?: number;
+  gap?: number;
+  align?: 'start' | 'center' | 'end';
+  labelledby?: string;
+  label?: string;
+  id?: string;
+  class?: string;
+}
+
+const {
+  tone = 'ground',
+  layout = 'stack',
+  size = 'default',
+  min = 320,
+  gap = 80,
+  align = 'start',
+  labelledby,
+  label,
+  id,
+  class: className,
+} = Astro.props;
+const style =
+  layout === 'split'
+    ? `--split-min: ${min}px; --split-gap: ${gap}px; --split-align: ${align}`
+    : undefined;
+---
+
+<section
+  {id}
+  class:list={['sec', `sec--${tone}`, { 'jfd-on-dark': tone === 'dark' }, className]}
+  aria-labelledby={labelledby}
+  aria-label={label}
+>
+  <div class:list={['sec__inner', `sec__inner--${layout}`, `sec__inner--${size}`]} {style}>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .sec {
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .sec--surface {
+    background: var(--jfd-surface);
+  }
+  .sec--tint {
+    background: var(--jfd-tint);
+  }
+  .sec--dark {
+    background: var(--jfd-graphite);
+    color: var(--jfd-dark-heading);
+    border-bottom: 0;
+  }
+  .sec__inner {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: var(--jfd-section-y-fluid) var(--jfd-gutter-fluid);
+  }
+  .sec__inner--large {
+    padding: clamp(58px, 9.6vw, 96px) var(--jfd-gutter-fluid);
+  }
+  .sec__inner--split {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--split-min)), 1fr));
+    gap: clamp(28px, 6vw, 56px) var(--split-gap);
+    align-items: var(--split-align);
+  }
+  .sec__inner--split > :global(*) {
+    min-width: 0;
+  }
+</style>

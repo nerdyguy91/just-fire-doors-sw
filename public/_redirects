@@ -1,0 +1,10 @@
+# Cloudflare Pages redirects (plan section 4). Static pages only: Functions are not affected.
+# www → apex and HTTP → HTTPS are Cloudflare rules, set up in step 14, not here.
+
+# Friendly aliases
+/why-jfd /about/ 301
+/why-jfd/ /about/ 301
+/quote /get-a-quote/ 301
+/quote/ /get-a-quote/ 301
+
+# Old-site URLs: add a 301 for each once the current site's URLs are known (Decision 4).

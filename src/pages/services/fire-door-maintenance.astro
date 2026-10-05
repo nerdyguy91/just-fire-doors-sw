@@ -1,0 +1,1663 @@
+---
+/**
+ * Fire Door Maintenance.
+ * Ported from docs/prototype/pages/service-maintenance.dc.html.
+ */
+import { getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import RecordFrame from '../../components/records/RecordFrame.astro';
+import ProofStrip from '../../components/sections/ProofStrip.astro';
+import Section from '../../components/sections/Section.astro';
+import SectionHead from '../../components/sections/SectionHead.astro';
+import EvidenceBlock from '../../components/sections/EvidenceBlock.astro';
+import WhyJfd from '../../components/sections/WhyJfd.astro';
+import FaqList from '../../components/sections/FaqList.astro';
+import FinalCta from '../../components/sections/FinalCta.astro';
+import { paths } from '../../data/paths';
+import { quoteHref } from '../../data/quote-routes';
+import { getService } from '../../data/services';
+import { faqPage, service as serviceNode } from '../../lib/schema';
+import pubCloser from '../../assets/images/photos/pub-closer.jpeg';
+import installChecks from '../../assets/images/evidence/dds-install-checks.jpeg';
+import partsList from '../../assets/images/evidence/dds-parts-list.jpeg';
+
+const site = Astro.site!;
+const svc = getService('maintenance');
+const faqs = (await getEntry('faqs', 'maintenance'))!.data;
+const description =
+  'Planned fire door maintenance for commercial buildings and estates across Plymouth and the South West. Move from reactive repairs to a clear, recorded programme.';
+const quote = quoteHref(svc.quoteRoute);
+const crumbs = [
+  { name: 'Services', path: paths.services },
+  { name: svc.shortTitle, path: svc.path },
+];
+
+/** Status colours used by this page's illustrative records (includes action blue). */
+const TONE = {
+  closed: 'var(--jfd-status-closed)',
+  onsite: 'var(--jfd-status-onsite)',
+  decide: 'var(--jfd-status-decide)',
+  neutral: 'var(--jfd-status-neutral)',
+  action: 'var(--jfd-action)',
+} as const;
+type ToneKey = keyof typeof TONE;
+const CELL = {
+  done: 'var(--jfd-status-closed)',
+  scheduled: 'var(--jfd-action)',
+  none: 'var(--jfd-surface)',
+} as const;
+type Cell = keyof typeof CELL;
+const n2 = (i: number) => String(i + 1).padStart(2, '0');
+
+const sites: { name: string; meta: string; q: Cell[]; status: string; tone: ToneKey }[] = [
+  {
+    name: 'Site A · Secondary school',
+    meta: '112 doors',
+    q: ['done', 'done', 'scheduled', 'none'],
+    status: 'Scheduled',
+    tone: 'action',
+  },
+  {
+    name: 'Site B · Health centre',
+    meta: '86 doors',
+    q: ['done', 'done', 'done', 'scheduled'],
+    status: 'Checked',
+    tone: 'closed',
+  },
+  {
+    name: 'Site C · Offices',
+    meta: '54 doors',
+    q: ['done', 'scheduled', 'none', 'scheduled'],
+    status: 'Approval req.',
+    tone: 'decide',
+  },
+  {
+    name: 'Site D · Primary school',
+    meta: '48 doors',
+    q: ['done', 'none', 'scheduled', 'none'],
+    status: 'Complete',
+    tone: 'closed',
+  },
+  {
+    name: 'Site E · Depot',
+    meta: '38 doors',
+    q: ['done', 'none', 'none', 'scheduled'],
+    status: 'Outstanding',
+    tone: 'onsite',
+  },
+  {
+    name: 'Site F · Library',
+    meta: '74 doors',
+    q: ['scheduled', 'none', 'scheduled', 'none'],
+    status: 'Scheduled',
+    tone: 'action',
+  },
+];
+const cellLabel = { done: 'visit complete', scheduled: 'scheduled', none: 'not due' } as const;
+
+const reactive = [
+  { date: '14 Jan', t: 'Closer not latching, stair 2', src: 'Caretaker', indent: 0, width: 100 },
+  { date: '02 Feb', t: '7 actions from annual survey', src: 'Survey', indent: 24, width: 92 },
+  { date: '19 Feb', t: 'Seal damaged, kitchen', src: 'Email', indent: 8, width: 86 },
+  { date: '03 Mar', t: 'Door catching on frame, L2', src: 'Helpdesk', indent: 40, width: 88 },
+  { date: '11 Mar', t: 'Hinge screw missing, corridor', src: 'Contractor', indent: 16, width: 90 },
+  { date: '??', t: 'Previous repair — no record', src: 'Unknown', indent: 32, width: 84 },
+];
+const planned = [
+  { t: 'Finding issues', b: 'Scheduled checks across the doors in the programme.' },
+  { t: 'Deciding what needs doing', b: 'Maintain, repair, replace or investigate.' },
+  { t: 'Completing the work', b: 'Agreed maintenance and remedial work carried out.' },
+  { t: 'Keeping the records up to date', b: 'One record per door, ready for the next cycle.' },
+];
+const maintGroups = [
+  {
+    label: 'Check',
+    items: [
+      {
+        t: 'Checking existing fire doors',
+        b: 'Looking for changes in condition, wear or issues requiring attention.',
+      },
+    ],
+  },
+  {
+    label: 'Maintain',
+    items: [
+      { t: 'Door closers', b: 'Adjustment, maintenance or replacement where appropriate.' },
+      { t: 'Hinges', b: 'Addressing worn or damaged hinges and associated issues.' },
+      {
+        t: 'Smoke and intumescent seals',
+        b: 'Replacing damaged, missing or worn seals where required.',
+      },
+      {
+        t: 'Gaps and alignment',
+        b: 'Adjusting doors where a suitable maintenance solution is available.',
+      },
+      { t: 'Latches and ironmongery', b: 'Maintaining or replacing relevant hardware.' },
+      {
+        t: 'Minor damage and adjustments',
+        b: 'Dealing with straightforward defects before they simply sit on the action list.',
+      },
+    ],
+  },
+  {
+    label: 'Escalate',
+    items: [
+      {
+        t: 'Remedial works',
+        b: 'Moving identified issues into an agreed repair programme where more work is needed.',
+      },
+      {
+        t: 'Replacement',
+        b: 'Where maintenance or repair is no longer the right action, the door can be moved into a replacement scope.',
+      },
+    ],
+  },
+  {
+    label: 'Record',
+    items: [
+      {
+        t: 'Completion records',
+        b: 'Keeping a clearer record of what was identified and what was dealt with.',
+      },
+    ],
+  },
+];
+const cycle = [
+  {
+    label: 'Decide',
+    b: 'Identify new defects and work out what needs maintenance, repair, replacement or further investigation.',
+    tone: 'decide' as const,
+  },
+  {
+    label: 'Deliver',
+    b: 'Complete the agreed maintenance and remedial work.',
+    tone: 'onsite' as const,
+  },
+  {
+    label: 'Close',
+    b: 'Record what was done, retain the relevant evidence and make anything still outstanding clear.',
+    tone: 'closed' as const,
+  },
+];
+const visibility: { label: string; n: string; d: string; tone: ToneKey }[] = [
+  { label: 'Scheduled', n: '86', d: 'doors in this visit', tone: 'action' },
+  { label: 'Checked', n: '64', d: 'checked so far', tone: 'neutral' },
+  { label: 'Completed', n: '41', d: 'maintenance done', tone: 'closed' },
+  { label: 'New issue', n: '9', d: 'identified this visit', tone: 'onsite' },
+  { label: 'Approval', n: '3', d: 'remedials to approve', tone: 'decide' },
+  { label: 'Outstanding', n: '5', d: 'still open', tone: 'onsite' },
+  { label: 'Evidence', n: '41', d: 'records with photos', tone: 'closed' },
+  { label: 'Next step', n: '14 May', d: 'next visit booked', tone: 'action' },
+];
+const doorLog: { id: string; t: string; status: string; tone: ToneKey }[] = [
+  { id: 'FD30-B02', t: 'Closer adjusted, latching checked', status: 'Completed', tone: 'closed' },
+  { id: 'FD30-B09', t: 'Seal worn at hinge side — replaced', status: 'Completed', tone: 'closed' },
+  {
+    id: 'FD60-B14',
+    t: 'Frame damaged — remedial quote issued',
+    status: 'Approval req.',
+    tone: 'decide',
+  },
+  { id: 'FD30-B21', t: 'Leaf dropping — hinges to replace', status: 'New issue', tone: 'onsite' },
+];
+const remedials = [
+  {
+    t: 'Pick up wear and defects earlier',
+    b: 'So issues become visible rather than quietly sitting unnoticed.',
+  },
+  {
+    t: 'Deal with straightforward maintenance as it appears',
+    b: 'Rather than allowing every small problem to join the next large remedial programme.',
+  },
+  {
+    t: 'Spot larger requirements sooner',
+    b: 'If a door needs more significant repair, investigation or replacement, the requirement becomes visible earlier.',
+  },
+  {
+    t: 'Keep a clearer action list',
+    b: 'So the estate is easier to manage between larger inspection cycles.',
+  },
+];
+const steps = [
+  { t: 'One commercial building', h: 120 },
+  { t: 'A few priority sites', h: 170 },
+  { t: 'A regional group of properties', h: 230 },
+];
+const altStarts = [
+  'An existing remedial backlog',
+  'A scheduled inspection & maintenance cycle',
+  'Capacity alongside your contractor',
+];
+const freqFactors = [
+  'the type and use of the building',
+  'how heavily the doors are used',
+  'their condition',
+  'the risks within the premises',
+  'the inspection or checking requirements that apply',
+];
+const escalate: { label: string; t: string; b: string; tone: ToneKey }[] = [
+  {
+    label: 'Maintain',
+    t: 'Adjustment or routine maintenance',
+    b: 'A straightforward issue that can be dealt with appropriately.',
+    tone: 'action',
+  },
+  {
+    label: 'Repair',
+    t: 'Remedial repair',
+    b: 'More involved work that needs to be scoped and completed.',
+    tone: 'closed',
+  },
+  {
+    label: 'Investigate',
+    t: 'Further investigation',
+    b: 'Where more information is needed before the right action can be confirmed.',
+    tone: 'decide',
+  },
+  {
+    label: 'Replace',
+    t: 'Replacement',
+    b: 'Where the existing door or doorset is no longer suitable for repair.',
+    tone: 'onsite',
+  },
+];
+const startPoints = [
+  { t: 'One site', b: 'Start with a building that currently needs attention.' },
+  {
+    t: 'A priority group of properties',
+    b: 'Focus on the part of the estate creating the most work.',
+  },
+  {
+    t: 'An existing remedial backlog',
+    b: 'Bring the immediate issues back under control before establishing the recurring programme.',
+  },
+  {
+    t: 'A scheduled maintenance cycle',
+    b: 'Put a clearer rhythm around inspections and maintenance.',
+  },
+  {
+    t: 'Overflow work',
+    b: 'Use JFD alongside your existing supplier where you need extra capacity.',
+  },
+  {
+    t: 'A defined trial',
+    b: 'Start with a manageable piece of the estate before deciding whether to extend the relationship.',
+  },
+];
+---
+
+<BaseLayout
+  title="Fire Door Maintenance | South West | Just Fire Doors"
+  {description}
+  canonicalPath={svc.path}
+  breadcrumbs={crumbs}
+  schema={[serviceNode(site, svc, description), faqPage(site, svc.path, faqs.items)]}
+>
+  <PageHero
+    breadcrumbs={crumbs}
+    size="large"
+    eyebrow="Commercial fire door maintenance across the South West"
+  >
+    <Fragment slot="title">
+      Fire Door <span class="jfd-accent">Maintenance</span>
+    </Fragment>
+    <p class="hero-lead">
+      Keep your fire doors functioning properly and your outstanding actions under control with a
+      clearer programme of inspections, maintenance and remedial work.
+    </p>
+    <p class="hero-body">
+      From one building to a multi-site estate, JFD can help you move away from repeated reactive
+      repairs and towards a more manageable way of looking after your fire doors.
+    </p>
+    <div class="hero-actions hero-actions--stack">
+      <a class="jfd-btn" href={quote}>
+        Discuss your fire door maintenance
+      </a>
+      <p class="hero-prompt">
+        <span>Already have outstanding remedials?</span>
+        <a class="jfd-link prompt-link" href={quoteHref('backlog')}>
+          Send us your job sheet →
+        </a>
+      </p>
+    </div>
+
+    <RecordFrame
+      slot="aside"
+      title="Maintenance programme · 2026–27"
+      meta="6 sites · 412 doors"
+      shadow
+      caption="Illustrative example"
+    >
+      <table class="plan">
+        <caption class="jfd-visually-hidden">
+          Illustrative maintenance programme: each site, quarterly visits and current status
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Site</th>
+            <th scope="col">Q1</th>
+            <th scope="col">Q2</th>
+            <th scope="col">Q3</th>
+            <th scope="col">Q4</th>
+            <th scope="col">Now</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sites.map((s) => (
+            <tr>
+              <td>
+                <span class="plan__name">{s.name}</span>
+                <span class="plan__meta">{s.meta}</span>
+              </td>
+              {s.q.map((c) => (
+                <td class="plan__q">
+                  <span class="plan__cell" style={`background: ${CELL[c]}`}>
+                    <span class="jfd-visually-hidden">{cellLabel[c]}</span>
+                  </span>
+                </td>
+              ))}
+              <td>
+                <span class="dot-label" style={`color: ${TONE[s.tone]}`}>
+                  {s.status}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="plan__legend" aria-hidden="true">
+        <span>
+          <span class="plan__key" style={`background: ${CELL.done}`}></span>Visit complete
+        </span>
+        <span>
+          <span class="plan__key" style={`background: ${CELL.scheduled}`}></span>Scheduled
+        </span>
+        <span>
+          <span class="plan__key plan__key--none"></span>Not due
+        </span>
+      </p>
+    </RecordFrame>
+  </PageHero>
+
+  <ProofStrip />
+
+  <!-- 01 · Reactive → planned -->
+  <Section labelledby="planned-title">
+    <SectionHead
+      id="planned-title"
+      layout="split"
+      eyebrow="01 · Reactive → planned"
+      title="Move from reactive repairs to a clearer maintenance programme."
+      titleWidth={18}
+      spacing={44}
+    >
+      <p class="t-lead intro-17">
+        One repair gets raised. Then another survey adds a few more actions. A closer stops working.
+        A seal is damaged. A door starts catching. Someone adds it to the list for later.
+      </p>
+      <p class="intro-strong">
+        None of those issues feels enormous on its own. The problem is how easily they build up.
+      </p>
+    </SectionHead>
+    <div class="contrast">
+      <div class="contrast__col contrast__col--reactive">
+        <p class="contrast__head">
+          <span>Reactive</span>
+          <span class="contrast__rule" aria-hidden="true"></span>
+          <span class="contrast__meta">6 open · 5 sources</span>
+        </p>
+        <ul class="reactive" role="list">
+          {reactive.map((r) => (
+            <li style={`margin-left: ${r.indent}px; max-width: ${r.width}%`}>
+              <span class="reactive__date">{r.date}</span>
+              <span class="reactive__t">{r.t}</span>
+              <span class="reactive__src">{r.src}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="contrast__col">
+        <p class="contrast__head contrast__head--planned">
+          <span>Planned</span>
+          <span class="contrast__rule" aria-hidden="true"></span>
+          <span class="contrast__meta">One programme · one record</span>
+        </p>
+        <ol class="planned" role="list">
+          {planned.map((p, i) => (
+            <li>
+              <span class="planned__rail" aria-hidden="true">
+                <span class:list={['planned__n', { 'is-filled': i === planned.length - 1 }]}>
+                  {n2(i)}
+                </span>
+                {i < planned.length - 1 && <span class="planned__line" />}
+              </span>
+              <span class="planned__text">
+                <span class="planned__t">{p.t}</span>
+                <span class="planned__b">{p.b}</span>
+              </span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+    <p class="t-lead contrast__outro">
+      A planned fire door maintenance approach gives your Estates or Facilities team a clearer
+      rhythm — so instead of repeatedly catching up with the fire-door list,{' '}
+      <strong>you can keep it under better control.</strong>
+    </p>
+  </Section>
+
+  <!-- 02 · Scope -->
+  <Section tone="surface" labelledby="includes-title">
+    <SectionHead
+      id="includes-title"
+      layout="split"
+      eyebrow="02 · Scope"
+      title="What does fire door maintenance include?"
+      titleWidth={18}
+      spacing={44}
+    >
+      <p class="t-lead intro-17">
+        Fire door maintenance is about keeping the whole door assembly working as intended, not
+        simply booking an annual visit. Depending on the doors and the work identified, maintenance
+        can include:
+      </p>
+    </SectionHead>
+    <div class="groups">
+      {maintGroups.map((g, gi) => (
+        <div class="groups__col">
+          <p class="groups__label">
+            <span class="groups__n" aria-hidden="true">
+              {n2(gi)}
+            </span>
+            <span>{g.label}</span>
+          </p>
+          {g.items.map((it) => (
+            <div class="groups__item">
+              <h3>{it.t}</h3>
+              <p>{it.b}</p>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+    <div class="pair">
+      <p class="pair__lead">The individual tasks matter.</p>
+      <p class="pair__statement">
+        But the bigger benefit is knowing they are being picked up as part of an organised programme
+        rather than waiting until somebody notices the next problem.
+      </p>
+    </div>
+  </Section>
+
+  <!-- 03 · The cycle -->
+  <Section tone="dark" labelledby="cycle-title">
+    <div class="cycle__head">
+      <div>
+        <p class="dark-eyebrow">03 · The cycle</p>
+        <h2 id="cycle-title" class="cycle__title">
+          Know what needs attention, what’s been dealt with and what comes next.
+        </h2>
+      </div>
+      <p class="t-lead intro-17 cycle__intro">
+        A maintenance programme should leave your estate clearer than it was before. JFD’s wider
+        approach follows three straightforward stages:
+      </p>
+    </div>
+    <ol class="cycle" role="list">
+      {cycle.map((c) => (
+        <li>
+          <div class="cycle__label-row">
+            <span class="cycle__dot" style={`background: ${TONE[c.tone]}`} aria-hidden="true" />
+            <h3>{c.label}</h3>
+            <span class="cycle__rule" aria-hidden="true" />
+            <span class="cycle__arrow" aria-hidden="true">
+              →
+            </span>
+          </div>
+          <p>{c.b}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="cycle__return" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <p class="cycle__repeat">Then repeat when the next inspection or maintenance activity is due</p>
+    <div class="pair pair--dark">
+      <p class="pair__lead">The point isn’t simply to have somebody visit the site regularly.</p>
+      <p class="pair__statement">
+        It’s to keep a clearer handle on the condition of the doors and the work that still needs
+        doing.
+      </p>
+    </div>
+  </Section>
+
+  <!-- 04 · Visibility -->
+  <Section layout="split" min={340} gap={72} labelledby="visibility-title">
+    <div class="vis-text">
+      <SectionHead
+        id="visibility-title"
+        eyebrow="04 · Visibility"
+        title="A maintenance programme shouldn’t create more chasing."
+        titleWidth={16}
+      />
+      <p class="t-muted vis-text__small">The useful question for an Estates team isn’t just:</p>
+      <p class="vis-text__old">“Has somebody been out?”</p>
+      <p class="t-muted vis-text__small">It’s:</p>
+      <p class="vis-text__new">“What has actually happened?”</p>
+      <p class="t-body vis-text__body">
+        A clear maintenance programme should make it easy to see the position without pulling apart
+        emails, job sheets and contractor updates every time someone asks.
+      </p>
+      <p class="vis-text__statement">
+        Get the work done with a clear view of what’s complete along the way.
+      </p>
+    </div>
+    <RecordFrame
+      title="Site B · Visit 3 of 4"
+      meta="86 doors"
+      shadow
+      caption="Illustrative example"
+    >
+      <dl class="vis-stats">
+        {visibility.map((v) => (
+          <div>
+            <dt>
+              <span class="dot-label dot-label--sm" style={`color: ${TONE[v.tone]}`}>
+                {v.label}
+              </span>
+            </dt>
+            <dd>
+              <span class="vis-stats__n">{v.n}</span>
+              <span class="vis-stats__d">{v.d}</span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+      <table class="log">
+        <caption class="jfd-visually-hidden">
+          Illustrative visit log: each door, the work and its status
+        </caption>
+        <thead class="jfd-visually-hidden">
+          <tr>
+            <th scope="col">Door</th>
+            <th scope="col">Work</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {doorLog.map((d) => (
+            <tr>
+              <td class="log__id">{d.id}</td>
+              <td class="log__t">{d.t}</td>
+              <td>
+                <span class="dot-label dot-label--sm" style={`color: ${TONE[d.tone]}`}>
+                  {d.status}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </RecordFrame>
+  </Section>
+
+  <!-- 05 · Remedials -->
+  <Section tone="surface" labelledby="remedials-title">
+    <SectionHead
+      id="remedials-title"
+      layout="split"
+      eyebrow="05 · Remedials"
+      title="Keep remedials manageable."
+      spacing={44}
+    >
+      <p class="t-lead intro-17 remedials__intro">
+        A maintenance programme won’t mean fire doors never develop faults. It can mean you are less
+        likely to discover a growing pile of them all at once.
+      </p>
+      <p class="t-muted">Regular inspection and maintenance can help you:</p>
+    </SectionHead>
+    <ol class="remedials" role="list">
+      {remedials.map((r, i) => (
+        <li>
+          <span class="remedials__n" aria-hidden="true">
+            {n2(i)}
+          </span>
+          <h3>{r.t}</h3>
+          <p>{r.b}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="callout">
+      <span>Already dealing with an accumulated list?</span>
+      <a class="jfd-link" href={paths.remedialWorks}>
+        See Fire Door Repairs &amp; Remedial Works →
+      </a>
+    </p>
+  </Section>
+
+  <!-- 06 · Estate fit -->
+  <Section layout="split" min={340} align="end" labelledby="estate-title">
+    <div>
+      <SectionHead
+        id="estate-title"
+        eyebrow="06 · Estate fit"
+        title="A maintenance approach that can work across your estate."
+        titleWidth={18}
+      />
+      <p class="t-lead intro-17 estate__lead">
+        JFD can help shape the work around the estate you actually manage.
+      </p>
+      <p class="t-muted estate__muted">
+        That might mean starting small, proving the approach and then extending it across more sites
+        where it makes sense.
+      </p>
+      <p class="estate__statement">You don’t need to move everything to JFD on day one.</p>
+    </div>
+    <div>
+      <p class="t-mono-label estate__label">Your maintenance requirement might start with</p>
+      <ol class="steps" role="list">
+        {steps.map((s, i) => (
+          <li class:list={{ 'is-last': i === steps.length - 1 }} style={`height: ${s.h}px`}>
+            <span class="steps__n">Step {n2(i)}</span>
+            <span class="steps__t">{s.t}</span>
+          </li>
+        ))}
+      </ol>
+      <p class="t-mono-label estate__or">Or start from</p>
+      <ul class="chips" role="list">
+        {altStarts.map((a) => (
+          <li class="jfd-chip">{a}</li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <!-- 07 · Frequency / 08 · Escalation -->
+  <Section tone="surface" layout="split" min={340} labelledby="frequency-title">
+    <div>
+      <p class="jfd-eyebrow">07 · Frequency</p>
+      <h2 id="frequency-title" class="qa__title">
+        How often do fire doors need checking and maintaining?
+      </h2>
+      <p class="qa__strong">
+        There isn’t one maintenance interval that makes sense for every building and every door.
+      </p>
+      <p class="qa__body qa__body--tight">
+        How often fire doors need checking can depend on factors including:
+      </p>
+      <ul class="ruled-list qa__list" role="list">
+        {freqFactors.map((f) => (
+          <li>{f}</li>
+        ))}
+      </ul>
+      <p class="qa__body">
+        A routine check is also not necessarily the same thing as a more detailed inspection by a
+        competent person, and maintenance itself should respond to what the door actually needs.
+      </p>
+      <p class="qa__body qa__body--last">
+        JFD can help you understand the current condition of your doors and put together a sensible
+        inspection and maintenance approach for the estate.
+      </p>
+      <a class="jfd-link" href={paths.inspections}>
+        Fire Door Inspections &amp; Surveys →
+      </a>
+    </div>
+    <div>
+      <p class="jfd-eyebrow">08 · Escalation</p>
+      <h2 class="qa__title">What happens when maintenance finds a bigger problem?</h2>
+      <p class="qa__body qa__body--last">
+        Not everything can or should be solved as routine maintenance. If a visit identifies
+        something more significant, there should still be a clear next step. Depending on the issue,
+        that might mean:
+      </p>
+      <dl class="escalate">
+        {escalate.map((e) => (
+          <div>
+            <dt>
+              <span class="dot-label" style={`color: ${TONE[e.tone]}`}>
+                {e.label}
+              </span>
+            </dt>
+            <dd>
+              <span class="escalate__t">{e.t}</span>
+              <span class="escalate__b">{e.b}</span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+      <p class="qa__body">
+        The important part is that the issue doesn’t disappear into another vague list.{' '}
+        <strong>It moves into the right next action.</strong>
+      </p>
+      <p class="links">
+        <a class="jfd-link" href={paths.remedialWorks}>
+          Fire Door Repairs &amp; Remedial Works →
+        </a>
+        <a class="jfd-link" href={paths.installation}>
+          Fire Door Replacement &amp; Installation →
+        </a>
+      </p>
+    </div>
+  </Section>
+
+  <EvidenceBlock
+    eyebrow="09 · Records"
+    title="Know what’s been done, not just that someone attended."
+    intro={['Maintenance records should be useful to the person managing the estate afterwards.']}
+    listTitle="They should make it easier to understand"
+    items={[
+      'which door was worked on',
+      'what was identified',
+      'what action was taken',
+      'the supporting evidence',
+      'anything still outstanding',
+      'what needs attention next',
+    ]}
+    outcome="Finish with clear evidence of what’s closed on the job sheet."
+    closing="That creates a clearer record from one maintenance cycle to the next."
+    shots={[
+      {
+        image: installChecks,
+        alt: 'Door Data Systems checks with photo evidence per question',
+        label: 'Checks · photo evidence per item',
+        position: '50% 0%',
+      },
+      {
+        image: partsList,
+        alt: 'Door Data Systems parts list for a single door',
+        label: 'Door record · parts list',
+        position: '50% 0%',
+      },
+    ]}
+    caption="Door Data Systems (DDS) — live JFD records, local council and Penryn College"
+  />
+
+  <!-- 10 · Starting points -->
+  <Section tone="tint" labelledby="start-title">
+    <SectionHead
+      id="start-title"
+      layout="split"
+      eyebrow="10 · Starting points"
+      title="You don’t have to move the whole estate at once."
+      titleWidth={16}
+    >
+      <p class="t-lead intro-17">
+        A planned maintenance approach doesn’t need to begin with a huge contract. A sensible
+        starting point might be:
+      </p>
+    </SectionHead>
+    <ol class="starts" role="list">
+      {startPoints.map((s, i) => (
+        <li>
+          <span class="starts__n" aria-hidden="true">
+            {n2(i)}
+          </span>
+          <span>
+            <span class="starts__t">{s.t}</span>
+            <span class="starts__b">{s.b}</span>
+          </span>
+        </li>
+      ))}
+    </ol>
+    <div class="starts__foot">
+      <p class="t-lead intro-17 starts__close">
+        <strong>Start with the fire-door problem that needs solving now.</strong> If the approach
+        works for your team, it can then be extended across more sites.
+      </p>
+      <a class="jfd-btn" href={quote}>
+        Talk through your current maintenance approach
+      </a>
+    </div>
+  </Section>
+
+  <WhyJfd
+    title="Why JFD for fire door maintenance?"
+    image={{
+      src: pubCloser,
+      alt: 'Panelled fire door with overhead closer during a maintenance visit',
+      position: '60% 30%',
+      caption: 'Closer and seal check · Refurbishment project',
+    }}
+    items={[
+      {
+        title: 'Fire doors are our specialist focus.',
+        lines: [
+          'JFD works specifically around fire doors, covering inspection, maintenance, remedial work and replacement.',
+          'That means maintenance sits within the wider job of understanding the door, dealing with the right issue and recording what happened afterwards.',
+        ],
+      },
+      {
+        title: 'Start with the estate you actually need help with.',
+        lines: [
+          'One building, a few priority sites or a defined package of work.',
+          'There’s no need to turn a maintenance problem into an estate-wide supplier change from the outset.',
+        ],
+      },
+      {
+        title: 'We can deal with what maintenance uncovers.',
+        lines: [
+          'If a visit identifies work beyond routine maintenance, JFD can also support repairs, remedials or replacement where required.',
+        ],
+      },
+      {
+        title: 'Clear records are part of the job.',
+        lines: [
+          'The useful outcome isn’t simply a completed visit.',
+          'It’s knowing what was done, what remains open and what should happen next.',
+        ],
+      },
+      {
+        title: 'Based in the South West.',
+        lines: [
+          'JFD supports commercial buildings and estates across Plymouth, Devon, Cornwall and the wider region.',
+        ],
+      },
+    ]}
+  />
+
+  <FaqList title={faqs.title} items={faqs.items} />
+
+  <FinalCta
+    labelA="Next step"
+    title="Want a clearer approach to maintaining your fire doors?"
+    body={[
+      'Tell us about your building or estate, how you’re handling fire doors today and where the pressure points are.',
+      'We’ll help work out the most sensible next step.',
+    ]}
+    cta={{ label: 'Discuss your fire door maintenance', href: quote }}
+    labelB="Remedials waiting?"
+    altTitle="Already have remedial work waiting?"
+    altBody="Send the list and we’ll help get it moving first."
+    altCta={{ label: 'Send us your job sheet', href: quoteHref('backlog') }}
+  />
+</BaseLayout>
+
+<style>
+  .prompt-link {
+    font-size: 15.5px;
+  }
+  p.hero-prompt {
+    margin: 0;
+  }
+  .intro-17 {
+    font-size: 17px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .intro-strong {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--jfd-graphite);
+    font-weight: 500;
+    margin: 0;
+    max-width: 50ch;
+  }
+  .dark-eyebrow {
+    font-family: var(--jfd-font-mono);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    color: var(--jfd-azure-soft);
+    margin: 0 0 20px;
+  }
+  /* Status label with dot, coloured by the inline `color` (currentColor). */
+  .dot-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+  .dot-label--sm {
+    font-size: 10px;
+  }
+  .dot-label::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+
+  /* Hero programme table */
+  .plan {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  .plan th,
+  .plan td {
+    padding: 13px 0;
+    border-bottom: 1px solid var(--jfd-rule-soft);
+    vertical-align: middle;
+    text-align: center;
+  }
+  .plan th {
+    padding: 11px 0;
+    border-bottom-color: var(--jfd-rule);
+  }
+  .plan th:first-child,
+  .plan td:first-child {
+    padding-left: 18px;
+    text-align: left;
+  }
+  .plan th:not(:first-child),
+  .plan td:not(:first-child) {
+    width: calc(clamp(16px, 5vw, 34px) + 6px);
+    padding-left: 6px;
+  }
+  .plan th:last-child,
+  .plan td:last-child {
+    width: calc(clamp(70px, 20vw, 104px) + 24px);
+    padding-right: 18px;
+    text-align: right;
+  }
+  .plan__name {
+    display: block;
+    font-size: 14px;
+    color: var(--jfd-graphite);
+  }
+  .plan__meta {
+    display: block;
+    font-size: 12.5px;
+    color: var(--jfd-ink-3);
+  }
+  .plan__cell {
+    display: block;
+    height: 18px;
+    border: 1px solid var(--jfd-rule);
+  }
+  .plan__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    padding: 13px 18px;
+    margin: 0;
+    background: var(--jfd-tint);
+    font-size: 12.5px;
+    color: var(--jfd-ink-3);
+  }
+  .plan__legend > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .plan__key {
+    width: 12px;
+    height: 12px;
+  }
+  .plan__key--none {
+    background: var(--jfd-surface);
+    border: 1px solid var(--jfd-rule-strong);
+  }
+
+  /* 01 Reactive / planned */
+  .contrast {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 1px;
+    border: 1px solid var(--jfd-rule);
+  }
+  .contrast__col {
+    outline: 1px solid var(--jfd-rule);
+    background: var(--jfd-surface);
+    padding: 28px 26px 30px;
+    min-width: 0;
+  }
+  .contrast__col--reactive {
+    background: var(--jfd-tint);
+  }
+  .contrast__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 20px;
+    font-family: var(--jfd-font-mono);
+    font-size: 13px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+  }
+  .contrast__head--planned {
+    color: var(--jfd-action);
+  }
+  .contrast__rule {
+    flex: 1;
+    height: 1px;
+    background: var(--jfd-rule-strong);
+  }
+  .contrast__meta {
+    font-size: 11px;
+    text-transform: none;
+    color: var(--jfd-ink-3);
+  }
+  .reactive {
+    display: grid;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .reactive li {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: baseline;
+    background: var(--jfd-surface);
+    border: 1px dashed #b4bec7;
+    padding: 11px 14px;
+  }
+  .reactive__date {
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    color: var(--jfd-ink-4);
+  }
+  .reactive__t {
+    font-size: 14.5px;
+    color: var(--jfd-graphite);
+    min-width: 0;
+  }
+  .reactive__src {
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+  }
+  .planned {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .planned li {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 14px;
+    padding-bottom: 18px;
+  }
+  .planned__rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .planned__n {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--jfd-action);
+    background: var(--jfd-surface);
+    color: var(--jfd-action);
+    display: grid;
+    place-items: center;
+    font-family: var(--jfd-font-mono);
+    font-size: 12px;
+  }
+  .planned__n.is-filled {
+    background: var(--jfd-action);
+    color: #ffffff;
+  }
+  .planned__line {
+    width: 1px;
+    flex: 1;
+    min-height: 18px;
+    background: var(--jfd-underline);
+    margin-top: 4px;
+  }
+  .planned__text {
+    min-width: 0;
+    padding-top: 4px;
+  }
+  .planned__t {
+    display: block;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .planned__b {
+    display: block;
+    font-size: 14.5px;
+    color: var(--jfd-ink-3);
+    line-height: 1.5;
+    margin-top: 2px;
+  }
+  .contrast__outro {
+    margin: 32px 0 0;
+    max-width: 68ch;
+    line-height: 1.6;
+  }
+
+  /* 02 Scope groups */
+  .groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: clamp(28px, 6vw, 40px) 36px;
+    align-items: start;
+  }
+  .groups__col {
+    min-width: 0;
+  }
+  .groups__label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--jfd-graphite);
+    margin: 0;
+    font-family: var(--jfd-font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .groups__n {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--jfd-ink-4);
+  }
+  .groups__item {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .groups__item h3 {
+    font-size: 16.5px;
+    font-weight: 600;
+    line-height: 1.35;
+    margin: 0 0 4px;
+  }
+  .groups__item p {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--jfd-ink-3);
+    margin: 0;
+  }
+  .pair {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 16px 80px;
+    margin-top: 44px;
+    padding-top: 28px;
+    border-top: 1px solid var(--jfd-rule);
+  }
+  .pair__lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0;
+  }
+  .pair__statement {
+    font-family: var(--jfd-font-display);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0;
+  }
+  .pair--dark {
+    margin-top: 48px;
+    border-top-color: var(--jfd-dark-rule);
+  }
+  .pair--dark .pair__lead {
+    color: var(--jfd-dark-ink-2);
+  }
+  .pair--dark .pair__statement {
+    color: #ffffff;
+  }
+
+  /* 03 Cycle */
+  .cycle__head {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 24px 80px;
+    align-items: end;
+    margin-bottom: 40px;
+  }
+  .cycle__head > * {
+    min-width: 0;
+  }
+  .cycle__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(34px, 4vw, 50px);
+    font-weight: 600;
+    line-height: 1.1;
+    margin: 0;
+    max-width: 20ch;
+  }
+  .cycle__intro {
+    margin: 0;
+    max-width: 48ch;
+  }
+  .cycle {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 1px;
+    border: 1px solid var(--jfd-dark-rule);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .cycle li {
+    outline: 1px solid var(--jfd-dark-rule);
+    background: var(--jfd-graphite);
+    padding: 26px 24px 28px;
+    min-width: 0;
+  }
+  .cycle__label-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .cycle__dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+  }
+  .cycle h3 {
+    font-family: var(--jfd-font-mono);
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--jfd-azure-soft);
+    margin: 0;
+  }
+  .cycle__rule {
+    flex: 1;
+    height: 1px;
+    background: var(--jfd-dark-rule);
+  }
+  .cycle__arrow {
+    color: var(--jfd-azure-soft);
+    font-family: var(--jfd-font-mono);
+  }
+  .cycle p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--jfd-dark-ink);
+    margin: 0;
+  }
+  .cycle__return {
+    display: flex;
+    align-items: stretch;
+  }
+  .cycle__return span:first-child,
+  .cycle__return span:last-child {
+    width: 1px;
+    background: var(--jfd-azure-soft);
+  }
+  .cycle__return span:first-child {
+    margin-left: 24px;
+  }
+  .cycle__return span:last-child {
+    margin-right: 24px;
+  }
+  .cycle__return span:nth-child(2) {
+    flex: 1;
+    border-bottom: 1px solid var(--jfd-azure-soft);
+    height: 28px;
+  }
+  .cycle__repeat {
+    font-family: var(--jfd-font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--jfd-azure-soft);
+    margin: 12px 0 0;
+    text-align: center;
+  }
+
+  /* 04 Visibility */
+  .vis-text {
+    max-width: 520px;
+  }
+  .vis-text :global(.head__title) {
+    margin-bottom: 28px;
+  }
+  .vis-text__small {
+    margin-bottom: 8px;
+  }
+  .vis-text__old {
+    font-family: var(--jfd-font-display);
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--jfd-ink-3);
+    margin: 0 0 18px;
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+  }
+  .vis-text__new {
+    font-family: var(--jfd-font-display);
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--jfd-action);
+    margin: 0 0 28px;
+  }
+  .vis-text__body {
+    margin-bottom: 22px;
+  }
+  .vis-text__statement {
+    font-family: var(--jfd-font-display);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0;
+    max-width: 26ch;
+  }
+  .vis-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+    gap: 1px;
+    border-bottom: 1px solid var(--jfd-rule);
+    margin: 0;
+  }
+  .vis-stats > div {
+    outline: 1px solid var(--jfd-rule);
+    background: var(--jfd-surface);
+    padding: 14px 16px 16px;
+    min-width: 0;
+  }
+  .vis-stats dt {
+    margin-bottom: 8px;
+  }
+  .vis-stats dd {
+    margin: 0;
+  }
+  .vis-stats__n {
+    display: block;
+    font-family: var(--jfd-font-display);
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .vis-stats__d {
+    display: block;
+    font-size: 12.5px;
+    color: var(--jfd-ink-3);
+    line-height: 1.4;
+    margin-top: 5px;
+  }
+  .log {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  .log td {
+    padding: 13px 0;
+    border-bottom: 1px solid var(--jfd-rule-soft);
+    vertical-align: baseline;
+  }
+  .log td:first-child {
+    padding-left: 18px;
+    width: calc(clamp(58px, 16vw, 84px) + 18px);
+  }
+  .log td:last-child {
+    padding-right: 18px;
+    width: calc(clamp(84px, 24vw, 118px) + 18px);
+    text-align: right;
+  }
+  .log__id {
+    font-family: var(--jfd-font-mono);
+    font-size: 12.5px;
+  }
+  .log__t {
+    font-size: 14px;
+    line-height: 1.45;
+    padding-right: 12px !important;
+  }
+
+  /* 05 Remedials */
+  .remedials__intro {
+    margin-bottom: 8px;
+  }
+  .remedials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 32px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .remedials li {
+    min-width: 0;
+    border-top: 2px solid var(--jfd-graphite);
+    padding-top: 18px;
+  }
+  .remedials__n {
+    display: block;
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    color: var(--jfd-action);
+    margin-bottom: 12px;
+  }
+  .remedials h3 {
+    font-family: var(--jfd-font-display);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .remedials p {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--jfd-ink-3);
+    margin: 0;
+  }
+  .callout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 20px;
+    margin: 44px 0 0;
+    padding: 20px 24px;
+    background: var(--jfd-tint);
+  }
+  .callout > span {
+    font-size: 16.5px;
+    font-weight: 600;
+  }
+  .callout .jfd-link {
+    font-size: 16px;
+  }
+
+  /* 06 Estate fit */
+  .estate__lead {
+    margin-bottom: 12px;
+    max-width: 48ch;
+  }
+  .estate__muted {
+    margin-bottom: 24px;
+    max-width: 48ch;
+  }
+  .estate__statement {
+    font-family: var(--jfd-font-display);
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.18;
+    margin: 0;
+  }
+  .estate__label {
+    margin-bottom: 12px;
+  }
+  .estate__or {
+    margin: 22px 0 8px;
+  }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    align-items: end;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .steps li {
+    min-width: 0;
+    background: var(--jfd-surface);
+    color: var(--jfd-graphite);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: 1px solid var(--jfd-rule-strong);
+  }
+  .steps li:nth-child(2) {
+    background: var(--jfd-tint);
+  }
+  .steps li.is-last {
+    background: var(--jfd-action);
+    color: #ffffff;
+  }
+  /* Production: full opacity on action blue for AA contrast (0.85 gives 4.33:1). */
+  .steps li.is-last .steps__n {
+    opacity: 1;
+  }
+  .steps__n {
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.85;
+  }
+  .steps__t {
+    font-family: var(--jfd-font-display);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.15;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* 07/08 Frequency and escalation */
+  .qa__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(30px, 3.4vw, 40px);
+    font-weight: 600;
+    line-height: 1.14;
+    margin: 0 0 20px;
+    max-width: 20ch;
+  }
+  .qa__strong {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--jfd-graphite);
+    font-weight: 500;
+    margin: 0 0 12px;
+    max-width: 48ch;
+  }
+  .qa__body {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0 0 12px;
+    max-width: 52ch;
+  }
+  .qa__body strong {
+    color: var(--jfd-graphite);
+  }
+  .qa__body--tight {
+    margin-bottom: 6px;
+  }
+  .qa__body--last {
+    margin-bottom: 20px;
+  }
+  .qa__list {
+    margin-bottom: 18px;
+  }
+  .qa__list > li {
+    padding: 9px 0;
+    font-size: 15px;
+    line-height: normal;
+  }
+  .escalate {
+    border: 1px solid var(--jfd-rule);
+    margin: 0 0 20px;
+  }
+  .escalate > div {
+    display: grid;
+    grid-template-columns: 140px minmax(0, 1fr);
+    gap: 16px;
+    padding: 15px 18px;
+    border-bottom: 1px solid var(--jfd-rule-soft);
+    align-items: baseline;
+  }
+  .escalate > div:last-child {
+    border-bottom: 0;
+  }
+  .escalate dd {
+    margin: 0;
+    min-width: 0;
+  }
+  .escalate__t {
+    display: block;
+    font-size: 15.5px;
+    font-weight: 600;
+  }
+  .escalate__b {
+    display: block;
+    font-size: 14.5px;
+    color: var(--jfd-ink-3);
+    line-height: 1.5;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    margin: 18px 0 0;
+  }
+
+  /* 10 Starting points */
+  .starts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    column-gap: 48px;
+    border-bottom: 1px solid var(--jfd-rule-strong);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .starts li {
+    display: grid;
+    grid-template-columns: 46px minmax(0, 1fr);
+    gap: 16px;
+    padding: 20px 0;
+    border-top: 1px solid var(--jfd-rule-strong);
+    align-items: baseline;
+  }
+  .starts__n {
+    font-family: var(--jfd-font-mono);
+    font-size: 12px;
+    color: var(--jfd-action);
+  }
+  .starts__t {
+    display: block;
+    font-family: var(--jfd-font-display);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .starts__b {
+    display: block;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--jfd-ink-3);
+  }
+  .starts__foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px 40px;
+    margin-top: 36px;
+  }
+  .starts__close {
+    margin: 0;
+    max-width: 56ch;
+  }
+</style>

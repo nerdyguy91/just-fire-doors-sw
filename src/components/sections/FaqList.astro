@@ -1,0 +1,167 @@
+---
+/**
+ * FAQs (prototype JfdFaq), rebuilt with <details>/<summary>: every answer is in the HTML (crawlable,
+ * matches FAQPage JSON-LD), no JavaScript, keyboard and screen-reader support built in. The first
+ * item starts open, as in the prototype. Pages pass the same items to faqPage() for schema.
+ */
+import { paths } from '../../data/paths';
+
+interface Props {
+  title: string;
+  items: { q: string; a: string[]; link?: { label: string; href: string } }[];
+  intro?: string;
+  link?: { label: string; href: string };
+  id?: string;
+}
+
+const {
+  title,
+  items,
+  intro = 'Something we haven’t covered? Ask it when you send the job over.',
+  link = { label: 'Talk through the work →', href: paths.quote },
+  id = 'faq-title',
+} = Astro.props;
+---
+
+<section class="faq" id="faq" aria-labelledby={id}>
+  <div class="faq__inner">
+    <div class="faq__aside">
+      <p class="jfd-eyebrow">Questions</p>
+      <h2 {id} class="jfd-h2 faq__title">
+        {title}
+      </h2>
+      <p class="faq__intro">{intro}</p>
+      <a class="jfd-link faq__link" href={link.href}>
+        {link.label}
+      </a>
+    </div>
+    <div class="faq__list">
+      {items.map((item, i) => (
+        <details class="faq__item" open={i === 0}>
+          <summary class="faq__summary">
+            <h3 class="faq__q">{item.q}</h3>
+            <span class="faq__icon" aria-hidden="true" />
+          </summary>
+          <div class="faq__answer">
+            {item.a.map((para) => (
+              <p>{para}</p>
+            ))}
+            {item.link && (
+              <a class="jfd-link faq__answer-link" href={item.link.href}>
+                {item.link.label}
+              </a>
+            )}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .faq__inner {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: var(--jfd-section-y-fluid) var(--jfd-gutter-fluid);
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(28px, 6vw, 40px) 80px;
+    align-items: flex-start;
+  }
+  .faq__aside {
+    min-width: 0;
+    max-width: 400px;
+    flex: 1 1 300px;
+  }
+  .faq__title {
+    margin: 0 0 18px;
+    text-wrap: pretty;
+  }
+  .faq__intro {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--jfd-ink-3);
+    margin: 0 0 20px;
+  }
+  .faq__link {
+    font-size: 15.5px;
+  }
+  .faq__list {
+    min-width: 0;
+    flex: 2 1 520px;
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .faq__item {
+    border-top: 1px solid var(--jfd-rule);
+  }
+  .faq__summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 22px 0;
+    min-height: 56px;
+    cursor: pointer;
+    list-style: none;
+    color: var(--jfd-graphite);
+  }
+  .faq__summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq__summary:hover {
+    color: var(--jfd-action);
+  }
+  .faq__q {
+    margin: 0;
+    font-family: var(--jfd-font-body);
+    font-size: 18.5px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .faq__icon {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+  .faq__icon::before,
+  .faq__icon::after {
+    content: '';
+    position: absolute;
+    background: var(--jfd-action);
+  }
+  .faq__icon::before {
+    left: 0;
+    top: 6px;
+    width: 14px;
+    height: 2px;
+  }
+  .faq__icon::after {
+    left: 6px;
+    top: 0;
+    width: 2px;
+    height: 14px;
+    transition: opacity 0.18s ease;
+  }
+  .faq__item[open] .faq__icon::after {
+    opacity: 0;
+  }
+  .faq__answer {
+    padding: 0 40px 26px 0;
+    max-width: 66ch;
+  }
+  .faq__answer p {
+    font-size: 16px;
+    line-height: 1.62;
+    color: var(--jfd-ink-2);
+    margin: 0 0 12px;
+  }
+  .faq__answer-link {
+    font-size: 15.5px;
+    display: inline-block;
+    margin-top: 4px;
+  }
+</style>

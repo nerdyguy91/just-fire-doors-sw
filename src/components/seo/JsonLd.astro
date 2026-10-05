@@ -1,0 +1,16 @@
+---
+/**
+ * Outputs one JSON-LD @graph. Nodes come from src/lib/schema.ts builders.
+ */
+import { serialiseGraph, type JsonLdNode } from '../../lib/schema';
+
+interface Props {
+  nodes: JsonLdNode[];
+}
+
+const { nodes } = Astro.props;
+---
+
+{nodes.length > 0 && (
+  <script is:inline type="application/ld+json" set:html={serialiseGraph(nodes)} />
+)}

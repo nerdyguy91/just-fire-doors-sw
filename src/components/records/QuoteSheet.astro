@@ -1,0 +1,139 @@
+---
+/**
+ * Illustrative quotation: door → finding → work → treatment → cost, with totals by treatment
+ * (remedial works hero). Example prices stay labelled "Illustrative" (plan Decision 8).
+ */
+import type { Tone } from '../../lib/tones';
+import RecordFrame from './RecordFrame.astro';
+import StatusLabel from './StatusLabel.astro';
+
+export interface QuoteRow {
+  id: string;
+  finding: string;
+  work: string;
+  treatment: string;
+  tone: Tone;
+  cost: string;
+}
+
+interface Props {
+  title: string;
+  meta?: string;
+  rows: QuoteRow[];
+  totals?: { label: string; value: string; tone: Tone }[];
+  caption?: string;
+  shadow?: boolean;
+}
+
+const { title, meta, rows, totals = [], caption, shadow = true } = Astro.props;
+---
+
+<RecordFrame {title} {meta} {caption} {shadow} class="quote-sheet">
+  <table class="qs-table">
+    <caption class="jfd-visually-hidden">
+      Illustrative quotation: each door, the finding, the proposed work, treatment and cost
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Door</th>
+        <th scope="col">
+          Finding <span aria-hidden="true">→</span> work
+        </th>
+        <th scope="col">Treatment</th>
+        <th scope="col">
+          <abbr title="Cost in pounds">£</abbr>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((r) => (
+        <tr>
+          <td class="record__id">{r.id}</td>
+          <td class="cell-main">
+            <span class="record__main">{r.finding}</span>
+            <span class="record__sub">
+              <span aria-hidden="true">→ </span>
+              {r.work}
+            </span>
+          </td>
+          <td class="cell-treat">
+            <StatusLabel tone={r.tone}>{r.treatment}</StatusLabel>
+          </td>
+          <td class="record__id">{r.cost}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  {totals.length > 0 && (
+    <ul class="quote-sheet__totals" role="list">
+      {totals.map((t) => (
+        <li>
+          <StatusLabel tone={t.tone} class="quote-sheet__total-label">
+            {t.label}
+          </StatusLabel>
+          <span class="quote-sheet__total-value">{t.value}</span>
+        </li>
+      ))}
+    </ul>
+  )}
+</RecordFrame>
+
+<style>
+  table.qs-table td {
+    padding-top: 13px;
+    padding-bottom: 13px;
+  }
+  table.qs-table th:nth-child(1),
+  table.qs-table td:nth-child(1) {
+    width: calc(clamp(50px, 14vw, 84px) + 18px);
+  }
+  table.qs-table th:nth-child(3),
+  table.qs-table td:nth-child(3) {
+    width: clamp(74px, 21vw, 104px);
+    text-align: left;
+  }
+  table.qs-table th:nth-child(4),
+  table.qs-table td:nth-child(4) {
+    width: calc(clamp(44px, 12vw, 64px) + 18px);
+  }
+  table.qs-table :global(.record__id) {
+    font-size: 12.5px;
+  }
+  table.qs-table :global(.record__sub) {
+    font-size: 13px;
+  }
+  .cell-main {
+    padding-right: 12px !important;
+  }
+  .cell-treat :global(.jfd-status) {
+    font-size: 10.5px;
+  }
+  abbr {
+    text-decoration: none;
+  }
+  .quote-sheet__totals {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .quote-sheet__totals li {
+    outline: 1px solid var(--jfd-rule);
+    background: var(--jfd-tint);
+    padding: 12px 18px;
+    min-width: 0;
+  }
+  .quote-sheet__totals :global(.quote-sheet__total-label) {
+    display: flex;
+    font-size: 10px;
+    letter-spacing: normal;
+  }
+  .quote-sheet__total-value {
+    display: block;
+    font-size: 14px;
+    color: var(--jfd-graphite);
+    margin-top: 4px;
+  }
+</style>

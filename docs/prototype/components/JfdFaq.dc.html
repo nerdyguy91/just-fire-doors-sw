@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/colors.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/typography.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/layout.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/effects.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/css/jfd.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/styles.css">
+<script src="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/_ds_bundle.js"></script>
+</helmet>
+<section id="faq" aria-label="Frequently asked questions" style="borderBottom: 1px solid var(--jfd-rule)">
+  <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px); display: flex; flexWrap: wrap; gap: clamp(28px, 6vw, 40px) 80px; alignItems: flex-start">
+    <div style="minWidth: 0; maxWidth: 400px; flex: 1 1 300px">
+      <p class="jfd-eyebrow">Questions</p>
+      <h2 class="jfd-h2" style="margin: 0 0 18px; textWrap: pretty">{{ title }}</h2>
+      <p style="fontSize: 16px; lineHeight: 1.6; color: var(--jfd-ink-3); margin: 0 0 20px">Something we haven't covered? Ask it when you send the job over.</p>
+      <a href="Get%20a%20Quote.dc.html" class="jfd-link" style="fontSize: 15.5px">Talk through the work →</a>
+    </div>
+    <div style="minWidth: 0; flex: 2 1 520px; borderBottom: 1px solid var(--jfd-rule)">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="6">
+        <div style="borderTop: 1px solid var(--jfd-rule)">
+          <h3 style="margin: 0">
+            <button type="button" id="{{ f.bid }}" aria-expanded="{{ f.open }}" aria-controls="{{ f.pid }}" onClick="{{ f.toggle }}" style="width: 100%; display: flex; justifyContent: space-between; alignItems: center; gap: 24px; padding: 22px 0; minHeight: 56px; background: none; border: 0; font: inherit; textAlign: left; fontSize: 18.5px; fontWeight: 500; lineHeight: 1.4; color: var(--jfd-graphite); cursor: pointer" style-hover="color: #0E6FAF">
+              <span>{{ f.q }}</span>
+              <span aria-hidden="true" style="position: relative; width: 14px; height: 14px; flexShrink: 0">
+                <span style="position: absolute; left: 0; top: 6px; width: 14px; height: 2px; background: #0E6FAF"></span>
+                <span style="position: absolute; left: 6px; top: 0; width: 2px; height: 14px; background: #0E6FAF; opacity: {{ f.vbar }}; transition: opacity .18s ease"></span>
+              </span>
+            </button>
+          </h3>
+          <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+            <div id="{{ f.pid }}" role="region" aria-labelledby="{{ f.bid }}" style="padding: 0 40px 26px 0; maxWidth: 66ch">
+              <sc-for list="{{ f.a }}" as="para" hint-placeholder-count="2">
+                <p style="fontSize: 16px; lineHeight: 1.62; color: var(--jfd-ink-2); margin: 0 0 12px">{{ para }}</p>
+              </sc-for>
+              <sc-if value="{{ f.hasLink }}" hint-placeholder-val="{{ false }}">
+                <a href="{{ f.href }}" class="jfd-link" style="fontSize: 15.5px; display: inline-block; marginTop: 4px">{{ f.link }}</a>
+              </sc-if>
+              <sc-if value="{{ f.showNote }}" hint-placeholder-val="{{ false }}">
+                <p style="fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.05em'; textTransform: uppercase; color: #8A6100; border: 1px dashed #C9B27A; background: #FBF7EC; padding: 8px 12px; margin: 14px 0 0; lineHeight: 1.6">To confirm · {{ f.note }}</p>
+              </sc-if>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;1280px&quot;,&quot;height&quot;:&quot;820px&quot;},&quot;title&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;FAQs&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;items&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;{q:string,a:string[],link?:string,href?:string,note?:string}[]&quot;},&quot;showNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { open: { 0: true } };
+  renderVals() {
+    const items = this.props.items ?? [];
+    const show = !!this.props.showNotes;
+    return {
+      faqs: items.map((it, i) => {
+        const open = !!this.state.open[i];
+        return {
+          q: it.q, a: it.a || [], open,
+          bid: 'faq-q-' + i, pid: 'faq-a-' + i,
+          vbar: open ? 0 : 1,
+          hasLink: !!it.link, link: it.link, href: it.href,
+          showNote: show && !!it.note, note: it.note,
+          toggle: () => this.setState(s => ({ open: { ...s.open, [i]: !s.open[i] } }))
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

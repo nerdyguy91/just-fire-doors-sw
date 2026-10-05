@@ -1,0 +1,41 @@
+# FAQ set for about. Ported from docs/prototype/pages/why-jfd.dc.html.
+title: Why JFD FAQs
+items:
+  - q: What areas does JFD cover?
+    a:
+      - JFD is based in Plymouth and works across Devon, Cornwall and the wider South West.
+  - q: Can JFD work alongside our existing contractor?
+    a:
+      - Yes, where the work and responsibilities can be clearly defined.
+      - >-
+        You may simply need JFD to take one site, remedial list or package of overflow work rather
+        than replace your existing provider.
+  - q: Do you work across multiple sites?
+    a:
+      - Potentially, yes.
+      - >-
+        If you manage several properties across the South West, send us the locations and the work
+        involved so we can understand the programme.
+  - q: What accreditations does JFD hold?
+    a:
+      - >-
+        JFD holds BlueSky third-party certification for fire door installation and fire stopping of
+        penetrations (certificate FDI-146). Installers are qualified carpenters with additional
+        fire-door-specific training.
+    link:
+      label: See credentials ↑
+      href: '#credentials'
+  - q: Can you work from an existing fire-door survey?
+    a:
+      - Yes.
+      - >-
+        If you already have a suitable survey, inspection report or job sheet, send it over rather
+        than automatically starting again.
+  - q: What records do we receive when work is complete?
+    a:
+      - JFD’s current materials place emphasis on traceable documentation and completion evidence.
+  - q: What types of organisations does JFD work with?
+    a:
+      - >-
+        Existing project experience includes healthcare and education environments, alongside other
+        commercial fire-door work across the South West.

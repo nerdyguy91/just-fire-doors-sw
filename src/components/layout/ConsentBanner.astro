@@ -1,0 +1,102 @@
+---
+/**
+ * Analytics consent banner. Rendered only on builds with a GA4 measurement ID
+ * (src/lib/analytics.ts). Hidden until src/scripts/track.ts finds no stored choice; without
+ * JavaScript it never shows, and no analytics runs.
+ *
+ * Accept and reject are the same size and style. The wording follows the build's setting:
+ * cookie-free statistics before a choice (default), or nothing until accepted.
+ * "Cookie settings" in the footer reopens it.
+ */
+import { gaCookieless } from '../../lib/analytics';
+import { paths } from '../../data/paths';
+---
+
+<aside class="consent jfd-on-dark" aria-labelledby="consent-title" data-consent-banner hidden>
+  <div class="consent__inner">
+    <div class="consent__text">
+      <p class="consent__title" id="consent-title">
+        Analytics cookies
+      </p>
+      {gaCookieless ? (
+        <p>
+          We count visits with Google Analytics, without cookies. Accept analytics cookies to give
+          us more detail, or switch analytics off. <a href={paths.privacy}>Privacy notice</a>
+        </p>
+      ) : (
+        <p>
+          We’d like to use Google Analytics to understand how this site is used. It sets cookies, so
+          we only switch it on if you accept. <a href={paths.privacy}>Privacy notice</a>
+        </p>
+      )}
+    </div>
+    <div class="consent__actions">
+      <button type="button" class="jfd-btn jfd-btn--sm jfd-btn--inverse" data-consent="granted">
+        {gaCookieless ? 'Accept cookies' : 'Accept analytics'}
+      </button>
+      <button type="button" class="jfd-btn jfd-btn--sm jfd-btn--inverse" data-consent="denied">
+        {gaCookieless ? 'Switch off' : 'Reject analytics'}
+      </button>
+    </div>
+  </div>
+</aside>
+
+<script>
+  import '../../scripts/track';
+</script>
+
+<style>
+  .consent {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 70;
+    background: var(--jfd-graphite);
+    color: var(--jfd-dark-ink);
+    border-top: 3px solid var(--jfd-azure);
+  }
+  .consent[hidden] {
+    display: none;
+  }
+  .consent__inner {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: 18px var(--jfd-gutter-fluid);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px 40px;
+  }
+  .consent__text {
+    flex: 1 1 420px;
+    min-width: 0;
+  }
+  .consent__title {
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--jfd-dark-ink-2);
+    margin: 0 0 6px;
+  }
+  .consent__text p:last-child {
+    font-size: 15px;
+    line-height: 1.55;
+    margin: 0;
+    max-width: 68ch;
+  }
+  .consent__text a {
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  }
+  .consent__text a:hover {
+    border-bottom-color: #ffffff;
+  }
+  .consent__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+</style>

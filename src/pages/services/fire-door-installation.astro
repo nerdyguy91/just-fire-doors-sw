@@ -1,0 +1,1661 @@
+---
+/**
+ * Fire Door Replacement & Installation.
+ * Ported from docs/prototype/pages/service-replacement.dc.html.
+ */
+import { getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import RecordFrame from '../../components/records/RecordFrame.astro';
+import ProofStrip from '../../components/sections/ProofStrip.astro';
+import Section from '../../components/sections/Section.astro';
+import SectionHead from '../../components/sections/SectionHead.astro';
+import DecisionTriad from '../../components/sections/DecisionTriad.astro';
+import EvidenceBlock from '../../components/sections/EvidenceBlock.astro';
+import WhyJfd from '../../components/sections/WhyJfd.astro';
+import FaqList from '../../components/sections/FaqList.astro';
+import FinalCta from '../../components/sections/FinalCta.astro';
+import Img from '../../components/ui/Img.astro';
+import { paths, projectPath } from '../../data/paths';
+import { quoteHref } from '../../data/quote-routes';
+import { getService } from '../../data/services';
+import { faqPage, service as serviceNode } from '../../lib/schema';
+import bodminWard from '../../assets/images/photos/bodmin-ward-double-doorset.jpeg';
+import westonCloser from '../../assets/images/photos/weston-double-doorset-closers.jpeg';
+import westonClassroom from '../../assets/images/photos/weston-classroom-double-doorset.jpeg';
+import bodminInstaller from '../../assets/images/photos/bodmin-installer.jpeg';
+import mammoRooms from '../../assets/images/photos/mammo-rooms.jpeg';
+import mammoBlind from '../../assets/images/photos/mammo-blind-door.jpeg';
+import mammoDouble from '../../assets/images/photos/mammo-double-door.jpeg';
+import existingOpening from '../../assets/images/photos/existing-opening-refurbishment.jpeg';
+import torbridge from '../../assets/images/photos/torbridge-doorset.jpeg';
+import firestopping from '../../assets/images/evidence/dds-firestopping.jpeg';
+import partsList from '../../assets/images/evidence/dds-parts-list.jpeg';
+
+const site = Astro.site!;
+const svc = getService('installation');
+const faqs = (await getEntry('faqs', 'installation'))!.data;
+const description =
+  'Supply and installation of replacement fire doors and doorsets across Plymouth and the South West, from requirement and programme through to completion evidence.';
+const quote = quoteHref(svc.quoteRoute);
+const crumbs = [
+  { name: 'Services', path: paths.services },
+  { name: svc.shortTitle, path: svc.path },
+];
+const n2 = (i: number) => String(i + 1).padStart(2, '0');
+
+const doorsetPins = [
+  { x: 22, y: 16, t: 'Door closers' },
+  { x: 87, y: 24, t: 'Hinges & ironmongery' },
+  { x: 43, y: 30, t: 'Fire door signage' },
+  { x: 35, y: 48, t: 'Fire-rated glazing' },
+  { x: 55, y: 54, t: 'Lever furniture' },
+  { x: 6, y: 60, t: 'Frame & seals' },
+];
+const supplyGroups = [
+  {
+    label: 'Doorset',
+    pins: 'Pin 06',
+    items: [
+      {
+        t: 'Replacement fire doors and doorsets',
+        b: 'Supply and installation of the required assembly.',
+      },
+      { t: 'Frames', b: 'New or replacement frames where required as part of the installation.' },
+      {
+        t: 'Specialist doorsets',
+        b: 'Where the location places additional requirements on the door.',
+      },
+    ],
+  },
+  {
+    label: 'Components',
+    pins: 'Pins 01–05',
+    items: [
+      { t: 'Ironmongery', b: 'Relevant hardware specified for the doorset.' },
+      { t: 'Door closers', b: 'Installed as part of the required door setup.' },
+      {
+        t: 'Smoke and intumescent seals',
+        b: 'Specified and installed as part of the complete assembly.',
+      },
+      { t: 'Glazing', b: 'Where the doorset requires fire-rated glazing.' },
+    ],
+  },
+  {
+    label: 'Finish & handover',
+    pins: '',
+    items: [
+      { t: 'Finishes', b: 'Project-specific finishes where required.' },
+      {
+        t: 'Completion documentation',
+        b: 'Records supporting what was installed and the work carried out.',
+      },
+    ],
+  },
+];
+const phases = [
+  {
+    label: 'Decide',
+    flex: '2 1 420px',
+    tone: 'decide',
+    steps: [
+      {
+        n: 1,
+        tag: 'Requirement',
+        t: 'Confirm the requirement',
+        b: [
+          'Start with the survey, door schedule, specification or project information already available.',
+          'Clarify anything that still needs checking before the work is ordered.',
+        ],
+      },
+      {
+        n: 2,
+        tag: 'Specification',
+        t: 'Agree the doorset',
+        b: [
+          'Establish what is required for each opening, including the relevant doorset, components and finish.',
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Deliver',
+    flex: '2 1 420px',
+    tone: 'onsite',
+    steps: [
+      {
+        n: 3,
+        tag: 'Programme',
+        t: 'Plan the installation',
+        b: [
+          'Work out how the job will be sequenced around the building, access and other activity on site.',
+        ],
+      },
+      {
+        n: 4,
+        tag: 'Installation',
+        t: 'Install and check',
+        b: ['Fit the agreed doorset and carry out the relevant installation and quality checks.'],
+      },
+    ],
+  },
+  {
+    label: 'Close',
+    flex: '1 1 210px',
+    tone: 'closed',
+    steps: [
+      {
+        n: 5,
+        tag: 'Evidence',
+        t: 'Hand back the evidence',
+        b: ['Provide the agreed documentation and records supporting the completed installation.'],
+      },
+    ],
+  },
+];
+const liveFactors = [
+  'access to the area',
+  'when individual doors can be taken out of use',
+  'the order the work is completed in',
+  'other contractors working nearby',
+  'occupants and building users',
+  'project deadlines',
+];
+const mammoFacts = [
+  { k: 'Trigger', v: 'Significant flood damage' },
+  { k: 'Core', v: 'Lead-lined' },
+  { k: 'Requirement', v: 'Radiation protection' },
+  { k: 'Privacy', v: 'Integrated blinds' },
+];
+const useCases = [
+  'several doors identified for replacement through a survey',
+  'one replacement phase within a larger remedial programme',
+  'a refurbishment project',
+  'replacements across several properties',
+  'work your existing contractor cannot currently accommodate',
+  'a programme that needs completing to a particular deadline',
+];
+const progKnow = [
+  'what is scheduled',
+  'which doors have been completed',
+  'what is still outstanding',
+  'whether anything has changed',
+  'what needs a decision',
+  'what happens next',
+];
+
+type DoorState = 'complete' | 'scheduled' | 'outstanding' | 'decision';
+const STATE_LABEL: Record<DoorState, string> = {
+  complete: 'Complete',
+  scheduled: 'Scheduled',
+  outstanding: 'Outstanding',
+  decision: 'Decision needed',
+};
+const floorPattern: Record<string, string> = {
+  'Level 1': 'CCCCCOOOSSSCCSSS',
+  'Level 2': 'SSSSSSSSSSSDSSSS',
+  Ground: 'CCCCCCDCCCCCCCCO',
+};
+const code: Record<string, DoorState> = {
+  C: 'complete',
+  S: 'scheduled',
+  O: 'outstanding',
+  D: 'decision',
+};
+const floors = Object.entries(floorPattern).map(([name, pattern]) => ({
+  name,
+  prefix: name === 'Ground' ? 'G' : name.slice(-1),
+  doors: [...pattern].map((c) => code[c]),
+}));
+const counts = (['complete', 'scheduled', 'outstanding', 'decision'] as DoorState[]).map((s) => ({
+  state: s,
+  n: floors.reduce((acc, f) => acc + f.doors.filter((d) => d === s).length, 0),
+}));
+
+const openingPins = [
+  'the condition of the existing frame',
+  'opening dimensions',
+  'wall construction',
+  'previous alterations',
+  'ironmongery',
+  'glazing',
+  'other site-specific conditions',
+  'missing or unclear records',
+];
+const openingMarks = [
+  { x: 47, y: 56 },
+  { x: 57, y: 27 },
+  { x: 82, y: 50 },
+  { x: 28, y: 14 },
+  { x: 51, y: 47 },
+  { x: 63, y: 40 },
+  { x: 10, y: 72 },
+];
+const found = [
+  'What has been found',
+  'Why it matters',
+  'What needs to happen before extra work goes ahead',
+];
+const costFactors = [
+  'doorset & specification',
+  'size & configuration',
+  'glazing',
+  'ironmongery',
+  'existing frame or opening',
+  'finishes',
+  'access',
+  'quantity',
+  'site location',
+  'programme requirements',
+  'specialist requirements',
+];
+const rvr = [
+  {
+    label: 'Repair',
+    b: 'Where an appropriate remedial action can resolve the identified issue.',
+    tone: 'closed',
+  },
+  {
+    label: 'Replace',
+    b: 'Where the existing door or doorset cannot appropriately be brought to the required condition, or the project specifically requires a new doorset.',
+    tone: 'onsite',
+  },
+  {
+    label: 'Investigate',
+    b: 'Where there isn’t enough information to make the decision confidently.',
+    tone: 'decide',
+  },
+];
+---
+
+<BaseLayout
+  title="Fire Door Replacement & Installation | South West | JFD"
+  {description}
+  canonicalPath={svc.path}
+  breadcrumbs={crumbs}
+  schema={[serviceNode(site, svc, description), faqPage(site, svc.path, faqs.items)]}
+>
+  <PageHero
+    breadcrumbs={crumbs}
+    align="center"
+    eyebrow="Commercial fire door installation across the South West"
+  >
+    <Fragment slot="title">
+      Fire Door Replacement <span class="jfd-accent">&amp; Installation</span>
+    </Fragment>
+    <p class="hero-lead">
+      Supply and installation of replacement fire doors and doorsets across the South West, with a
+      clear route from the requirement through installation to completion evidence.
+    </p>
+    <p class="hero-body">
+      Already have a fire door survey, replacement schedule or job sheet? Send it over and we can
+      start with the work you already have.
+    </p>
+    <div class="hero-actions hero-actions--stack">
+      <a class="jfd-btn" href={quote}>
+        Discuss your fire door installation
+      </a>
+      <p class="hero-prompt">
+        <span>Already have a schedule or job sheet?</span>
+        <a class="jfd-link prompt-link" href={quote}>
+          Send it over →
+        </a>
+      </p>
+    </div>
+    <p class="hero-tagline">One door · one site · or a defined programme of replacements</p>
+
+    <figure slot="aside" class="hero-photo">
+      <div class="hero-photo__media">
+        <Img
+          src={bodminWard}
+          alt="New double fire doorset with vision panels installed on a hospital ward corridor, Bodmin Hospital"
+          position="50% 55%"
+          priority
+          sizes="(min-width: 1240px) 580px, (min-width: 760px) 48vw, 90vw"
+        />
+        <p class="hero-photo__card">
+          <span class="jfd-status jfd-status--closed">Installed · handed over</span>
+          <span>Double doorset, ward corridor — live healthcare site</span>
+        </p>
+      </div>
+      <figcaption class="caption">Bodmin Hospital · ward corridor</figcaption>
+    </figure>
+  </PageHero>
+
+  <ProofStrip
+    stats={[
+      { value: '~150', label: 'doors replaced across two schools' },
+      { value: '~35', label: 'laboratory doorsets, University of Plymouth' },
+    ]}
+  />
+
+  <!-- 01 · Decide first -->
+  <Section tone="tint" labelledby="decide-title">
+    <SectionHead
+      id="decide-title"
+      layout="split"
+      eyebrow="01 · Decide first"
+      title="Not every defect needs a new door."
+    >
+      <p class="t-lead intro-17">
+        Sometimes repair is the right answer. Sometimes more information is needed first. And
+        sometimes the existing door or doorset genuinely needs replacing.
+      </p>
+      <p class="intro-strong">
+        The important thing is to make that decision before the project moves into installation.
+      </p>
+    </SectionHead>
+    <DecisionTriad
+      items={[
+        {
+          label: 'Repair',
+          body: 'Where an appropriate remedial action can resolve the identified problem.',
+        },
+        {
+          label: 'Investigate',
+          body: 'Where there isn’t enough information to confidently specify the work.',
+        },
+        { label: 'Replace', body: 'Where the existing door or doorset needs to be replaced.' },
+      ]}
+      outcome="Know what actually needs repairing or replacing, why and what the work involves."
+    />
+    <p class="decide__foot">
+      <span>
+        JFD can help establish the route forward before installation begins. Not sure whether
+        replacement is required?
+      </span>
+      <a class="jfd-link" href={paths.inspections}>
+        Fire Door Inspections &amp; Surveys →
+      </a>
+    </p>
+  </Section>
+
+  <!-- 02 · Supply & installation -->
+  <Section tone="surface" labelledby="supply-title">
+    <SectionHead
+      id="supply-title"
+      layout="split"
+      eyebrow="02 · Supply & installation"
+      title="Fire door supply and installation"
+      spacing={44}
+    >
+      <p class="t-lead intro-17">
+        Where replacement is required, JFD can supply and install the doorset needed for the
+        location. Depending on the project and specification, this may include:
+      </p>
+    </SectionHead>
+    <div class="supply">
+      <figure class="pins-figure">
+        <div class="pins-figure__media pins-figure__media--34">
+          <Img
+            src={westonCloser}
+            alt="Installed double fire doorset with overhead closers, vision panels, signage and lever furniture, Weston-super-Mare school"
+            sizes="(min-width: 1240px) 560px, (min-width: 760px) 48vw, 90vw"
+          />
+          {doorsetPins.map((p, i) => (
+            <span class="pin" style={`left: ${p.x}%; top: ${p.y}%`} aria-hidden="true">
+              {i + 1}
+            </span>
+          ))}
+        </div>
+        <figcaption>
+          <ol class="pin-key" role="list">
+            {doorsetPins.map((p, i) => (
+              <li>
+                <span aria-hidden="true">{i + 1}</span>
+                {p.t}
+              </li>
+            ))}
+          </ol>
+          <span class="caption">Installed doorset · School, Weston-super-Mare</span>
+        </figcaption>
+      </figure>
+      <div>
+        {supplyGroups.map((g) => (
+          <div class="supply__group">
+            <p class="supply__label">
+              <span>{g.label}</span>
+              {g.pins && <span class="supply__pins">{g.pins}</span>}
+            </p>
+            {g.items.map((it) => (
+              <div class="supply__item">
+                <h3>{it.t}</h3>
+                <p>{it.b}</p>
+              </div>
+            ))}
+          </div>
+        ))}
+        <p class="statement-26">
+          The important part is to treat the door as an installed doorset, not simply a door leaf
+          that has been ordered and fitted.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- 03 · The route -->
+  <Section labelledby="route-title">
+    <SectionHead
+      id="route-title"
+      layout="split"
+      eyebrow="03 · The route"
+      title="A clear route from requirement to finished installation."
+      titleWidth={18}
+      spacing={44}
+    >
+      <p class="t-lead intro-17">
+        Once the replacement requirement is agreed, the project should be straightforward to follow
+        — five practical steps inside JFD’s wider Decide → Deliver → Close approach.
+      </p>
+    </SectionHead>
+    <div class="phases">
+      {phases.map((ph) => (
+        <div class="phase" style={`flex: ${ph.flex}`}>
+          <p class="phase__label">
+            <span
+              class="phase__dot"
+              style={`background: var(--jfd-status-${ph.tone})`}
+              aria-hidden="true"
+            />
+            {ph.label}
+          </p>
+          <ol class="phase__steps" role="list">
+            {ph.steps.map((st) => (
+              <li>
+                <span class="phase__step-head">
+                  <span class="phase__n">{st.n}</span>
+                  <span class="phase__tag">{st.tag}</span>
+                </span>
+                <h3>{st.t}</h3>
+                {st.b.map((line) => (
+                  <p>{line}</p>
+                ))}
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+    </div>
+    <p class="route__flow">
+      Requirement <span aria-hidden="true">→</span> Specification <span aria-hidden="true">→</span>
+      Programme <span aria-hidden="true">→</span> Installation <span aria-hidden="true">→</span>
+      <span class="jfd-accent">Evidence</span>
+    </p>
+  </Section>
+
+  <!-- 04 · Live sites -->
+  <Section tone="surface" labelledby="live-title">
+    <div class="live">
+      <div>
+        <SectionHead
+          id="live-title"
+          eyebrow="04 · Live sites"
+          title="Fire door installation for buildings that have to keep operating."
+          titleWidth={17}
+        />
+        <p class="t-lead">
+          Installing a replacement fire door is rarely happening in an empty building. The work may
+          be taking place around staff, patients, students, residents, customers or other
+          contractors.
+        </p>
+        <p class="t-body live__body">
+          JFD has relevant experience across environments including healthcare and education, where
+          the installation has to work around what is happening in the building as well as meet the
+          door requirement.
+        </p>
+        <p class="t-mono-label live__label">That means the programme may need to consider</p>
+        <ol class="live__factors" role="list">
+          {liveFactors.map((f, i) => (
+            <li>
+              <span aria-hidden="true">{n2(i)}</span>
+              {f}
+            </li>
+          ))}
+        </ol>
+      </div>
+      <div class="live__photos">
+        <figure>
+          <div class="photo-34">
+            <Img
+              src={westonClassroom}
+              alt="New double doorset installed beside classroom furniture in a school, Weston-super-Mare"
+              sizes="(min-width: 1240px) 320px, 50vw"
+              widths={[360, 640]}
+            />
+          </div>
+          <figcaption class="caption caption--tight">Education · Weston-super-Mare</figcaption>
+        </figure>
+        <figure class="live__photo-low">
+          <div class="photo-34">
+            <Img
+              src={bodminInstaller}
+              alt="JFD installer checking a frame in a live hospital corridor, Bodmin"
+              position="40% 45%"
+              sizes="(min-width: 1240px) 270px, 45vw"
+              widths={[360, 640]}
+            />
+          </div>
+          <figcaption class="caption caption--tight">Healthcare · Bodmin Hospital</figcaption>
+        </figure>
+      </div>
+    </div>
+    <p class="live__statement">
+      The installation has to work for the building as well as the fire-door requirement.
+    </p>
+  </Section>
+
+  <!-- Mammography Unit -->
+  <Section tone="dark" layout="split" min={340} gap={72} align="center" labelledby="mammo-title">
+    <figure class="mammo__figure">
+      <div class="mammo__main">
+        <Img
+          src={mammoRooms}
+          alt="Lead-lined doorsets to Mammography Rooms 1 and 2 with radiation warning signage, Plymouth Mammography Unit"
+          position="50% 45%"
+          sizes="(min-width: 1240px) 580px, (min-width: 760px) 48vw, 90vw"
+        />
+      </div>
+      <div class="mammo__pair">
+        <div>
+          <Img
+            src={mammoBlind}
+            alt="Fire doorset with integrated privacy blind in the vision panel"
+            position="50% 45%"
+            sizes="(min-width: 1240px) 285px, 45vw"
+            widths={[360, 640]}
+          />
+        </div>
+        <div>
+          <Img
+            src={mammoDouble}
+            alt="Access-controlled double doorset with powered operator"
+            position="50% 50%"
+            sizes="(min-width: 1240px) 285px, 45vw"
+            widths={[360, 640]}
+          />
+        </div>
+      </div>
+      <figcaption class="mammo__caption">
+        Mammography rooms · integrated blind detail · access-controlled doorset
+      </figcaption>
+    </figure>
+    <div>
+      <p class="dark-eyebrow">Project · Healthcare · Plymouth Mammography Unit</p>
+      <h2 id="mammo-title" class="mammo__title">
+        When the doorset has to solve more than one problem.
+      </h2>
+      <p class="t-lead intro-17 mammo__p">
+        Some replacement projects are straightforward. Others need the doorset to do more than
+        provide fire performance.
+      </p>
+      <p class="t-lead intro-17 mammo__p mammo__p--last">
+        At Plymouth Mammography Unit, JFD’s work followed significant flood damage and included
+        specialist replacement doors with{' '}
+        <strong>lead-lined cores for radiation protection and integrated blinds for privacy</strong>
+        .
+      </p>
+      <dl class="mammo__facts">
+        {mammoFacts.map((f) => (
+          <div>
+            <dt>{f.k}</dt>
+            <dd>{f.v}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="mammo__statement">
+        The right doorset has to work for the room, the building and the people using it.
+      </p>
+      <a class="jfd-link jfd-link--on-dark" href={projectPath('plymouth-mammography-unit')}>
+        See the project →
+      </a>
+    </div>
+  </Section>
+
+  <!-- 05 · Where you're starting from -->
+  <Section layout="split" min={340} labelledby="starting-title">
+    <div>
+      <SectionHead
+        id="starting-title"
+        eyebrow="05 · Where you’re starting from"
+        title="One replacement or a defined programme of work."
+        titleWidth={16}
+      />
+      <p class="t-lead intro-17 starting__lead">
+        JFD can start with the piece of work that needs progressing now. That could be one door, one
+        building or a defined package across several sites.
+      </p>
+      <p class="intro-strong starting__strong">
+        You don’t need to move your whole fire-door programme to JFD in order to get a replacement
+        project moving.
+      </p>
+      <a class="jfd-btn jfd-btn--sm" href={quote}>
+        Send us your replacement schedule
+      </a>
+    </div>
+    <div>
+      <p class="t-mono-label starting__label">You may have</p>
+      <ol class="cases" role="list">
+        {useCases.map((u, i) => (
+          <li>
+            <span aria-hidden="true">{n2(i)}</span>
+            <span>{u}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </Section>
+
+  <!-- 06 · Deliver -->
+  <Section tone="surface" layout="split" min={340} gap={72} labelledby="deliver-title">
+    <div class="deliver-text">
+      <SectionHead
+        id="deliver-title"
+        eyebrow="06 · Deliver"
+        title="Get the installation done without losing sight of the programme."
+        titleWidth={17}
+      />
+      <p class="t-lead intro-17 deliver-text__intro">
+        A replacement programme needs more than somebody arriving on site with the right doors. The
+        Estates or project team also needs to know:
+      </p>
+      <ul class="ruled-list deliver-text__list" role="list">
+        {progKnow.map((p) => (
+          <li>{p}</li>
+        ))}
+      </ul>
+      <p class="t-body deliver-text__body">
+        Once the scope is agreed, the installation programme should give you a clear view of
+        progress as the work moves across the site.
+      </p>
+      <p class="statement-26">
+        Get the work done with a clear view of what’s complete along the way.
+      </p>
+    </div>
+    <RecordFrame
+      title="Replacement programme · door status"
+      meta="48 doorsets · week 3"
+      shadow
+      caption="Illustrative example"
+    >
+      <ul class="doors-legend" role="list">
+        {counts.map((c) => (
+          <li class={`is-${c.state}`}>
+            <span class="doors-legend__key" aria-hidden="true" />
+            {STATE_LABEL[c.state]} · {c.n}
+          </li>
+        ))}
+      </ul>
+      {floors.map((f) => (
+        <div class="floor">
+          <span class="floor__name">{f.name}</span>
+          <div class="floor__doors" aria-hidden="true">
+            {f.doors.map((d, i) => (
+              <span
+                class={`door-cell is-${d}`}
+                title={`${f.prefix}-${String(i + 1).padStart(2, '0')} · ${STATE_LABEL[d]}`}
+              >
+                {f.prefix}-{String(i + 1).padStart(2, '0')}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+      <p class="doors-note">
+        <strong>2 decisions needed</strong> · G-07 frame condition, 2-12 opening size — raised with
+        photos before work continues
+      </p>
+    </RecordFrame>
+  </Section>
+
+  <!-- 07 · Existing openings -->
+  <Section layout="split" min={340} gap={72} labelledby="openings-title">
+    <div>
+      <SectionHead
+        id="openings-title"
+        eyebrow="07 · Existing openings"
+        title="Replacement isn’t always just taking one door out and putting another in."
+        titleWidth={17}
+      />
+      <p class="t-lead intro-17 openings__intro">
+        Existing buildings can throw up surprises. Once work starts, the opening itself may need
+        more attention than expected. That could involve:
+      </p>
+      <ol class="openings__list" role="list">
+        {openingPins.map((o, i) => (
+          <li>
+            <span
+              class:list={['openings__n', { 'is-open': i === openingPins.length - 1 }]}
+              aria-hidden="true"
+            >
+              {i + 1}
+            </span>
+            {o}
+          </li>
+        ))}
+      </ol>
+      <p class="t-muted openings__next">
+        The key thing is what happens next. If something changes the agreed scope, you should
+        understand:
+      </p>
+      <ol class="found" role="list">
+        {found.map((f, i) => (
+          <li>
+            <span aria-hidden="true">{n2(i)}</span>
+            {f}
+          </li>
+        ))}
+      </ol>
+      <p class="intro-strong openings__close">
+        Not an unexplained addition to the invoice at the end.
+      </p>
+    </div>
+    <figure class="pins-figure">
+      <div class="pins-figure__media pins-figure__media--34">
+        <Img
+          src={existingOpening}
+          alt="Existing opening mid-refurbishment: new doorset in a panelled wall with exposed ceiling cabling and floor ducting"
+          sizes="(min-width: 1240px) 560px, (min-width: 760px) 48vw, 90vw"
+        />
+        {openingMarks.map((m, i) => (
+          <span class="pin pin--dark" style={`left: ${m.x}%; top: ${m.y}%`} aria-hidden="true">
+            {i + 1}
+          </span>
+        ))}
+      </div>
+      <figcaption class="caption">
+        Existing opening mid-refurbishment · Pub refurbishment project
+      </figcaption>
+    </figure>
+  </Section>
+
+  <EvidenceBlock
+    eyebrow="08 · Handover"
+    title="Finish with more than a fitted door."
+    intro={[
+      'The installation isn’t properly closed out when the fitter leaves site.',
+      'Your Estates, Facilities or project team still needs a clear record of what was installed and where.',
+    ]}
+    listTitle="Depending on JFD’s final confirmed process, the handover may include"
+    items={[
+      'door or location reference',
+      'doorset or specification',
+      'installation record',
+      'photographs',
+      'installer and installation date',
+      'quality checks',
+      'relevant certification or documentation',
+      'anything still requiring attention',
+    ]}
+    chain={[
+      'What was specified',
+      'What was installed',
+      'Where it was installed',
+      'What evidence supports it',
+    ]}
+    outcome="Finish with clear evidence of what’s closed on the job sheet."
+    shots={[
+      {
+        image: firestopping,
+        alt: 'Door Data Systems installation checks recording fire stopping used and door completion with inside and outside photos',
+        label: 'Installation checks · fire stopping, completion',
+        position: '50% 30%',
+      },
+      {
+        image: partsList,
+        alt: 'Door Data Systems parts list recording ironmongery and seals fitted to one door',
+        label: 'Door record · parts fitted',
+        position: '50% 0%',
+      },
+    ]}
+    caption="Door Data Systems (DDS) — live JFD installation records, Passivhaus apartments and Penryn College"
+  />
+
+  <!-- 09 · Cost / 10 · Repair or replace -->
+  <Section layout="split" min={340} labelledby="cost-title">
+    <div>
+      <p class="jfd-eyebrow">09 · Cost</p>
+      <h2 id="cost-title" class="qa__title">
+        What affects the cost of replacing a fire door?
+      </h2>
+      <p class="intro-strong cost__intro">
+        There isn’t one useful price for every replacement fire door. The cost can depend on factors
+        including:
+      </p>
+      <ul class="cost__chips" role="list">
+        {costFactors.map((c) => (
+          <li class="jfd-chip">{c}</li>
+        ))}
+      </ul>
+      <p class="qa__body">
+        A standard replacement in a straightforward opening is a very different job from a
+        specialist doorset in an occupied healthcare environment.
+      </p>
+      <p class="qa__body qa__body--last">
+        If you already have a survey, specification or door schedule, send it over. That gives us a
+        much better starting point for working out what is actually required and pricing the project
+        properly.
+      </p>
+      <a class="jfd-btn jfd-btn--sm" href={quote}>
+        Send us your schedule or survey
+      </a>
+    </div>
+    <div>
+      <p class="jfd-eyebrow">10 · Repair or replace?</p>
+      <h2 class="qa__title">Repair or replace? Start with the right decision.</h2>
+      <p class="qa__body rvr__intro">
+        The biggest installation order isn’t automatically the right answer.
+      </p>
+      <dl class="rvr">
+        {rvr.map((r) => (
+          <div>
+            <dt>
+              <span class={`jfd-status jfd-status--${r.tone} rvr__label`}>{r.label}</span>
+            </dt>
+            <dd>{r.b}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="qa__body">If repair is the right route, JFD can support that too.</p>
+      <a class="jfd-link" href={paths.remedialWorks}>
+        Fire Door Repairs &amp; Remedial Works →
+      </a>
+    </div>
+  </Section>
+
+  <WhyJfd
+    title="Why JFD for fire door installation?"
+    image={{
+      src: torbridge,
+      alt: 'Replacement doorset with vision panel and oak frame, Tor Bridge High',
+      position: '50% 40%',
+      caption: 'Replacement doorset · Tor Bridge High',
+    }}
+    items={[
+      {
+        title: 'Fire doors are our specialist focus.',
+        lines: [
+          'JFD focuses specifically on fire doors across inspection, repair, replacement and maintenance.',
+          'That means installation sits within the wider job of understanding what the door needs to do and making sure the work is properly closed afterwards.',
+        ],
+      },
+      {
+        title: 'Experience beyond standard replacement doors.',
+        lines: [
+          'JFD has project experience involving specialist doorsets, including lead-lined doors for healthcare environments.',
+        ],
+      },
+      {
+        title: 'Experience across healthcare and education.',
+        lines: [
+          'Existing JFD projects include work at Plymouth Mammography Unit, Stoke Damerel Community College and Tor Bridge High.',
+        ],
+      },
+      {
+        title: 'Start with the project in front of you.',
+        lines: ['One replacement. One site. One phase. One defined package.'],
+      },
+      {
+        title: 'Clear handover matters.',
+        lines: [
+          'The work should finish with records that make it clear what has been installed and where.',
+        ],
+      },
+      {
+        title: 'Based in the South West.',
+        lines: [
+          'JFD supports commercial projects across Plymouth, Devon, Cornwall and the wider region.',
+        ],
+      },
+    ]}
+  />
+
+  <FaqList title={faqs.title} items={faqs.items} />
+
+  <FinalCta
+    labelA="Have the schedule?"
+    title="Already know which fire doors need replacing?"
+    body={[
+      'Send us your survey, door schedule or job sheet.',
+      'We’ll review the requirement and help give the installation a clear route forward.',
+    ]}
+    cta={{ label: 'Send us your schedule or job sheet', href: quote }}
+    labelB="Not sure yet?"
+    altTitle="Not sure whether repair or replacement is right?"
+    altBody="Tell us what you’re seeing and we’ll help work out the right route."
+    altCta={{ label: 'Talk through the work', href: quoteHref('not-sure') }}
+  />
+</BaseLayout>
+
+<style>
+  .prompt-link {
+    font-size: 15.5px;
+  }
+  p.hero-prompt {
+    margin: 0;
+  }
+  .hero-tagline {
+    font-family: var(--jfd-font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+    margin: 28px 0 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--jfd-rule);
+  }
+  .intro-17 {
+    font-size: 17px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .intro-strong {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--jfd-graphite);
+    font-weight: 500;
+    margin: 0;
+    max-width: 50ch;
+  }
+  .caption {
+    display: block;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-4);
+    margin-top: 10px;
+  }
+  .caption--tight {
+    margin-top: 8px;
+  }
+  .statement-26 {
+    font-family: var(--jfd-font-display);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0;
+    max-width: 30ch;
+  }
+  .dark-eyebrow {
+    font-family: var(--jfd-font-mono);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    color: var(--jfd-azure-soft);
+    margin: 0 0 20px;
+  }
+
+  /* Hero photo */
+  .hero-photo {
+    margin: 0;
+  }
+  .hero-photo__media {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--jfd-media-bg);
+    border: 1px solid var(--jfd-rule);
+  }
+  .hero-photo__media :global(img),
+  .pins-figure__media :global(img),
+  .photo-34 :global(img),
+  .mammo__main :global(img),
+  .mammo__pair :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-photo__card {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    background: var(--jfd-surface);
+    border-top: 1px solid var(--jfd-rule);
+    border-right: 1px solid var(--jfd-rule);
+    padding: 14px 18px;
+    display: grid;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--jfd-graphite);
+  }
+
+  /* 01 Decide */
+  .decide__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 18px;
+    margin: 28px 0 0;
+    font-size: 16px;
+    color: var(--jfd-ink-2);
+  }
+  .decide__foot .jfd-link {
+    font-size: 16px;
+  }
+
+  /* 02 Supply */
+  .supply {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: clamp(28px, 6vw, 48px) 64px;
+    align-items: start;
+  }
+  .supply > * {
+    min-width: 0;
+  }
+  .pins-figure {
+    margin: 0;
+    min-width: 0;
+  }
+  .pins-figure__media {
+    position: relative;
+    overflow: hidden;
+    background: var(--jfd-media-bg);
+    border: 1px solid var(--jfd-rule);
+  }
+  .pins-figure__media--34 {
+    aspect-ratio: 3 / 4;
+  }
+  .pin {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 28px;
+    height: 28px;
+    background: var(--jfd-action);
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    display: grid;
+    place-items: center;
+    font-family: var(--jfd-font-mono);
+    font-size: 12px;
+    box-shadow: 0 2px 8px rgba(35, 40, 44, 0.35);
+  }
+  .pin--dark {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+  .pin-key {
+    list-style: none;
+    margin: 14px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+    column-gap: 20px;
+  }
+  .pin-key li {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    padding: 7px 0;
+    border-top: 1px solid var(--jfd-rule-soft);
+    font-size: 14px;
+  }
+  .pin-key li span {
+    font-family: var(--jfd-font-mono);
+    font-size: 11.5px;
+    color: var(--jfd-action);
+  }
+  .supply__group {
+    margin-bottom: 34px;
+  }
+  .supply__label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--jfd-graphite);
+    margin: 0;
+    font-family: var(--jfd-font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .supply__pins {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--jfd-ink-4);
+  }
+  .supply__item {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .supply__item h3 {
+    font-size: 16.5px;
+    font-weight: 600;
+    line-height: 1.35;
+    margin: 0;
+  }
+  .supply__item p {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--jfd-ink-3);
+    margin: 0;
+  }
+
+  /* 03 Route */
+  .phases {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 8px;
+  }
+  .phase {
+    min-width: 0;
+  }
+  .phase__label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--jfd-action);
+    margin: 0 0 1px;
+    font-family: var(--jfd-font-mono);
+    font-size: 13px;
+    text-transform: uppercase;
+    color: var(--jfd-action);
+    font-weight: 500;
+  }
+  .phase__dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+  }
+  .phase__steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    gap: 1px;
+    border: 1px solid var(--jfd-rule);
+    border-top: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .phase__steps li {
+    outline: 1px solid var(--jfd-rule);
+    background: var(--jfd-surface);
+    padding: 22px 20px 24px;
+    min-width: 0;
+  }
+  .phase__step-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .phase__n {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--jfd-rule-strong);
+    background: var(--jfd-ground);
+    display: grid;
+    place-items: center;
+    font-family: var(--jfd-font-mono);
+    font-size: 12px;
+    color: var(--jfd-action);
+  }
+  .phase__tag {
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+  }
+  .phase__steps h3 {
+    font-family: var(--jfd-font-display);
+    font-size: 23px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .phase__steps p {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--jfd-ink-3);
+    margin: 0 0 6px;
+  }
+  .route__flow {
+    font-family: var(--jfd-font-mono);
+    font-size: 12.5px;
+    text-transform: uppercase;
+    color: var(--jfd-graphite);
+    margin: 28px 0 0;
+  }
+  .route__flow span[aria-hidden] {
+    color: var(--jfd-underline);
+  }
+
+  /* 04 Live sites */
+  .live {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: clamp(28px, 6vw, 48px) 72px;
+    align-items: start;
+  }
+  .live > * {
+    min-width: 0;
+  }
+  .live__body {
+    margin-bottom: 28px;
+  }
+  .live__label {
+    margin-bottom: 4px;
+  }
+  .live__factors {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    column-gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .live__factors li {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
+    padding: 12px 0;
+    border-top: 1px solid var(--jfd-rule);
+    align-items: baseline;
+    font-size: 15.5px;
+  }
+  .live__factors li span {
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    color: var(--jfd-ink-4);
+  }
+  .live__photos {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 12px;
+  }
+  .live__photos figure {
+    margin: 0;
+    min-width: 0;
+  }
+  .live__photo-low {
+    align-self: end;
+  }
+  .photo-34 {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: var(--jfd-media-bg);
+    border: 1px solid var(--jfd-rule);
+  }
+  .live__statement {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(28px, 3vw, 38px);
+    font-weight: 600;
+    line-height: 1.14;
+    margin: 48px 0 0;
+    padding-top: 28px;
+    border-top: 1px solid var(--jfd-rule);
+    max-width: 30ch;
+  }
+
+  /* Mammography */
+  .mammo__figure {
+    margin: 0;
+  }
+  .mammo__main {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #2c3237;
+    border: 1px solid var(--jfd-dark-rule);
+  }
+  .mammo__pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .mammo__pair > div {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border: 1px solid var(--jfd-dark-rule);
+  }
+  .mammo__caption {
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-dark-ink-2);
+    margin-top: 10px;
+  }
+  .mammo__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(34px, 4vw, 50px);
+    font-weight: 600;
+    line-height: 1.08;
+    margin: 0 0 20px;
+    max-width: 18ch;
+  }
+  .mammo__p {
+    margin-bottom: 12px;
+  }
+  .mammo__p--last {
+    margin-bottom: 24px;
+  }
+  .mammo__p strong {
+    color: #ffffff;
+  }
+  .mammo__facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+    gap: 1px;
+    border: 1px solid var(--jfd-dark-rule);
+    margin: 0 0 26px;
+  }
+  .mammo__facts > div {
+    outline: 1px solid var(--jfd-dark-rule);
+    background: var(--jfd-graphite);
+    padding: 16px 16px 18px;
+  }
+  .mammo__facts dt {
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--jfd-dark-ink-2);
+    margin-bottom: 6px;
+  }
+  .mammo__facts dd {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.4;
+    color: #ffffff;
+  }
+  .mammo__statement {
+    font-family: var(--jfd-font-display);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #ffffff;
+    margin: 0 0 22px;
+    max-width: 30ch;
+  }
+
+  /* 05 Starting */
+  .starting__lead {
+    margin-bottom: 12px;
+    max-width: 46ch;
+  }
+  .starting__strong {
+    font-size: 16.5px;
+    margin-bottom: 28px;
+    max-width: 46ch;
+  }
+  .starting__label {
+    margin-bottom: 4px;
+  }
+  .cases {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .cases li {
+    display: grid;
+    grid-template-columns: 46px minmax(0, 1fr);
+    gap: 16px;
+    padding: 17px 0;
+    border-top: 1px solid var(--jfd-rule);
+    align-items: baseline;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .cases li span:first-child {
+    font-family: var(--jfd-font-mono);
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--jfd-ink-4);
+  }
+
+  /* 06 Deliver */
+  .deliver-text {
+    max-width: 520px;
+  }
+  .deliver-text__intro {
+    margin-bottom: 8px;
+  }
+  .deliver-text__list {
+    margin-bottom: 20px;
+  }
+  .deliver-text__list > li {
+    padding: 9px 0;
+    font-size: 15.5px;
+    line-height: normal;
+  }
+  .deliver-text__body {
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .doors-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--jfd-rule);
+    list-style: none;
+    margin: 0;
+  }
+  .doors-legend li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+  }
+  .doors-legend__key {
+    width: 12px;
+    height: 12px;
+    border: 1px solid;
+  }
+  .floor {
+    display: grid;
+    grid-template-columns: clamp(52px, 15vw, 84px) minmax(0, 1fr);
+    gap: 10px;
+    padding: 14px clamp(12px, 3.5vw, 18px);
+    border-bottom: 1px solid var(--jfd-rule-soft);
+    align-items: center;
+  }
+  .floor__name {
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+  }
+  .floor__doors {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 4px;
+  }
+  .door-cell {
+    height: 30px;
+    border: 1px solid;
+    display: grid;
+    place-items: center;
+    font-family: var(--jfd-font-mono);
+    font-size: 9.5px;
+  }
+  /* Door states (legend key and grid cell share colours) */
+  .is-complete {
+    color: var(--jfd-status-closed);
+  }
+  .door-cell.is-complete,
+  .is-complete .doors-legend__key {
+    background: var(--jfd-status-closed);
+    border-color: var(--jfd-status-closed);
+  }
+  .door-cell.is-complete {
+    color: #ffffff;
+  }
+  .is-scheduled {
+    color: var(--jfd-ink-3);
+  }
+  .door-cell.is-scheduled,
+  .is-scheduled .doors-legend__key {
+    background: var(--jfd-surface);
+    border-color: var(--jfd-rule-strong);
+  }
+  .is-outstanding {
+    color: var(--jfd-status-onsite);
+  }
+  .door-cell.is-outstanding,
+  .is-outstanding .doors-legend__key {
+    background: #f3e6c4;
+    border-color: var(--jfd-status-onsite);
+  }
+  .door-cell.is-outstanding {
+    color: #5e4300;
+  }
+  .is-decision {
+    color: var(--jfd-status-decide);
+  }
+  .door-cell.is-decision,
+  .is-decision .doors-legend__key {
+    background: var(--jfd-status-decide);
+    border-color: var(--jfd-status-decide);
+  }
+  .door-cell.is-decision {
+    color: #ffffff;
+  }
+  .doors-note {
+    padding: 13px 18px;
+    background: var(--jfd-tint);
+    font-size: 13px;
+    color: var(--jfd-ink-2);
+    margin: 0;
+  }
+
+  /* 07 Existing openings */
+  .openings__intro {
+    margin-bottom: 8px;
+    max-width: 48ch;
+  }
+  .openings__list {
+    list-style: none;
+    margin: 0 0 28px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+    column-gap: 24px;
+  }
+  .openings__list li {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid var(--jfd-rule-soft);
+    font-size: 15.5px;
+  }
+  .openings__n {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    background: var(--jfd-action);
+    color: #ffffff;
+    border: 1px solid var(--jfd-action);
+    display: grid;
+    place-items: center;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+  }
+  .openings__n.is-open {
+    background: var(--jfd-surface);
+    color: var(--jfd-action);
+  }
+  .openings__next {
+    color: var(--jfd-ink-2);
+    margin-bottom: 10px;
+  }
+  .found {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--jfd-rule);
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+  }
+  .found li {
+    outline: 1px solid var(--jfd-rule);
+    background: var(--jfd-surface);
+    padding: 14px 16px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.35;
+  }
+  .found li span {
+    display: block;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: var(--jfd-action);
+    margin-bottom: 6px;
+  }
+
+  /* 09/10 Cost and repair or replace */
+  .qa__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(30px, 3.4vw, 40px);
+    font-weight: 600;
+    line-height: 1.14;
+    margin: 0 0 20px;
+    max-width: 20ch;
+  }
+  .qa__body {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0 0 12px;
+    max-width: 52ch;
+  }
+  .qa__body--last {
+    margin-bottom: 22px;
+  }
+  .cost__intro {
+    font-size: 16.5px;
+    margin-bottom: 10px;
+    max-width: none;
+  }
+  .cost__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 0;
+  }
+  .cost__chips li {
+    background: var(--jfd-surface);
+    border: 1px solid var(--jfd-rule);
+    padding: 7px 10px;
+    font-size: 11.5px;
+  }
+  .rvr__intro {
+    font-size: 16.5px;
+    margin-bottom: 18px;
+  }
+  .rvr {
+    border: 1px solid var(--jfd-rule);
+    background: var(--jfd-surface);
+    margin: 0 0 20px;
+  }
+  .rvr > div {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 16px;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--jfd-rule-soft);
+    align-items: baseline;
+  }
+  .rvr > div:last-child {
+    border-bottom: 0;
+  }
+  .rvr__label {
+    letter-spacing: normal;
+  }
+  .rvr dd {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--jfd-ink-2);
+  }
+</style>

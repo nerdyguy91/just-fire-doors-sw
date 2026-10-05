@@ -1,0 +1,58 @@
+# FAQ set for remedial-works. Ported from docs/prototype/pages/service-repairs.dc.html.
+title: Fire door repair FAQs
+items:
+  - q: Can a fire door be repaired rather than replaced?
+    a:
+      - >-
+        In many cases, yes, but it depends on the defect, the condition of the door and the evidence
+        supporting the doorset.
+      - >-
+        Some issues may be suitable for repair. Others may require replacement or further
+        investigation before the right action can be confirmed.
+      - >-
+        The aim should be to establish the correct treatment rather than assume one route fits every
+        door.
+  - q: What fire door defects can be repaired?
+    a:
+      - >-
+        Depending on the door and defect, remedial work can include issues involving closers,
+        hinges, seals, gaps, alignment, ironmongery, door leaves, frames and other components.
+      - The appropriate repair needs to be considered in the context of the complete door assembly.
+  - q: Can you work from an existing fire door survey or remedial report?
+    a:
+      - Yes.
+      - If you already have a suitable survey, report, remedial list or job sheet, send it over.
+      - >-
+        JFD can review the identified work and help establish the next step without automatically
+        starting the inspection process again.
+  - q: What happens if further problems are found during the work?
+    a:
+      - >-
+        Where something is found that affects the agreed scope, it should be raised and clarified
+        before additional work is carried out.
+  - q: Can JFD take on only part of our remedial backlog?
+    a:
+      - Yes, subject to the scope and location of the work.
+      - >-
+        That might be one site, one group of doors or a defined package of actions that needs
+        additional capacity.
+  - q: Can you work alongside our existing fire door contractor?
+    a:
+      - Potentially, yes.
+      - >-
+        You may simply need another specialist contractor to take a defined piece of work rather
+        than replace your existing provider.
+      - Tell us what needs covering and we can establish whether JFD is a suitable fit.
+  - q: What evidence do we receive after repairs are completed?
+    a:
+      - >-
+        JFD’s current materials state that documentation and certification are provided on
+        completion and that work is supported by a door-level audit trail.
+  - q: What happens when a fire door needs replacing instead?
+    a:
+      - >-
+        Where repair isn’t suitable, JFD can help scope and deliver replacement fire doors and
+        installation.
+    link:
+      label: Fire Door Replacement & Installation →
+      href: /services/fire-door-installation/

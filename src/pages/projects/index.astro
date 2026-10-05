@@ -1,0 +1,560 @@
+---
+/**
+ * /projects/ index. Ported from docs/prototype/pages/projects.dc.html. Production change (plan
+ * Decision 7): each case study has its own page (/projects/{slug}/); this index keeps the
+ * prototype's hero, "how to read", featured-project cards and closing sections, and links out.
+ */
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import Section from '../../components/sections/Section.astro';
+import SectionHead from '../../components/sections/SectionHead.astro';
+import FinalCta from '../../components/sections/FinalCta.astro';
+import Img from '../../components/ui/Img.astro';
+import { paths, projectPath } from '../../data/paths';
+import { quoteHref } from '../../data/quote-routes';
+import torbridgeSign from '../../assets/images/photos/torbridge-sign.jpeg';
+import bodminWard from '../../assets/images/photos/bodmin-ward-double-doorset.jpeg';
+import stokeRoom from '../../assets/images/photos/stoke-room.jpeg';
+
+const projects = (await getCollection('projects', (p) => !p.data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const [featured, ...others] = projects;
+const crumbs = [{ name: 'Projects', path: paths.projects }];
+
+const lenses = [
+  { label: 'Decide', t: 'Understand the requirement', tone: 'decide' },
+  { label: 'Deliver', t: 'Work around the real site', tone: 'onsite' },
+  { label: 'Close', t: 'Leave a clear completion record', tone: 'closed' },
+];
+const synthesis = [
+  { t: 'Requirement', b: 'What the requirement actually is.' },
+  { t: 'Work on site', b: 'What is happening on site.' },
+  { t: 'Completed evidence', b: 'What has actually been completed.' },
+];
+---
+
+<BaseLayout
+  title="Fire Door Projects | South West | Just Fire Doors"
+  description="Fire door projects across healthcare and education in Plymouth and the South West: specialist doorsets, deadline-led school programmes and campus installations."
+  breadcrumbs={crumbs}
+>
+  <PageHero
+    breadcrumbs={crumbs}
+    size="large"
+    align="center"
+    contentWidth={540}
+    eyebrow="Healthcare · Education · Occupied buildings · Specialist doorsets"
+  >
+    <Fragment slot="title">
+      Fire Door <span class="jfd-accent">Projects</span>
+    </Fragment>
+    <p class="hero-lead projects-lead">
+      See how JFD approaches fire-door work in real buildings, from understanding the requirement
+      through installation and clear close-out.
+    </p>
+    <div class="hero-actions hero-actions--stack projects-actions">
+      <span class="projects-actions__label">Have a similar requirement?</span>
+      <a class="jfd-btn" href={quoteHref()}>
+        Talk through the work
+      </a>
+    </div>
+
+    <div slot="aside" class="mosaic">
+      <figure class="mosaic__wide">
+        <Img
+          src={torbridgeSign}
+          alt="Tor Bridge High school building signage on brick wall"
+          position="50% 55%"
+          priority
+          sizes="(min-width: 1240px) 580px, (min-width: 760px) 48vw, 90vw"
+        />
+        <figcaption>Education · Tor Bridge High</figcaption>
+      </figure>
+      <figure>
+        <Img
+          src={bodminWard}
+          alt="Double fire doorset on a hospital ward corridor, Bodmin Hospital"
+          position="50% 45%"
+          sizes="(min-width: 1240px) 290px, (min-width: 760px) 24vw, 45vw"
+          widths={[360, 640]}
+        />
+        <figcaption>Healthcare · Bodmin</figcaption>
+      </figure>
+      <figure>
+        <Img
+          src={stokeRoom}
+          alt="Completed room with installed fire door, Stoke Damerel Community College Sixth Form campus"
+          sizes="(min-width: 1240px) 290px, (min-width: 760px) 24vw, 45vw"
+          widths={[360, 640]}
+        />
+        <figcaption>Campus · Stoke Damerel</figcaption>
+      </figure>
+    </div>
+  </PageHero>
+
+  <!-- How to read -->
+  <Section tone="surface" labelledby="read-title" class="read">
+    <SectionHead
+      id="read-title"
+      layout="split"
+      eyebrow="How to read these projects"
+      title="The job is rarely just fitting a door."
+      titleWidth={16}
+      spacing={36}
+    >
+      <p class="t-lead read__intro">
+        Real projects come with specifications, access, live buildings, deadlines, technical
+        requirements and other contractors on site. Each one below is read through the same three
+        stages.
+      </p>
+    </SectionHead>
+    <ol class="lenses" role="list">
+      {lenses.map((l, i) => (
+        <li>
+          <div class="lenses__head">
+            <span
+              class="lenses__dot"
+              style={`background: var(--jfd-status-${l.tone})`}
+              aria-hidden="true"
+            />
+            <h3>{l.label}</h3>
+            <span class="lenses__rule" aria-hidden="true" />
+            {i < lenses.length - 1 && (
+              <span class="lenses__arrow" aria-hidden="true">
+                →
+              </span>
+            )}
+          </div>
+          <p>{l.t}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="read__note">
+      Stages are shown only where JFD genuinely owned them. Where a principal contractor handed over
+      a defined package, we say so.
+    </p>
+  </Section>
+
+  <!-- Project index -->
+  <Section labelledby="index-title">
+    <h2 id="index-title" class="jfd-eyebrow">
+      Featured projects
+    </h2>
+    <div class="index">
+      {featured && (
+        <a class="pfeature" href={projectPath(featured.id)}>
+          <span class="pfeature__media">
+            <Img
+              src={featured.data.hero.image}
+              alt=""
+              position={featured.data.hero.position}
+              sizes="(min-width: 1240px) 580px, (min-width: 760px) 48vw, 90vw"
+            />
+          </span>
+          <span class="pfeature__body">
+            <span class="pfeature__use">{featured.data.useCase}</span>
+            <span class="pfeature__title">{featured.data.title}</span>
+            <span class="pfeature__text">
+              {featured.data.card.summary ?? featured.data.subhead}
+            </span>
+            <span class="pfeature__tags">
+              {featured.data.tags.map((t) => (
+                <span class="jfd-chip">{t}</span>
+              ))}
+            </span>
+            <span class="pfeature__link">View project →</span>
+          </span>
+        </a>
+      )}
+      <div class="index__side">
+        {others.map((p) => (
+          <a class="pside" href={projectPath(p.id)}>
+            <span class="pside__media">
+              <Img
+                src={p.data.hero.image}
+                alt=""
+                position={p.data.card.position ?? p.data.hero.position}
+                sizes="(min-width: 760px) 240px, 90vw"
+                widths={[360, 640]}
+              />
+            </span>
+            <span class="pside__body">
+              <span class="pside__use">{p.data.useCase}</span>
+              <span class="pside__title">{p.data.title}</span>
+              <span class="pside__text">{p.data.card.summary ?? p.data.subhead}</span>
+              <span class="pside__tags">{p.data.tags.join(' · ')}</span>
+              <span class="pside__link">View project →</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <!-- Different projects, the same need for clarity -->
+  <Section tone="dark" size="large" labelledby="clarity-title">
+    <h2 id="clarity-title" class="clarity__title">
+      Different projects. <span class="clarity__accent">The same need for clarity.</span>
+    </h2>
+    <p class="t-lead clarity__lead">
+      A specialist healthcare doorset, a school deadline and a campus package look nothing alike.
+      What the people responsible for the building need from each is the same.
+    </p>
+    <ol class="synth" role="list">
+      {synthesis.map((s, i) => (
+        <li>
+          <span class="synth__n" aria-hidden="true">
+            <span>{String(i + 1).padStart(2, '0')}</span>
+            <span class="synth__rule" />
+            {i < synthesis.length - 1 && (
+              <span class="synth__arrow" aria-hidden="true">
+                →
+              </span>
+            )}
+          </span>
+          <span class="synth__t">{s.t}</span>
+          <span class="synth__b">{s.b}</span>
+        </li>
+      ))}
+    </ol>
+  </Section>
+
+  <FinalCta
+    labelA="Similar work?"
+    title="Got a similar piece of fire-door work?"
+    body={['Start with the survey, job sheet, specification or requirement you already have.']}
+    cta={{ label: 'Send us your survey or job sheet', href: quoteHref('survey') }}
+    labelB="Or"
+    altTitle="Prefer to talk it through first?"
+    altBody="Tell us about the building, the doors and the programme."
+    altCta={{ label: 'Talk through your fire-door work', href: paths.contact }}
+  />
+</BaseLayout>
+
+<style>
+  .projects-lead {
+    margin-bottom: 32px;
+    max-width: 44ch;
+  }
+  .projects-actions {
+    gap: 10px;
+  }
+  .projects-actions__label {
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--jfd-graphite);
+  }
+
+  /* Hero mosaic */
+  .mosaic {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .mosaic figure {
+    margin: 0;
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--jfd-media-bg);
+    border: 1px solid var(--jfd-rule);
+  }
+  .mosaic .mosaic__wide {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 9;
+  }
+  .mosaic :global(img),
+  .pfeature__media :global(img),
+  .pside__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .mosaic figcaption {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: var(--jfd-surface);
+    padding: 8px 12px;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-graphite);
+  }
+
+  /* How to read */
+  :global(.read .sec__inner) {
+    padding-top: clamp(48px, 8vw, 80px);
+    padding-bottom: clamp(48px, 8vw, 80px);
+  }
+  .read__intro {
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .lenses {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 1px;
+    border: 1px solid var(--jfd-rule);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .lenses li {
+    outline: 1px solid var(--jfd-rule);
+    background: var(--jfd-surface);
+    padding: 24px 24px 26px;
+    min-width: 0;
+  }
+  .lenses__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .lenses__dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+  }
+  .lenses h3 {
+    font-family: var(--jfd-font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--jfd-action);
+    margin: 0;
+  }
+  .lenses__rule {
+    flex: 1;
+    height: 1px;
+    background: var(--jfd-rule);
+  }
+  .lenses__arrow {
+    font-family: var(--jfd-font-mono);
+    color: var(--jfd-underline);
+  }
+  .lenses p {
+    font-family: var(--jfd-font-display);
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0;
+  }
+  .read__note {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--jfd-ink-3);
+    margin: 20px 0 0;
+    max-width: 70ch;
+  }
+
+  /* Index */
+  .index {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: 24px;
+    align-items: stretch;
+  }
+  .index__side {
+    min-width: 0;
+    display: grid;
+    gap: 24px;
+  }
+  .pfeature,
+  .pside {
+    display: flex;
+    background: var(--jfd-surface);
+    border: 1px solid var(--jfd-rule);
+    color: var(--jfd-graphite);
+    transition: border-color 0.2s ease;
+  }
+  .pfeature:hover,
+  .pside:hover {
+    border-color: var(--jfd-action);
+    color: var(--jfd-graphite);
+  }
+  .pfeature {
+    flex-direction: column;
+  }
+  .pfeature__media {
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--jfd-media-bg);
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .pfeature__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 26px 26px 28px;
+  }
+  .pfeature__use,
+  .pside__use {
+    display: block;
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--jfd-action);
+    margin-bottom: 12px;
+  }
+  .pfeature__title {
+    display: block;
+    font-family: var(--jfd-font-display);
+    font-size: clamp(30px, 3.2vw, 38px);
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .pfeature__text {
+    display: block;
+    font-size: 16.5px;
+    line-height: 1.55;
+    color: var(--jfd-ink-2);
+    margin-bottom: 18px;
+    max-width: 44ch;
+  }
+  .pfeature__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+  .pfeature__tags :global(.jfd-chip) {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+  .pfeature__link,
+  .pside__link {
+    margin-top: auto;
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--jfd-action);
+    border-bottom: 1px solid var(--jfd-underline);
+    padding-bottom: 2px;
+  }
+  .pside {
+    flex-wrap: wrap;
+  }
+  .pside__media {
+    flex: 1 1 200px;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-right: 1px solid var(--jfd-rule);
+    background: var(--jfd-media-bg);
+    min-height: 220px;
+  }
+  .pside__media :global(picture),
+  .pside__media :global(img) {
+    position: absolute;
+    inset: 0;
+  }
+  .pside__body {
+    flex: 1.5 1 240px;
+    display: flex;
+    flex-direction: column;
+    padding: 22px 22px 24px;
+    min-width: 0;
+  }
+  .pside__use {
+    font-size: 10.5px;
+    margin-bottom: 10px;
+  }
+  .pside__title {
+    display: block;
+    font-family: var(--jfd-font-display);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.12;
+    margin-bottom: 8px;
+  }
+  .pside__text {
+    display: block;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--jfd-ink-2);
+    margin-bottom: 14px;
+  }
+  .pside__tags {
+    display: block;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+
+  /* Clarity */
+  .clarity__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(40px, 5.2vw, 66px);
+    font-weight: 600;
+    line-height: 1.04;
+    margin: 0 0 18px;
+    max-width: 18ch;
+  }
+  .clarity__accent {
+    color: var(--jfd-azure-soft);
+  }
+  .clarity__lead {
+    line-height: 1.6;
+    margin: 0 0 48px;
+    max-width: 56ch;
+  }
+  .synth {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 1px;
+    border: 1px solid var(--jfd-dark-rule);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .synth li {
+    outline: 1px solid var(--jfd-dark-rule);
+    background: var(--jfd-graphite);
+    padding: 28px 26px 30px;
+    min-width: 0;
+  }
+  .synth__n {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--jfd-dark-ink-2);
+    margin-bottom: 18px;
+  }
+  .synth__rule {
+    flex: 1;
+    height: 1px;
+    background: var(--jfd-dark-rule);
+  }
+  .synth__arrow {
+    color: var(--jfd-azure-soft);
+  }
+  .synth__t {
+    display: block;
+    font-family: var(--jfd-font-display);
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.1;
+    color: #ffffff;
+    margin-bottom: 8px;
+  }
+  .synth__b {
+    display: block;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--jfd-dark-ink-2);
+  }
+</style>

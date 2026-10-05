@@ -1,0 +1,63 @@
+---
+/**
+ * Numbered list rows (home "The actual problem"): 01–0n index, title and body, hairline rules.
+ */
+interface Props {
+  items: { title: string; body: string }[];
+}
+
+const { items } = Astro.props;
+const n = (i: number) => String(i + 1).padStart(2, '0');
+---
+
+<ol class="rows" role="list">
+  {items.map((item, i) => (
+    <li class="rows__item">
+      <span class="rows__n" aria-hidden="true">
+        {n(i)}
+      </span>
+      <span class="rows__text">
+        <span class="rows__title">{item.title}</span>
+        <span class="rows__body">{item.body}</span>
+      </span>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .rows__item {
+    display: grid;
+    grid-template-columns: 46px 1fr;
+    gap: 18px;
+    padding: 22px 0;
+    border-top: 1px solid var(--jfd-rule);
+    align-items: start;
+  }
+  .rows__n {
+    font-family: var(--jfd-font-mono);
+    font-size: 12px;
+    color: var(--jfd-ink-4);
+    padding-top: 4px;
+  }
+  .rows__text {
+    min-width: 0;
+  }
+  .rows__title {
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+  .rows__body {
+    display: block;
+    font-size: 15.5px;
+    color: var(--jfd-ink-3);
+    line-height: 1.55;
+  }
+</style>

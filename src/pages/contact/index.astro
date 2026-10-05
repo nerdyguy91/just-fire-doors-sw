@@ -1,0 +1,684 @@
+---
+/**
+ * /contact/. Ported from docs/prototype/pages/contact.dc.html.
+ * Telephone, email and office hours come from src/data/business.ts and render only once
+ * confirmed (CONTENT-TODO.md); until then the page leads with the form.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import FileStack from '../../components/records/FileStack.astro';
+import ContactForm from '../../components/forms/ContactForm.astro';
+import Img from '../../components/ui/Img.astro';
+import { business } from '../../data/business';
+import { paths } from '../../data/paths';
+import { quoteHref } from '../../data/quote-routes';
+import { localBusiness } from '../../lib/schema';
+import installer from '../../assets/images/photos/bodmin-installer.jpeg';
+
+const { phone, email, hours, serviceArea } = business;
+const crumbs = [{ name: 'Contact', path: paths.contact }];
+
+const docs = [
+  { ext: 'PDF', name: 'Fire door survey — Block B.pdf' },
+  { ext: 'XLSX', name: 'Remedial schedule.xlsx' },
+  { ext: 'PDF', name: 'Job sheet JS-1042.pdf' },
+];
+---
+
+<BaseLayout
+  title="Contact Just Fire Doors | Plymouth & South West"
+  description="Contact Just Fire Doors in Plymouth to discuss fire-door work, ask a question or talk through an existing project across the South West."
+  breadcrumbs={crumbs}
+  schema={[localBusiness(Astro.site!)]}
+>
+  <PageHero breadcrumbs={crumbs} density="compact" align="center" contentWidth={560}>
+    <Fragment slot="title">
+      Talk to <span class="jfd-accent">Just Fire Doors</span>
+    </Fragment>
+    <p class="c-lead">
+      Have a question, want to talk through some fire-door work or not sure where to start?
+    </p>
+    <p class="c-sub">
+      Tell us what you’re dealing with and we’ll help point you towards the simplest next step.
+    </p>
+    <div class="c-actions">
+      <a class="jfd-btn" href="#message">
+        Contact the team
+      </a>
+      <span>
+        Already have a survey or job sheet?{' '}
+        <a class="jfd-link" href={quoteHref('survey')}>
+          Get a Quote →
+        </a>
+      </span>
+    </div>
+    <figure slot="aside" class="c-photo">
+      <div class="c-photo__frame">
+        <Img
+          src={installer}
+          alt="JFD installer checking a door frame on site in a hospital corridor"
+          position="40% 40%"
+          sizes="(min-width: 800px) 560px, 100vw"
+          priority
+        />
+        {phone && (
+          <a class="c-photo__call" href={`tel:${phone.e164}`} data-track="tel">
+            <span>Call the team</span>
+            <span>{phone.display}</span>
+          </a>
+        )}
+      </div>
+      <figcaption>JFD on site · Bodmin Hospital</figcaption>
+    </figure>
+  </PageHero>
+
+  <section class="band band--surface" aria-labelledby="start-title">
+    <div class="band__inner start">
+      <h2 id="start-title" class="start__title">
+        How would you like to start?
+      </h2>
+      <div class="start__grid">
+        <div class="start__card">
+          <span class="start__label">Project-ready</span>
+          <h3>Have fire-door work ready to progress?</h3>
+          <p>
+            If you already have a survey, inspection report, remedial list or job sheet, the
+            quickest route is to send it over.
+          </p>
+          <p class="start__muted">
+            You don’t need to type everything out again. Give us the information you already have
+            and we can start from there.
+          </p>
+          <div class="start__docs">
+            <FileStack files={docs} />
+          </div>
+          <a class="jfd-btn start__cta" href={quoteHref('survey')}>
+            Send us your survey or job sheet
+          </a>
+        </div>
+        <div class="start__card start__card--dark jfd-on-dark">
+          <span class="start__label">Conversation-first</span>
+          <h3>Want to talk first?</h3>
+          <p>
+            If you have a question, aren’t sure what you need or would simply rather speak to
+            someone first, get in touch below.
+          </p>
+          <p class="start__muted">
+            You don’t need to know whether the answer is an inspection, repair, maintenance or
+            replacement before you contact us.
+          </p>
+          <p class="start__statement">Tell us what you know. We’ll help with the next step.</p>
+          <div class="start__row">
+            <a class="jfd-btn jfd-btn--inverse" href="#message">
+              Contact the team
+            </a>
+            {phone && (
+              <a class="start__call" href={`tel:${phone.e164}`} data-track="tel">
+                or call {phone.display}
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="message" aria-label="Contact JFD">
+    <div class="band__inner message">
+      <div class="message__details">
+        <p class="jfd-eyebrow">Contact JFD</p>
+        {phone && (
+          <div class="detail">
+            <span class="detail__label">Telephone</span>
+            <a
+              class="detail__phone"
+              href={`tel:${phone.e164}`}
+              aria-label={`Call Just Fire Doors on ${phone.display}`}
+              data-track="tel"
+            >
+              {phone.display}
+            </a>
+            <p class="detail__note">If you’d rather talk the work through, give us a call.</p>
+          </div>
+        )}
+        {email && (
+          <div class="detail">
+            <span class="detail__label">Email</span>
+            <a class="jfd-link detail__email" href={`mailto:${email}`} data-track="mailto">
+              {email}
+            </a>
+            <p class="detail__note detail__note--email">
+              Send us a question or a short outline of what you’re dealing with.
+            </p>
+          </div>
+        )}
+        {hours && (
+          <div class="detail">
+            <span class="detail__label">Office hours</span>
+            <p class="detail__hours">{hours}</p>
+          </div>
+        )}
+        <div class="detail">
+          <span class="detail__label">Based in {serviceArea.base}</span>
+          <p class="detail__text">
+            JFD is based in Plymouth and supports commercial organisations and estates across Devon,
+            Cornwall and the wider South West.
+          </p>
+        </div>
+      </div>
+      <div class="message__form">
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--surface" aria-labelledby="unsure-title">
+    <div class="band__inner unsure">
+      <div class="unsure__main">
+        <h2 id="unsure-title">
+          Not sure what you need yet? <span class="jfd-accent">That’s fine.</span>
+        </h2>
+        <p>
+          You might know there’s a problem with a door but not whether it needs adjusting,
+          repairing, replacing or inspecting first. Tell us what you know and we’ll help establish
+          the most sensible next step.
+        </p>
+      </div>
+      <div class="unsure__side">
+        <p>
+          If you need a clearer picture of the condition of your doors before any work is specified:
+        </p>
+        <a class="jfd-link" href={paths.inspections}>
+          Fire Door Inspections &amp; Surveys →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="coverage-title">
+    <div class="band__inner coverage">
+      <div>
+        <h2 id="coverage-title" class="coverage__title">
+          Based in Plymouth. Working across the South West.
+        </h2>
+        <ul class="coverage__areas" role="list">
+          {serviceArea.areas.map((area) => (
+            <li>{area}</li>
+          ))}
+        </ul>
+        <p class="coverage__note">
+          If you’re not sure whether your site falls within our working area, get in touch and tell
+          us where the work is.
+        </p>
+      </div>
+      <div class="existing">
+        <span class="existing__label">Existing project?</span>
+        <h2>Already working with JFD?</h2>
+        <p>
+          Contact us using the details above and include these where possible. That helps us
+          understand which piece of work you’re referring to without making you repeat the whole
+          story.
+        </p>
+        <div class="existing__flow">
+          <span>Site name</span>
+          <span class="sep" aria-hidden="true">
+            →
+          </span>
+          <span>Project</span>
+          <span class="sep" aria-hidden="true">
+            →
+          </span>
+          <span>Job reference</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--action jfd-on-dark" aria-labelledby="ready-title">
+    <div class="band__inner ready">
+      <div>
+        <h2 id="ready-title">Already have the work in front of you?</h2>
+        <p>
+          If you’ve got a survey, inspection report, job sheet or remedial list ready, you don’t
+          need to explain it all again. Send it over and we’ll help establish the next step.
+        </p>
+      </div>
+      <a class="jfd-btn jfd-btn--inverse jfd-btn--lg" href={quoteHref('survey')}>
+        Send us your survey or job sheet
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .c-lead {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--jfd-graphite);
+    margin: 0 0 10px;
+    max-width: 44ch;
+  }
+  .c-sub {
+    font-size: 16.5px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0 0 28px;
+    max-width: 48ch;
+  }
+  .c-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 28px;
+    font-size: 15.5px;
+    color: var(--jfd-ink-2);
+  }
+  .c-actions .jfd-link {
+    font-size: 15.5px;
+  }
+  .c-photo {
+    margin: 0;
+  }
+  .c-photo__frame {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--jfd-media-bg);
+    border: 1px solid var(--jfd-rule);
+  }
+  .c-photo__frame :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .c-photo__call {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: var(--jfd-surface);
+    border-top: 1px solid var(--jfd-rule);
+    border-right: 1px solid var(--jfd-rule);
+    padding: 14px 20px;
+    color: var(--jfd-graphite);
+    display: grid;
+    gap: 2px;
+  }
+  .c-photo__call:hover {
+    color: var(--jfd-action);
+  }
+  .c-photo__call span:first-child {
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+  }
+  .c-photo__call span:last-child {
+    font-family: var(--jfd-font-display);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+  .c-photo figcaption {
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-4);
+    margin-top: 10px;
+  }
+
+  /* Section bands */
+  .band {
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .band--surface {
+    background: var(--jfd-surface);
+  }
+  .band--action {
+    background: var(--jfd-action-hover);
+    color: #ffffff;
+    border-bottom: 0;
+  }
+  .band__inner {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: clamp(38px, 6.4vw, 64px) var(--jfd-gutter-fluid);
+  }
+
+  /* How would you like to start? */
+  .start__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(30px, 3.4vw, 40px);
+    font-weight: 600;
+    line-height: 1.12;
+    margin: 0 0 28px;
+  }
+  .start__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 16px;
+  }
+  .start__card {
+    min-width: 0;
+    background: var(--jfd-ground);
+    border: 1px solid var(--jfd-rule-strong);
+    padding: 30px clamp(20px, 5vw, 28px);
+    display: flex;
+    flex-direction: column;
+  }
+  .start__card--dark {
+    background: var(--jfd-graphite);
+    border-color: var(--jfd-graphite);
+    color: var(--jfd-dark-heading);
+  }
+  .start__label {
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--jfd-action);
+    margin-bottom: 14px;
+  }
+  .start__card--dark .start__label {
+    color: var(--jfd-azure-soft);
+  }
+  .start__card h3 {
+    font-family: var(--jfd-font-display);
+    font-size: 29px;
+    font-weight: 600;
+    line-height: 1.12;
+    margin: 0 0 12px;
+  }
+  .start__card--dark h3 {
+    color: #ffffff;
+  }
+  .start__card p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0 0 8px;
+  }
+  .start__card .start__muted {
+    font-size: 15.5px;
+    color: var(--jfd-ink-3);
+    margin-bottom: 20px;
+  }
+  .start__card--dark p {
+    color: var(--jfd-dark-ink);
+  }
+  .start__card--dark .start__muted {
+    color: var(--jfd-dark-ink-2);
+  }
+  .start__card .start__statement {
+    font-family: var(--jfd-font-display);
+    font-size: 23px;
+    font-weight: 600;
+    line-height: 1.22;
+    color: #ffffff;
+    margin: 0 0 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--jfd-dark-rule);
+  }
+  .start__docs {
+    margin-bottom: 24px;
+  }
+  .start__cta {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+  .start__row {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 24px;
+  }
+  .start__call {
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    padding-bottom: 3px;
+  }
+  .start__call:hover {
+    color: var(--jfd-azure-soft);
+    border-bottom-color: var(--jfd-azure-soft);
+  }
+
+  /* Contact details and form */
+  .message {
+    padding-top: clamp(43px, 7.2vw, 72px);
+    padding-bottom: clamp(48px, 8vw, 80px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(28px, 6vw, 48px) 72px;
+    align-items: flex-start;
+  }
+  .message__details {
+    flex: 1 1 300px;
+    min-width: 0;
+    max-width: 420px;
+  }
+  .message__form {
+    flex: 2 1 520px;
+    min-width: 0;
+  }
+  .detail {
+    border-top: 1px solid var(--jfd-rule);
+    padding-top: 16px;
+    margin-bottom: 22px;
+  }
+  .detail:first-of-type {
+    border-top: 2px solid var(--jfd-graphite);
+    padding-top: 18px;
+    margin-bottom: 26px;
+  }
+  .detail:last-child {
+    margin-bottom: 0;
+  }
+  .detail__label {
+    display: block;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+    margin-bottom: 6px;
+  }
+  .detail__phone {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    font-family: var(--jfd-font-display);
+    font-size: clamp(34px, 3.6vw, 42px);
+    font-weight: 600;
+    line-height: 1.05;
+    color: var(--jfd-graphite);
+  }
+  .detail__phone:hover {
+    color: var(--jfd-action);
+  }
+  .detail__email {
+    font-size: 19px;
+    display: inline-block;
+    min-height: 32px;
+    overflow-wrap: anywhere;
+  }
+  .detail__note {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--jfd-ink-3);
+    margin: 6px 0 0;
+  }
+  .detail__note--email {
+    margin-top: 8px;
+  }
+  .detail__hours {
+    font-size: 17px;
+    font-weight: 500;
+    margin: 0;
+  }
+  .detail__text {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0;
+  }
+
+  /* Not sure what you need yet? */
+  .unsure {
+    padding-top: clamp(34px, 5.6vw, 56px);
+    padding-bottom: clamp(34px, 5.6vw, 56px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px 64px;
+  }
+  .unsure__main {
+    flex: 1 1 480px;
+    min-width: 0;
+  }
+  .unsure h2 {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(28px, 3vw, 36px);
+    font-weight: 600;
+    line-height: 1.12;
+    margin: 0 0 10px;
+  }
+  .unsure__main p {
+    font-size: 16.5px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0 0 6px;
+    max-width: 60ch;
+  }
+  .unsure__side {
+    flex: 0 1 360px;
+    min-width: 0;
+    padding-left: 24px;
+    border-left: 1px solid var(--jfd-rule);
+  }
+  .unsure__side p {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--jfd-ink-3);
+    margin: 0 0 10px;
+  }
+
+  /* Coverage and existing customers */
+  .coverage {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: clamp(28px, 6vw, 40px) 64px;
+    align-items: start;
+  }
+  .coverage > div {
+    min-width: 0;
+  }
+  .coverage__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(26px, 2.8vw, 32px);
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 0 0 18px;
+    max-width: 22ch;
+  }
+  .coverage__areas {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .coverage__areas li {
+    font-family: var(--jfd-font-display);
+    font-size: 24px;
+    font-weight: 600;
+    padding: 6px 18px 6px 0;
+    margin-right: 18px;
+    border-right: 1px solid var(--jfd-rule);
+  }
+  .coverage__areas li:first-child {
+    color: var(--jfd-action);
+  }
+  .coverage__areas li:last-child {
+    border-right: 0;
+  }
+  .coverage__note {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0;
+    max-width: 50ch;
+  }
+  .existing {
+    background: var(--jfd-surface);
+    border: 1px solid var(--jfd-rule);
+    padding: 24px 24px 26px;
+  }
+  .existing__label {
+    display: block;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-action);
+    margin-bottom: 10px;
+  }
+  .existing h2 {
+    font-family: var(--jfd-font-display);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 0 0 10px;
+  }
+  .existing p {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0 0 16px;
+  }
+  .existing__flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 10px;
+    font-family: var(--jfd-font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+  .existing__flow span:not(.sep) {
+    background: var(--jfd-tint);
+    padding: 8px 10px;
+  }
+  .existing__flow .sep {
+    color: var(--jfd-underline);
+  }
+
+  /* Closing call to action */
+  .ready {
+    padding-top: clamp(48px, 8vw, 80px);
+    padding-bottom: clamp(48px, 8vw, 80px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 28px 64px;
+  }
+  .ready > div {
+    flex: 1 1 520px;
+    min-width: 0;
+  }
+  .ready h2 {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(36px, 4.4vw, 56px);
+    font-weight: 600;
+    line-height: 1.06;
+    margin: 0 0 16px;
+  }
+  .ready p {
+    font-size: 17.5px;
+    line-height: 1.6;
+    color: var(--jfd-azure-mist);
+    margin: 0;
+    max-width: 52ch;
+  }
+</style>

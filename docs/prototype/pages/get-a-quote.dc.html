@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="support.js"></script>
+
+
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Get a Fire Door Quote | Just Fire Doors South West</title>
+<meta name="description" content="Have a fire door survey, job sheet or remedial list? Send it to Just Fire Doors for a clear route towards scoped, completed and evidenced work.">
+<style></style>
+<style>:root{
+/* Brand */
+--jfd-azure:#29A9E9;--jfd-azure-soft:#6FC4F2;--jfd-azure-pale:#A8D7F3;--jfd-azure-mist:#C8E4F7;
+--jfd-action:#0E6FAF;--jfd-action-hover:#0B5789;--jfd-underline:#A9C6DB;
+/* Neutrals */
+--jfd-graphite:#23282C;--jfd-ink-2:#40474D;--jfd-ink-3:#5B646B;--jfd-ink-4:#5F6970;
+--jfd-ground:#F4F6F8;--jfd-surface:#FFFFFF;--jfd-tint:#E9EDF1;
+--jfd-rule:#D7DDE3;--jfd-rule-strong:#C9D2DA;--jfd-rule-soft:#EAEEF2;
+--jfd-media-bg:#E4E9EE;--jfd-meta-rule:#E5EAEF;
+/* Dark surface */
+--jfd-dark-rule:#3C4348;--jfd-dark-rule-2:#363C41;--jfd-dark-border:#424A50;--jfd-dark-ink:#E4E9ED;--jfd-dark-ink-2:#9BA7B1;--jfd-dark-heading:#EEF3F7;
+/* Status (job-sheet vocabulary) */
+--jfd-status-closed:#1F6B4D;--jfd-status-onsite:#8A6100;--jfd-status-decide:#A33A2A;--jfd-status-neutral:#5B646B;
+
+/* Semantic aliases */
+--text-primary:var(--jfd-graphite);--text-lead:var(--jfd-ink-2);--text-body:var(--jfd-ink-3);--text-caption:var(--jfd-ink-4);
+--text-accent:var(--jfd-action);--text-link:var(--jfd-action);--text-link-hover:var(--jfd-action-hover);
+--text-on-dark:var(--jfd-dark-ink);--text-on-dark-muted:var(--jfd-dark-ink-2);--text-on-action:#FFFFFF;--text-on-action-body:var(--jfd-azure-mist);--text-on-action-label:var(--jfd-azure-pale);
+--surface-page:var(--jfd-ground);--surface-card:var(--jfd-surface);--surface-tint:var(--jfd-tint);--surface-dark:var(--jfd-graphite);--surface-action:var(--jfd-action);
+--border-default:var(--jfd-rule);--border-strong:var(--jfd-rule-strong);--border-soft:var(--jfd-rule-soft);--border-dark:var(--jfd-dark-border);
+--accent-mark:var(--jfd-azure);
+}
+</style>
+<style>:root{
+--jfd-font-display:"Barlow Condensed",system-ui,sans-serif;
+--jfd-font-body:"Barlow",system-ui,sans-serif;
+--jfd-font-mono:"IBM Plex Mono",ui-monospace,monospace;
+--jfd-h1:clamp(50px,6.6vw,84px); /* @kind font */
+--jfd-h2:clamp(34px,4vw,52px); /* @kind font */
+--jfd-h2-statement:clamp(40px,5.4vw,68px); /* @kind font */
+--jfd-h3:clamp(30px,3.4vw,40px); /* @kind font */
+
+--jfd-card-title:23px;--jfd-stat:34px;--jfd-lead:18.5px;--jfd-body:16px;--jfd-small:14px;--jfd-eyebrow:11.5px;--jfd-label:10.5px;
+/* Semantic */
+--font-display:var(--jfd-font-display);--font-body:var(--jfd-font-body);--font-mono:var(--jfd-font-mono);
+}
+</style>
+<style>:root{
+--jfd-max:1240px;--jfd-gutter:28px;--jfd-section-y:88px;--jfd-header-h:82px;--jfd-header-h-scrolled:64px;
+--jfd-gap-grid:24px;--jfd-radius:0;
+}
+</style>
+<style>:root{
+--jfd-shadow-panel:0 26px 60px -34px rgba(35,40,44,0.42);
+--jfd-shadow-menu:0 18px 44px -24px rgba(35,40,44,0.4);
+--jfd-ease:.18s ease; /* @kind other */
+}
+</style>
+<style>/* Just Fire Doors — base + class library (verbatim from source, tokens in /tokens). */
+/* Base */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--jfd-ground); color: var(--jfd-graphite); font-family: var(--jfd-font-body); -webkit-font-smoothing: antialiased; }
+a { color: var(--jfd-action); text-decoration: none; }
+a:hover { color: var(--jfd-action-hover); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--jfd-action); outline-offset: 3px; }
+img { max-width: 100%; display: block; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+
+/* Layout */
+.jfd-container { max-width: var(--jfd-max); margin: 0 auto; padding: 0 var(--jfd-gutter); }
+.jfd-section { padding: var(--jfd-section-y) 0; border-bottom: 1px solid var(--jfd-rule); }
+.jfd-section--surface { background: var(--jfd-surface); }
+.jfd-section--tint { background: var(--jfd-tint); }
+.jfd-section--dark { background: var(--jfd-graphite); color: #EEF3F7; }
+.jfd-section--action { background: var(--jfd-action); color: #FFFFFF; }
+.jfd-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); }
+.jfd-grid > * { min-width: 0; }
+.jfd-hairline-grid { display: grid; gap: 1px; background: var(--jfd-rule); border: 1px solid var(--jfd-rule); grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+.jfd-divider-azure { height: 3px; background: var(--jfd-azure); border: 0; margin: 0; }
+
+/* Type */
+.jfd-h1, .jfd-h2, .jfd-h3, .jfd-statement { font-family: var(--jfd-font-display); font-weight: 600; letter-spacing: -0.025em; margin: 0; text-wrap: pretty; }
+.jfd-h1 { font-size: var(--jfd-h1); line-height: 1.02; }
+.jfd-h2 { font-size: var(--jfd-h2); line-height: 1.1; }
+.jfd-statement { font-size: var(--jfd-h2-statement); line-height: 1.06; }
+.jfd-h3 { font-size: var(--jfd-h3); line-height: 1.16; letter-spacing: -0.02em; }
+.jfd-card-title { font-family: var(--jfd-font-display); font-size: var(--jfd-card-title); font-weight: 600; line-height: 1.22; letter-spacing: -0.015em; }
+.jfd-lead { font-size: var(--jfd-lead); line-height: 1.62; color: var(--jfd-ink-2); max-width: 48ch; text-wrap: pretty; }
+.jfd-body { font-size: var(--jfd-body); line-height: 1.58; color: var(--jfd-ink-3); }
+.jfd-accent { color: var(--jfd-action); }
+.jfd-eyebrow { font-family: var(--jfd-font-mono); font-size: var(--jfd-eyebrow); letter-spacing: 0.1em; text-transform: uppercase; color: var(--jfd-action); margin: 0 0 20px; }
+.jfd-label { font-family: var(--jfd-font-mono); font-size: var(--jfd-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--jfd-ink-3); line-height: 1.6; }
+.jfd-index { font-family: var(--jfd-font-mono); font-size: 12px; color: var(--jfd-ink-4); }
+.jfd-stat { font-family: var(--jfd-font-display); font-size: 34px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; }
+.jfd-stat + span { display: block; font-size: 13.5px; color: var(--jfd-ink-3); margin-top: 3px; }
+
+/* Buttons & links */
+.jfd-btn { display: inline-flex; align-items: center; min-height: 52px; padding: 17px 26px; background: var(--jfd-action); color: #FFFFFF; font: 500 16.5px/1 var(--jfd-font-body); border: 0; cursor: pointer; transition: background var(--jfd-ease); }
+.jfd-btn:hover { background: var(--jfd-action-hover); color: #FFFFFF; }
+.jfd-btn--sm { min-height: 46px; padding: 13px 20px; font-size: 15px; }
+.jfd-btn--lg { min-height: 56px; padding: 19px 28px; font-size: 17px; font-weight: 600; }
+.jfd-btn--inverse { background: #FFFFFF; color: var(--jfd-action-hover); }
+.jfd-btn--inverse:hover { background: var(--jfd-graphite); color: #FFFFFF; }
+.jfd-btn--ghost-dark { background: transparent; border: 1px solid var(--jfd-dark-border); color: var(--jfd-dark-ink); min-height: 46px; padding: 12px 18px; font-size: 15px; }
+.jfd-btn--ghost-dark:hover { background: transparent; border-color: var(--jfd-azure-soft); color: var(--jfd-azure-soft); }
+.jfd-link { font-size: 16.5px; font-weight: 500; border-bottom: 1px solid var(--jfd-underline); padding-bottom: 3px; }
+.jfd-link:hover { border-bottom-color: var(--jfd-action); }
+.jfd-link--on-dark { color: #FFFFFF; border-bottom-color: rgba(255,255,255,0.5); }
+.jfd-link--on-dark:hover { color: #FFFFFF; border-bottom-color: #FFFFFF; }
+
+/* Header / nav */
+.jfd-header { position: sticky; top: 0; z-index: 60; background: rgba(244,246,248,0.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--jfd-rule); }
+.jfd-header__inner { display: flex; align-items: center; gap: 32px; height: var(--jfd-header-h); transition: height .22s ease; }
+.jfd-header.is-scrolled .jfd-header__inner { height: var(--jfd-header-h-scrolled); }
+.jfd-wordmark { font-family: var(--jfd-font-display); font-size: 23px; font-weight: 700; letter-spacing: -0.005em; color: var(--jfd-graphite); }
+.jfd-wordmark sup { font-size: 11px; font-weight: 600; letter-spacing: 0.04em; margin-left: 2px; }
+.jfd-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.jfd-nav__link { padding: 12px 14px; min-height: 44px; font-size: 15px; font-weight: 500; color: var(--jfd-graphite); background: none; border: 0; font-family: inherit; cursor: pointer; }
+.jfd-nav__link:hover { color: var(--jfd-action); }
+.jfd-menu { position: absolute; top: calc(100% + 6px); left: 0; width: 320px; background: var(--jfd-surface); border: 1px solid var(--jfd-rule); box-shadow: var(--jfd-shadow-menu); padding: 8px; }
+.jfd-menu a { display: block; padding: 12px 14px; font-size: 15px; color: var(--jfd-graphite); border-bottom: 1px solid var(--jfd-rule-soft); }
+.jfd-menu a:last-child { border-bottom: 0; }
+.jfd-menu a:hover { background: var(--jfd-tint); color: var(--jfd-action); }
+
+/* Cards */
+.jfd-card { display: block; background: var(--jfd-surface); border: 1px solid var(--jfd-rule); color: var(--jfd-graphite); transition: border-color .2s ease; }
+a.jfd-card:hover { border-color: var(--jfd-action); color: var(--jfd-graphite); }
+.jfd-card__media { aspect-ratio: 3 / 2; overflow: hidden; background: #E4E9EE; border-bottom: 1px solid var(--jfd-rule); }
+.jfd-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.jfd-card__body { padding: 24px 24px 26px; }
+.jfd-card__meta { padding-top: 10px; border-top: 1px solid #E5EAEF; }
+.jfd-tile { background: var(--jfd-tint); padding: 20px 22px; }  /* inside .jfd-hairline-grid */
+.jfd-panel { background: var(--jfd-surface); border: 1px solid var(--jfd-rule-strong); box-shadow: var(--jfd-shadow-panel); }
+.jfd-chip { font-family: var(--jfd-font-mono); font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase; background: var(--jfd-tint); color: var(--jfd-graphite); padding: 8px 12px; }
+
+/* Photography */
+.jfd-photo { overflow: hidden; background: #E4E9EE; border: 1px solid var(--jfd-rule); }
+.jfd-photo img { width: 100%; height: 100%; object-fit: cover; }
+.jfd-photo--16x10 { aspect-ratio: 16 / 10; }
+.jfd-photo--5x4 { aspect-ratio: 5 / 4; }
+.jfd-photo--4x3 { aspect-ratio: 4 / 3; }
+.jfd-caption { font-family: var(--jfd-font-mono); font-size: 10.5px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--jfd-ink-4); margin-top: 10px; }
+.jfd-placeholder { display: grid; place-items: center; padding: 20px; border: 1px dashed #B4BEC7; background: repeating-linear-gradient(135deg, #E4E9EE 0 10px, #DCE3E9 10px 20px); }
+
+/* Job-sheet record (status vocabulary) */
+.jfd-status { display: inline-flex; align-items: center; gap: 7px; font-family: var(--jfd-font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--jfd-status-neutral); }
+.jfd-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.jfd-status--closed { color: var(--jfd-status-closed); }
+.jfd-status--onsite { color: var(--jfd-status-onsite); }
+.jfd-status--decide { color: var(--jfd-status-decide); }
+.jfd-record__head { display: flex; justify-content: space-between; gap: 16px; padding: 14px 18px; background: var(--jfd-tint); border-bottom: 1px solid var(--jfd-rule); font-family: var(--jfd-font-mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--jfd-ink-3); }
+.jfd-record__row { display: grid; grid-template-columns: 88px 1fr 92px; padding: 15px 18px; border-bottom: 1px solid var(--jfd-rule-soft); align-items: baseline; }
+.jfd-record__id { font-family: var(--jfd-font-mono); font-size: 13px; }
+
+/* Numbered list rows (problems, reasons) */
+.jfd-row { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 4px 18px; padding: 22px 0; border-top: 1px solid var(--jfd-rule); align-items: start; }
+.jfd-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-family: var(--jfd-font-mono); font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+.jfd-flow .sep { color: var(--jfd-underline); }
+
+/* Footer */
+.jfd-footer { background: var(--jfd-graphite); color: var(--jfd-dark-ink); }
+.jfd-footer__label { font-family: var(--jfd-font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--jfd-dark-ink-2); margin: 0 0 16px; }
+.jfd-footer a { display: block; padding: 7px 0; font-size: 15px; color: var(--jfd-dark-ink); }
+.jfd-footer a:hover { color: var(--jfd-azure-soft); }
+.jfd-footer__legal { border-top: 1px solid var(--jfd-dark-rule-2); padding-top: 22px; font-size: 13.5px; color: var(--jfd-dark-ink-2); }
+</style>
+<style>/* Webfonts — Google Fonts (as specified in source). */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root{
+/* Brand */
+--jfd-azure:#29A9E9;--jfd-azure-soft:#6FC4F2;--jfd-azure-pale:#A8D7F3;--jfd-azure-mist:#C8E4F7;
+--jfd-action:#0E6FAF;--jfd-action-hover:#0B5789;--jfd-underline:#A9C6DB;
+/* Neutrals */
+--jfd-graphite:#23282C;--jfd-ink-2:#40474D;--jfd-ink-3:#5B646B;--jfd-ink-4:#5F6970;
+--jfd-ground:#F4F6F8;--jfd-surface:#FFFFFF;--jfd-tint:#E9EDF1;
+--jfd-rule:#D7DDE3;--jfd-rule-strong:#C9D2DA;--jfd-rule-soft:#EAEEF2;
+--jfd-media-bg:#E4E9EE;--jfd-meta-rule:#E5EAEF;
+/* Dark surface */
+--jfd-dark-rule:#3C4348;--jfd-dark-rule-2:#363C41;--jfd-dark-border:#424A50;--jfd-dark-ink:#E4E9ED;--jfd-dark-ink-2:#9BA7B1;--jfd-dark-heading:#EEF3F7;
+/* Status (job-sheet vocabulary) */
+--jfd-status-closed:#1F6B4D;--jfd-status-onsite:#8A6100;--jfd-status-decide:#A33A2A;--jfd-status-neutral:#5B646B;
+
+/* Semantic aliases */
+--text-primary:var(--jfd-graphite);--text-lead:var(--jfd-ink-2);--text-body:var(--jfd-ink-3);--text-caption:var(--jfd-ink-4);
+--text-accent:var(--jfd-action);--text-link:var(--jfd-action);--text-link-hover:var(--jfd-action-hover);
+--text-on-dark:var(--jfd-dark-ink);--text-on-dark-muted:var(--jfd-dark-ink-2);--text-on-action:#FFFFFF;--text-on-action-body:var(--jfd-azure-mist);--text-on-action-label:var(--jfd-azure-pale);
+--surface-page:var(--jfd-ground);--surface-card:var(--jfd-surface);--surface-tint:var(--jfd-tint);--surface-dark:var(--jfd-graphite);--surface-action:var(--jfd-action);
+--border-default:var(--jfd-rule);--border-strong:var(--jfd-rule-strong);--border-soft:var(--jfd-rule-soft);--border-dark:var(--jfd-dark-border);
+--accent-mark:var(--jfd-azure);
+}
+
+:root{
+--jfd-font-display:"Barlow Condensed",system-ui,sans-serif;
+--jfd-font-body:"Barlow",system-ui,sans-serif;
+--jfd-font-mono:"IBM Plex Mono",ui-monospace,monospace;
+--jfd-h1:clamp(50px,6.6vw,84px); /* @kind font */
+--jfd-h2:clamp(34px,4vw,52px); /* @kind font */
+--jfd-h2-statement:clamp(40px,5.4vw,68px); /* @kind font */
+--jfd-h3:clamp(30px,3.4vw,40px); /* @kind font */
+
+--jfd-card-title:23px;--jfd-stat:34px;--jfd-lead:18.5px;--jfd-body:16px;--jfd-small:14px;--jfd-eyebrow:11.5px;--jfd-label:10.5px;
+/* Semantic */
+--font-display:var(--jfd-font-display);--font-body:var(--jfd-font-body);--font-mono:var(--jfd-font-mono);
+}
+
+:root{
+--jfd-max:1240px;--jfd-gutter:28px;--jfd-section-y:88px;--jfd-header-h:82px;--jfd-header-h-scrolled:64px;
+--jfd-gap-grid:24px;--jfd-radius:0;
+}
+
+:root{
+--jfd-shadow-panel:0 26px 60px -34px rgba(35,40,44,0.42);
+--jfd-shadow-menu:0 18px 44px -24px rgba(35,40,44,0.4);
+--jfd-ease:.18s ease; /* @kind other */
+}
+
+/* Just Fire Doors — base + class library (verbatim from source, tokens in /tokens). */
+/* Base */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--jfd-ground); color: var(--jfd-graphite); font-family: var(--jfd-font-body); -webkit-font-smoothing: antialiased; }
+a { color: var(--jfd-action); text-decoration: none; }
+a:hover { color: var(--jfd-action-hover); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--jfd-action); outline-offset: 3px; }
+img { max-width: 100%; display: block; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+
+/* Layout */
+.jfd-container { max-width: var(--jfd-max); margin: 0 auto; padding: 0 var(--jfd-gutter); }
+.jfd-section { padding: var(--jfd-section-y) 0; border-bottom: 1px solid var(--jfd-rule); }
+.jfd-section--surface { background: var(--jfd-surface); }
+.jfd-section--tint { background: var(--jfd-tint); }
+.jfd-section--dark { background: var(--jfd-graphite); color: #EEF3F7; }
+.jfd-section--action { background: var(--jfd-action); color: #FFFFFF; }
+.jfd-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); }
+.jfd-grid > * { min-width: 0; }
+.jfd-hairline-grid { display: grid; gap: 1px; background: var(--jfd-rule); border: 1px solid var(--jfd-rule); grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+.jfd-divider-azure { height: 3px; background: var(--jfd-azure); border: 0; margin: 0; }
+
+/* Type */
+.jfd-h1, .jfd-h2, .jfd-h3, .jfd-statement { font-family: var(--jfd-font-display); font-weight: 600; letter-spacing: -0.025em; margin: 0; text-wrap: pretty; }
+.jfd-h1 { font-size: var(--jfd-h1); line-height: 1.02; }
+.jfd-h2 { font-size: var(--jfd-h2); line-height: 1.1; }
+.jfd-statement { font-size: var(--jfd-h2-statement); line-height: 1.06; }
+.jfd-h3 { font-size: var(--jfd-h3); line-height: 1.16; letter-spacing: -0.02em; }
+.jfd-card-title { font-family: var(--jfd-font-display); font-size: var(--jfd-card-title); font-weight: 600; line-height: 1.22; letter-spacing: -0.015em; }
+.jfd-lead { font-size: var(--jfd-lead); line-height: 1.62; color: var(--jfd-ink-2); max-width: 48ch; text-wrap: pretty; }
+.jfd-body { font-size: var(--jfd-body); line-height: 1.58; color: var(--jfd-ink-3); }
+.jfd-accent { color: var(--jfd-action); }
+.jfd-eyebrow { font-family: var(--jfd-font-mono); font-size: var(--jfd-eyebrow); letter-spacing: 0.1em; text-transform: uppercase; color: var(--jfd-action); margin: 0 0 20px; }
+.jfd-label { font-family: var(--jfd-font-mono); font-size: var(--jfd-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--jfd-ink-3); line-height: 1.6; }
+.jfd-index { font-family: var(--jfd-font-mono); font-size: 12px; color: var(--jfd-ink-4); }
+.jfd-stat { font-family: var(--jfd-font-display); font-size: 34px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; }
+.jfd-stat + span { display: block; font-size: 13.5px; color: var(--jfd-ink-3); margin-top: 3px; }
+
+/* Buttons & links */
+.jfd-btn { display: inline-flex; align-items: center; min-height: 52px; padding: 17px 26px; background: var(--jfd-action); color: #FFFFFF; font: 500 16.5px/1 var(--jfd-font-body); border: 0; cursor: pointer; transition: background var(--jfd-ease); }
+.jfd-btn:hover { background: var(--jfd-action-hover); color: #FFFFFF; }
+.jfd-btn--sm { min-height: 46px; padding: 13px 20px; font-size: 15px; }
+.jfd-btn--lg { min-height: 56px; padding: 19px 28px; font-size: 17px; font-weight: 600; }
+.jfd-btn--inverse { background: #FFFFFF; color: var(--jfd-action-hover); }
+.jfd-btn--inverse:hover { background: var(--jfd-graphite); color: #FFFFFF; }
+.jfd-btn--ghost-dark { background: transparent; border: 1px solid var(--jfd-dark-border); color: var(--jfd-dark-ink); min-height: 46px; padding: 12px 18px; font-size: 15px; }
+.jfd-btn--ghost-dark:hover { background: transparent; border-color: var(--jfd-azure-soft); color: var(--jfd-azure-soft); }
+.jfd-link { font-size: 16.5px; font-weight: 500; border-bottom: 1px solid var(--jfd-underline); padding-bottom: 3px; }
+.jfd-link:hover { border-bottom-color: var(--jfd-action); }
+.jfd-link--on-dark { color: #FFFFFF; border-bottom-color: rgba(255,255,255,0.5); }
+.jfd-link--on-dark:hover { color: #FFFFFF; border-bottom-color: #FFFFFF; }
+
+/* Header / nav */
+.jfd-header { position: sticky; top: 0; z-index: 60; background: rgba(244,246,248,0.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--jfd-rule); }
+.jfd-header__inner { display: flex; align-items: center; gap: 32px; height: var(--jfd-header-h); transition: height .22s ease; }
+.jfd-header.is-scrolled .jfd-header__inner { height: var(--jfd-header-h-scrolled); }
+.jfd-wordmark { font-family: var(--jfd-font-display); font-size: 23px; font-weight: 700; letter-spacing: -0.005em; color: var(--jfd-graphite); }
+.jfd-wordmark sup { font-size: 11px; font-weight: 600; letter-spacing: 0.04em; margin-left: 2px; }
+.jfd-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.jfd-nav__link { padding: 12px 14px; min-height: 44px; font-size: 15px; font-weight: 500; color: var(--jfd-graphite); background: none; border: 0; font-family: inherit; cursor: pointer; }
+.jfd-nav__link:hover { color: var(--jfd-action); }
+.jfd-menu { position: absolute; top: calc(100% + 6px); left: 0; width: 320px; background: var(--jfd-surface); border: 1px solid var(--jfd-rule); box-shadow: var(--jfd-shadow-menu); padding: 8px; }
+.jfd-menu a { display: block; padding: 12px 14px; font-size: 15px; color: var(--jfd-graphite); border-bottom: 1px solid var(--jfd-rule-soft); }
+.jfd-menu a:last-child { border-bottom: 0; }
+.jfd-menu a:hover { background: var(--jfd-tint); color: var(--jfd-action); }
+
+/* Cards */
+.jfd-card { display: block; background: var(--jfd-surface); border: 1px solid var(--jfd-rule); color: var(--jfd-graphite); transition: border-color .2s ease; }
+a.jfd-card:hover { border-color: var(--jfd-action); color: var(--jfd-graphite); }
+.jfd-card__media { aspect-ratio: 3 / 2; overflow: hidden; background: #E4E9EE; border-bottom: 1px solid var(--jfd-rule); }
+.jfd-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.jfd-card__body { padding: 24px 24px 26px; }
+.jfd-card__meta { padding-top: 10px; border-top: 1px solid #E5EAEF; }
+.jfd-tile { background: var(--jfd-tint); padding: 20px 22px; }  /* inside .jfd-hairline-grid */
+.jfd-panel { background: var(--jfd-surface); border: 1px solid var(--jfd-rule-strong); box-shadow: var(--jfd-shadow-panel); }
+.jfd-chip { font-family: var(--jfd-font-mono); font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase; background: var(--jfd-tint); color: var(--jfd-graphite); padding: 8px 12px; }
+
+/* Photography */
+.jfd-photo { overflow: hidden; background: #E4E9EE; border: 1px solid var(--jfd-rule); }
+.jfd-photo img { width: 100%; height: 100%; object-fit: cover; }
+.jfd-photo--16x10 { aspect-ratio: 16 / 10; }
+.jfd-photo--5x4 { aspect-ratio: 5 / 4; }
+.jfd-photo--4x3 { aspect-ratio: 4 / 3; }
+.jfd-caption { font-family: var(--jfd-font-mono); font-size: 10.5px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--jfd-ink-4); margin-top: 10px; }
+.jfd-placeholder { display: grid; place-items: center; padding: 20px; border: 1px dashed #B4BEC7; background: repeating-linear-gradient(135deg, #E4E9EE 0 10px, #DCE3E9 10px 20px); }
+
+/* Job-sheet record (status vocabulary) */
+.jfd-status { display: inline-flex; align-items: center; gap: 7px; font-family: var(--jfd-font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--jfd-status-neutral); }
+.jfd-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.jfd-status--closed { color: var(--jfd-status-closed); }
+.jfd-status--onsite { color: var(--jfd-status-onsite); }
+.jfd-status--decide { color: var(--jfd-status-decide); }
+.jfd-record__head { display: flex; justify-content: space-between; gap: 16px; padding: 14px 18px; background: var(--jfd-tint); border-bottom: 1px solid var(--jfd-rule); font-family: var(--jfd-font-mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--jfd-ink-3); }
+.jfd-record__row { display: grid; grid-template-columns: 88px 1fr 92px; padding: 15px 18px; border-bottom: 1px solid var(--jfd-rule-soft); align-items: baseline; }
+.jfd-record__id { font-family: var(--jfd-font-mono); font-size: 13px; }
+
+/* Numbered list rows (problems, reasons) */
+.jfd-row { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 4px 18px; padding: 22px 0; border-top: 1px solid var(--jfd-rule); align-items: start; }
+.jfd-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-family: var(--jfd-font-mono); font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+.jfd-flow .sep { color: var(--jfd-underline); }
+
+/* Footer */
+.jfd-footer { background: var(--jfd-graphite); color: var(--jfd-dark-ink); }
+.jfd-footer__label { font-family: var(--jfd-font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--jfd-dark-ink-2); margin: 0 0 16px; }
+.jfd-footer a { display: block; padding: 7px 0; font-size: 15px; color: var(--jfd-dark-ink); }
+.jfd-footer a:hover { color: var(--jfd-azure-soft); }
+.jfd-footer__legal { border-top: 1px solid var(--jfd-dark-rule-2); padding-top: 22px; font-size: 13.5px; color: var(--jfd-dark-ink-2); }
+
+</style>
+<script src="support.js"></script>
+</helmet>
+
+
+<dc-import name="JfdHeader" active="" style="position: sticky; top: 0; zIndex: 60; display: block" hint-size="100%,82px"></dc-import>
+
+<main id="top" style="display: block">
+  <input type="file" multiple="" ref="{{ fileRef }}" sc-camel-on-change="{{ onFiles }}" aria-hidden="true" sc-camel-tab-index="-1" style="display: none">
+
+  <section data-screen-label="01 Hero" aria-label="Send us your fire door survey or job sheet" style="borderBottom: 1px solid var(--jfd-rule)">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(34px, 5.6vw, 56px) clamp(20px, 5vw, 28px) clamp(34px, 5.6vw, 56px); display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(28px, 6vw, 40px) 64px; alignItems: center">
+      <div style="minWidth: 0; maxWidth: 620px">
+        <nav aria-label="Breadcrumb" style="display: flex; flexWrap: wrap; gap: 8px; fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.08em'; textTransform: uppercase; color: var(--jfd-ink-3); marginBottom: 22px">
+          <a href="Just%20Fire%20Doors%20Home%20B.dc.html" style="color: var(--jfd-ink-3)" style-hover="color: #0E6FAF">Home</a><span>/</span><span aria-current="page" style="color: var(--jfd-graphite)">Get a quote</span>
+        </nav>
+        <h1 style="fontFamily: var(--jfd-font-display); fontWeight: 600; fontSize: clamp(42px, 5.2vw, 68px); lineHeight: 1.03; letterSpacing: '-0.025em'; margin: 0 0 20px; textWrap: balance">Send Us Your Fire Door Survey <span style="color: var(--jfd-action)">or Job Sheet</span></h1>
+        <p style="fontSize: 19px; lineHeight: 1.55; color: var(--jfd-graphite); margin: 0 0 10px; maxWidth: 46ch">Already know there’s fire-door work to deal with? Send us what you have and we’ll help establish the clearest route forward.</p>
+        <p style="fontSize: 16px; lineHeight: 1.6; color: var(--jfd-ink-3); margin: 0 0 28px; maxWidth: 52ch">One site, one backlog or a defined piece of work. You don’t need to move your whole estate to JFD to get started.</p>
+        <div style="display: flex; flexWrap: wrap; alignItems: center; gap: 14px 28px">
+          <a href="#router" sc-camel-on-click="{{ goRouter }}" class="jfd-btn">Start your enquiry</a>
+          <span style="fontSize: 15.5px; color: var(--jfd-ink-2)">Would you rather speak first? <a href="Contact.dc.html" class="jfd-link" style="fontSize: 15.5px">Contact JFD →</a></span>
+        </div>
+      </div>
+      <div aria-hidden="true" style="minWidth: 0; justifySelf: end; width: 100%; maxWidth: 440px">
+        <div style="border: 2px dashed #9DB7CA; background: #FFFFFF; padding: 22px">
+          <p style="fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.08em'; textTransform: uppercase; color: var(--jfd-ink-3); margin: 0 0 14px">What people usually send</p>
+          <div style="display: grid; gap: 6px">
+            <sc-for list="{{ heroDocs }}" as="hd" hint-placeholder-count="4">
+              <div style="display: grid; gridTemplateColumns: 46px minmax(0, 1fr) auto; gap: 12px; alignItems: center; padding: 11px 12px; background: var(--jfd-ground); border: 1px solid var(--jfd-rule)">
+                <span style="fontFamily: var(--jfd-font-mono); fontSize: 10px; letterSpacing: '0.06em'; color: #FFFFFF; background: {{ hd.tone }}; padding: 4px 0; textAlign: center">{{ hd.ext }}</span>
+                <span style="fontSize: 14px; minWidth: 0; overflow: hidden; textOverflow: ellipsis; whiteSpace: nowrap">{{ hd.name }}</span>
+                <span style="fontFamily: var(--jfd-font-mono); fontSize: 10px; color: var(--jfd-ink-3)">{{ hd.size }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <p style="fontSize: 14px; lineHeight: 1.5; color: var(--jfd-ink-2); margin: 14px 0 0">Send the version you’re working from. No need to tidy it up.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="router" data-screen-label="02 Router" aria-labelledby="router-title" ref="{{ routerRef }}" style="background: #FFFFFF; borderBottom: 1px solid var(--jfd-rule); scrollMarginTop: 72px">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(38px, 6.4vw, 64px) clamp(20px, 5vw, 28px) 40px">
+      <div style="display: flex; flexWrap: wrap; justifyContent: space-between; alignItems: end; gap: 12px 40px; marginBottom: 28px">
+        <div style="minWidth: 0">
+          <p class="jfd-eyebrow">Step 1 of 2</p>
+          <h2 id="router-title" class="jfd-h2" style="margin: 0">What do you need help with?</h2>
+        </div>
+        <p style="fontSize: 16px; lineHeight: 1.55; color: var(--jfd-ink-3); margin: 0; maxWidth: 44ch">Choose the option that sounds closest to where you are now. You don’t need to know the exact service you need.</p>
+      </div>
+      <div role="radiogroup" aria-labelledby="router-title" style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 10px">
+        <sc-for list="{{ options }}" as="o" hint-placeholder-count="5">
+          <button type="button" role="radio" aria-checked="{{ o.checked }}" sc-camel-on-click="{{ o.pick }}" style="display: flex; flexDirection: column; alignItems: flex-start; textAlign: left; gap: 0; minHeight: 220px; padding: 20px 20px 18px; background: {{ o.bg }}; border: 1px solid {{ o.border }}; boxShadow: {{ o.ring }}; font: inherit; color: var(--jfd-graphite); cursor: pointer; transition: border-color .18s ease, background .18s ease" style-hover="border-color: #0E6FAF">
+            <span style="display: flex; width: 100%; alignItems: center; justifyContent: space-between; marginBottom: 16px">
+              <span style="fontFamily: var(--jfd-font-mono); fontSize: 11px; color: var(--jfd-ink-4)">{{ o.n }}</span>
+              <span style="width: 20px; height: 20px; border: 1.5px solid {{ o.dotBorder }}; background: {{ o.dotBg }}; display: grid; placeItems: center"><span style="width: 8px; height: 8px; background: {{ o.dotInner }}"></span></span>
+            </span>
+            <span style="display: block; fontFamily: var(--jfd-font-display); fontSize: 22px; fontWeight: 600; lineHeight: 1.15; marginBottom: 8px">{{ o.title }}</span>
+            <span style="display: block; fontSize: 14.5px; lineHeight: 1.5; color: var(--jfd-ink-3); marginBottom: 14px">{{ o.line }}</span>
+            <span style="marginTop: auto; fontSize: 14.5px; fontWeight: 600; color: #0E6FAF">{{ o.cta }} →</span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div ref="{{ panelRef }}" style="scrollMarginTop: 72px">
+      <sc-if value="{{ noRoute }}" hint-placeholder-val="{{ true }}">
+        <div style="maxWidth: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 28px) 64px">
+          <p style="margin: 0; padding: 18px 20px; border: 1px dashed #C9D2DA; background: var(--jfd-ground); fontSize: 15px; color: var(--jfd-ink-3)">Choose an option above and we’ll show only the questions that matter for it.</p>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ showForm }}" hint-placeholder-val="{{ false }}">
+        <div style="borderTop: 1px solid var(--jfd-rule); background: var(--jfd-ground)">
+          <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(29px, 4.8vw, 48px) clamp(20px, 5vw, 28px) clamp(43px, 7.2vw, 72px)">
+            <div style="display: flex; flexWrap: wrap; justifyContent: space-between; alignItems: center; gap: 12px 24px; marginBottom: 28px; paddingBottom: 18px; borderBottom: 1px solid var(--jfd-rule)">
+              <button type="button" sc-camel-on-click="{{ changeRoute }}" style="display: inline-flex; alignItems: center; gap: 8px; minHeight: 44px; padding: 0; background: none; border: 0; font: inherit; fontSize: 15.5px; fontWeight: 600; color: #0E6FAF; cursor: pointer" style-hover="color: #0B5789">← Change what I need help with</button>
+              <span style="fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.08em'; textTransform: uppercase; color: var(--jfd-ink-3)">Step 2 of 2 · {{ route.title }}</span>
+            </div>
+
+            <div style="display: flex; flexWrap: wrap; gap: clamp(28px, 6vw, 40px) 64px; alignItems: flex-start">
+              <form sc-camel-on-submit="{{ submit }}" sc-camel-no-validate="" style="flex: 1 1 560px; minWidth: 0; maxWidth: 720px">
+                <h3 style="fontFamily: var(--jfd-font-display); fontSize: clamp(32px, 3.6vw, 44px); fontWeight: 600; lineHeight: 1.08; letterSpacing: '-0.02em'; margin: 0 0 14px">{{ route.heading }}</h3>
+                <sc-for list="{{ route.intro }}" as="it" hint-placeholder-count="1">
+                  <p style="fontSize: 16.5px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 0 0 10px; maxWidth: 58ch">{{ it }}</p>
+                </sc-for>
+                <sc-if value="{{ route.hasBullets }}" hint-placeholder-val="{{ false }}">
+                  <ul style="listStyle: none; margin: 4px 0 8px; padding: 0; display: flex; flexWrap: wrap; gap: 6px">
+                    <sc-for list="{{ route.bullets }}" as="bu" hint-placeholder-count="5">
+                      <li class="jfd-chip" style="background: #FFFFFF; border: 1px solid #D7DDE3; padding: 7px 10px; fontSize: 11.5px">{{ bu }}</li>
+                    </sc-for>
+                  </ul>
+                </sc-if>
+
+                <sc-if value="{{ hasErrors }}" hint-placeholder-val="{{ false }}">
+                  <div role="alert" style="margin: 20px 0 0; padding: 14px 16px; border: 1px solid #A33A2A; background: #FBF1EF; fontSize: 15px; color: #7E2A1E">{{ errorSummary }}</div>
+                </sc-if>
+
+                <sc-for list="{{ sections }}" as="sec" hint-placeholder-count="3">
+                  <fieldset style="border: 0; margin: 32px 0 0; padding: 0; minWidth: 0">
+                    <legend style="display: flex; alignItems: center; gap: 12px; width: 100%; padding: 0 0 12px; marginBottom: 20px; borderBottom: 2px solid var(--jfd-graphite)">
+                      <span style="fontFamily: var(--jfd-font-mono); fontSize: 11px; color: var(--jfd-ink-4)">{{ sec.n }}</span>
+                      <span style="fontFamily: var(--jfd-font-mono); fontSize: 12.5px; letterSpacing: '0.1em'; textTransform: uppercase; fontWeight: 500; color: var(--jfd-graphite)">{{ sec.title }}</span>
+                    </legend>
+                    <sc-if value="{{ sec.hasNote }}" hint-placeholder-val="{{ false }}">
+                      <p style="fontSize: 14px; color: var(--jfd-ink-3); margin: -8px 0 18px">{{ sec.note }}</p>
+                    </sc-if>
+                    <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 20px 20px">
+                      <sc-for list="{{ sec.fields }}" as="f" hint-placeholder-count="3">
+                        <div style="minWidth: 0; gridColumn: {{ f.span }}">
+
+                          <sc-if value="{{ f.isUpload }}" hint-placeholder-val="{{ false }}">
+                            <div>
+                              <p id="{{ f.labelId }}" style="fontSize: 16px; fontWeight: 600; margin: 0 0 4px">{{ f.label }} <span style="fontFamily: var(--jfd-font-mono); fontSize: 10px; letterSpacing: '0.06em'; textTransform: uppercase; color: var(--jfd-ink-3); fontWeight: 400; marginLeft: 6px">{{ f.tag }}</span></p>
+                              <div role="button" sc-camel-tab-index="0" aria-labelledby="{{ f.labelId }}" aria-describedby="{{ f.hintId }}" sc-camel-on-click="{{ f.pick }}" sc-camel-on-key-down="{{ f.pickKey }}" sc-camel-on-drag-over="{{ f.dragOver }}" sc-camel-on-drag-leave="{{ f.dragLeave }}" sc-camel-on-drop="{{ f.drop }}" style="marginTop: 10px; border: 2px dashed {{ f.dzBorder }}; background: {{ f.dzBg }}; padding: {{ f.dzPad }}; textAlign: center; cursor: pointer; transition: background .18s ease, border-color .18s ease" style-hover="border-color: #0E6FAF" style-focus="outline: 2px solid #0E6FAF; outlineOffset: 3px">
+                                <span style="display: block; fontFamily: var(--jfd-font-display); fontSize: {{ f.dzSize }}; fontWeight: 600; lineHeight: 1.2; color: var(--jfd-graphite)">{{ f.dzTitle }}</span>
+                                <span style="display: inline-block; marginTop: 6px; fontSize: 15px; fontWeight: 500; color: #0E6FAF; borderBottom: 1px solid #A9C6DB">or choose files</span>
+                                <span id="{{ f.hintId }}" style="display: block; marginTop: 10px; fontSize: 13.5px; color: var(--jfd-ink-3)">{{ f.hint }}</span>
+                              </div>
+                              <sc-if value="{{ f.hasFiles }}" hint-placeholder-val="{{ false }}">
+                                <ul aria-live="polite" style="listStyle: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px">
+                                  <sc-for list="{{ f.files }}" as="fl" hint-placeholder-count="1">
+                                    <li style="display: grid; gridTemplateColumns: 46px minmax(0, 1fr) auto; gap: 12px; alignItems: center; padding: 10px 12px; background: #FFFFFF; border: 1px solid var(--jfd-rule)">
+                                      <span style="fontFamily: var(--jfd-font-mono); fontSize: 10px; color: #FFFFFF; background: {{ fl.tone }}; padding: 4px 0; textAlign: center">{{ fl.ext }}</span>
+                                      <span style="minWidth: 0">
+                                        <span style="display: block; fontSize: 14.5px; overflow: hidden; textOverflow: ellipsis; whiteSpace: nowrap">{{ fl.name }}</span>
+                                        <span style="display: flex; alignItems: center; gap: 10px; marginTop: 4px">
+                                          <span style="flex: 0 0 90px; height: 3px; background: #E4E9EE"><span style="display: block; height: 3px; width: {{ fl.pct }}; background: {{ fl.bar }}; transition: width .6s ease"></span></span>
+                                          <span style="fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.04em'; textTransform: uppercase; color: {{ fl.statusInk }}">{{ fl.status }}</span>
+                                          <span style="fontFamily: var(--jfd-font-mono); fontSize: 10.5px; color: var(--jfd-ink-4)">{{ fl.size }}</span>
+                                        </span>
+                                      </span>
+                                      <button type="button" sc-camel-on-click="{{ fl.remove }}" aria-label="{{ fl.removeLabel }}" style="minHeight: 44px; padding: 0 12px; background: none; border: 1px solid var(--jfd-rule); font: inherit; fontSize: 13.5px; color: var(--jfd-graphite); cursor: pointer" style-hover="border-color: #A33A2A; color: #A33A2A">Remove</button>
+                                    </li>
+                                  </sc-for>
+                                </ul>
+                              </sc-if>
+                            </div>
+                          </sc-if>
+
+                          <sc-if value="{{ f.isInput }}" hint-placeholder-val="{{ true }}">
+                            <div>
+                              <label for="{{ f.domId }}" style="display: block; fontSize: 16px; fontWeight: 600; lineHeight: 1.35; marginBottom: 4px">{{ f.label }} <span style="fontFamily: var(--jfd-font-mono); fontSize: 10px; letterSpacing: '0.06em'; textTransform: uppercase; color: {{ f.tagInk }}; fontWeight: 400; marginLeft: 6px">{{ f.tag }}</span></label>
+                              <sc-if value="{{ f.hasHint }}" hint-placeholder-val="{{ false }}"><p id="{{ f.hintId }}" style="fontSize: 14px; lineHeight: 1.5; color: var(--jfd-ink-3); margin: 0 0 8px">{{ f.hint }}</p></sc-if>
+                              <input id="{{ f.domId }}" name="{{ f.id }}" type="{{ f.inputType }}" value="{{ f.value }}" sc-camel-on-change="{{ f.onChange }}" placeholder="{{ f.placeholder }}" sc-camel-auto-complete="{{ f.ac }}" aria-describedby="{{ f.describedBy }}" aria-invalid="{{ f.invalid }}" style="display: block; width: 100%; height: 52px; marginTop: 6px; padding: 0 14px; border: 1px solid {{ f.border }}; borderRadius: 0; background: #FFFFFF; font: inherit; fontSize: 16px; color: #23282C" style-focus="outline: 2px solid #0E6FAF; outlineOffset: 0px; borderColor: #0E6FAF">
+                            </div>
+                          </sc-if>
+
+                          <sc-if value="{{ f.isArea }}" hint-placeholder-val="{{ false }}">
+                            <div>
+                              <label for="{{ f.domId }}" style="display: block; fontSize: 16px; fontWeight: 600; lineHeight: 1.35; marginBottom: 4px">{{ f.label }} <span style="fontFamily: var(--jfd-font-mono); fontSize: 10px; letterSpacing: '0.06em'; textTransform: uppercase; color: var(--jfd-ink-3); fontWeight: 400; marginLeft: 6px">{{ f.tag }}</span></label>
+                              <sc-if value="{{ f.hasHint }}" hint-placeholder-val="{{ false }}"><p id="{{ f.hintId }}" style="fontSize: 14px; lineHeight: 1.5; color: var(--jfd-ink-3); margin: 0 0 8px">{{ f.hint }}</p></sc-if>
+                              <textarea id="{{ f.domId }}" name="{{ f.id }}" value="{{ f.value }}" sc-camel-on-change="{{ f.onChange }}" placeholder="{{ f.placeholder }}" aria-describedby="{{ f.describedBy }}" rows="4" style="display: block; width: 100%; minHeight: 112px; marginTop: 6px; padding: 12px 14px; border: 1px solid var(--jfd-rule-strong); borderRadius: 0; background: #FFFFFF; font: inherit; fontSize: 16px; lineHeight: 1.5; color: #23282C; resize: vertical" style-focus="outline: 2px solid #0E6FAF; outlineOffset: 0px; borderColor: #0E6FAF"></textarea>
+                            </div>
+                          </sc-if>
+
+                          <sc-if value="{{ f.isSeg }}" hint-placeholder-val="{{ false }}">
+                            <div role="radiogroup" aria-labelledby="{{ f.labelId }}">
+                              <p id="{{ f.labelId }}" style="fontSize: 16px; fontWeight: 600; margin: 0 0 10px">{{ f.label }}</p>
+                              <div style="display: flex; flexWrap: wrap; gap: 6px">
+                                <sc-for list="{{ f.opts }}" as="op" hint-placeholder-count="3">
+                                  <button type="button" role="radio" aria-checked="{{ op.checked }}" sc-camel-on-click="{{ op.pick }}" style="minHeight: 48px; padding: 0 20px; border: 1px solid {{ op.border }}; background: {{ op.bg }}; color: {{ op.ink }}; font: inherit; fontSize: 15px; fontWeight: 500; cursor: pointer" style-hover="border-color: #0E6FAF">{{ op.label }}</button>
+                                </sc-for>
+                              </div>
+                            </div>
+                          </sc-if>
+
+                          <sc-if value="{{ f.hasError }}" hint-placeholder-val="{{ false }}">
+                            <p id="{{ f.errId }}" style="fontSize: 14px; color: #A33A2A; margin: 8px 0 0; fontWeight: 500">{{ f.error }}</p>
+                          </sc-if>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </fieldset>
+                </sc-for>
+
+                <div style="marginTop: 36px; paddingTop: 24px; borderTop: 1px solid var(--jfd-rule); display: flex; flexWrap: wrap; alignItems: center; gap: 16px 24px">
+                  <button type="submit" class="jfd-btn jfd-btn--lg" style="cursor: pointer">{{ route.submit }}</button>
+                  <span style="fontSize: 14px; lineHeight: 1.5; color: var(--jfd-ink-3); maxWidth: 40ch">{{ route.footnote }}</span>
+                </div>
+              </form>
+
+              <aside aria-label="Before you send" style="flex: 1 1 280px; minWidth: 0; position: sticky; top: 96px; display: grid; gap: 12px">
+                <div style="background: var(--jfd-graphite); color: #EEF3F7; padding: 26px 24px 28px">
+                  <span style="display: block; width: 28px; height: 3px; background: #29A9E9; marginBottom: 16px"></span>
+                  <sc-for list="{{ route.reassure }}" as="rs" hint-placeholder-count="2">
+                    <p style="fontFamily: var(--jfd-font-display); fontSize: 23px; fontWeight: 600; lineHeight: 1.22; margin: 0 0 12px; color: #FFFFFF">{{ rs }}</p>
+                  </sc-for>
+                </div>
+                <div style="background: #FFFFFF; border: 1px solid var(--jfd-rule); padding: 20px 22px">
+                  <p style="fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.08em'; textTransform: uppercase; color: var(--jfd-ink-3); margin: 0 0 8px">Only what we need</p>
+                  <p style="fontSize: 15px; lineHeight: 1.55; color: var(--jfd-ink-2); margin: 0 0 10px">Just your name and one way to reply are required. Everything else is optional — leave it blank if you don’t know.</p>
+                  <p style="fontSize: 15px; lineHeight: 1.55; color: var(--jfd-ink-2); margin: 0">Rather talk first? <a href="tel:01752000000" class="jfd-link" style="fontSize: 15px">01752 000 000</a></p>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+        <div style="borderTop: 1px solid var(--jfd-rule); background: var(--jfd-ground)">
+          <div role="status" style="maxWidth: 1240px; margin: 0 auto; padding: clamp(38px, 6.4vw, 64px) clamp(20px, 5vw, 28px) clamp(48px, 8.0vw, 80px); display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 32px 64px; alignItems: start">
+            <div style="minWidth: 0">
+              <span class="jfd-status jfd-status--closed" style="marginBottom: 16px">Received · {{ route.title }}</span>
+              <h3 style="fontFamily: var(--jfd-font-display); fontSize: clamp(40px, 5vw, 60px); fontWeight: 600; lineHeight: 1.04; letterSpacing: '-0.025em'; margin: 0 0 18px">Thanks. We’ve got it.</h3>
+              <p style="fontSize: 18px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 0 0 24px; maxWidth: 48ch">We’ll review what you’ve sent and use the contact details provided if we need anything else before confirming the next step.</p>
+              <div style="display: flex; flexWrap: wrap; gap: 14px 28px; alignItems: center">
+                <a href="Projects.dc.html" class="jfd-link">See our projects →</a>
+                <button type="button" sc-camel-on-click="{{ reset }}" style="minHeight: 44px; padding: 0; background: none; border: 0; font: inherit; fontSize: 15.5px; fontWeight: 500; color: var(--jfd-ink-3); cursor: pointer; textDecoration: underline" style-hover="color: #0E6FAF">Send something else</button>
+              </div>
+            </div>
+            <div style="minWidth: 0; display: grid; gap: 12px">
+              <div style="background: #FFFFFF; border: 1px solid var(--jfd-rule)">
+                <div style="padding: 12px 18px; background: var(--jfd-tint); borderBottom: 1px solid var(--jfd-rule); fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.06em'; textTransform: uppercase; color: var(--jfd-ink-3)">What you sent</div>
+                <sc-for list="{{ receipt }}" as="rc" hint-placeholder-count="3">
+                  <div style="display: grid; gridTemplateColumns: 120px minmax(0, 1fr); gap: 14px; padding: 12px 18px; borderBottom: 1px solid var(--jfd-rule-soft); fontSize: 14.5px"><span style="fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.06em'; textTransform: uppercase; color: var(--jfd-ink-3)">{{ rc.k }}</span><span style="minWidth: 0; overflowWrap: anywhere">{{ rc.v }}</span></div>
+                </sc-for>
+              </div>
+              <div style="background: var(--jfd-graphite); color: #EEF3F7; padding: 20px 22px">
+                <p style="fontSize: 16px; fontWeight: 600; margin: 0 0 6px">Need to speak to someone about something urgent?</p>
+                <a href="tel:01752000000" style="fontFamily: var(--jfd-font-display); fontSize: 28px; fontWeight: 600; color: #FFFFFF" style-hover="color: #6FC4F2">Call JFD: 01752 000 000</a>
+              </div>
+              <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ false }}">
+                <p style="fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.05em'; textTransform: uppercase; color: #8A6100; border: 1px dashed #C9B27A; background: #FBF7EC; padding: 8px 12px; margin: 0; lineHeight: 1.6">To confirm · telephone number, and response-time language if JFD adopts a service standard</p>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <section data-screen-label="03 What happens next" aria-label="What happens after you send it" style="borderBottom: 1px solid var(--jfd-rule)">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(43px, 7.2vw, 72px) clamp(20px, 5vw, 28px)">
+      <h2 style="fontFamily: var(--jfd-font-display); fontSize: clamp(30px, 3.4vw, 40px); fontWeight: 600; lineHeight: 1.12; letterSpacing: '-0.02em'; margin: 0 0 32px">What happens after you send it?</h2>
+      <ol style="listStyle: none; margin: 0; padding: 0; display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 28px">
+        <sc-for list="{{ nextSteps }}" as="ns" hint-placeholder-count="3">
+          <li style="minWidth: 0">
+            <span style="display: flex; alignItems: center; gap: 12px; marginBottom: 12px"><span style="fontFamily: var(--jfd-font-display); fontSize: 40px; fontWeight: 600; lineHeight: 1; color: #0E6FAF">{{ ns.n }}</span><span style="flex: 1; height: 1px; background: var(--jfd-rule)"></span></span>
+            <h3 style="fontSize: 18px; fontWeight: 600; lineHeight: 1.35; margin: 0 0 6px">{{ ns.t }}</h3>
+            <p style="fontSize: 15px; lineHeight: 1.55; color: var(--jfd-ink-3); margin: 0">{{ ns.b }}</p>
+            <sc-if value="{{ ns.hasList }}" hint-placeholder-val="{{ false }}">
+              <div style="display: flex; flexWrap: wrap; gap: 6px; marginTop: 10px">
+                <sc-for list="{{ ns.list }}" as="nl" hint-placeholder-count="6">
+                  <span class="jfd-chip" style="padding: 6px 9px; fontSize: 11px">{{ nl }}</span>
+                </sc-for>
+              </div>
+            </sc-if>
+          </li>
+        </sc-for>
+      </ol>
+      <p style="fontFamily: var(--jfd-font-display); fontSize: 26px; fontWeight: 600; margin: 36px 0 0; paddingTop: 22px; borderTop: 1px solid var(--jfd-rule)">No extra hoops. <span style="color: var(--jfd-action)">Just the next useful step.</span></p>
+      <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ false }}">
+        <p style="fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.05em'; textTransform: uppercase; color: #8A6100; border: 1px dashed #C9B27A; background: #FBF7EC; padding: 8px 12px; margin: 18px 0 0; lineHeight: 1.6; maxWidth: 76ch">To confirm · exact review and follow-up process — no turnaround promises until JFD commits to them</p>
+      </sc-if>
+    </div>
+  </section>
+
+  <section data-screen-label="04 No tidying" aria-label="Don’t worry about tidying it up" style="background: #FFFFFF; borderBottom: 1px solid var(--jfd-rule)">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(43px, 7.2vw, 72px) clamp(20px, 5vw, 28px); display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 32px 80px; alignItems: center">
+      <div style="minWidth: 0">
+        <h2 class="jfd-h2" style="margin: 0 0 16px; maxWidth: 16ch">Don’t worry about tidying it up for us.</h2>
+        <p style="fontSize: 17px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 0 0 12px; maxWidth: 48ch">If you’ve already got a survey, inspection report, job sheet or remedial list, send the version you’re working from.</p>
+        <p style="fontSize: 16px; lineHeight: 1.6; color: var(--jfd-ink-3); margin: 0; maxWidth: 48ch">We’d rather start with the information you already have and ask for anything else we genuinely need afterwards.</p>
+      </div>
+      <div style="minWidth: 0">
+        <p style="fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.08em'; textTransform: uppercase; color: var(--jfd-ink-3); margin: 0 0 6px">You don’t need to</p>
+        <ul style="listStyle: none; margin: 0 0 18px; padding: 0">
+          <sc-for list="{{ noNeed }}" as="nn" hint-placeholder-count="4">
+            <li style="display: flex; alignItems: center; gap: 14px; padding: 14px 0; borderTop: 1px solid var(--jfd-rule)"><span aria-hidden="true" style="width: 16px; height: 1.5px; background: #A33A2A; flexShrink: 0"></span><span style="fontSize: 18px; color: var(--jfd-ink-3); textDecoration: line-through; textDecorationColor: #C9D2DA">{{ nn }}</span></li>
+          </sc-for>
+        </ul>
+        <p style="fontFamily: var(--jfd-font-display); fontSize: 30px; fontWeight: 600; lineHeight: 1.15; color: var(--jfd-action); margin: 0; paddingTop: 16px; borderTop: 2px solid var(--jfd-graphite)">Send us what you already have.</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="05 Trust" aria-label="Why send it to JFD" style="background: var(--jfd-tint); borderTop: 3px solid var(--jfd-azure)">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(34px, 5.6vw, 56px) clamp(20px, 5vw, 28px) clamp(38px, 6.4vw, 64px)">
+      <h2 style="fontFamily: var(--jfd-font-display); fontSize: 30px; fontWeight: 600; margin: 0 0 24px">Why send it to JFD?</h2>
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 1px; background: transparent; border: 1px solid var(--jfd-rule)">
+        <sc-for list="{{ trust }}" as="tr" hint-placeholder-count="4">
+          <div style="outline: 1px solid var(--jfd-rule); background: var(--jfd-tint); padding: 20px 22px; minWidth: 0">
+            <span style="display: block; fontSize: 16px; fontWeight: 600; lineHeight: 1.35; marginBottom: 6px">{{ tr.t }}</span>
+            <span style="display: block; fontSize: 14px; lineHeight: 1.5; color: var(--jfd-ink-3)">{{ tr.b }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display: flex; flexWrap: wrap; alignItems: center; gap: 20px 40px; marginTop: 24px">
+        <img src="src/assets/images/logos/bsc-fire-door-installation.jpg" alt="BlueSky Certified Installer — Fire Door Installation, FDI-146" style="width: 52px; height: 52px; borderRadius: 50%; objectFit: cover">
+        <img src="src/assets/images/logos/door-data-systems.jpeg" alt="Door Data Systems — door-level evidence records" style="height: 58px; width: auto; mixBlendMode: multiply">
+        <span aria-hidden="true" style="width: 1px; height: 40px; background: #D0D7DE"></span>
+        <span style="display: block"><span style="display: block; fontFamily: var(--jfd-font-display); fontSize: 30px; fontWeight: 600; lineHeight: 1">~150</span><span style="display: block; fontSize: 13.5px; color: var(--jfd-ink-3); marginTop: 3px">doors across two schools, one holiday programme</span></span>
+        <span style="display: block"><span style="display: block; fontFamily: var(--jfd-font-display); fontSize: 30px; fontWeight: 600; lineHeight: 1">~35</span><span style="display: block; fontSize: 13.5px; color: var(--jfd-ink-3); marginTop: 3px">laboratory doorsets, University of Plymouth</span></span>
+      </div>
+      <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ false }}">
+        <p style="fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.05em'; textTransform: uppercase; color: #8A6100; border: 1px dashed #C9B27A; background: #FBF7EC; padding: 8px 12px; margin: 20px 0 0; lineHeight: 1.6; maxWidth: 76ch">Optional once confirmed · “Your documents go to the team reviewing the work, not a generic sales inbox.” Also confirm accepted formats, max file size and multiple-file support</p>
+      </sc-if>
+    </div>
+  </section>
+</main>
+
+<dc-import name="JfdFooter" hint-size="100%,360px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;showNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Review&quot;}}">
+class Component extends DCLogic {
+  state = { route: null, values: {}, files: {}, drag: null, errors: {}, submitted: false, tried: false };
+  fileRef = React.createRef();
+  routerRef = React.createRef();
+  panelRef = React.createRef();
+
+  componentDidMount() {
+    const m = (window.location.hash || '').match(/route-([a-e])/);
+    if (m) this.setState({ route: m[1] }, () => this._scrollTo(this.panelRef, 0));
+  }
+  _scrollTo(ref, extra) {
+    setTimeout(() => {
+      const el = ref.current; if (!el) return;
+      const y = el.getBoundingClientRect().top + window.scrollY - 80 + (extra || 0);
+      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+    }, 30);
+  }
+  _addFiles(target, list) {
+    const arr = Array.from(list || []);
+    if (!arr.length) return;
+    const now = Date.now();
+    const add = arr.map((f, i) => ({ key: now + '-' + i, name: f.name, size: f.size, state: f.size > 50 * 1024 * 1024 ? 'error' : 'uploading' }));
+    this.setState(s => ({ files: { ...s.files, [target]: [...(s.files[target] || []), ...add] } }));
+    add.forEach((f, i) => { if (f.state === 'uploading') setTimeout(() => this.setState(s => ({ files: { ...s.files, [target]: (s.files[target] || []).map(x => x.key === f.key ? { ...x, state: 'ready' } : x) } })), 900 + i * 300); });
+  }
+  _fmt(b) { return b > 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB'; }
+  _ext(n) { const e = (n.split('.').pop() || '').toUpperCase().slice(0, 4); return e || 'FILE'; }
+  _tone(e) { return ({ PDF: '#A33A2A', XLS: '#1F6B4D', XLSX: '#1F6B4D', CSV: '#1F6B4D', JPG: '#0E6FAF', JPEG: '#0E6FAF', PNG: '#0E6FAF', HEIC: '#0E6FAF' })[e] || '#5B646B'; }
+
+  routes() {
+    const details = { title: 'Your details', note: 'We need your name and one way to reply. The rest helps but isn’t essential.', fields: [
+      { id: 'name', label: 'Name', type: 'text', ac: 'name', required: true },
+      { id: 'org', label: 'Organisation', type: 'text', ac: 'organization' },
+      { id: 'email', label: 'Email', type: 'email', ac: 'email', contact: true },
+      { id: 'tel', label: 'Telephone', type: 'tel', ac: 'tel', contact: true }
+    ] };
+    const ifKnow = 'If you know.';
+    return {
+      a: { title: 'I already have a survey or job sheet', line: 'You know what needs attention and want help turning it into a clear scope and completed work.', cta: 'Send what I have',
+        heading: 'Send us what you already have.', intro: ['Upload your fire-door survey, inspection report, remedial schedule or job sheet. Give us a little context about the site and we’ll review the requirement with you.'],
+        reassure: ['You don’t need to copy information out of your survey or job sheet and type it all in again.', 'Send us the document you’re already working from.'], submit: 'Send my job sheet', footnote: 'No document to hand? You can still send this — just tell us about the work.',
+        sections: [
+          { title: 'Upload your survey, inspection report or job sheet', fields: [
+            { id: 'docs', type: 'upload', primary: true, label: 'Your survey, report or job sheet', hint: 'PDF, spreadsheet or other relevant project document. Several files are fine.', span: '1 / -1' },
+            { id: 'photos', type: 'upload', label: 'Photos or supporting documents', hint: 'Optional.', span: '1 / -1' }
+          ] },
+          details,
+          { title: 'About the work', fields: [
+            { id: 'where', label: 'Where is the work?', type: 'text', placeholder: 'Site / location', span: '1 / -1' },
+            { id: 'sites', label: 'How many sites are involved?', hint: ifKnow, type: 'text' },
+            { id: 'doors', label: 'Roughly how many doors or actions are involved?', hint: ifKnow, type: 'text' },
+            { id: 'deadline', label: 'Is there a deadline or priority we should know about?', type: 'area', span: '1 / -1' },
+            { id: 'else', label: 'Anything else we should know?', type: 'area', span: '1 / -1' }
+          ] }
+        ] },
+      b: { title: 'I have outstanding remedial work or a backlog', line: 'You’ve got actions that need pricing, organising or getting off the list.', cta: 'Get the list moving',
+        heading: 'Let’s get the list moving.', intro: ['If you’ve already got outstanding fire-door actions, send us the list if you have it. That could be:'],
+        bullets: ['one site', 'an ageing backlog', 'a defined batch of remedials', 'work that has been sitting open too long', 'a package your existing contractor doesn’t currently have capacity for'],
+        reassure: ['You don’t need to explain why your current arrangements haven’t cleared the list.', 'Just show us the work that needs moving.'], submit: 'Send my remedial list', footnote: 'Don’t know the exact number of actions? That’s fine.',
+        sections: [
+          { title: 'Got a list, report or job sheet?', fields: [
+            { id: 'docs', type: 'upload', primary: true, label: 'Your list, report or job sheet', hint: 'Optional. Send what you have rather than rebuilding the information for us.', span: '1 / -1' }
+          ] },
+          details,
+          { title: 'About the work', fields: [
+            { id: 'where', label: 'Where is the work?', type: 'text', placeholder: 'Site / location' },
+            { id: 'actions', label: 'Roughly how many outstanding actions are involved?', hint: ifKnow, type: 'text' },
+            { id: 'deadline', label: 'Is there a deadline or priority?', type: 'area', span: '1 / -1' },
+            { id: 'control', label: 'What would you most like to get under control?', type: 'area', span: '1 / -1' }
+          ] }
+        ] },
+      c: { title: 'I need an inspection or survey first', line: 'You need to understand the condition of your fire doors and what action is required.', cta: 'Request an inspection',
+        heading: 'Tell us what needs inspecting.', intro: ['If you don’t yet have a clear picture of the condition of your fire doors or the work required, tell us about the building or estate and what has prompted the inspection.'],
+        reassure: ['You don’t need to know which type of survey to request before speaking to us.'], submit: 'Request an inspection', footnote: 'Rough numbers are fine. We’ll scope it with you.',
+        sections: [
+          details,
+          { title: 'The building or estate', fields: [
+            { id: 'where', label: 'Where is the building or estate?', type: 'text', placeholder: 'Site / location', span: '1 / -1' },
+            { id: 'sites', label: 'How many sites are involved?', hint: 'If relevant.', type: 'text' },
+            { id: 'doors', label: 'Roughly how many fire doors are involved?', hint: ifKnow, type: 'text' },
+            { id: 'btype', label: 'What type of building is it?', type: 'text', placeholder: 'e.g. school, health centre, offices', span: '1 / -1' },
+            { id: 'prompt', label: 'What has prompted the inspection?', hint: 'For example: an upcoming programme, existing concerns, a survey requirement or a need to understand the current condition of the doors.', type: 'area', span: '1 / -1' },
+            { id: 'records', type: 'upload', label: 'Do you already have any relevant records?', hint: 'Optional.', span: '1 / -1' },
+            { id: 'deadline', label: 'Is there a deadline we should know about?', type: 'area', span: '1 / -1' }
+          ] }
+        ] },
+      d: { title: 'I want to discuss planned maintenance', line: 'You want to move away from reactive fire-door work and towards a more manageable ongoing programme.', cta: 'Discuss maintenance',
+        heading: 'Tell us how you’re managing fire doors today.', intro: ['You might be starting a maintenance programme from scratch. Or you may already have inspections, repairs and remedial work happening but want a clearer way of keeping the estate under control.'],
+        reassure: ['Give us a picture of where things stand now.', 'You don’t need to design the programme — that’s the conversation.'], submit: 'Discuss maintenance', footnote: 'A rough picture is plenty to start the conversation.',
+        sections: [
+          details,
+          { title: 'Your estate today', fields: [
+            { id: 'sites', label: 'How many sites are involved?', type: 'text' },
+            { id: 'where', label: 'Where are they?', type: 'text', placeholder: 'Locations' },
+            { id: 'doors', label: 'Roughly how many fire doors are involved?', hint: ifKnow, type: 'text', span: '1 / -1' },
+            { id: 'today', label: 'How are inspections and maintenance handled today?', type: 'area', span: '1 / -1' },
+            { id: 'backlog', label: 'Is there already an outstanding remedial list?', type: 'seg', opts: ['Yes', 'No', 'Not sure'], span: '1 / -1' }
+          ] },
+          { title: 'What you want to improve', fields: [
+            { id: 'improve', label: 'What would you like to improve?', type: 'area', span: '1 / -1' },
+            { id: 'why', label: 'What’s making you look at fire-door maintenance now?', type: 'area', span: '1 / -1' },
+            { id: 'docs', type: 'upload', label: 'Got any useful documents?', hint: 'Optional.', span: '1 / -1' }
+          ] }
+        ] },
+      e: { title: 'I’m not sure where to start', line: 'That’s fine. Tell us what you’re dealing with and we’ll help establish the right next step.', cta: 'Tell us what’s happening',
+        heading: 'That’s fine. Tell us what you know.', intro: ['You don’t need to diagnose the problem before speaking to us. Give us a little context and we’ll help point you towards the right next step.'],
+        reassure: ['You don’t need to diagnose the problem before speaking to us.'], submit: 'Send my enquiry', footnote: 'Nothing more.',
+        sections: [
+          { title: 'A little context', fields: [
+            { id: 'name', label: 'Name', type: 'text', ac: 'name', required: true },
+            { id: 'org', label: 'Organisation', type: 'text', ac: 'organization' },
+            { id: 'contact', label: 'Email or telephone', type: 'text', ac: 'email', required: true, span: '1 / -1' },
+            { id: 'where', label: 'Where is the issue?', type: 'text', placeholder: 'Site / location', span: '1 / -1' },
+            { id: 'what', label: 'Tell us briefly what’s happening', type: 'area', span: '1 / -1' },
+            { id: 'docs', type: 'upload', label: 'Got a photo, report or other document?', hint: 'Optional.', span: '1 / -1' }
+          ] }
+        ] }
+    };
+  }
+
+  _validate(r, all) {
+    const v = (all || this.state.values)[r] || {};
+    const e = {};
+    if (!(v.name || '').trim()) e.name = 'Please tell us your name.';
+    if (r === 'e') { if (!(v.contact || '').trim()) e.contact = 'Please give us an email or telephone number so we can reply.'; }
+    else {
+      const em = (v.email || '').trim(), tl = (v.tel || '').trim();
+      if (!em && !tl) e.email = 'Please give us an email or a telephone number — one is enough.';
+      else if (em && !/^\S+@\S+\.\S+$/.test(em)) e.email = 'That email address doesn’t look quite right.';
+    }
+    return e;
+  }
+
+  renderVals() {
+    const R = this.routes();
+    const r = this.state.route;
+    const route = r ? R[r] : null;
+    const vals = this.state.values[r] || {};
+    const errs = this.state.tried ? this.state.errors : {};
+    const pick = (k) => () => { this.setState({ route: k, submitted: false, tried: false, errors: {} }); this._scrollTo(this.panelRef, 0); };
+    const setVal = (id) => (e) => { const val = e.target.value; this.setState(s => { const next = { ...s.values, [r]: { ...(s.values[r] || {}), [id]: val } }; return { values: next, errors: s.tried ? this._validate(r, next) : s.errors }; }); };
+    const fileKey = (id) => r + ':' + id;
+
+    const sections = route ? route.sections.map((sec, si) => ({
+      n: String(si + 1).padStart(2, '0'), title: sec.title, hasNote: !!sec.note, note: sec.note,
+      fields: sec.fields.map(f => {
+        const domId = 'q-' + r + '-' + f.id, hintId = domId + '-hint', errId = domId + '-err';
+        const err = errs[f.id];
+        const base = { id: f.id, label: f.label, domId, hintId, errId, labelId: domId + '-label', span: f.span || 'auto', hasError: !!err, error: err || '', hint: f.hint || '', hasHint: !!f.hint,
+          isUpload: f.type === 'upload', isInput: ['text', 'email', 'tel'].includes(f.type), isArea: f.type === 'area', isSeg: f.type === 'seg' };
+        if (f.type === 'upload') {
+          const k = fileKey(f.id), list = this.state.files[k] || [], drag = this.state.drag === k;
+          return { ...base, tag: 'Optional',
+            dzTitle: f.primary ? 'Drop your survey, job sheet or report here' : 'Drop files here',
+            dzSize: f.primary ? '24px' : '18px', dzPad: f.primary ? '36px 20px' : '20px 16px',
+            dzBorder: drag ? '#0E6FAF' : (f.primary ? '#7FA6C2' : '#C9D2DA'), dzBg: drag ? '#E6F1F9' : '#FFFFFF',
+            pick: () => { this._target = k; if (this.fileRef.current) { this.fileRef.current.value = ''; this.fileRef.current.click(); } },
+            pickKey: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this._target = k; this.fileRef.current && this.fileRef.current.click(); } },
+            dragOver: (e) => { e.preventDefault(); if (this.state.drag !== k) this.setState({ drag: k }); },
+            dragLeave: () => this.setState({ drag: null }),
+            drop: (e) => { e.preventDefault(); this.setState({ drag: null }); this._addFiles(k, e.dataTransfer.files); },
+            hasFiles: list.length > 0,
+            files: list.map(x => { const ext = this._ext(x.name); const st = x.state;
+              return { name: x.name, ext, tone: this._tone(ext), size: this._fmt(x.size),
+                pct: st === 'ready' ? '100%' : st === 'error' ? '100%' : '55%', bar: st === 'ready' ? '#1F6B4D' : st === 'error' ? '#A33A2A' : '#0E6FAF',
+                status: st === 'ready' ? 'Ready' : st === 'error' ? 'Too large' : 'Uploading…', statusInk: st === 'ready' ? '#1F6B4D' : st === 'error' ? '#A33A2A' : '#5B646B',
+                removeLabel: 'Remove ' + x.name,
+                remove: () => this.setState(s => ({ files: { ...s.files, [k]: (s.files[k] || []).filter(y => y.key !== x.key) } })) }; })
+          };
+        }
+        if (f.type === 'seg') {
+          return { ...base, opts: f.opts.map(o => { const on = vals[f.id] === o; return { label: o, checked: on, border: on ? '#0E6FAF' : '#C9D2DA', bg: on ? '#0E6FAF' : '#FFFFFF', ink: on ? '#FFFFFF' : '#23282C',
+            pick: () => this.setState(s => ({ values: { ...s.values, [r]: { ...(s.values[r] || {}), [f.id]: on ? undefined : o } } })) }; }) };
+        }
+        const contactField = f.contact;
+        return { ...base, inputType: f.type === 'area' ? 'text' : f.type, value: vals[f.id] || '', onChange: setVal(f.id), placeholder: f.placeholder || '', ac: f.ac || 'off',
+          tag: f.required ? 'Required' : contactField ? 'Email or phone' : 'Optional', tagInk: f.required || contactField ? '#0E6FAF' : '#5B646B',
+          describedBy: [f.hint ? hintId : '', err ? errId : ''].filter(Boolean).join(' ') || undefined,
+          invalid: err ? 'true' : 'false', border: err ? '#A33A2A' : '#C9D2DA' };
+      })
+    })) : [];
+
+    const errCount = Object.keys(errs).length;
+    const fileList = Object.entries(this.state.files).filter(([k]) => r && k.startsWith(r + ':')).flatMap(([, l]) => l).filter(x => x.state !== 'error');
+    return {
+      showNotes: this.props.showNotes ?? true,
+      fileRef: this.fileRef, routerRef: this.routerRef, panelRef: this.panelRef,
+      onFiles: (e) => { if (this._target) this._addFiles(this._target, e.target.files); },
+      goRouter: (e) => { e.preventDefault(); this._scrollTo(this.routerRef, 0); },
+      heroDocs: [
+        { ext: 'PDF', name: 'Fire door survey — Block B.pdf', size: '4.2 MB', tone: '#A33A2A' },
+        { ext: 'XLSX', name: 'Remedial schedule 2026.xlsx', size: '86 KB', tone: '#1F6B4D' },
+        { ext: 'PDF', name: 'Job sheet JS-1042.pdf', size: '640 KB', tone: '#A33A2A' },
+        { ext: 'JPG', name: 'Stair core door, L2.jpg', size: '2.1 MB', tone: '#0E6FAF' }
+      ],
+      options: ['a', 'b', 'c', 'd', 'e'].map((k, i) => { const on = r === k; return {
+        n: String(i + 1).padStart(2, '0'), title: R[k].title, line: R[k].line, cta: R[k].cta, checked: on, pick: pick(k),
+        bg: on ? '#E6F1F9' : '#F4F6F8', border: on ? '#0E6FAF' : '#D7DDE3', ring: on ? 'inset 0 0 0 1px #0E6FAF' : 'none',
+        dotBorder: on ? '#0E6FAF' : '#9BA7B1', dotBg: on ? '#0E6FAF' : '#FFFFFF', dotInner: on ? '#FFFFFF' : 'transparent' }; }),
+      noRoute: !route,
+      showForm: !!route && !this.state.submitted,
+      submitted: !!route && this.state.submitted,
+      route: route ? { ...route, hasBullets: !!(route.bullets && route.bullets.length), bullets: route.bullets || [] } : { title: '', heading: '', intro: [], reassure: [], submit: '', footnote: '', bullets: [], hasBullets: false },
+      sections,
+      hasErrors: errCount > 0,
+      errorSummary: errCount === 1 ? 'One thing needs fixing before we can send this — see the highlighted field.' : errCount + ' things need fixing before we can send this — see the highlighted fields.',
+      changeRoute: () => this._scrollTo(this.routerRef, 0),
+      submit: (e) => {
+        e.preventDefault();
+        const errors = this._validate(r);
+        this.setState({ errors, tried: true });
+        if (Object.keys(errors).length) { const first = Object.keys(errors)[0]; setTimeout(() => { const el = document.getElementById('q-' + r + '-' + first); if (el) el.focus(); }, 30); return; }
+        this.setState({ submitted: true }); this._scrollTo(this.panelRef, 0);
+      },
+      reset: () => { this.setState(s => ({ submitted: false, tried: false, errors: {}, route: null, values: { ...s.values, [r]: {} }, files: Object.fromEntries(Object.entries(s.files).filter(([k]) => !k.startsWith(r + ':'))) })); this._scrollTo(this.routerRef, 0); },
+      receipt: [
+        { k: 'Route', v: route ? route.title : '' },
+        { k: 'From', v: [vals.name, vals.org].filter(Boolean).join(', ') || '—' },
+        { k: 'Reply to', v: vals.email || vals.tel || vals.contact || '—' },
+        { k: 'Where', v: vals.where || 'Not given' },
+        { k: 'Files', v: fileList.length ? fileList.map(x => x.name).join(', ') : 'None — that’s fine' }
+      ],
+      nextSteps: [
+        { t: 'We review what you’ve sent', b: 'That might be a survey, job sheet, remedial list, existing records or simply your description of the requirement.' },
+        { t: 'We clarify anything we need', b: 'If something isn’t clear, we’ll talk it through with you rather than make assumptions.' },
+        { t: 'We give you the clearest route forward', b: 'Depending on where you’re starting, that could mean:', list: ['a clearer scope of work', 'a quotation', 'an inspection', 'further investigation', 'a remedial programme', 'a conversation about ongoing maintenance'] }
+      ].map((s, i) => ({ ...s, n: String(i + 1), hasList: !!s.list, list: s.list || [] })),
+      noNeed: ['reformat it', 'rewrite it', 'pull the actions into another spreadsheet', 'type the information into our form again'],
+      trust: [
+        { t: 'Specialist fire-door contractor', b: 'Inspection, remedial work, maintenance and installation focused around fire doors.' },
+        { t: 'Based in the South West', b: 'JFD is based in Plymouth and supports commercial organisations and estates across the region.' },
+        { t: 'Real project experience', b: 'Existing work includes healthcare and education environments across Plymouth and the South West.' },
+        { t: 'Clear close-out', b: 'The wider JFD approach is built around knowing what has been completed and having usable evidence afterwards.' }
+      ]
+    };
+  }
+}
+</script>
+
+
+</body></html>

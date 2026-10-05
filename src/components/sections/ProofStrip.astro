@@ -1,0 +1,79 @@
+---
+/**
+ * Accreditation and proof strip (prototype JfdProofStrip): logos, key stats, link to projects.
+ */
+import { paths } from '../../data/paths';
+import { proofStats, type Stat } from '../../data/proof';
+import LogoRow from './LogoRow.astro';
+
+interface Props {
+  stats?: Stat[];
+}
+
+const { stats = proofStats } = Astro.props;
+---
+
+<section class="proof" aria-label="Accreditation and proof">
+  <div class="proof__inner">
+    <LogoRow size="strip" />
+    <span class="proof__divider" aria-hidden="true"></span>
+    <ul class="proof__stats" role="list">
+      {stats.map((s) => (
+        <li>
+          <span class="proof__value">{s.value}</span>
+          <span class="proof__label">{s.label}</span>
+        </li>
+      ))}
+    </ul>
+    <a class="jfd-link proof__link" href={paths.projects}>
+      See the projects →
+    </a>
+  </div>
+</section>
+
+<style>
+  .proof {
+    background: var(--jfd-tint);
+    border-top: 3px solid var(--jfd-azure);
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .proof__inner {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: 26px var(--jfd-gutter-fluid);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 22px 40px;
+  }
+  .proof__divider {
+    width: 1px;
+    height: 40px;
+    background: #d0d7de;
+  }
+  .proof__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 40px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .proof__value {
+    display: block;
+    font-family: var(--jfd-font-display);
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .proof__label {
+    display: block;
+    font-size: 13.5px;
+    color: var(--jfd-ink-3);
+    margin-top: 3px;
+  }
+  .proof__link {
+    margin-left: auto;
+    font-size: 15px;
+  }
+</style>

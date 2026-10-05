@@ -1,0 +1,183 @@
+---
+/**
+ * Contact form ("Send us a message") and its in-page success state. Ported from
+ * docs/prototype/pages/contact.dc.html.
+ *
+ * Works as a plain POST to /api/enquiry without JavaScript (the function redirects to
+ * /contact/thanks/). src/scripts/forms.ts adds inline validation, the Turnstile check and the
+ * in-page success state.
+ */
+import { business } from '../../data/business';
+import { contactFields } from '../../lib/enquiry/fields';
+import ErrorSummary from './ErrorSummary.astro';
+import Field from './Field.astro';
+import SpamGuard from './SpamGuard.astro';
+import { sendErrorMessage } from './copy';
+
+const { phone, email } = business;
+---
+
+<div class="contact-form">
+  <form
+    class="cform"
+    method="post"
+    action="/api/enquiry"
+    aria-labelledby="form-title"
+    data-enquiry="contact"
+    data-error-message={sendErrorMessage}
+  >
+    <h2 id="form-title" class="cform__title">
+      Send us a message
+    </h2>
+    <p class="cform__intro">
+      Just your name and one way to reply are required. You don’t need to prepare a brief.
+    </p>
+    <ErrorSummary class="cform__alert" />
+    <div class="cform__grid">
+      {contactFields.map((field) => (
+        <Field {field} prefix="c" variant="contact" />
+      ))}
+    </div>
+    <input type="hidden" name="form" value="contact" />
+    <SpamGuard prefix="c" />
+    <div class="cform__actions">
+      <button type="submit" class="jfd-btn jfd-btn--lg">
+        Send enquiry
+      </button>
+      {(phone || email) && (
+        <span class="cform__fallback">If the form isn’t working, call or email us directly.</span>
+      )}
+    </div>
+  </form>
+
+  <div class="sent" role="status" data-success hidden>
+    <span class="jfd-status jfd-status--closed sent__status">Message received</span>
+    <h2 class="sent__title" tabindex="-1" data-success-heading>
+      Thanks. We’ve got your message.
+    </h2>
+    <p class="sent__body">
+      The JFD team will use the details you’ve provided to understand the enquiry and get back to
+      you.
+    </p>
+    <div class="sent__actions">
+      {phone && (
+        <span class="sent__urgent">
+          Something urgent?{' '}
+          <a class="jfd-link" href={`tel:${phone.e164}`} data-track="tel">
+            Call {phone.display}
+          </a>
+        </span>
+      )}
+      <button type="button" class="sent__reset" data-reset>
+        Send another message
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import '../../scripts/forms';
+</script>
+
+<style>
+  .cform {
+    background: var(--jfd-surface);
+    border: 1px solid var(--jfd-rule-strong);
+    padding: 32px clamp(20px, 5.5vw, 32px) 34px;
+  }
+  .cform[hidden],
+  .sent[hidden] {
+    display: none;
+  }
+  .cform__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(30px, 3.2vw, 38px);
+    font-weight: 600;
+    line-height: 1.1;
+    margin: 0 0 8px;
+  }
+  .cform__intro {
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: var(--jfd-ink-3);
+    margin: 0 0 24px;
+  }
+  .cform :global(.cform__alert) {
+    margin: 0 0 20px;
+  }
+  .cform__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+    gap: 20px;
+  }
+  .cform__actions {
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid var(--jfd-rule);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 24px;
+  }
+  .cform__fallback {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--jfd-ink-3);
+    max-width: 40ch;
+  }
+
+  .sent {
+    background: var(--jfd-surface);
+    border: 1px solid var(--jfd-rule-strong);
+    padding: 36px clamp(20px, 5.5vw, 32px) 38px;
+  }
+  .sent__status {
+    margin-bottom: 16px;
+  }
+  .sent__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(34px, 4vw, 48px);
+    font-weight: 600;
+    line-height: 1.06;
+    margin: 0 0 14px;
+  }
+  .sent__title:focus {
+    outline: 0;
+  }
+  .sent__body {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0 0 24px;
+    max-width: 50ch;
+  }
+  .sent__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    align-items: center;
+    padding-top: 18px;
+    border-top: 1px solid var(--jfd-rule);
+  }
+  .sent__urgent {
+    font-size: 15px;
+    color: var(--jfd-ink-3);
+  }
+  .sent__urgent .jfd-link {
+    font-size: 15px;
+  }
+  .sent__reset {
+    min-height: 44px;
+    padding: 0;
+    background: none;
+    border: 0;
+    font: inherit;
+    font-size: 15px;
+    color: var(--jfd-ink-3);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .sent__reset:hover {
+    color: var(--jfd-action);
+  }
+</style>

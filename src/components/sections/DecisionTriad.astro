@@ -1,0 +1,201 @@
+---
+/**
+ * Repair / Replace / Investigate triad (prototype JfdDecision). Each treatment shows an
+ * illustrative job-sheet line. Used inside a page section (the page supplies the heading).
+ */
+import type { Tone } from '../../lib/tones';
+import { toneVar } from '../../lib/tones';
+
+type Treatment = 'Repair' | 'Replace' | 'Investigate';
+
+interface Props {
+  items?: { label: Treatment; body: string }[];
+  outcome?: string;
+}
+
+const EXAMPLES: Record<Treatment, { tone: Tone; id: string; finding: string; action: string }> = {
+  Repair: {
+    tone: 'closed',
+    id: 'FD30-014',
+    finding: 'Closer not latching leaf',
+    action: 'Repair — adjust or replace closer',
+  },
+  Replace: {
+    tone: 'onsite',
+    id: 'FD30-021',
+    finding: 'Leaf delaminated, frame damaged',
+    action: 'Replace doorset',
+  },
+  Investigate: {
+    tone: 'decide',
+    id: 'FD30-045',
+    finding: 'No label or record for doorset',
+    action: 'Investigate before specifying',
+  },
+};
+
+const {
+  items = [
+    { label: 'Repair', body: 'Where a suitable remedial action can resolve the identified issue.' },
+    { label: 'Replace', body: 'Where the door or doorset is no longer suitable for repair.' },
+    {
+      label: 'Investigate',
+      body: 'Where the existing information isn’t enough to make the right call.',
+    },
+  ],
+  outcome,
+} = Astro.props;
+---
+
+<div class="triad">
+  <p class="triad__head" aria-hidden="true">
+    <span>Decide</span>
+    <span class="triad__rule"></span>
+    <span>Every finding gets one of three treatments</span>
+  </p>
+  <ol class="triad__grid" role="list">
+    {items.map((item, i) => {
+      const ex = EXAMPLES[item.label];
+      return (
+        <li class="triad__item" style={`--tone: ${toneVar(ex.tone)}`}>
+          <div class="triad__label-row">
+            <span class="triad__dot" aria-hidden="true" />
+            <h3 class="triad__label">{item.label}</h3>
+            <span class="triad__rule" aria-hidden="true" />
+            <span class="triad__n" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+          </div>
+          <p class="triad__body">{item.body}</p>
+          <div class="triad__example">
+            <span class="triad__example-label">On the job sheet</span>
+            <span class="triad__example-row">
+              <span class="triad__id">{ex.id}</span>
+              <span>
+                <span class="triad__finding">{ex.finding}</span>
+                <span class="triad__action">
+                  <span aria-hidden="true">→ </span>
+                  {ex.action}
+                </span>
+              </span>
+            </span>
+          </div>
+        </li>
+      );
+    })}
+  </ol>
+  {outcome && <p class="triad__outcome">{outcome}</p>}
+</div>
+
+<style>
+  .triad__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 14px;
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+  }
+  .triad__rule {
+    flex: 1;
+    height: 1px;
+    background: var(--jfd-rule);
+  }
+  .triad__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 1px;
+    border: 1px solid var(--jfd-rule);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .triad__item {
+    outline: 1px solid var(--jfd-rule);
+    background: var(--jfd-surface);
+    padding: 28px 26px 24px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .triad__label-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .triad__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--tone);
+    flex-shrink: 0;
+  }
+  .triad__label {
+    font-family: var(--jfd-font-mono);
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--tone);
+    margin: 0;
+  }
+  .triad__n {
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    color: var(--jfd-ink-4);
+  }
+  .triad__body {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0 0 22px;
+    flex: 1;
+    text-wrap: pretty;
+  }
+  .triad__example {
+    border-top: 1px solid var(--jfd-rule);
+    padding-top: 14px;
+  }
+  .triad__example-label {
+    display: block;
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-4);
+    margin-bottom: 8px;
+  }
+  .triad__example-row {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr);
+    gap: 12px;
+    align-items: baseline;
+  }
+  .triad__id {
+    font-family: var(--jfd-font-mono);
+    font-size: 12.5px;
+    color: var(--jfd-graphite);
+  }
+  .triad__finding {
+    display: block;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--jfd-graphite);
+  }
+  .triad__action {
+    display: block;
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: var(--jfd-ink-3);
+  }
+  .triad__outcome {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(26px, 2.8vw, 34px);
+    font-weight: 600;
+    line-height: 1.18;
+    margin: 36px 0 0;
+    max-width: 30ch;
+    text-wrap: pretty;
+  }
+</style>

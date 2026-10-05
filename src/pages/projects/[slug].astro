@@ -1,0 +1,104 @@
+---
+/**
+ * Project (case study) page: one per `projects` collection entry. Uses the prototype's case-study
+ * layout unchanged, with the project name as the H1 (plan Decision 7).
+ */
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudy from '../../components/sections/CaseStudy.astro';
+import ProjectCard from '../../components/sections/ProjectCard.astro';
+import Section from '../../components/sections/Section.astro';
+import FinalCta from '../../components/sections/FinalCta.astro';
+import { paths, projectPath } from '../../data/paths';
+import { quoteHref } from '../../data/quote-routes';
+
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects', (p) => !p.data.draft)).sort(
+    (a, b) => a.data.order - b.data.order,
+  );
+  return projects.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry, others: projects.filter((p) => p.id !== entry.id) },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'projects'>;
+  others: CollectionEntry<'projects'>[];
+}
+
+const { entry, others } = Astro.props;
+const p = entry.data;
+// Social image: 1200×630 crop of the project hero photo.
+const og = await getImage({
+  src: p.hero.image,
+  width: 1200,
+  height: 630,
+  fit: 'cover',
+  position: 'center',
+  format: 'jpg',
+  quality: 80,
+});
+const crumbs = [
+  { name: 'Projects', path: paths.projects },
+  { name: p.title, path: projectPath(entry.id) },
+];
+---
+
+<BaseLayout
+  title={`${p.title} | Fire Door Project | JFD`}
+  description={`${p.subhead} ${p.outcome}`}
+  breadcrumbs={crumbs}
+  ogImage={{ src: og.src, width: 1200, height: 630, alt: p.hero.alt }}
+>
+  <CaseStudy {entry} asPage breadcrumbs={crumbs} />
+
+  {others.length > 0 && (
+    <Section labelledby="more-title">
+      <h2 id="more-title" class="jfd-eyebrow">
+        More projects
+      </h2>
+      <div class="more">
+        {others.map((o) => (
+          <ProjectCard
+            href={projectPath(o.id)}
+            image={o.data.hero.image}
+            position={o.data.card.position ?? o.data.hero.position}
+            eyebrow={o.data.useCase}
+            title={o.data.title}
+            body={o.data.card.summary ?? o.data.subhead}
+            meta={o.data.tags.join(' · ')}
+          />
+        ))}
+      </div>
+      <p class="more__all">
+        <a class="jfd-link" href={paths.projects}>
+          All projects →
+        </a>
+      </p>
+    </Section>
+  )}
+
+  <FinalCta
+    labelA="Similar work?"
+    title="Got a similar piece of fire-door work?"
+    body={['Start with the survey, job sheet, specification or requirement you already have.']}
+    cta={{ label: 'Send us your survey or job sheet', href: quoteHref('survey') }}
+    labelB="Or"
+    altTitle="Prefer to talk it through first?"
+    altBody="Tell us about the building, the doors and the programme."
+    altCta={{ label: 'Talk through your fire-door work', href: paths.contact }}
+  />
+</BaseLayout>
+
+<style>
+  .more {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: 24px;
+  }
+  .more__all {
+    margin: 24px 0 0;
+  }
+</style>

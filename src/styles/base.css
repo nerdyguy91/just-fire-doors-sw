@@ -1,0 +1,562 @@
+/*
+ * Base styles and shared class library.
+ * Ported from the Claude Design class library (docs/prototype/design-system/jfd.css).
+ * Differences from the source are marked "Production:".
+ *
+ * Component-specific rules (header, nav menu, footer) move into their Astro components' scoped
+ * styles in step 6. The .jfd-placeholder striped box is not ported (placeholders never ship).
+ */
+
+/* Base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Production: keep anchored targets clear of the sticky header. */
+  scroll-padding-top: calc(var(--jfd-header-h) + 16px);
+}
+
+/* Production: smooth scrolling only when the user hasn't asked for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--jfd-ground);
+  color: var(--jfd-graphite);
+  font-family: var(--jfd-font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--jfd-action);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--jfd-action-hover);
+}
+
+/* Production: explicit, so bold text uses the loaded 600 face (the prototype loads no 700 body weight). */
+strong,
+b {
+  font-weight: 600;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+/* Production: <picture> wrappers (Img.astro) take no box, so an <img> sized to 100% of its
+   container crops by the container's aspect ratio and honours object-position. */
+picture {
+  display: contents;
+}
+
+/* Production: one focus style for every focusable element, switching colour on dark surfaces. */
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.jfd-on-dark,
+.jfd-section--dark,
+.jfd-section--action {
+  --focus-ring: var(--focus-ring-on-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Production: accessibility utilities */
+.jfd-visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.jfd-skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 12px 18px;
+  background: var(--jfd-graphite);
+  color: #ffffff;
+  font-weight: 500;
+  transform: translateY(calc(-100% - 16px));
+}
+.jfd-skip-link:focus-visible {
+  transform: none;
+  color: #ffffff;
+  --focus-ring: var(--jfd-azure);
+}
+
+/* Layout */
+.jfd-container {
+  max-width: var(--jfd-max);
+  margin: 0 auto;
+  /* Production: fluid gutter, matching the approved page markup (source used a fixed 28px). */
+  padding: 0 var(--jfd-gutter-fluid);
+}
+.jfd-section {
+  /* Production: fluid section spacing, matching the approved page markup (source used a fixed 88px). */
+  padding: var(--jfd-section-y-fluid) 0;
+  border-bottom: 1px solid var(--jfd-rule);
+}
+.jfd-section--surface {
+  background: var(--jfd-surface);
+}
+.jfd-section--tint {
+  background: var(--jfd-tint);
+}
+.jfd-section--dark {
+  background: var(--jfd-graphite);
+  color: var(--jfd-dark-heading);
+}
+.jfd-section--action {
+  background: var(--jfd-action);
+  color: #ffffff;
+}
+.jfd-grid {
+  display: grid;
+  gap: var(--jfd-gap-grid);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr));
+}
+.jfd-grid > * {
+  min-width: 0;
+}
+.jfd-hairline-grid {
+  display: grid;
+  gap: 1px;
+  background: var(--jfd-rule);
+  border: 1px solid var(--jfd-rule);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+}
+.jfd-divider-azure {
+  height: 3px;
+  background: var(--jfd-azure);
+  border: 0;
+  margin: 0;
+}
+
+/* Type */
+.jfd-h1,
+.jfd-h2,
+.jfd-h3,
+.jfd-statement {
+  font-family: var(--jfd-font-display);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  margin: 0;
+  text-wrap: pretty;
+}
+.jfd-h1 {
+  font-size: var(--jfd-h1);
+  line-height: 1.02;
+}
+.jfd-h2 {
+  font-size: var(--jfd-h2);
+  line-height: 1.1;
+}
+.jfd-statement {
+  font-size: var(--jfd-h2-statement);
+  line-height: 1.06;
+}
+.jfd-h3 {
+  font-size: var(--jfd-h3);
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+}
+.jfd-card-title {
+  font-family: var(--jfd-font-display);
+  font-size: var(--jfd-card-title);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+}
+.jfd-lead {
+  font-size: var(--jfd-lead);
+  line-height: 1.62;
+  color: var(--jfd-ink-2);
+  max-width: 48ch;
+  text-wrap: pretty;
+}
+.jfd-body {
+  font-size: var(--jfd-body);
+  line-height: 1.58;
+  color: var(--jfd-ink-3);
+}
+.jfd-accent {
+  color: var(--jfd-action);
+}
+.jfd-eyebrow {
+  font-family: var(--jfd-font-mono);
+  font-size: var(--jfd-eyebrow);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--jfd-action);
+  margin: 0 0 20px;
+}
+.jfd-label {
+  font-family: var(--jfd-font-mono);
+  font-size: var(--jfd-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--jfd-ink-3);
+  line-height: 1.6;
+}
+.jfd-index {
+  font-family: var(--jfd-font-mono);
+  font-size: 12px;
+  color: var(--jfd-ink-4);
+}
+.jfd-stat {
+  font-family: var(--jfd-font-display);
+  font-size: var(--jfd-stat);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.jfd-stat + span {
+  display: block;
+  font-size: 13.5px;
+  color: var(--jfd-ink-3);
+  margin-top: 3px;
+}
+
+/* Buttons & links */
+.jfd-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 17px 26px;
+  background: var(--jfd-action);
+  color: #ffffff;
+  font: 500 16.5px/1 var(--jfd-font-body);
+  border: 0;
+  cursor: pointer;
+  transition: background var(--jfd-ease);
+}
+.jfd-btn:hover {
+  background: var(--jfd-action-hover);
+  color: #ffffff;
+}
+.jfd-btn--sm {
+  min-height: 46px;
+  padding: 13px 20px;
+  font-size: 15px;
+}
+.jfd-btn--lg {
+  min-height: 56px;
+  padding: 19px 28px;
+  font-size: 17px;
+  font-weight: 600;
+}
+.jfd-btn--inverse {
+  background: #ffffff;
+  color: var(--jfd-action-hover);
+}
+.jfd-btn--inverse:hover {
+  background: var(--jfd-graphite);
+  color: #ffffff;
+}
+.jfd-btn--ghost-dark {
+  background: transparent;
+  border: 1px solid var(--jfd-dark-border);
+  color: var(--jfd-dark-ink);
+  min-height: 46px;
+  padding: 12px 18px;
+  font-size: 15px;
+}
+.jfd-btn--ghost-dark:hover {
+  background: transparent;
+  border-color: var(--jfd-azure-soft);
+  color: var(--jfd-azure-soft);
+}
+.jfd-link {
+  font-size: 16.5px;
+  font-weight: 500;
+  border-bottom: 1px solid var(--jfd-underline);
+  padding-bottom: 3px;
+}
+.jfd-link:hover {
+  border-bottom-color: var(--jfd-action);
+}
+.jfd-link--on-dark {
+  color: #ffffff;
+  border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+.jfd-link--on-dark:hover {
+  color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+
+/* Cards */
+.jfd-card {
+  display: block;
+  background: var(--jfd-surface);
+  border: 1px solid var(--jfd-rule);
+  color: var(--jfd-graphite);
+  transition: border-color 0.2s ease;
+}
+a.jfd-card:hover {
+  border-color: var(--jfd-action);
+  color: var(--jfd-graphite);
+}
+.jfd-card__media {
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--jfd-media-bg);
+  border-bottom: 1px solid var(--jfd-rule);
+}
+.jfd-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.jfd-card__body {
+  padding: 24px 24px 26px;
+}
+.jfd-card__meta {
+  padding-top: 10px;
+  border-top: 1px solid var(--jfd-meta-rule);
+}
+.jfd-tile {
+  background: var(--jfd-tint);
+  padding: 20px 22px;
+} /* inside .jfd-hairline-grid */
+.jfd-panel {
+  background: var(--jfd-surface);
+  border: 1px solid var(--jfd-rule-strong);
+  box-shadow: var(--jfd-shadow-panel);
+}
+.jfd-chip {
+  font-family: var(--jfd-font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--jfd-tint);
+  color: var(--jfd-graphite);
+  padding: 8px 12px;
+}
+
+/* Photography */
+.jfd-photo {
+  overflow: hidden;
+  background: var(--jfd-media-bg);
+  border: 1px solid var(--jfd-rule);
+}
+.jfd-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.jfd-photo--16x10 {
+  aspect-ratio: 16 / 10;
+}
+.jfd-photo--5x4 {
+  aspect-ratio: 5 / 4;
+}
+.jfd-photo--4x3 {
+  aspect-ratio: 4 / 3;
+}
+.jfd-caption {
+  font-family: var(--jfd-font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--jfd-ink-4);
+  margin-top: 10px;
+}
+
+/* Job-sheet record (status vocabulary) */
+.jfd-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--jfd-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--jfd-status-neutral);
+}
+.jfd-status::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+.jfd-status--closed {
+  color: var(--jfd-status-closed);
+}
+.jfd-status--onsite {
+  color: var(--jfd-status-onsite);
+}
+.jfd-status--decide {
+  color: var(--jfd-status-decide);
+}
+.jfd-record__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  background: var(--jfd-tint);
+  border-bottom: 1px solid var(--jfd-rule);
+  font-family: var(--jfd-font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--jfd-ink-3);
+}
+.jfd-record__row {
+  display: grid;
+  grid-template-columns: 88px 1fr 92px;
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--jfd-rule-soft);
+  align-items: baseline;
+}
+.jfd-record__id {
+  font-family: var(--jfd-font-mono);
+  font-size: 13px;
+}
+
+/* Numbered list rows (problems, reasons) */
+.jfd-row {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: 4px 18px;
+  padding: 22px 0;
+  border-top: 1px solid var(--jfd-rule);
+  align-items: start;
+}
+.jfd-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  font-family: var(--jfd-font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.jfd-flow .sep {
+  color: var(--jfd-underline);
+}
+
+/* ---------------------------------------------------------------------------
+ * Production: text and list utilities for page sections. These are the paragraph styles the
+ * prototype repeats inline across the service pages.
+ * ------------------------------------------------------------------------- */
+.t-lead {
+  font-size: 17.5px;
+  line-height: 1.62;
+  color: var(--jfd-ink-2);
+  margin: 0 0 14px;
+  max-width: 50ch;
+  text-wrap: pretty;
+}
+.t-body {
+  font-size: 16.5px;
+  line-height: 1.62;
+  color: var(--jfd-ink-2);
+  margin: 0 0 14px;
+  max-width: 50ch;
+  text-wrap: pretty;
+}
+.t-muted {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--jfd-ink-3);
+  margin: 0 0 10px;
+  max-width: 50ch;
+}
+.t-body strong,
+.t-lead strong {
+  color: var(--jfd-graphite);
+}
+.t-display {
+  font-family: var(--jfd-font-display);
+  font-size: 27px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 12px;
+  max-width: 28ch;
+  text-wrap: pretty;
+}
+.t-statement {
+  font-family: var(--jfd-font-display);
+  font-size: clamp(26px, 2.8vw, 34px);
+  font-weight: 600;
+  line-height: 1.16;
+  margin: 0;
+  max-width: 34ch;
+  text-wrap: pretty;
+}
+.t-mono-label {
+  font-family: var(--jfd-font-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  color: var(--jfd-ink-3);
+  margin: 0 0 10px;
+}
+.jfd-on-dark .t-lead,
+.jfd-on-dark .t-body {
+  color: var(--jfd-dark-ink);
+}
+.jfd-on-dark .t-muted,
+.jfd-on-dark .t-mono-label {
+  color: var(--jfd-dark-ink-2);
+}
+
+.ruled-list {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+  max-width: 52ch;
+}
+.ruled-list > li {
+  padding: 10px 0;
+  border-top: 1px solid var(--jfd-rule-soft);
+  font-size: 16px;
+  line-height: 1.45;
+}
+.ruled-list--cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  column-gap: 24px;
+  max-width: none;
+}
+.ruled-list--cols > li {
+  padding: 9px 0;
+  font-size: 15px;
+}
+.jfd-on-dark .ruled-list > li {
+  border-top-color: var(--jfd-dark-rule);
+  color: var(--jfd-dark-ink);
+  padding: 9px 0;
+}

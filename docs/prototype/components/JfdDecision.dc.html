@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/colors.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/typography.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/layout.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/effects.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/css/jfd.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/styles.css">
+<script src="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/_ds_bundle.js"></script>
+</helmet>
+<div style="display: block">
+  <div style="display: flex; alignItems: center; gap: 12px; marginBottom: 14px; fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.1em'; textTransform: uppercase; color: var(--jfd-ink-3)">
+    <span>Decide</span><span style="flex: 1; height: 1px; background: var(--jfd-rule)"></span><span>Every finding gets one of three treatments</span>
+  </div>
+  <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 1px; background: transparent; border: 1px solid var(--jfd-rule)">
+    <sc-for list="{{ rows }}" as="d" hint-placeholder-count="3">
+      <div style="outline: 1px solid var(--jfd-rule); background: #FFFFFF; padding: 28px 26px 24px; minWidth: 0; display: flex; flexDirection: column">
+        <div style="display: flex; alignItems: center; gap: 12px; marginBottom: 18px">
+          <span style="width: 10px; height: 10px; borderRadius: 50%; background: {{ d.tone }}; flexShrink: 0"></span>
+          <h3 style="fontFamily: var(--jfd-font-mono); fontSize: 15px; fontWeight: 500; letterSpacing: '0.14em'; textTransform: uppercase; color: {{ d.tone }}; margin: 0">{{ d.label }}</h3>
+          <span style="flex: 1; height: 1px; background: var(--jfd-rule)"></span>
+          <span style="fontFamily: var(--jfd-font-mono); fontSize: 11px; color: var(--jfd-ink-4)">{{ d.n }}</span>
+        </div>
+        <p style="fontSize: 16px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 0 0 22px; flex: 1; textWrap: pretty">{{ d.body }}</p>
+        <div style="borderTop: 1px solid var(--jfd-rule); paddingTop: 14px">
+          <span style="display: block; fontFamily: var(--jfd-font-mono); fontSize: 10px; letterSpacing: '0.08em'; textTransform: uppercase; color: var(--jfd-ink-4); marginBottom: 8px">On the job sheet</span>
+          <span style="display: grid; gridTemplateColumns: 76px minmax(0, 1fr); gap: 12px; alignItems: baseline">
+            <span style="fontFamily: var(--jfd-font-mono); fontSize: 12.5px; color: var(--jfd-graphite)">{{ d.id }}</span>
+            <span style="minWidth: 0"><span style="display: block; fontSize: 14px; lineHeight: 1.45; color: var(--jfd-graphite)">{{ d.finding }}</span><span style="display: block; fontSize: 13.5px; lineHeight: 1.45; color: var(--jfd-ink-3)">→ {{ d.action }}</span></span>
+          </span>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+  <sc-if value="{{ hasOutcome }}" hint-placeholder-val="{{ true }}">
+    <p style="fontFamily: var(--jfd-font-display); fontSize: clamp(26px, 2.8vw, 34px); fontWeight: 600; lineHeight: 1.18; letterSpacing: '-0.02em'; margin: 36px 0 0; maxWidth: 30ch; textWrap: pretty">{{ outcome }}</p>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;1180px&quot;,&quot;height&quot;:&quot;440px&quot;},&quot;items&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;{label:string,body:string}[]&quot;},&quot;outcome&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Know what needs repairing, replacing or further investigation before the work is instructed.&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const lib = {
+      Repair: { tone: '#1F6B4D', id: 'FD30-014', finding: 'Closer not latching leaf', action: 'Repair — adjust or replace closer' },
+      Replace: { tone: '#8A6100', id: 'FD30-021', finding: 'Leaf delaminated, frame damaged', action: 'Replace doorset' },
+      Investigate: { tone: '#A33A2A', id: 'FD30-045', finding: 'No label or record for doorset', action: 'Investigate before specifying' }
+    };
+    const items = this.props.items ?? [
+      { label: 'Repair', body: 'Where a suitable remedial action can resolve the identified issue.' },
+      { label: 'Replace', body: 'Where the door or doorset is no longer suitable for repair.' },
+      { label: 'Investigate', body: 'Where the existing information isn’t enough to make the right call.' }
+    ];
+    const rows = items.map((it, i) => {
+      const key = /^Investigate/.test(it.label) ? 'Investigate' : /^Replace/.test(it.label) ? 'Replace' : 'Repair';
+      return { ...lib[key], ...it, n: String(i + 1).padStart(2, '0') };
+    });
+    return { rows, hasOutcome: !!this.props.outcome };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/colors.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/typography.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/layout.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/effects.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/css/jfd.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/styles.css">
+<script src="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/_ds_bundle.js"></script>
+</helmet>
+<section id="why" aria-label="Why JFD" style="background: #FFFFFF; borderBottom: 1px solid var(--jfd-rule)">
+  <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px); display: flex; flexWrap: wrap; gap: clamp(28px, 6vw, 48px) 80px; alignItems: flex-start">
+    <div style="minWidth: 0; maxWidth: 440px; flex: 1 1 300px">
+      <p class="jfd-eyebrow">Why JFD</p>
+      <h2 class="jfd-h2" style="margin: 0 0 26px; textWrap: pretty">{{ title }}</h2>
+      <figure style="margin: 0 0 26px">
+        <div style="aspectRatio: 5 / 4; overflow: hidden; background: #E4E9EE; border: 1px solid var(--jfd-rule)"><sc-if value="{{ img }}" hint-placeholder-val="{{ false }}"><img src="{{ img }}" alt="{{ imgAlt }}" style="width: 100%; height: 100%; objectFit: cover; display: block; objectPosition: {{ imgPos }}"></sc-if></div>
+        <figcaption style="fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.07em'; textTransform: uppercase; color: var(--jfd-ink-4); marginTop: 10px">{{ caption }}</figcaption>
+      </figure>
+      <div style="display: flex; alignItems: center; gap: 14px; paddingTop: 18px; borderTop: 1px solid var(--jfd-rule)">
+        <img src="assets/bsc-fire-door-installation.jpg" alt="BlueSky Certified Installer, FDI-146" style="width: 50px; height: 50px; borderRadius: 50%; objectFit: cover; transform: scale(1.03)">
+        <span style="fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.07em'; textTransform: uppercase; color: var(--jfd-ink-3); lineHeight: 1.6">BlueSky third-party certified<br>installation &amp; fire stopping · FDI-146</span>
+      </div>
+      <sc-if value="{{ showNote }}" hint-placeholder-val="{{ false }}">
+        <div style="display: grid; gap: 8px; marginTop: 20px">
+          <sc-for list="{{ notes }}" as="nt" hint-placeholder-count="2">
+            <p style="fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.05em'; textTransform: uppercase; color: #8A6100; border: 1px dashed #C9B27A; background: #FBF7EC; padding: 8px 12px; margin: 0; lineHeight: 1.6">To add · {{ nt }}</p>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+    <div style="minWidth: 0; flex: 2 1 520px">
+      <sc-for list="{{ rows }}" as="rz" hint-placeholder-count="5">
+        <div style="display: grid; gridTemplateColumns: 46px minmax(0, 1fr); gap: 4px 18px; padding: 24px 0 26px; borderTop: 1px solid var(--jfd-rule); alignItems: start">
+          <span style="fontFamily: var(--jfd-font-mono); fontSize: 12px; color: var(--jfd-ink-4); paddingTop: 6px">{{ rz.n }}</span>
+          <div style="minWidth: 0; maxWidth: 60ch">
+            <h3 style="fontFamily: var(--jfd-font-display); fontSize: 25px; fontWeight: 600; lineHeight: 1.24; letterSpacing: '-0.015em'; margin: 0 0 8px; textWrap: pretty">{{ rz.title }}</h3>
+            <sc-for list="{{ rz.lines }}" as="ln" hint-placeholder-count="1">
+              <p style="fontSize: 16px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 8px 0 0">{{ ln }}</p>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;1280px&quot;,&quot;height&quot;:&quot;900px&quot;},&quot;title&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Why JFD?&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;items&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;{title:string,lines:string[]}[]&quot;},&quot;notes&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string[]&quot;},&quot;img&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/bodmin-installer.jpeg&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;caption&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;JFD installer on site · Bodmin Hospital&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  _r(x) { if (!x || typeof x !== 'string' || x.indexOf('assets/') !== 0) return x; const k = x.slice(7).replace(/\W/g, '_'); return (window.__resources || {})[k] || x; }
+  renderVals() {
+    const p = this.props;
+    const notes = p.notes ?? [];
+    return {
+      rows: (p.items ?? []).map((it, i) => ({ ...it, n: String(i + 1).padStart(2, '0') })),
+      img: this._r(p.img) ?? ((window.__resources||{})["src/assets/images/photos/bodmin-installer.jpeg"]||"assets/bodmin-installer.jpeg"),
+      imgAlt: p.imgAlt ?? 'JFD installer checking a frame for plumb in a live hospital corridor, Bodmin',
+      imgPos: p.imgPos ?? '40% 45%',
+      caption: p.caption ?? 'JFD installer on site · Bodmin Hospital',
+      notes, showNote: !!p.showNotes && notes.length > 0
+    };
+  }
+}
+</script>
+</body>
+</html>

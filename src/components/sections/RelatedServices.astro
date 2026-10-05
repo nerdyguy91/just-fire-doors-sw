@@ -1,0 +1,141 @@
+---
+/**
+ * Related-service cards ("If the list points somewhere else"): image left, verb, question,
+ * two short paragraphs, service link. Links and images come from src/data/services.ts.
+ */
+import { getService, type ServiceId } from '../../data/services';
+import type { Tone } from '../../lib/tones';
+import { toneVar } from '../../lib/tones';
+import Img from '../ui/Img.astro';
+
+interface Props {
+  eyebrow: string;
+  items: {
+    service: ServiceId;
+    verb: string;
+    tone?: Tone | 'action';
+    title: string;
+    lines: string[];
+  }[];
+}
+
+const { eyebrow, items } = Astro.props;
+const cards = items.map((item) => ({ ...item, s: getService(item.service) }));
+const verbColour = (tone?: Tone | 'action') =>
+  !tone || tone === 'action' ? 'var(--jfd-action)' : toneVar(tone);
+---
+
+<section class="related" aria-label="Related services">
+  <div class="related__inner">
+    <p class="jfd-eyebrow">{eyebrow}</p>
+    <ul class="related__grid" role="list">
+      {cards.map((c) => (
+        <li>
+          <a class="related__card" href={c.s.path}>
+            <span class="related__media">
+              <Img
+                src={c.s.card.image}
+                alt=""
+                position={c.s.card.position}
+                sizes="150px"
+                widths={[360]}
+              />
+            </span>
+            <span class="related__body">
+              <span class="related__verb" style={`color: ${verbColour(c.tone)}`}>
+                {c.verb}
+              </span>
+              <span class="related__title">{c.title}</span>
+              {c.lines.map((line) => (
+                <span class="related__line">{line}</span>
+              ))}
+              <span class="related__link">{c.s.title} →</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .related {
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .related__inner {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: var(--jfd-section-y-fluid) var(--jfd-gutter-fluid);
+  }
+  .related__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .related__grid li {
+    display: flex;
+    min-width: 0;
+  }
+  .related__card {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    background: var(--jfd-surface);
+    border: 1px solid var(--jfd-rule);
+    color: var(--jfd-graphite);
+    transition: border-color 0.2s ease;
+  }
+  .related__card:hover {
+    border-color: var(--jfd-action);
+    color: var(--jfd-graphite);
+  }
+  .related__media {
+    display: block;
+    overflow: hidden;
+    border-right: 1px solid var(--jfd-rule);
+    background: var(--jfd-media-bg);
+  }
+  .related__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .related__body {
+    display: block;
+    padding: 24px 24px 26px;
+  }
+  .related__verb {
+    display: block;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .related__title {
+    display: block;
+    font-family: var(--jfd-font-display);
+    font-size: 27px;
+    font-weight: 600;
+    line-height: 1.16;
+    margin-bottom: 10px;
+  }
+  .related__line {
+    display: block;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--jfd-ink-3);
+    margin-bottom: 10px;
+  }
+  .related__link {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--jfd-action);
+    border-bottom: 1px solid var(--jfd-underline);
+    padding-bottom: 2px;
+  }
+</style>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/colors.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/typography.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/layout.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/tokens/effects.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/css/jfd.css">
+<link rel="stylesheet" href="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/styles.css">
+<script src="_ds/just-fire-doors-design-system-26c07651-4464-46af-9870-fadfafc8565c/_ds_bundle.js"></script>
+</helmet>
+<header style="background: rgba(244,246,248,0.94); backdropFilter: blur(8px); borderBottom: 1px solid var(--jfd-rule)">
+  <div style="maxWidth: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 28px); display: flex; alignItems: center; gap: 28px; height: {{ headerH }}; transition: height .22s ease">
+    <a href="Just%20Fire%20Doors%20Home%20B.dc.html" aria-label="Just Fire Doors SW — home" style="display: flex; alignItems: center; gap: 10px; color: var(--jfd-graphite); flexShrink: 0">
+      <span style="display: flex; alignItems: center; gap: 3px; flexShrink: 0">
+        <span style="width: 4px; height: 30px; background: var(--jfd-azure)"></span>
+        <span style="position: relative; width: 17px; height: 30px; display: block">
+          <span style="position: absolute; inset: 0; width: 0; height: 0; borderTop: 15px solid transparent; borderBottom: 15px solid transparent; borderLeft: 17px solid #29A9E9"></span>
+          <span style="position: absolute; top: 5px; left: 0; width: 0; height: 0; borderTop: 10px solid transparent; borderBottom: 10px solid transparent; borderLeft: 11px solid #F4F6F8"></span>
+        </span>
+      </span>
+      <span style="fontFamily: var(--jfd-font-display); fontSize: 23px; fontWeight: 700; letterSpacing: '-0.005em'">Just Fire Doors<sup style="fontSize: 11px; fontWeight: 600; letterSpacing: '0.04em'; marginLeft: 2px">SW</sup></span>
+    </a>
+
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Primary" style="display: flex; alignItems: center; gap: 2px; marginLeft: auto">
+        <div data-svc="1" style="position: relative">
+          <button type="button" aria-haspopup="true" aria-expanded="{{ open }}" aria-controls="svc-menu" onClick="{{ toggle }}" onKeyDown="{{ keyDown }}" style="display: flex; alignItems: center; gap: 7px; background: none; border: 0; borderBottom: 2px solid {{ svcBar }}; padding: 12px 14px 10px; font: inherit; fontSize: 15px; fontWeight: {{ svcWeight }}; color: var(--jfd-graphite); cursor: pointer; minHeight: 44px" style-hover="color: #0E6FAF">
+            Services
+            <span style="width: 6px; height: 6px; borderRight: 1.5px solid currentColor; borderBottom: 1.5px solid currentColor; transform: rotate(45deg); marginTop: -3px"></span>
+          </button>
+          <sc-if value="{{ open }}" hint-placeholder-val="{{ false }}">
+            <div id="svc-menu" onKeyDown="{{ keyDown }}" style="position: absolute; top: calc(100% + 6px); left: 0; width: 340px; background: #FFFFFF; border: 1px solid var(--jfd-rule); boxShadow: 0 18px 44px -24px rgba(35,40,44,0.4); padding: 8px">
+              <sc-for list="{{ services }}" as="s" hint-placeholder-count="4">
+                <sc-if value="{{ s.active }}" hint-placeholder-val="{{ false }}">
+                  <a href="{{ s.href }}" aria-current="page" style="display: flex; justifyContent: space-between; alignItems: center; gap: 12px; padding: 12px 14px 12px 11px; color: var(--jfd-action); fontSize: 15px; fontWeight: 600; background: var(--jfd-tint); borderLeft: 3px solid var(--jfd-azure); borderBottom: 1px solid var(--jfd-rule-soft)">{{ s.label }}<span style="fontFamily: var(--jfd-font-mono); fontSize: 10px; letterSpacing: '0.08em'; textTransform: uppercase; color: var(--jfd-ink-3); fontWeight: 400">You're here</span></a>
+                </sc-if>
+                <sc-if value="{{ s.idle }}" hint-placeholder-val="{{ true }}">
+                  <a href="{{ s.href }}" style="display: block; padding: 12px 14px; color: var(--jfd-graphite); fontSize: 15px; borderBottom: 1px solid var(--jfd-rule-soft)" style-hover="background: #E9EDF1; color: #0E6FAF">{{ s.label }}</a>
+                </sc-if>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+        <a href="Projects.dc.html" aria-current="{{ projCurrent }}" style="padding: 12px 14px 10px; borderBottom: 2px solid {{ projBar }}; color: var(--jfd-graphite); fontSize: 15px; fontWeight: {{ projWeight }}" style-hover="color: #0E6FAF">Projects</a>
+        <a href="Why%20JFD.dc.html" aria-current="{{ whyCurrent }}" style="padding: 12px 14px 10px; borderBottom: 2px solid {{ whyBar }}; color: var(--jfd-graphite); fontSize: 15px; fontWeight: {{ whyWeight }}" style-hover="color: #0E6FAF">Why JFD</a>
+        <a href="Contact.dc.html" aria-current="{{ conCurrent }}" style="padding: 12px 14px 10px; borderBottom: 2px solid {{ conBar }}; color: var(--jfd-graphite); fontSize: 15px; fontWeight: {{ conWeight }}" style-hover="color: #0E6FAF">Contact</a>
+        <a href="Get%20a%20Quote.dc.html#route-a" class="jfd-btn jfd-btn--sm" style="marginLeft: 12px">Send us your job sheet</a>
+      </nav>
+    </sc-if>
+
+    <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+      <button type="button" aria-expanded="{{ mobileOpen }}" aria-controls="mob-menu" onClick="{{ toggleMobile }}" style="marginLeft: auto; display: flex; alignItems: center; gap: 10px; background: none; border: 1px solid var(--jfd-rule-strong); padding: 10px 14px; minHeight: 44px; font: inherit; fontSize: 15px; fontWeight: 500; color: var(--jfd-graphite); cursor: pointer">Menu<span style="display: grid; gap: 4px"><span style="width: 16px; height: 1.5px; background: currentColor"></span><span style="width: 16px; height: 1.5px; background: currentColor"></span></span></button>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ mobileOpen }}" hint-placeholder-val="{{ false }}">
+    <nav id="mob-menu" aria-label="Primary" style="borderTop: 1px solid var(--jfd-rule); background: #FFFFFF; padding: 8px clamp(20px, 5vw, 28px) 24px">
+      <p style="fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.1em'; textTransform: uppercase; color: var(--jfd-ink-3); margin: 14px 0 6px">Services</p>
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="4">
+        <a href="{{ s.href }}" aria-current="{{ s.current }}" style="display: flex; justifyContent: space-between; alignItems: center; minHeight: 48px; padding: 12px 0; borderBottom: 1px solid var(--jfd-rule-soft); color: var(--jfd-graphite); fontSize: 16px">{{ s.label }}<span style="fontFamily: var(--jfd-font-mono); fontSize: 10px; letterSpacing: '0.08em'; textTransform: uppercase; color: var(--jfd-action)">{{ s.tag }}</span></a>
+      </sc-for>
+      <a href="Projects.dc.html" aria-current="{{ projCurrent }}" style="display: flex; alignItems: center; minHeight: 48px; borderBottom: 1px solid var(--jfd-rule-soft); color: var(--jfd-graphite); fontSize: 16px">Projects</a>
+      <a href="Why%20JFD.dc.html" aria-current="{{ whyCurrent }}" style="display: flex; alignItems: center; minHeight: 48px; borderBottom: 1px solid var(--jfd-rule-soft); color: var(--jfd-graphite); fontSize: 16px">Why JFD</a>
+      <a href="Contact.dc.html" aria-current="{{ conCurrent }}" style="display: flex; alignItems: center; minHeight: 48px; borderBottom: 1px solid var(--jfd-rule-soft); color: var(--jfd-graphite); fontSize: 16px; marginBottom: 18px">Contact</a>
+      <a href="Get%20a%20Quote.dc.html#route-a" onClick="{{ closeMobile }}" class="jfd-btn" style="width: 100%; justifyContent: center">Send us your job sheet</a>
+    </nav>
+  </sc-if>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;1280px&quot;,&quot;height&quot;:&quot;420px&quot;},&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;inspections&quot;,&quot;repairs&quot;,&quot;maintenance&quot;,&quot;replacement&quot;],&quot;default&quot;:&quot;inspections&quot;,&quot;tsType&quot;:&quot;'inspections' | 'repairs' | 'maintenance' | 'replacement'&quot;}}">
+class Component extends DCLogic {
+  state = { open: false, mobileOpen: false, scrolled: false, w: typeof window !== 'undefined' ? window.innerWidth : 1280 };
+  componentDidMount() {
+    this._s = () => { const s = window.scrollY > 40; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
+    this._r = () => this.setState({ w: window.innerWidth });
+    this._d = (e) => { if (this.state.open && !e.target.closest('[data-svc]')) this.setState({ open: false }); };
+    window.addEventListener('scroll', this._s, { passive: true });
+    window.addEventListener('resize', this._r);
+    document.addEventListener('click', this._d);
+    this._r();
+  }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._s);
+    window.removeEventListener('resize', this._r);
+    document.removeEventListener('click', this._d);
+  }
+  renderVals() {
+    const active = this.props.active ?? '';
+    const pages = [
+      ['inspections', 'Fire Door Inspections & Surveys', 'Service%20Inspections.dc.html'],
+      ['repairs', 'Fire Door Repairs & Remedial Works', 'Service%20Repairs.dc.html'],
+      ['maintenance', 'Fire Door Maintenance', 'Service%20Maintenance.dc.html'],
+      ['replacement', 'Fire Door Replacement & Installation', 'Service%20Replacement.dc.html']
+    ];
+    const wide = this.state.w >= 980;
+    const isProj = active === 'projects', isWhy = active === 'why', isCon = active === 'contact', isSvc = !!active && !isProj && !isWhy && !isCon;
+    return {
+      headerH: this.state.scrolled ? '64px' : '82px',
+      svcBar: isSvc ? '#29A9E9' : 'transparent', svcWeight: isSvc ? 600 : 500,
+      projBar: isProj ? '#29A9E9' : 'transparent', projWeight: isProj ? 600 : 500, projCurrent: isProj ? 'page' : undefined,
+      whyBar: isWhy ? '#29A9E9' : 'transparent', whyWeight: isWhy ? 600 : 500, whyCurrent: isWhy ? 'page' : undefined,
+      conBar: isCon ? '#29A9E9' : 'transparent', conWeight: isCon ? 600 : 500, conCurrent: isCon ? 'page' : undefined,
+      wide, narrow: !wide,
+      open: this.state.open,
+      mobileOpen: !wide && this.state.mobileOpen,
+      services: pages.map(([k, label, href]) => ({ label, href, active: k === active, idle: k !== active, current: k === active ? 'page' : undefined, tag: k === active ? "You're here" : '' })),
+      toggle: (e) => { e.stopPropagation(); this.setState(s => ({ open: !s.open })); },
+      keyDown: (e) => { if (e.key === 'Escape') this.setState({ open: false }); },
+      toggleMobile: () => this.setState(s => ({ mobileOpen: !s.mobileOpen })),
+      closeMobile: () => this.setState({ mobileOpen: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

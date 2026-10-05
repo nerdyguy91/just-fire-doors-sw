@@ -1,0 +1,39 @@
+# Cloudflare Pages response headers for static files (plan sections 6 and 11).
+# Responses from the Pages Functions (/api/*, /files/*) set their own headers in code.
+#
+# Content-Security-Policy notes:
+# - The sha256 hash allows the one inline script (src/lib/inline-scripts.ts). If that script
+#   changes, update the hash here: tests/headers.test.ts fails until they match.
+# - challenges.cloudflare.com is Turnstile, used on the two form pages.
+# - 'unsafe-inline' is allowed for styles only (Astro scoped styles and object-position
+#   attributes). Scripts stay hash-only.
+# - googletagmanager.com and google-analytics.com are Google Analytics 4 (loaded only after the
+#   visitor accepts analytics, and only on builds with PUBLIC_GA_MEASUREMENT_ID set).
+# - Keep Cloudflare features that inject scripts (Rocket Loader, Email Address Obfuscation,
+#   Web Analytics auto-install) turned off for this site, or the policy will block them.
+
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-OuZY6WzJOIh2C89ThsUSxQtxIJomDP4jHuL8NXL3o5c=' https://challenges.cloudflare.com https://*.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-src https://challenges.cloudflare.com; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()
+  Cross-Origin-Opener-Policy: same-origin
+  X-Frame-Options: DENY
+
+# Fingerprinted build output and fonts never change at the same URL: cache for a year.
+# Everything else (HTML, favicons, social image) keeps the Pages default,
+# "public, max-age=0, must-revalidate", and is revalidated at Cloudflare's edge.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Keep preview and pages.dev hosts out of search results. Covers the project host and
+# per-deployment / per-branch hosts.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:deployment.:project.pages.dev/*
+  X-Robots-Tag: noindex

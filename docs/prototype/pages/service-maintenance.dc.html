@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="support.js"></script>
+
+
+
+
+
+
+
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Fire Door Maintenance | South West | Just Fire Doors</title>
+<meta name="description" content="Commercial fire door maintenance across the South West. Keep inspections, remedials and completion records under control with a clearer planned maintenance approach.">
+<style></style>
+<style>:root{
+/* Brand */
+--jfd-azure:#29A9E9;--jfd-azure-soft:#6FC4F2;--jfd-azure-pale:#A8D7F3;--jfd-azure-mist:#C8E4F7;
+--jfd-action:#0E6FAF;--jfd-action-hover:#0B5789;--jfd-underline:#A9C6DB;
+/* Neutrals */
+--jfd-graphite:#23282C;--jfd-ink-2:#40474D;--jfd-ink-3:#5B646B;--jfd-ink-4:#5F6970;
+--jfd-ground:#F4F6F8;--jfd-surface:#FFFFFF;--jfd-tint:#E9EDF1;
+--jfd-rule:#D7DDE3;--jfd-rule-strong:#C9D2DA;--jfd-rule-soft:#EAEEF2;
+--jfd-media-bg:#E4E9EE;--jfd-meta-rule:#E5EAEF;
+/* Dark surface */
+--jfd-dark-rule:#3C4348;--jfd-dark-rule-2:#363C41;--jfd-dark-border:#424A50;--jfd-dark-ink:#E4E9ED;--jfd-dark-ink-2:#9BA7B1;--jfd-dark-heading:#EEF3F7;
+/* Status (job-sheet vocabulary) */
+--jfd-status-closed:#1F6B4D;--jfd-status-onsite:#8A6100;--jfd-status-decide:#A33A2A;--jfd-status-neutral:#5B646B;
+
+/* Semantic aliases */
+--text-primary:var(--jfd-graphite);--text-lead:var(--jfd-ink-2);--text-body:var(--jfd-ink-3);--text-caption:var(--jfd-ink-4);
+--text-accent:var(--jfd-action);--text-link:var(--jfd-action);--text-link-hover:var(--jfd-action-hover);
+--text-on-dark:var(--jfd-dark-ink);--text-on-dark-muted:var(--jfd-dark-ink-2);--text-on-action:#FFFFFF;--text-on-action-body:var(--jfd-azure-mist);--text-on-action-label:var(--jfd-azure-pale);
+--surface-page:var(--jfd-ground);--surface-card:var(--jfd-surface);--surface-tint:var(--jfd-tint);--surface-dark:var(--jfd-graphite);--surface-action:var(--jfd-action);
+--border-default:var(--jfd-rule);--border-strong:var(--jfd-rule-strong);--border-soft:var(--jfd-rule-soft);--border-dark:var(--jfd-dark-border);
+--accent-mark:var(--jfd-azure);
+}
+</style>
+<style>:root{
+--jfd-font-display:"Barlow Condensed",system-ui,sans-serif;
+--jfd-font-body:"Barlow",system-ui,sans-serif;
+--jfd-font-mono:"IBM Plex Mono",ui-monospace,monospace;
+--jfd-h1:clamp(50px,6.6vw,84px); /* @kind font */
+--jfd-h2:clamp(34px,4vw,52px); /* @kind font */
+--jfd-h2-statement:clamp(40px,5.4vw,68px); /* @kind font */
+--jfd-h3:clamp(30px,3.4vw,40px); /* @kind font */
+
+--jfd-card-title:23px;--jfd-stat:34px;--jfd-lead:18.5px;--jfd-body:16px;--jfd-small:14px;--jfd-eyebrow:11.5px;--jfd-label:10.5px;
+/* Semantic */
+--font-display:var(--jfd-font-display);--font-body:var(--jfd-font-body);--font-mono:var(--jfd-font-mono);
+}
+</style>
+<style>:root{
+--jfd-max:1240px;--jfd-gutter:28px;--jfd-section-y:88px;--jfd-header-h:82px;--jfd-header-h-scrolled:64px;
+--jfd-gap-grid:24px;--jfd-radius:0;
+}
+</style>
+<style>:root{
+--jfd-shadow-panel:0 26px 60px -34px rgba(35,40,44,0.42);
+--jfd-shadow-menu:0 18px 44px -24px rgba(35,40,44,0.4);
+--jfd-ease:.18s ease; /* @kind other */
+}
+</style>
+<style>/* Just Fire Doors — base + class library (verbatim from source, tokens in /tokens). */
+/* Base */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--jfd-ground); color: var(--jfd-graphite); font-family: var(--jfd-font-body); -webkit-font-smoothing: antialiased; }
+a { color: var(--jfd-action); text-decoration: none; }
+a:hover { color: var(--jfd-action-hover); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--jfd-action); outline-offset: 3px; }
+img { max-width: 100%; display: block; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+
+/* Layout */
+.jfd-container { max-width: var(--jfd-max); margin: 0 auto; padding: 0 var(--jfd-gutter); }
+.jfd-section { padding: var(--jfd-section-y) 0; border-bottom: 1px solid var(--jfd-rule); }
+.jfd-section--surface { background: var(--jfd-surface); }
+.jfd-section--tint { background: var(--jfd-tint); }
+.jfd-section--dark { background: var(--jfd-graphite); color: #EEF3F7; }
+.jfd-section--action { background: var(--jfd-action); color: #FFFFFF; }
+.jfd-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); }
+.jfd-grid > * { min-width: 0; }
+.jfd-hairline-grid { display: grid; gap: 1px; background: var(--jfd-rule); border: 1px solid var(--jfd-rule); grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+.jfd-divider-azure { height: 3px; background: var(--jfd-azure); border: 0; margin: 0; }
+
+/* Type */
+.jfd-h1, .jfd-h2, .jfd-h3, .jfd-statement { font-family: var(--jfd-font-display); font-weight: 600; letter-spacing: -0.025em; margin: 0; text-wrap: pretty; }
+.jfd-h1 { font-size: var(--jfd-h1); line-height: 1.02; }
+.jfd-h2 { font-size: var(--jfd-h2); line-height: 1.1; }
+.jfd-statement { font-size: var(--jfd-h2-statement); line-height: 1.06; }
+.jfd-h3 { font-size: var(--jfd-h3); line-height: 1.16; letter-spacing: -0.02em; }
+.jfd-card-title { font-family: var(--jfd-font-display); font-size: var(--jfd-card-title); font-weight: 600; line-height: 1.22; letter-spacing: -0.015em; }
+.jfd-lead { font-size: var(--jfd-lead); line-height: 1.62; color: var(--jfd-ink-2); max-width: 48ch; text-wrap: pretty; }
+.jfd-body { font-size: var(--jfd-body); line-height: 1.58; color: var(--jfd-ink-3); }
+.jfd-accent { color: var(--jfd-action); }
+.jfd-eyebrow { font-family: var(--jfd-font-mono); font-size: var(--jfd-eyebrow); letter-spacing: 0.1em; text-transform: uppercase; color: var(--jfd-action); margin: 0 0 20px; }
+.jfd-label { font-family: var(--jfd-font-mono); font-size: var(--jfd-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--jfd-ink-3); line-height: 1.6; }
+.jfd-index { font-family: var(--jfd-font-mono); font-size: 12px; color: var(--jfd-ink-4); }
+.jfd-stat { font-family: var(--jfd-font-display); font-size: 34px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; }
+.jfd-stat + span { display: block; font-size: 13.5px; color: var(--jfd-ink-3); margin-top: 3px; }
+
+/* Buttons & links */
+.jfd-btn { display: inline-flex; align-items: center; min-height: 52px; padding: 17px 26px; background: var(--jfd-action); color: #FFFFFF; font: 500 16.5px/1 var(--jfd-font-body); border: 0; cursor: pointer; transition: background var(--jfd-ease); }
+.jfd-btn:hover { background: var(--jfd-action-hover); color: #FFFFFF; }
+.jfd-btn--sm { min-height: 46px; padding: 13px 20px; font-size: 15px; }
+.jfd-btn--lg { min-height: 56px; padding: 19px 28px; font-size: 17px; font-weight: 600; }
+.jfd-btn--inverse { background: #FFFFFF; color: var(--jfd-action-hover); }
+.jfd-btn--inverse:hover { background: var(--jfd-graphite); color: #FFFFFF; }
+.jfd-btn--ghost-dark { background: transparent; border: 1px solid var(--jfd-dark-border); color: var(--jfd-dark-ink); min-height: 46px; padding: 12px 18px; font-size: 15px; }
+.jfd-btn--ghost-dark:hover { background: transparent; border-color: var(--jfd-azure-soft); color: var(--jfd-azure-soft); }
+.jfd-link { font-size: 16.5px; font-weight: 500; border-bottom: 1px solid var(--jfd-underline); padding-bottom: 3px; }
+.jfd-link:hover { border-bottom-color: var(--jfd-action); }
+.jfd-link--on-dark { color: #FFFFFF; border-bottom-color: rgba(255,255,255,0.5); }
+.jfd-link--on-dark:hover { color: #FFFFFF; border-bottom-color: #FFFFFF; }
+
+/* Header / nav */
+.jfd-header { position: sticky; top: 0; z-index: 60; background: rgba(244,246,248,0.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--jfd-rule); }
+.jfd-header__inner { display: flex; align-items: center; gap: 32px; height: var(--jfd-header-h); transition: height .22s ease; }
+.jfd-header.is-scrolled .jfd-header__inner { height: var(--jfd-header-h-scrolled); }
+.jfd-wordmark { font-family: var(--jfd-font-display); font-size: 23px; font-weight: 700; letter-spacing: -0.005em; color: var(--jfd-graphite); }
+.jfd-wordmark sup { font-size: 11px; font-weight: 600; letter-spacing: 0.04em; margin-left: 2px; }
+.jfd-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.jfd-nav__link { padding: 12px 14px; min-height: 44px; font-size: 15px; font-weight: 500; color: var(--jfd-graphite); background: none; border: 0; font-family: inherit; cursor: pointer; }
+.jfd-nav__link:hover { color: var(--jfd-action); }
+.jfd-menu { position: absolute; top: calc(100% + 6px); left: 0; width: 320px; background: var(--jfd-surface); border: 1px solid var(--jfd-rule); box-shadow: var(--jfd-shadow-menu); padding: 8px; }
+.jfd-menu a { display: block; padding: 12px 14px; font-size: 15px; color: var(--jfd-graphite); border-bottom: 1px solid var(--jfd-rule-soft); }
+.jfd-menu a:last-child { border-bottom: 0; }
+.jfd-menu a:hover { background: var(--jfd-tint); color: var(--jfd-action); }
+
+/* Cards */
+.jfd-card { display: block; background: var(--jfd-surface); border: 1px solid var(--jfd-rule); color: var(--jfd-graphite); transition: border-color .2s ease; }
+a.jfd-card:hover { border-color: var(--jfd-action); color: var(--jfd-graphite); }
+.jfd-card__media { aspect-ratio: 3 / 2; overflow: hidden; background: #E4E9EE; border-bottom: 1px solid var(--jfd-rule); }
+.jfd-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.jfd-card__body { padding: 24px 24px 26px; }
+.jfd-card__meta { padding-top: 10px; border-top: 1px solid #E5EAEF; }
+.jfd-tile { background: var(--jfd-tint); padding: 20px 22px; }  /* inside .jfd-hairline-grid */
+.jfd-panel { background: var(--jfd-surface); border: 1px solid var(--jfd-rule-strong); box-shadow: var(--jfd-shadow-panel); }
+.jfd-chip { font-family: var(--jfd-font-mono); font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase; background: var(--jfd-tint); color: var(--jfd-graphite); padding: 8px 12px; }
+
+/* Photography */
+.jfd-photo { overflow: hidden; background: #E4E9EE; border: 1px solid var(--jfd-rule); }
+.jfd-photo img { width: 100%; height: 100%; object-fit: cover; }
+.jfd-photo--16x10 { aspect-ratio: 16 / 10; }
+.jfd-photo--5x4 { aspect-ratio: 5 / 4; }
+.jfd-photo--4x3 { aspect-ratio: 4 / 3; }
+.jfd-caption { font-family: var(--jfd-font-mono); font-size: 10.5px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--jfd-ink-4); margin-top: 10px; }
+.jfd-placeholder { display: grid; place-items: center; padding: 20px; border: 1px dashed #B4BEC7; background: repeating-linear-gradient(135deg, #E4E9EE 0 10px, #DCE3E9 10px 20px); }
+
+/* Job-sheet record (status vocabulary) */
+.jfd-status { display: inline-flex; align-items: center; gap: 7px; font-family: var(--jfd-font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--jfd-status-neutral); }
+.jfd-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.jfd-status--closed { color: var(--jfd-status-closed); }
+.jfd-status--onsite { color: var(--jfd-status-onsite); }
+.jfd-status--decide { color: var(--jfd-status-decide); }
+.jfd-record__head { display: flex; justify-content: space-between; gap: 16px; padding: 14px 18px; background: var(--jfd-tint); border-bottom: 1px solid var(--jfd-rule); font-family: var(--jfd-font-mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--jfd-ink-3); }
+.jfd-record__row { display: grid; grid-template-columns: 88px 1fr 92px; padding: 15px 18px; border-bottom: 1px solid var(--jfd-rule-soft); align-items: baseline; }
+.jfd-record__id { font-family: var(--jfd-font-mono); font-size: 13px; }
+
+/* Numbered list rows (problems, reasons) */
+.jfd-row { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 4px 18px; padding: 22px 0; border-top: 1px solid var(--jfd-rule); align-items: start; }
+.jfd-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-family: var(--jfd-font-mono); font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+.jfd-flow .sep { color: var(--jfd-underline); }
+
+/* Footer */
+.jfd-footer { background: var(--jfd-graphite); color: var(--jfd-dark-ink); }
+.jfd-footer__label { font-family: var(--jfd-font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--jfd-dark-ink-2); margin: 0 0 16px; }
+.jfd-footer a { display: block; padding: 7px 0; font-size: 15px; color: var(--jfd-dark-ink); }
+.jfd-footer a:hover { color: var(--jfd-azure-soft); }
+.jfd-footer__legal { border-top: 1px solid var(--jfd-dark-rule-2); padding-top: 22px; font-size: 13.5px; color: var(--jfd-dark-ink-2); }
+</style>
+<style>/* Webfonts — Google Fonts (as specified in source). */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root{
+/* Brand */
+--jfd-azure:#29A9E9;--jfd-azure-soft:#6FC4F2;--jfd-azure-pale:#A8D7F3;--jfd-azure-mist:#C8E4F7;
+--jfd-action:#0E6FAF;--jfd-action-hover:#0B5789;--jfd-underline:#A9C6DB;
+/* Neutrals */
+--jfd-graphite:#23282C;--jfd-ink-2:#40474D;--jfd-ink-3:#5B646B;--jfd-ink-4:#5F6970;
+--jfd-ground:#F4F6F8;--jfd-surface:#FFFFFF;--jfd-tint:#E9EDF1;
+--jfd-rule:#D7DDE3;--jfd-rule-strong:#C9D2DA;--jfd-rule-soft:#EAEEF2;
+--jfd-media-bg:#E4E9EE;--jfd-meta-rule:#E5EAEF;
+/* Dark surface */
+--jfd-dark-rule:#3C4348;--jfd-dark-rule-2:#363C41;--jfd-dark-border:#424A50;--jfd-dark-ink:#E4E9ED;--jfd-dark-ink-2:#9BA7B1;--jfd-dark-heading:#EEF3F7;
+/* Status (job-sheet vocabulary) */
+--jfd-status-closed:#1F6B4D;--jfd-status-onsite:#8A6100;--jfd-status-decide:#A33A2A;--jfd-status-neutral:#5B646B;
+
+/* Semantic aliases */
+--text-primary:var(--jfd-graphite);--text-lead:var(--jfd-ink-2);--text-body:var(--jfd-ink-3);--text-caption:var(--jfd-ink-4);
+--text-accent:var(--jfd-action);--text-link:var(--jfd-action);--text-link-hover:var(--jfd-action-hover);
+--text-on-dark:var(--jfd-dark-ink);--text-on-dark-muted:var(--jfd-dark-ink-2);--text-on-action:#FFFFFF;--text-on-action-body:var(--jfd-azure-mist);--text-on-action-label:var(--jfd-azure-pale);
+--surface-page:var(--jfd-ground);--surface-card:var(--jfd-surface);--surface-tint:var(--jfd-tint);--surface-dark:var(--jfd-graphite);--surface-action:var(--jfd-action);
+--border-default:var(--jfd-rule);--border-strong:var(--jfd-rule-strong);--border-soft:var(--jfd-rule-soft);--border-dark:var(--jfd-dark-border);
+--accent-mark:var(--jfd-azure);
+}
+
+:root{
+--jfd-font-display:"Barlow Condensed",system-ui,sans-serif;
+--jfd-font-body:"Barlow",system-ui,sans-serif;
+--jfd-font-mono:"IBM Plex Mono",ui-monospace,monospace;
+--jfd-h1:clamp(50px,6.6vw,84px); /* @kind font */
+--jfd-h2:clamp(34px,4vw,52px); /* @kind font */
+--jfd-h2-statement:clamp(40px,5.4vw,68px); /* @kind font */
+--jfd-h3:clamp(30px,3.4vw,40px); /* @kind font */
+
+--jfd-card-title:23px;--jfd-stat:34px;--jfd-lead:18.5px;--jfd-body:16px;--jfd-small:14px;--jfd-eyebrow:11.5px;--jfd-label:10.5px;
+/* Semantic */
+--font-display:var(--jfd-font-display);--font-body:var(--jfd-font-body);--font-mono:var(--jfd-font-mono);
+}
+
+:root{
+--jfd-max:1240px;--jfd-gutter:28px;--jfd-section-y:88px;--jfd-header-h:82px;--jfd-header-h-scrolled:64px;
+--jfd-gap-grid:24px;--jfd-radius:0;
+}
+
+:root{
+--jfd-shadow-panel:0 26px 60px -34px rgba(35,40,44,0.42);
+--jfd-shadow-menu:0 18px 44px -24px rgba(35,40,44,0.4);
+--jfd-ease:.18s ease; /* @kind other */
+}
+
+/* Just Fire Doors — base + class library (verbatim from source, tokens in /tokens). */
+/* Base */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--jfd-ground); color: var(--jfd-graphite); font-family: var(--jfd-font-body); -webkit-font-smoothing: antialiased; }
+a { color: var(--jfd-action); text-decoration: none; }
+a:hover { color: var(--jfd-action-hover); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--jfd-action); outline-offset: 3px; }
+img { max-width: 100%; display: block; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+
+/* Layout */
+.jfd-container { max-width: var(--jfd-max); margin: 0 auto; padding: 0 var(--jfd-gutter); }
+.jfd-section { padding: var(--jfd-section-y) 0; border-bottom: 1px solid var(--jfd-rule); }
+.jfd-section--surface { background: var(--jfd-surface); }
+.jfd-section--tint { background: var(--jfd-tint); }
+.jfd-section--dark { background: var(--jfd-graphite); color: #EEF3F7; }
+.jfd-section--action { background: var(--jfd-action); color: #FFFFFF; }
+.jfd-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); }
+.jfd-grid > * { min-width: 0; }
+.jfd-hairline-grid { display: grid; gap: 1px; background: var(--jfd-rule); border: 1px solid var(--jfd-rule); grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+.jfd-divider-azure { height: 3px; background: var(--jfd-azure); border: 0; margin: 0; }
+
+/* Type */
+.jfd-h1, .jfd-h2, .jfd-h3, .jfd-statement { font-family: var(--jfd-font-display); font-weight: 600; letter-spacing: -0.025em; margin: 0; text-wrap: pretty; }
+.jfd-h1 { font-size: var(--jfd-h1); line-height: 1.02; }
+.jfd-h2 { font-size: var(--jfd-h2); line-height: 1.1; }
+.jfd-statement { font-size: var(--jfd-h2-statement); line-height: 1.06; }
+.jfd-h3 { font-size: var(--jfd-h3); line-height: 1.16; letter-spacing: -0.02em; }
+.jfd-card-title { font-family: var(--jfd-font-display); font-size: var(--jfd-card-title); font-weight: 600; line-height: 1.22; letter-spacing: -0.015em; }
+.jfd-lead { font-size: var(--jfd-lead); line-height: 1.62; color: var(--jfd-ink-2); max-width: 48ch; text-wrap: pretty; }
+.jfd-body { font-size: var(--jfd-body); line-height: 1.58; color: var(--jfd-ink-3); }
+.jfd-accent { color: var(--jfd-action); }
+.jfd-eyebrow { font-family: var(--jfd-font-mono); font-size: var(--jfd-eyebrow); letter-spacing: 0.1em; text-transform: uppercase; color: var(--jfd-action); margin: 0 0 20px; }
+.jfd-label { font-family: var(--jfd-font-mono); font-size: var(--jfd-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--jfd-ink-3); line-height: 1.6; }
+.jfd-index { font-family: var(--jfd-font-mono); font-size: 12px; color: var(--jfd-ink-4); }
+.jfd-stat { font-family: var(--jfd-font-display); font-size: 34px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; }
+.jfd-stat + span { display: block; font-size: 13.5px; color: var(--jfd-ink-3); margin-top: 3px; }
+
+/* Buttons & links */
+.jfd-btn { display: inline-flex; align-items: center; min-height: 52px; padding: 17px 26px; background: var(--jfd-action); color: #FFFFFF; font: 500 16.5px/1 var(--jfd-font-body); border: 0; cursor: pointer; transition: background var(--jfd-ease); }
+.jfd-btn:hover { background: var(--jfd-action-hover); color: #FFFFFF; }
+.jfd-btn--sm { min-height: 46px; padding: 13px 20px; font-size: 15px; }
+.jfd-btn--lg { min-height: 56px; padding: 19px 28px; font-size: 17px; font-weight: 600; }
+.jfd-btn--inverse { background: #FFFFFF; color: var(--jfd-action-hover); }
+.jfd-btn--inverse:hover { background: var(--jfd-graphite); color: #FFFFFF; }
+.jfd-btn--ghost-dark { background: transparent; border: 1px solid var(--jfd-dark-border); color: var(--jfd-dark-ink); min-height: 46px; padding: 12px 18px; font-size: 15px; }
+.jfd-btn--ghost-dark:hover { background: transparent; border-color: var(--jfd-azure-soft); color: var(--jfd-azure-soft); }
+.jfd-link { font-size: 16.5px; font-weight: 500; border-bottom: 1px solid var(--jfd-underline); padding-bottom: 3px; }
+.jfd-link:hover { border-bottom-color: var(--jfd-action); }
+.jfd-link--on-dark { color: #FFFFFF; border-bottom-color: rgba(255,255,255,0.5); }
+.jfd-link--on-dark:hover { color: #FFFFFF; border-bottom-color: #FFFFFF; }
+
+/* Header / nav */
+.jfd-header { position: sticky; top: 0; z-index: 60; background: rgba(244,246,248,0.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--jfd-rule); }
+.jfd-header__inner { display: flex; align-items: center; gap: 32px; height: var(--jfd-header-h); transition: height .22s ease; }
+.jfd-header.is-scrolled .jfd-header__inner { height: var(--jfd-header-h-scrolled); }
+.jfd-wordmark { font-family: var(--jfd-font-display); font-size: 23px; font-weight: 700; letter-spacing: -0.005em; color: var(--jfd-graphite); }
+.jfd-wordmark sup { font-size: 11px; font-weight: 600; letter-spacing: 0.04em; margin-left: 2px; }
+.jfd-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.jfd-nav__link { padding: 12px 14px; min-height: 44px; font-size: 15px; font-weight: 500; color: var(--jfd-graphite); background: none; border: 0; font-family: inherit; cursor: pointer; }
+.jfd-nav__link:hover { color: var(--jfd-action); }
+.jfd-menu { position: absolute; top: calc(100% + 6px); left: 0; width: 320px; background: var(--jfd-surface); border: 1px solid var(--jfd-rule); box-shadow: var(--jfd-shadow-menu); padding: 8px; }
+.jfd-menu a { display: block; padding: 12px 14px; font-size: 15px; color: var(--jfd-graphite); border-bottom: 1px solid var(--jfd-rule-soft); }
+.jfd-menu a:last-child { border-bottom: 0; }
+.jfd-menu a:hover { background: var(--jfd-tint); color: var(--jfd-action); }
+
+/* Cards */
+.jfd-card { display: block; background: var(--jfd-surface); border: 1px solid var(--jfd-rule); color: var(--jfd-graphite); transition: border-color .2s ease; }
+a.jfd-card:hover { border-color: var(--jfd-action); color: var(--jfd-graphite); }
+.jfd-card__media { aspect-ratio: 3 / 2; overflow: hidden; background: #E4E9EE; border-bottom: 1px solid var(--jfd-rule); }
+.jfd-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.jfd-card__body { padding: 24px 24px 26px; }
+.jfd-card__meta { padding-top: 10px; border-top: 1px solid #E5EAEF; }
+.jfd-tile { background: var(--jfd-tint); padding: 20px 22px; }  /* inside .jfd-hairline-grid */
+.jfd-panel { background: var(--jfd-surface); border: 1px solid var(--jfd-rule-strong); box-shadow: var(--jfd-shadow-panel); }
+.jfd-chip { font-family: var(--jfd-font-mono); font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase; background: var(--jfd-tint); color: var(--jfd-graphite); padding: 8px 12px; }
+
+/* Photography */
+.jfd-photo { overflow: hidden; background: #E4E9EE; border: 1px solid var(--jfd-rule); }
+.jfd-photo img { width: 100%; height: 100%; object-fit: cover; }
+.jfd-photo--16x10 { aspect-ratio: 16 / 10; }
+.jfd-photo--5x4 { aspect-ratio: 5 / 4; }
+.jfd-photo--4x3 { aspect-ratio: 4 / 3; }
+.jfd-caption { font-family: var(--jfd-font-mono); font-size: 10.5px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--jfd-ink-4); margin-top: 10px; }
+.jfd-placeholder { display: grid; place-items: center; padding: 20px; border: 1px dashed #B4BEC7; background: repeating-linear-gradient(135deg, #E4E9EE 0 10px, #DCE3E9 10px 20px); }
+
+/* Job-sheet record (status vocabulary) */
+.jfd-status { display: inline-flex; align-items: center; gap: 7px; font-family: var(--jfd-font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--jfd-status-neutral); }
+.jfd-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.jfd-status--closed { color: var(--jfd-status-closed); }
+.jfd-status--onsite { color: var(--jfd-status-onsite); }
+.jfd-status--decide { color: var(--jfd-status-decide); }
+.jfd-record__head { display: flex; justify-content: space-between; gap: 16px; padding: 14px 18px; background: var(--jfd-tint); border-bottom: 1px solid var(--jfd-rule); font-family: var(--jfd-font-mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--jfd-ink-3); }
+.jfd-record__row { display: grid; grid-template-columns: 88px 1fr 92px; padding: 15px 18px; border-bottom: 1px solid var(--jfd-rule-soft); align-items: baseline; }
+.jfd-record__id { font-family: var(--jfd-font-mono); font-size: 13px; }
+
+/* Numbered list rows (problems, reasons) */
+.jfd-row { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 4px 18px; padding: 22px 0; border-top: 1px solid var(--jfd-rule); align-items: start; }
+.jfd-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-family: var(--jfd-font-mono); font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+.jfd-flow .sep { color: var(--jfd-underline); }
+
+/* Footer */
+.jfd-footer { background: var(--jfd-graphite); color: var(--jfd-dark-ink); }
+.jfd-footer__label { font-family: var(--jfd-font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--jfd-dark-ink-2); margin: 0 0 16px; }
+.jfd-footer a { display: block; padding: 7px 0; font-size: 15px; color: var(--jfd-dark-ink); }
+.jfd-footer a:hover { color: var(--jfd-azure-soft); }
+.jfd-footer__legal { border-top: 1px solid var(--jfd-dark-rule-2); padding-top: 22px; font-size: 13.5px; color: var(--jfd-dark-ink-2); }
+
+</style>
+<script src="support.js"></script>
+</helmet>
+
+
+<dc-import name="JfdHeader" active="maintenance" style="position: sticky; top: 0; zIndex: 60; display: block" hint-size="100%,82px"></dc-import>
+
+<main id="top" style="display: block">
+
+  <section data-screen-label="01 Hero" aria-label="Fire Door Maintenance" style="borderBottom: 1px solid var(--jfd-rule)">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(38px, 6.4vw, 64px) clamp(20px, 5vw, 28px) clamp(43px, 7.2vw, 72px); display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(28px, 6vw, 56px) 64px; alignItems: start">
+      <div style="minWidth: 0; maxWidth: 580px">
+        <nav aria-label="Breadcrumb" style="display: flex; flexWrap: wrap; gap: 8px; fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.08em'; textTransform: uppercase; color: var(--jfd-ink-3); marginBottom: 26px">
+          <a href="Just%20Fire%20Doors%20Home%20B.dc.html" style="color: var(--jfd-ink-3)" style-hover="color: #0E6FAF">Home</a><span>/</span><span>Services</span><span>/</span><span aria-current="page" style="color: var(--jfd-graphite)">Maintenance</span>
+        </nav>
+        <p style="fontFamily: var(--jfd-font-mono); fontSize: 12.5px; letterSpacing: '0.1em'; textTransform: uppercase; color: var(--jfd-ink-3); margin: 0 0 22px; paddingBottom: 18px; borderBottom: 1px solid var(--jfd-rule); lineHeight: 1.6">Commercial fire door maintenance across the South West</p>
+        <h1 style="fontFamily: var(--jfd-font-display); fontWeight: 600; fontSize: clamp(40px, 6.4vw, 84px); lineHeight: 1.02; letterSpacing: '-0.025em'; margin: 0 0 24px">Fire Door <span style="color: var(--jfd-action)">Maintenance</span></h1>
+        <p style="fontSize: 19px; lineHeight: 1.58; color: var(--jfd-graphite); margin: 0 0 16px; maxWidth: 46ch; textWrap: pretty">Keep your fire doors functioning properly and your outstanding actions under control with a clearer programme of inspections, maintenance and remedial work.</p>
+        <p style="fontSize: 16.5px; lineHeight: 1.62; color: var(--jfd-ink-2); margin: 0 0 32px; maxWidth: 52ch; textWrap: pretty">From one building to a multi-site estate, JFD can help you move away from repeated reactive repairs and towards a more manageable way of looking after your fire doors.</p>
+        <div style="display: flex; flexDirection: column; alignItems: flex-start; gap: 14px">
+          <a href="Get%20a%20Quote.dc.html" class="jfd-btn">Discuss your fire door maintenance</a>
+          <div style="display: flex; flexWrap: wrap; alignItems: center; gap: 8px 16px; background: #FFFFFF; border: 1px solid var(--jfd-rule-strong); padding: 14px 18px">
+            <span style="fontSize: 15.5px; fontWeight: 600">Already have outstanding remedials?</span>
+            <a href="Get%20a%20Quote.dc.html" class="jfd-link" style="fontSize: 15.5px">Send us your job sheet →</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="minWidth: 0">
+        <div style="background: #FFFFFF; border: 1px solid var(--jfd-rule-strong); boxShadow: 0 26px 60px -34px rgba(35,40,44,0.42)">
+          <div style="display: flex; justifyContent: space-between; flexWrap: wrap; gap: 8px 16px; padding: 14px 18px; borderBottom: 1px solid var(--jfd-rule); background: var(--jfd-tint); fontFamily: var(--jfd-font-mono); fontSize: 11.5px; letterSpacing: '0.06em'; textTransform: uppercase; color: var(--jfd-ink-3)">
+            <span>Maintenance programme · 2026–27</span><span>6 sites · 412 doors</span>
+          </div>
+          <div style="display: grid; gridTemplateColumns: minmax(0, 1fr) repeat(4, clamp(16px, 5vw, 34px)) clamp(70px, 20vw, 104px); gap: 0 6px; padding: 11px 18px; fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.08em'; textTransform: uppercase; color: var(--jfd-ink-3); borderBottom: 1px solid var(--jfd-rule); alignItems: center">
+            <span>Site</span><span style="textAlign: center">Q1</span><span style="textAlign: center">Q2</span><span style="textAlign: center">Q3</span><span style="textAlign: center">Q4</span><span style="textAlign: right">Now</span>
+          </div>
+          <sc-for list="{{ sites }}" as="s" hint-placeholder-count="6">
+            <div style="display: grid; gridTemplateColumns: minmax(0, 1fr) repeat(4, clamp(16px, 5vw, 34px)) clamp(70px, 20vw, 104px); gap: 0 6px; padding: 13px 18px; borderBottom: 1px solid var(--jfd-rule-soft); alignItems: center">
+              <span style="minWidth: 0"><span style="display: block; fontSize: 14px; color: var(--jfd-graphite)">{{ s.name }}</span><span style="display: block; fontSize: 12.5px; color: var(--jfd-ink-3)">{{ s.meta }}</span></span>
+              <sc-for list="{{ s.q }}" as="cell" hint-placeholder-count="4">
+                <span style="height: 18px; background: {{ cell }}; border: 1px solid #D7DDE3"></span>
+              </sc-for>
+              <span style="justifySelf: end; display: inline-flex; alignItems: center; gap: 7px; fontFamily: var(--jfd-font-mono); fontSize: 10px; letterSpacing: '0.06em'; textTransform: uppercase; color: {{ s.tone }}; textAlign: right"><span style="width: 7px; height: 7px; borderRadius: 50%; background: {{ s.tone }}; flexShrink: 0"></span>{{ s.status }}</span>
+            </div>
+          </sc-for>
+          <div style="display: flex; flexWrap: wrap; gap: 8px 18px; padding: 13px 18px; background: var(--jfd-tint); fontSize: 12.5px; color: var(--jfd-ink-3)">
+            <span style="display: inline-flex; alignItems: center; gap: 6px"><span style="width: 12px; height: 12px; background: #1F6B4D"></span>Visit complete</span>
+            <span style="display: inline-flex; alignItems: center; gap: 6px"><span style="width: 12px; height: 12px; background: #0E6FAF"></span>Scheduled</span>
+            <span style="display: inline-flex; alignItems: center; gap: 6px"><span style="width: 12px; height: 12px; background: #FFFFFF; border: 1px solid #C9D2DA"></span>Not due</span>
+          </div>
+        </div>
+        <p style="fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.06em'; textTransform: uppercase; color: var(--jfd-ink-4); margin: 12px 0 0">Illustrative layout — replace with a real JFD programme / multi-site view</p>
+      </div>
+    </div>
+  </section>
+
+  <dc-import name="JfdProofStrip" show-notes="{{ showNotes }}" note="accreditations / project logos / confirmed quantitative proof for maintenance" hint-size="100%,112px"></dc-import>
+
+  <section data-screen-label="02 Reactive to planned" aria-label="From reactive to planned" style="borderBottom: 1px solid var(--jfd-rule)">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px)">
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 24px 80px; alignItems: end; marginBottom: 44px">
+        <div style="minWidth: 0">
+          <p class="jfd-eyebrow">01 · Reactive → planned</p>
+          <h2 class="jfd-h2" style="margin: 0; maxWidth: 18ch">Move from reactive repairs to a clearer maintenance programme.</h2>
+        </div>
+        <div style="minWidth: 0">
+          <p style="fontSize: 17px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 0 0 10px; maxWidth: 50ch">One repair gets raised. Then another survey adds a few more actions. A closer stops working. A seal is damaged. A door starts catching. Someone adds it to the list for later.</p>
+          <p style="fontSize: 17px; lineHeight: 1.6; color: var(--jfd-graphite); fontWeight: 500; margin: 0; maxWidth: 50ch">None of those issues feels enormous on its own. The problem is how easily they build up.</p>
+        </div>
+      </div>
+
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 1px; background: transparent; border: 1px solid var(--jfd-rule)">
+        <div style="outline: 1px solid var(--jfd-rule); background: var(--jfd-tint); padding: 28px 26px 30px; minWidth: 0">
+          <div style="display: flex; alignItems: center; gap: 12px; marginBottom: 20px">
+            <span style="fontFamily: var(--jfd-font-mono); fontSize: 13px; letterSpacing: '0.14em'; textTransform: uppercase; color: var(--jfd-ink-3)">Reactive</span>
+            <span style="flex: 1; height: 1px; background: #C9D2DA"></span>
+            <span style="fontFamily: var(--jfd-font-mono); fontSize: 11px; color: var(--jfd-ink-3)">6 open · 5 sources</span>
+          </div>
+          <div style="display: grid; gap: 8px">
+            <sc-for list="{{ reactive }}" as="rx" hint-placeholder-count="6">
+              <div style="display: grid; gridTemplateColumns: 64px minmax(0, 1fr) auto; gap: 12px; alignItems: baseline; background: #FFFFFF; border: 1px dashed #B4BEC7; padding: 11px 14px; marginLeft: {{ rx.indent }}; maxWidth: {{ rx.width }}">
+                <span style="fontFamily: var(--jfd-font-mono); fontSize: 11px; color: var(--jfd-ink-4)">{{ rx.date }}</span>
+                <span style="fontSize: 14.5px; color: var(--jfd-graphite); minWidth: 0">{{ rx.t }}</span>
+                <span style="fontFamily: var(--jfd-font-mono); fontSize: 10px; letterSpacing: '0.06em'; textTransform: uppercase; color: var(--jfd-ink-3)">{{ rx.src }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="outline: 1px solid var(--jfd-rule); background: #FFFFFF; padding: 28px 26px 30px; minWidth: 0">
+          <div style="display: flex; alignItems: center; gap: 12px; marginBottom: 20px">
+            <span style="fontFamily: var(--jfd-font-mono); fontSize: 13px; letterSpacing: '0.14em'; textTransform: uppercase; color: var(--jfd-action)">Planned</span>
+            <span style="flex: 1; height: 1px; background: var(--jfd-rule)"></span>
+            <span style="fontFamily: var(--jfd-font-mono); fontSize: 11px; color: var(--jfd-ink-3)">One programme · one record</span>
+          </div>
+          <ol style="listStyle: none; margin: 0; padding: 0">
+            <sc-for list="{{ planned }}" as="pl" hint-placeholder-count="4">
+              <li style="display: grid; gridTemplateColumns: 36px minmax(0, 1fr); gap: 14px; paddingBottom: 18px">
+                <span style="display: flex; flexDirection: column; alignItems: center">
+                  <span style="width: 30px; height: 30px; border: 1px solid #0E6FAF; background: {{ pl.bg }}; color: {{ pl.ink }}; display: grid; placeItems: center; fontFamily: var(--jfd-font-mono); fontSize: 12px">{{ pl.n }}</span>
+                  <span style="width: 1px; flex: 1; minHeight: 18px; background: {{ pl.line }}; marginTop: 4px"></span>
+                </span>
+                <span style="minWidth: 0; paddingTop: 4px"><span style="display: block; fontSize: 17px; fontWeight: 600; lineHeight: 1.3">{{ pl.t }}</span><span style="display: block; fontSize: 14.5px; color: var(--jfd-ink-3); lineHeight: 1.5; marginTop: 2px">{{ pl.b }}</span></span>
+              </li>
+            </sc-for>
+          </ol>
+        </div>
+      </div>
+      <p style="fontSize: 17.5px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 32px 0 0; maxWidth: 68ch">A planned fire door maintenance approach gives your Estates or Facilities team a clearer rhythm — so instead of repeatedly catching up with the fire-door list, <strong style="fontWeight: 600; color: var(--jfd-graphite)">you can keep it under better control.</strong></p>
+    </div>
+  </section>
+
+  <section data-screen-label="03 What's included" aria-label="What maintenance includes" style="background: #FFFFFF; borderBottom: 1px solid var(--jfd-rule)">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px)">
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 24px 80px; alignItems: end; marginBottom: 44px">
+        <div style="minWidth: 0">
+          <p class="jfd-eyebrow">02 · Scope</p>
+          <h2 class="jfd-h2" style="margin: 0; maxWidth: 18ch">What does fire door maintenance include?</h2>
+        </div>
+        <p style="fontSize: 17px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 0; maxWidth: 50ch">Fire door maintenance is about keeping the whole door assembly working as intended, not simply booking an annual visit. Depending on the doors and the work identified, maintenance can include:</p>
+      </div>
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: clamp(28px, 6vw, 40px) 36px; alignItems: start">
+        <sc-for list="{{ maintGroups }}" as="g" hint-placeholder-count="4">
+          <div style="minWidth: 0">
+            <div style="display: flex; alignItems: center; gap: 10px; paddingBottom: 12px; borderBottom: 2px solid var(--jfd-graphite)">
+              <span style="fontFamily: var(--jfd-font-mono); fontSize: 11px; color: var(--jfd-ink-4)">{{ g.n }}</span>
+              <span style="fontFamily: var(--jfd-font-mono); fontSize: 12px; letterSpacing: '0.12em'; textTransform: uppercase; fontWeight: 500">{{ g.label }}</span>
+            </div>
+            <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="2">
+              <div style="padding: 15px 0; borderBottom: 1px solid var(--jfd-rule)">
+                <h3 style="fontSize: 16.5px; fontWeight: 600; lineHeight: 1.35; margin: 0 0 4px">{{ it.t }}</h3>
+                <p style="fontSize: 14.5px; lineHeight: 1.55; color: var(--jfd-ink-3); margin: 0">{{ it.b }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 16px 80px; marginTop: 44px; paddingTop: 28px; borderTop: 1px solid var(--jfd-rule)">
+        <p style="fontSize: 17px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 0">The individual tasks matter.</p>
+        <p style="fontFamily: var(--jfd-font-display); fontSize: 26px; fontWeight: 600; lineHeight: 1.2; letterSpacing: '-0.015em'; margin: 0">But the bigger benefit is knowing they are being picked up as part of an organised programme rather than waiting until somebody notices the next problem.</p>
+      </div>
+      <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ false }}">
+        <p style="fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.05em'; textTransform: uppercase; color: #8A6100; border: 1px dashed #C9B27A; background: #FBF7EC; padding: 8px 12px; margin: 20px 0 0; lineHeight: 1.6; maxWidth: 62ch">To confirm · exact maintenance service model and component capability</p>
+      </sc-if>
+    </div>
+  </section>
+
+  <section data-screen-label="04 Cycle" aria-label="Decide, Deliver, Close — then repeat" style="background: var(--jfd-graphite); color: #EEF3F7">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px)">
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 24px 80px; alignItems: end; marginBottom: 40px">
+        <div style="minWidth: 0">
+          <p style="fontFamily: var(--jfd-font-mono); fontSize: 11.5px; letterSpacing: '0.1em'; textTransform: uppercase; color: var(--jfd-azure-soft); margin: 0 0 20px">03 · The cycle</p>
+          <h2 style="fontFamily: var(--jfd-font-display); fontSize: clamp(34px, 4vw, 50px); fontWeight: 600; lineHeight: 1.1; letterSpacing: '-0.025em'; margin: 0; maxWidth: 20ch">Know what needs attention, what’s been dealt with and what comes next.</h2>
+        </div>
+        <p style="fontSize: 17px; lineHeight: 1.6; color: var(--jfd-dark-ink); margin: 0; maxWidth: 48ch">A maintenance programme should leave your estate clearer than it was before. JFD’s wider approach follows three straightforward stages:</p>
+      </div>
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1px; background: transparent; border: 1px solid #3C4348">
+        <sc-for list="{{ cycle }}" as="cy" hint-placeholder-count="3">
+          <div style="outline: 1px solid #3C4348; background: #23282C; padding: 26px 24px 28px; minWidth: 0">
+            <div style="display: flex; alignItems: center; gap: 12px; marginBottom: 16px">
+              <span style="width: 9px; height: 9px; borderRadius: 50%; background: {{ cy.dot }}"></span>
+              <h3 style="fontFamily: var(--jfd-font-mono); fontSize: 15px; fontWeight: 500; letterSpacing: '0.14em'; textTransform: uppercase; color: #6FC4F2; margin: 0">{{ cy.label }}</h3>
+              <span style="flex: 1; height: 1px; background: #3C4348"></span>
+              <span style="color: #6FC4F2; fontFamily: var(--jfd-font-mono)">→</span>
+            </div>
+            <p style="fontSize: 16px; lineHeight: 1.6; color: var(--jfd-dark-ink); margin: 0">{{ cy.b }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display: flex; alignItems: stretch; marginTop: 0">
+        <span style="width: 1px; background: #6FC4F2; marginLeft: 24px"></span>
+        <span style="flex: 1; borderBottom: 1px solid #6FC4F2; height: 28px"></span>
+        <span style="width: 1px; background: #6FC4F2; marginRight: 24px"></span>
+      </div>
+      <p style="fontFamily: var(--jfd-font-mono); fontSize: 12px; letterSpacing: '0.1em'; textTransform: uppercase; color: #6FC4F2; margin: 12px 0 0; textAlign: center">Then repeat when the next inspection or maintenance activity is due</p>
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 16px 80px; marginTop: 48px; paddingTop: 28px; borderTop: 1px solid #3C4348">
+        <p style="fontSize: 17px; lineHeight: 1.6; color: var(--jfd-dark-ink-2); margin: 0">The point isn’t simply to have somebody visit the site regularly.</p>
+        <p style="fontFamily: var(--jfd-font-display); fontSize: 26px; fontWeight: 600; lineHeight: 1.2; color: #FFFFFF; margin: 0">It’s to keep a clearer handle on the condition of the doors and the work that still needs doing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="05 Visibility" aria-label="A programme without the chasing" style="borderBottom: 1px solid var(--jfd-rule)">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px); display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(28px, 6vw, 56px) 72px; alignItems: start">
+      <div style="minWidth: 0; maxWidth: 520px">
+        <p class="jfd-eyebrow">04 · Visibility</p>
+        <h2 class="jfd-h2" style="margin: 0 0 28px; maxWidth: 16ch">A maintenance programme shouldn’t create more chasing.</h2>
+        <p style="fontSize: 16px; lineHeight: 1.6; color: var(--jfd-ink-3); margin: 0 0 8px">The useful question for an Estates team isn’t just:</p>
+        <p style="fontFamily: var(--jfd-font-display); fontSize: 30px; fontWeight: 600; lineHeight: 1.15; color: var(--jfd-ink-3); margin: 0 0 18px; textDecoration: line-through; textDecorationThickness: 1px">“Has somebody been out?”</p>
+        <p style="fontSize: 16px; lineHeight: 1.6; color: var(--jfd-ink-3); margin: 0 0 8px">It’s:</p>
+        <p style="fontFamily: var(--jfd-font-display); fontSize: 36px; fontWeight: 600; lineHeight: 1.1; color: var(--jfd-action); margin: 0 0 28px">“What has actually happened?”</p>
+        <p style="fontSize: 16.5px; lineHeight: 1.62; color: var(--jfd-ink-2); margin: 0 0 22px">A clear maintenance programme should make it easy to see the position without pulling apart emails, job sheets and contractor updates every time someone asks.</p>
+        <p style="fontFamily: var(--jfd-font-display); fontSize: 26px; fontWeight: 600; lineHeight: 1.2; letterSpacing: '-0.015em'; margin: 0; maxWidth: 26ch">Get the work done with a clear view of what’s complete along the way.</p>
+        <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ false }}">
+          <p style="fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.05em'; textTransform: uppercase; color: #8A6100; border: 1px dashed #C9B27A; background: #FBF7EC; padding: 8px 12px; margin: 22px 0 0; lineHeight: 1.6">To confirm · scheduling, reporting, approval and progress visibility process</p>
+        </sc-if>
+      </div>
+      <div style="minWidth: 0">
+        <div style="background: #FFFFFF; border: 1px solid var(--jfd-rule-strong); boxShadow: 0 26px 60px -34px rgba(35,40,44,0.42)">
+          <div style="display: flex; justifyContent: space-between; flexWrap: wrap; gap: 8px 16px; padding: 14px 18px; borderBottom: 1px solid var(--jfd-rule); background: var(--jfd-tint); fontFamily: var(--jfd-font-mono); fontSize: 11.5px; letterSpacing: '0.06em'; textTransform: uppercase; color: var(--jfd-ink-3)">
+            <span>Site B · Visit 3 of 4</span><span>86 doors</span>
+          </div>
+          <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(128px, 1fr)); gap: 1px; background: transparent; borderBottom: 1px solid var(--jfd-rule)">
+            <sc-for list="{{ visibility }}" as="v" hint-placeholder-count="8">
+              <div style="outline: 1px solid var(--jfd-rule); background: #FFFFFF; padding: 14px 16px 16px; minWidth: 0">
+                <span style="display: flex; alignItems: center; gap: 7px; fontFamily: var(--jfd-font-mono); fontSize: 10px; letterSpacing: '0.06em'; textTransform: uppercase; color: {{ v.tone }}; marginBottom: 8px"><span style="width: 7px; height: 7px; borderRadius: 50%; background: {{ v.tone }}; flexShrink: 0"></span>{{ v.label }}</span>
+                <span style="display: block; fontFamily: var(--jfd-font-display); fontSize: 30px; fontWeight: 600; lineHeight: 1">{{ v.n }}</span>
+                <span style="display: block; fontSize: 12.5px; color: var(--jfd-ink-3); lineHeight: 1.4; marginTop: 5px">{{ v.d }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <sc-for list="{{ doorLog }}" as="dl" hint-placeholder-count="4">
+            <div style="display: grid; gridTemplateColumns: clamp(58px, 16vw, 84px) minmax(0, 1fr) clamp(84px, 24vw, 118px); padding: 13px 18px; borderBottom: 1px solid var(--jfd-rule-soft); alignItems: baseline">
+              <span style="fontFamily: var(--jfd-font-mono); fontSize: 12.5px">{{ dl.id }}</span>
+              <span style="fontSize: 14px; lineHeight: 1.45; paddingRight: 12px">{{ dl.t }}</span>
+              <span style="justifySelf: end; display: inline-flex; alignItems: center; gap: 7px; fontFamily: var(--jfd-font-mono); fontSize: 10px; letterSpacing: '0.06em'; textTransform: uppercase; color: {{ dl.tone }}"><span style="width: 7px; height: 7px; borderRadius: 50%; background: {{ dl.tone }}"></span>{{ dl.status }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <p style="fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.06em'; textTransform: uppercase; color: var(--jfd-ink-4); margin: 12px 0 0">Illustrative layout — replace with a genuine anonymised programme / app view</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="06 Remedials" aria-label="Keep remedials manageable" style="background: #FFFFFF; borderBottom: 1px solid var(--jfd-rule)">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px)">
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 24px 80px; alignItems: end; marginBottom: 44px">
+        <div style="minWidth: 0">
+          <p class="jfd-eyebrow">05 · Remedials</p>
+          <h2 class="jfd-h2" style="margin: 0">Keep remedials manageable.</h2>
+        </div>
+        <div style="minWidth: 0">
+          <p style="fontSize: 17px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 0 0 8px; maxWidth: 50ch">A maintenance programme won’t mean fire doors never develop faults. It can mean you are less likely to discover a growing pile of them all at once.</p>
+          <p style="fontSize: 16px; lineHeight: 1.6; color: var(--jfd-ink-3); margin: 0">Regular inspection and maintenance can help you:</p>
+        </div>
+      </div>
+      <ol style="listStyle: none; margin: 0; padding: 0; display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 32px 32px">
+        <sc-for list="{{ remedials }}" as="rm" hint-placeholder-count="4">
+          <li style="minWidth: 0; borderTop: 2px solid var(--jfd-graphite); paddingTop: 18px">
+            <span style="display: block; fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.08em'; color: var(--jfd-action); marginBottom: 12px">{{ rm.n }}</span>
+            <h3 style="fontFamily: var(--jfd-font-display); fontSize: 24px; fontWeight: 600; lineHeight: 1.2; margin: 0 0 8px">{{ rm.t }}</h3>
+            <p style="fontSize: 15px; lineHeight: 1.55; color: var(--jfd-ink-3); margin: 0">{{ rm.b }}</p>
+          </li>
+        </sc-for>
+      </ol>
+      <div style="display: flex; flexWrap: wrap; alignItems: center; gap: 12px 20px; marginTop: 44px; padding: 20px 24px; background: var(--jfd-tint)">
+        <span style="fontSize: 16.5px; fontWeight: 600">Already dealing with an accumulated list?</span>
+        <a href="Service%20Repairs.dc.html" class="jfd-link" style="fontSize: 16px">See Fire Door Repairs &amp; Remedial Works →</a>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="07 Estate fit" aria-label="Across your estate" style="borderBottom: 1px solid var(--jfd-rule)">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px); display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(28px, 6vw, 56px) 80px; alignItems: end">
+      <div style="minWidth: 0">
+        <p class="jfd-eyebrow">06 · Estate fit</p>
+        <h2 class="jfd-h2" style="margin: 0 0 22px; maxWidth: 18ch">A maintenance approach that can work across your estate.</h2>
+        <p style="fontSize: 17px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 0 0 12px; maxWidth: 48ch">JFD can help shape the work around the estate you actually manage.</p>
+        <p style="fontSize: 16px; lineHeight: 1.6; color: var(--jfd-ink-3); margin: 0 0 24px; maxWidth: 48ch">That might mean starting small, proving the approach and then extending it across more sites where it makes sense.</p>
+        <p style="fontFamily: var(--jfd-font-display); fontSize: 28px; fontWeight: 600; lineHeight: 1.18; margin: 0">You don’t need to move everything to JFD on day one.</p>
+        <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ false }}">
+          <p style="fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.05em'; textTransform: uppercase; color: #8A6100; border: 1px dashed #C9B27A; background: #FBF7EC; padding: 8px 12px; margin: 22px 0 0; lineHeight: 1.6">To confirm / add proof · multi-site scheduling, reporting and regional mobilisation capability</p>
+        </sc-if>
+      </div>
+      <div style="minWidth: 0">
+        <p style="fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.08em'; textTransform: uppercase; color: var(--jfd-ink-3); margin: 0 0 12px">Your maintenance requirement might start with</p>
+        <div style="display: grid; gridTemplateColumns: repeat(3, minmax(0, 1fr)); gap: 8px; alignItems: end">
+          <sc-for list="{{ steps }}" as="stp" hint-placeholder-count="3">
+            <div style="minWidth: 0; background: {{ stp.bg }}; color: {{ stp.ink }}; height: {{ stp.h }}; padding: 16px 16px; display: flex; flexDirection: column; justifyContent: flex-end; border: 1px solid #C9D2DA">
+              <span style="fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.08em'; textTransform: uppercase; marginBottom: 8px; opacity: 0.85">{{ stp.n }}</span>
+              <span style="fontFamily: var(--jfd-font-display); fontSize: 22px; fontWeight: 600; lineHeight: 1.15">{{ stp.t }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <p style="fontFamily: var(--jfd-font-mono); fontSize: 10.5px; letterSpacing: '0.08em'; textTransform: uppercase; color: var(--jfd-ink-3); margin: 22px 0 8px">Or start from</p>
+        <div style="display: flex; flexWrap: wrap; gap: 8px">
+          <sc-for list="{{ altStarts }}" as="as" hint-placeholder-count="3">
+            <span class="jfd-chip">{{ as }}</span>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="08 Frequency and escalation" aria-label="Frequency and escalation" style="background: #FFFFFF; borderBottom: 1px solid var(--jfd-rule)">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px); display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(28px, 6vw, 56px) 80px; alignItems: start">
+      <div style="minWidth: 0">
+        <p class="jfd-eyebrow">07 · Frequency</p>
+        <h2 style="fontFamily: var(--jfd-font-display); fontSize: clamp(30px, 3.4vw, 40px); fontWeight: 600; lineHeight: 1.14; letterSpacing: '-0.02em'; margin: 0 0 20px; maxWidth: 20ch">How often do fire doors need checking and maintaining?</h2>
+        <p style="fontSize: 17px; lineHeight: 1.6; color: var(--jfd-graphite); fontWeight: 500; margin: 0 0 12px; maxWidth: 48ch">There isn’t one maintenance interval that makes sense for every building and every door.</p>
+        <p style="fontSize: 16px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 0 0 6px">How often fire doors need checking can depend on factors including:</p>
+        <ul style="listStyle: none; margin: 0 0 18px; padding: 0; maxWidth: 52ch">
+          <sc-for list="{{ freqFactors }}" as="ff" hint-placeholder-count="5">
+            <li style="padding: 9px 0; borderTop: 1px solid var(--jfd-rule-soft); fontSize: 15px">{{ ff }}</li>
+          </sc-for>
+        </ul>
+        <p style="fontSize: 16px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 0 0 12px; maxWidth: 52ch">A routine check is also not necessarily the same thing as a more detailed inspection by a competent person, and maintenance itself should respond to what the door actually needs.</p>
+        <p style="fontSize: 16px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 0 0 20px; maxWidth: 52ch">JFD can help you understand the current condition of your doors and put together a sensible inspection and maintenance approach for the estate.</p>
+        <a href="Service%20Inspections.dc.html" class="jfd-link">Fire Door Inspections &amp; Surveys →</a>
+        <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ false }}">
+          <p style="fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.05em'; textTransform: uppercase; color: #8A6100; border: 1px dashed #C9B27A; background: #FBF7EC; padding: 8px 12px; margin: 22px 0 0; lineHeight: 1.6">Fact-check · all regulatory / frequency wording</p>
+        </sc-if>
+      </div>
+      <div style="minWidth: 0">
+        <p class="jfd-eyebrow">08 · Escalation</p>
+        <h2 style="fontFamily: var(--jfd-font-display); fontSize: clamp(30px, 3.4vw, 40px); fontWeight: 600; lineHeight: 1.14; letterSpacing: '-0.02em'; margin: 0 0 20px; maxWidth: 20ch">What happens when maintenance finds a bigger problem?</h2>
+        <p style="fontSize: 16px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 0 0 20px; maxWidth: 52ch">Not everything can or should be solved as routine maintenance. If a visit identifies something more significant, there should still be a clear next step. Depending on the issue, that might mean:</p>
+        <div style="display: grid; gap: 0; border: 1px solid var(--jfd-rule); marginBottom: 20px">
+          <sc-for list="{{ escalate }}" as="es" hint-placeholder-count="4">
+            <div style="display: grid; gridTemplateColumns: 140px minmax(0, 1fr); gap: 16px; padding: 15px 18px; borderBottom: 1px solid var(--jfd-rule-soft); alignItems: baseline">
+              <span style="display: inline-flex; alignItems: center; gap: 7px; fontFamily: var(--jfd-font-mono); fontSize: 11px; letterSpacing: '0.08em'; textTransform: uppercase; color: {{ es.tone }}"><span style="width: 7px; height: 7px; borderRadius: 50%; background: {{ es.tone }}"></span>{{ es.label }}</span>
+              <span style="minWidth: 0"><span style="display: block; fontSize: 15.5px; fontWeight: 600">{{ es.t }}</span><span style="display: block; fontSize: 14.5px; color: var(--jfd-ink-3); lineHeight: 1.5">{{ es.b }}</span></span>
+            </div>
+          </sc-for>
+        </div>
+        <p style="fontSize: 16px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 0 0 18px; maxWidth: 52ch">The important part is that the issue doesn’t disappear into another vague list. <strong style="fontWeight: 600; color: var(--jfd-graphite)">It moves into the right next action.</strong></p>
+        <div style="display: flex; flexWrap: wrap; gap: 12px 28px">
+          <a href="Service%20Repairs.dc.html" class="jfd-link">Fire Door Repairs &amp; Remedial Works →</a>
+          <a href="Service%20Replacement.dc.html" class="jfd-link">Fire Door Replacement &amp; Installation →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <dc-import name="JfdEvidence" eyebrow="09 · Records" title="Know what’s been done, not just that someone attended." intro="{{ evIntro }}" list-title="They should make it easier to understand" items="{{ evItems }}" outcome="Finish with clear evidence of what’s closed on the job sheet." closing="That creates a clearer record from one maintenance cycle to the next." shots="{{ evShots }}" caption="Door Data Systems (DDS) — live JFD records, local council and Penryn College" note="exact records, photographic evidence, QA and handover format" show-notes="{{ showNotes }}" hint-size="100%,860px"></dc-import>
+
+  <section data-screen-label="10 Starting small" aria-label="Start with part of the estate" style="background: var(--jfd-tint); borderBottom: 1px solid var(--jfd-rule)">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px)">
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 24px 80px; alignItems: end; marginBottom: 40px">
+        <div style="minWidth: 0">
+          <p class="jfd-eyebrow">10 · Starting points</p>
+          <h2 class="jfd-h2" style="margin: 0; maxWidth: 16ch">You don’t have to move the whole estate at once.</h2>
+        </div>
+        <p style="fontSize: 17px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 0; maxWidth: 48ch">A planned maintenance approach doesn’t need to begin with a huge contract. A sensible starting point might be:</p>
+      </div>
+      <ol style="listStyle: none; margin: 0; padding: 0; display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); columnGap: 48px; borderBottom: 1px solid #C9D2DA">
+        <sc-for list="{{ startPoints }}" as="sp" hint-placeholder-count="6">
+          <li style="display: grid; gridTemplateColumns: 46px minmax(0, 1fr); gap: 16px; padding: 20px 0; borderTop: 1px solid #C9D2DA; alignItems: baseline">
+            <span style="fontFamily: var(--jfd-font-mono); fontSize: 12px; color: var(--jfd-action)">{{ sp.n }}</span>
+            <span style="minWidth: 0"><span style="display: block; fontFamily: var(--jfd-font-display); fontSize: 24px; fontWeight: 600; lineHeight: 1.2; marginBottom: 4px">{{ sp.t }}</span><span style="display: block; fontSize: 15px; lineHeight: 1.55; color: var(--jfd-ink-3)">{{ sp.b }}</span></span>
+          </li>
+        </sc-for>
+      </ol>
+      <div style="display: flex; flexWrap: wrap; justifyContent: space-between; alignItems: center; gap: 20px 40px; marginTop: 36px">
+        <p style="fontSize: 17px; lineHeight: 1.6; color: var(--jfd-ink-2); margin: 0; maxWidth: 56ch"><strong style="fontWeight: 600; color: var(--jfd-graphite)">Start with the fire-door problem that needs solving now.</strong> If the approach works for your team, it can then be extended across more sites.</p>
+        <a href="Get%20a%20Quote.dc.html" class="jfd-btn">Talk through your current maintenance approach</a>
+      </div>
+    </div>
+  </section>
+
+  <dc-import name="JfdWhy" title="Why JFD for fire door maintenance?" items="{{ why }}" notes="{{ whyNotes }}" show-notes="{{ showNotes }}" img="assets/pub-closer.jpeg" img-alt="Panelled fire door with overhead closer during a maintenance visit" img-pos="60% 30%" caption="Closer and seal check · Refurbishment project" hint-size="100%,900px"></dc-import>
+
+  <dc-import name="JfdFaq" title="Fire door maintenance FAQs" items="{{ faqs }}" show-notes="{{ showNotes }}" hint-size="100%,820px"></dc-import>
+
+  <dc-import name="JfdFinalCta" label-a="Next step" title="Want a clearer approach to maintaining your fire doors?" body="{{ ctaBody }}" cta="Discuss your fire door maintenance" label-b="Remedials waiting?" alt-title="Already have remedial work waiting?" alt-body="Send the list and we’ll help get it moving first." alt-cta="Send us your job sheet" hint-size="100%,560px"></dc-import>
+</main>
+
+<dc-import name="JfdFooter" hint-size="100%,360px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;showNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Review&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const green = '#1F6B4D', amber = '#8A6100', red = '#A33A2A', grey = '#5B646B', blue = '#0E6FAF', none = '#FFFFFF';
+    const n = (i) => String(i + 1).padStart(2, '0');
+    return {
+      showNotes: this.props.showNotes ?? true,
+      sites: [
+        { name: 'Site A · Secondary school', meta: '112 doors', q: [green, green, blue, none], status: 'Scheduled', tone: blue },
+        { name: 'Site B · Health centre', meta: '86 doors', q: [green, green, green, blue], status: 'Checked', tone: green },
+        { name: 'Site C · Offices', meta: '54 doors', q: [green, blue, none, blue], status: 'Approval req.', tone: red },
+        { name: 'Site D · Primary school', meta: '48 doors', q: [green, none, blue, none], status: 'Complete', tone: green },
+        { name: 'Site E · Depot', meta: '38 doors', q: [green, none, none, blue], status: 'Outstanding', tone: amber },
+        { name: 'Site F · Library', meta: '74 doors', q: [blue, none, blue, none], status: 'Scheduled', tone: blue }
+      ],
+      reactive: [
+        { date: '14 Jan', t: 'Closer not latching, stair 2', src: 'Caretaker', indent: '0px', width: '100%' },
+        { date: '02 Feb', t: '7 actions from annual survey', src: 'Survey', indent: '24px', width: '92%' },
+        { date: '19 Feb', t: 'Seal damaged, kitchen', src: 'Email', indent: '8px', width: '86%' },
+        { date: '03 Mar', t: 'Door catching on frame, L2', src: 'Helpdesk', indent: '40px', width: '88%' },
+        { date: '11 Mar', t: 'Hinge screw missing, corridor', src: 'Contractor', indent: '16px', width: '90%' },
+        { date: '??', t: 'Previous repair — no record', src: 'Unknown', indent: '32px', width: '84%' }
+      ],
+      planned: [
+        { t: 'Finding issues', b: 'Scheduled checks across the doors in the programme.' },
+        { t: 'Deciding what needs doing', b: 'Maintain, repair, replace or investigate.' },
+        { t: 'Completing the work', b: 'Agreed maintenance and remedial work carried out.' },
+        { t: 'Keeping the records up to date', b: 'One record per door, ready for the next cycle.' }
+      ].map((p, i, a) => ({ ...p, n: n(i), bg: i === a.length - 1 ? '#0E6FAF' : '#FFFFFF', ink: i === a.length - 1 ? '#FFFFFF' : '#0E6FAF', line: i === a.length - 1 ? 'transparent' : '#A9C6DB' })),
+      maintGroups: [
+        { label: 'Check', items: [{ t: 'Checking existing fire doors', b: 'Looking for changes in condition, wear or issues requiring attention.' }] },
+        { label: 'Maintain', items: [
+          { t: 'Door closers', b: 'Adjustment, maintenance or replacement where appropriate.' },
+          { t: 'Hinges', b: 'Addressing worn or damaged hinges and associated issues.' },
+          { t: 'Smoke and intumescent seals', b: 'Replacing damaged, missing or worn seals where required.' },
+          { t: 'Gaps and alignment', b: 'Adjusting doors where a suitable maintenance solution is available.' },
+          { t: 'Latches and ironmongery', b: 'Maintaining or replacing relevant hardware.' },
+          { t: 'Minor damage and adjustments', b: 'Dealing with straightforward defects before they simply sit on the action list.' }
+        ] },
+        { label: 'Escalate', items: [
+          { t: 'Remedial works', b: 'Moving identified issues into an agreed repair programme where more work is needed.' },
+          { t: 'Replacement', b: 'Where maintenance or repair is no longer the right action, the door can be moved into a replacement scope.' }
+        ] },
+        { label: 'Record', items: [{ t: 'Completion records', b: 'Keeping a clearer record of what was identified and what was dealt with.' }] }
+      ].map((g, i) => ({ ...g, n: n(i) })),
+      cycle: [
+        { label: 'Decide', b: 'Identify new defects and work out what needs maintenance, repair, replacement or further investigation.', dot: '#A33A2A' },
+        { label: 'Deliver', b: 'Complete the agreed maintenance and remedial work.', dot: '#8A6100' },
+        { label: 'Close', b: 'Record what was done, retain the relevant evidence and make anything still outstanding clear.', dot: '#1F6B4D' }
+      ],
+      visibility: [
+        { label: 'Scheduled', n: '86', d: 'doors in this visit', tone: blue },
+        { label: 'Checked', n: '64', d: 'checked so far', tone: grey },
+        { label: 'Completed', n: '41', d: 'maintenance done', tone: green },
+        { label: 'New issue', n: '9', d: 'identified this visit', tone: amber },
+        { label: 'Approval', n: '3', d: 'remedials to approve', tone: red },
+        { label: 'Outstanding', n: '5', d: 'still open', tone: amber },
+        { label: 'Evidence', n: '41', d: 'records with photos', tone: green },
+        { label: 'Next step', n: '14 May', d: 'next visit booked', tone: blue }
+      ],
+      doorLog: [
+        { id: 'FD30-B02', t: 'Closer adjusted, latching checked', status: 'Completed', tone: green },
+        { id: 'FD30-B09', t: 'Seal worn at hinge side — replaced', status: 'Completed', tone: green },
+        { id: 'FD60-B14', t: 'Frame damaged — remedial quote issued', status: 'Approval req.', tone: red },
+        { id: 'FD30-B21', t: 'Leaf dropping — hinges to replace', status: 'New issue', tone: amber }
+      ],
+      remedials: [
+        { t: 'Pick up wear and defects earlier', b: 'So issues become visible rather than quietly sitting unnoticed.' },
+        { t: 'Deal with straightforward maintenance as it appears', b: 'Rather than allowing every small problem to join the next large remedial programme.' },
+        { t: 'Spot larger requirements sooner', b: 'If a door needs more significant repair, investigation or replacement, the requirement becomes visible earlier.' },
+        { t: 'Keep a clearer action list', b: 'So the estate is easier to manage between larger inspection cycles.' }
+      ].map((r, i) => ({ ...r, n: n(i) })),
+      steps: [
+        { t: 'One commercial building', h: '120px', bg: '#FFFFFF', ink: '#23282C' },
+        { t: 'A few priority sites', h: '170px', bg: '#E9EDF1', ink: '#23282C' },
+        { t: 'A regional group of properties', h: '230px', bg: '#0E6FAF', ink: '#FFFFFF' }
+      ].map((s, i) => ({ ...s, n: 'Step ' + n(i) })),
+      altStarts: ['An existing remedial backlog', 'A scheduled inspection & maintenance cycle', 'Capacity alongside your contractor'],
+      freqFactors: ['the type and use of the building', 'how heavily the doors are used', 'their condition', 'the risks within the premises', 'the inspection or checking requirements that apply'],
+      escalate: [
+        { label: 'Maintain', t: 'Adjustment or routine maintenance', b: 'A straightforward issue that can be dealt with appropriately.', tone: blue },
+        { label: 'Repair', t: 'Remedial repair', b: 'More involved work that needs to be scoped and completed.', tone: green },
+        { label: 'Investigate', t: 'Further investigation', b: 'Where more information is needed before the right action can be confirmed.', tone: red },
+        { label: 'Replace', t: 'Replacement', b: 'Where the existing door or doorset is no longer suitable for repair.', tone: amber }
+      ],
+      evIntro: ['Maintenance records should be useful to the person managing the estate afterwards.'],
+      evItems: ['which door was worked on', 'what was identified', 'what action was taken', 'the supporting evidence', 'anything still outstanding', 'what needs attention next'],
+      evShots: [
+        { src: ((window.__resources||{})["src/assets/images/evidence/dds-install-checks.jpeg"]||"assets/dds-install-checks.jpeg"), alt: 'Door Data Systems checks with photo evidence per question', label: 'Checks · photo evidence per item', pos: '50% 0%' },
+        { src: ((window.__resources||{})["src/assets/images/evidence/dds-parts-list.jpeg"]||"assets/dds-parts-list.jpeg"), alt: 'Door Data Systems parts list for a single door', label: 'Door record · parts list', pos: '50% 0%' }
+      ],
+      startPoints: [
+        { t: 'One site', b: 'Start with a building that currently needs attention.' },
+        { t: 'A priority group of properties', b: 'Focus on the part of the estate creating the most work.' },
+        { t: 'An existing remedial backlog', b: 'Bring the immediate issues back under control before establishing the recurring programme.' },
+        { t: 'A scheduled maintenance cycle', b: 'Put a clearer rhythm around inspections and maintenance.' },
+        { t: 'Overflow work', b: 'Use JFD alongside your existing supplier where you need extra capacity.' },
+        { t: 'A defined trial', b: 'Start with a manageable piece of the estate before deciding whether to extend the relationship.' }
+      ].map((s, i) => ({ ...s, n: n(i) })),
+      why: [
+        { title: 'Fire doors are our specialist focus.', lines: ['JFD works specifically around fire doors, covering inspection, maintenance, remedial work and replacement.', 'That means maintenance sits within the wider job of understanding the door, dealing with the right issue and recording what happened afterwards.'] },
+        { title: 'Start with the estate you actually need help with.', lines: ['One building, a few priority sites or a defined package of work.', 'There’s no need to turn a maintenance problem into an estate-wide supplier change from the outset.'] },
+        { title: 'We can deal with what maintenance uncovers.', lines: ['If a visit identifies work beyond routine maintenance, JFD can also support repairs, remedials or replacement where required.'] },
+        { title: 'Clear records are part of the job.', lines: ['The useful outcome isn’t simply a completed visit.', 'It’s knowing what was done, what remains open and what should happen next.'] },
+        { title: 'Based in the South West.', lines: ['JFD supports commercial buildings and estates across Plymouth, Devon, Cornwall and the wider region.'] }
+      ],
+      whyNotes: ['confirmed accreditations / qualifications', 'project / multi-site / quantitative proof'],
+      faqs: [
+        { q: 'What does fire door maintenance include?', a: ['Depending on the doors and issues identified, maintenance can include checks of existing doors, adjustments, work to closers, hinges, seals, gaps, alignment and ironmongery, minor repairs and the identification of more substantial remedial or replacement work.', 'The exact scope should reflect the doors and estate being maintained.'] },
+        { q: 'How often should fire doors be maintained?', a: ['There isn’t one useful maintenance interval for every building.', 'Frequency can depend on factors including building use, door usage, condition, risk and the requirements applying to the premises.', 'Once JFD understands your estate and current records, we can help establish a more appropriate maintenance approach.'], note: 'regulatory wording to be fact-checked' },
+        { q: 'What’s the difference between a fire door inspection and maintenance?', a: ['An inspection is primarily about assessing the condition of the doors and identifying issues.', 'Maintenance is the practical work involved in keeping doors functioning properly and dealing with issues that arise.', 'In an ongoing programme, the two naturally connect: inspect, identify, maintain or repair, record and review.'] },
+        { q: 'Can fire doors be repaired during a maintenance visit?', a: ['Some straightforward issues may be suitable for maintenance or adjustment.', 'Other defects may require a separate remedial scope, further investigation or replacement.'], note: 'exact JFD operating process' },
+        { q: 'What happens if a door needs replacing?', a: ['Where maintenance identifies that repair is no longer appropriate, JFD can help scope and deliver the required replacement work.'], link: 'Fire Door Replacement & Installation →', href: 'Service%20Replacement.dc.html' },
+        { q: 'Can JFD maintain fire doors across multiple sites?', a: ['Potentially, yes.', 'If you manage several properties across the South West, tell us where they are and how your fire doors are currently being managed.', 'We can then establish whether JFD is a suitable fit for the programme.'], note: 'operating geography and multi-site capacity' },
+        { q: 'Can you take over an existing fire door maintenance programme?', a: ['Potentially.', 'The first step would be to understand how your current programme works, what records already exist and what you need JFD to take responsibility for.'] },
+        { q: 'Can we start with only part of our estate?', a: ['Yes.', 'A programme can begin with a single property, priority sites or another defined piece of work rather than moving the entire estate at once.'] },
+        { q: 'What records do we receive after maintenance work?', a: ['The aim is to provide clear records showing the work carried out against the relevant doors, together with supporting evidence and anything that still requires attention.'], note: 'exact JFD output before publication' }
+      ],
+      ctaBody: ['Tell us about your building or estate, how you’re handling fire doors today and where the pressure points are.', 'We’ll help work out the most sensible next step.']
+    };
+  }
+}
+</script>
+
+
+</body></html>

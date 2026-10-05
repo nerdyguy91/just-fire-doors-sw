@@ -1,0 +1,303 @@
+---
+/**
+ * "Why JFD" section.
+ *   service  prototype JfdWhy: eyebrow, title, photo, BlueSky badge; numbered reasons.
+ *   home     home variant: sticky left column (title, line, photo, link); reasons may carry
+ *            chips and the BlueSky badge.
+ * The badge only renders while the BlueSky credential exists in business.ts.
+ */
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import { getCredential } from '../../data/business';
+import { paths } from '../../data/paths';
+import Img from '../ui/Img.astro';
+
+export interface Reason {
+  title: string;
+  lines?: string[];
+  chips?: string[];
+  badge?: boolean;
+}
+
+interface Props {
+  title: string;
+  items: Reason[];
+  image: { src: ImageMetadata; alt: string; position?: string; caption: string };
+  variant?: 'service' | 'home';
+  /** Home variant: line under the title and link below the photo. */
+  lead?: string;
+  link?: { label: string; href: string };
+  id?: string;
+  /** In-page anchor for the section. */
+  anchor?: string;
+}
+
+const {
+  title,
+  items,
+  image,
+  variant = 'service',
+  lead,
+  link = { label: 'Why JFD →', href: paths.about },
+  id = 'why-title',
+  anchor = 'why',
+} = Astro.props;
+const bluesky = getCredential('bluesky');
+const home = variant === 'home';
+---
+
+<section class:list={['why', `why--${variant}`]} id={anchor} aria-labelledby={id}>
+  <div class="why__inner">
+    <div class="why__aside">
+      {!home && <p class="jfd-eyebrow">Why JFD</p>}
+      <h2 {id} class:list={[home ? 'why__title-home' : 'jfd-h2 why__title']}>
+        {title}
+      </h2>
+      {lead && <p class="why__lead">{lead}</p>}
+      <figure class="why__figure">
+        <div class="why__photo">
+          <Img
+            src={image.src}
+            alt={image.alt}
+            position={image.position}
+            sizes="(min-width: 980px) 440px, 90vw"
+          />
+        </div>
+        <figcaption class="why__caption">{image.caption}</figcaption>
+      </figure>
+      {!home && bluesky?.logo && (
+        <div class="why__badge-row">
+          <Image
+            src={bluesky.logo.src}
+            alt={bluesky.logo.alt}
+            width={50}
+            height={50}
+            densities={[1, 2]}
+            class="why__badge"
+          />
+          <span class="why__badge-text">
+            BlueSky third-party certified
+            <br />
+            installation &amp; fire stopping · FDI-146
+          </span>
+        </div>
+      )}
+      {home && (
+        <a class="jfd-link" href={link.href}>
+          {link.label}
+        </a>
+      )}
+    </div>
+    <ol class="why__reasons" role="list">
+      {items.map((r, i) => (
+        <li class="why__reason">
+          <span class="why__n" aria-hidden="true">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <div class="why__reason-body">
+            <h3 class="why__reason-title">{r.title}</h3>
+            {r.chips && r.chips.length > 0 && (
+              <ul class="why__chips" role="list">
+                {r.chips.map((c) => (
+                  <li class="why__chip">{c}</li>
+                ))}
+              </ul>
+            )}
+            {(r.lines ?? []).filter(Boolean).map((line) => (
+              <p class="why__line">{line}</p>
+            ))}
+            {r.badge && bluesky?.logo && (
+              <span class="why__inline-badge">
+                <Image
+                  src={bluesky.logo.src}
+                  alt=""
+                  width={46}
+                  height={46}
+                  densities={[1, 2]}
+                  class="why__badge"
+                />
+                <span class="why__badge-text">
+                  Third-party certified
+                  <br />
+                  installation &amp; fire stopping
+                </span>
+              </span>
+            )}
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .why {
+    background: var(--jfd-surface);
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .why__inner {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: var(--jfd-section-y-fluid) var(--jfd-gutter-fluid);
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(28px, 6vw, 48px) 80px;
+    align-items: flex-start;
+  }
+  /* Home variant: equal two-column grid, as in the prototype home page. */
+  .why--home .why__inner {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  }
+  .why__aside {
+    min-width: 0;
+    max-width: 440px;
+    flex: 1 1 300px;
+  }
+  .why--home .why__aside {
+    position: sticky;
+    top: 108px;
+  }
+  .why__title {
+    margin: 0 0 26px;
+    text-wrap: pretty;
+  }
+  .why__title-home {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(34px, 4.2vw, 54px);
+    font-weight: 600;
+    line-height: 1.08;
+    margin: 0 0 18px;
+  }
+  .why__lead {
+    font-size: 17.5px;
+    line-height: 1.62;
+    color: var(--jfd-ink-2);
+    margin: 0 0 26px;
+    max-width: 40ch;
+    text-wrap: pretty;
+  }
+  .why__figure {
+    margin: 0 0 26px;
+  }
+  .why--home .why__figure {
+    margin-bottom: 24px;
+  }
+  .why__photo {
+    aspect-ratio: 5 / 4;
+    overflow: hidden;
+    background: var(--jfd-media-bg);
+    border: 1px solid var(--jfd-rule);
+  }
+  .why__photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .why__caption {
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-4);
+    margin-top: 10px;
+  }
+  .why__badge-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 18px;
+    border-top: 1px solid var(--jfd-rule);
+  }
+  .why :global(.why__badge) {
+    border-radius: 50%;
+    object-fit: cover;
+    transform: scale(1.03);
+  }
+  .why__badge-text {
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+    line-height: 1.6;
+  }
+  .why__reasons {
+    min-width: 0;
+    flex: 2 1 520px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .why--home .why__reasons {
+    flex: 1 1 300px;
+  }
+  .why__reason {
+    display: grid;
+    grid-template-columns: 46px minmax(0, 1fr);
+    gap: 4px 18px;
+    padding: 24px 0 26px;
+    border-top: 1px solid var(--jfd-rule);
+    align-items: start;
+  }
+  .why--home .why__reason {
+    padding: 26px 0 30px;
+  }
+  .why__n {
+    font-family: var(--jfd-font-mono);
+    font-size: 12px;
+    color: var(--jfd-ink-4);
+    padding-top: 6px;
+  }
+  .why__reason-body {
+    min-width: 0;
+    max-width: 60ch;
+  }
+  .why--home .why__reason-body {
+    max-width: 56ch;
+  }
+  .why__reason-title {
+    font-family: var(--jfd-font-display);
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1.24;
+    margin: 0 0 8px;
+    text-wrap: pretty;
+  }
+  .why--home .why__reason-title {
+    font-size: 27px;
+    line-height: 1.26;
+    margin: 0;
+  }
+  .why__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0 2px;
+    padding: 0;
+    list-style: none;
+  }
+  .why__chip {
+    font-family: var(--jfd-font-mono);
+    font-size: 12.5px;
+    text-transform: uppercase;
+    color: var(--jfd-graphite);
+    background: var(--jfd-tint);
+    padding: 8px 12px;
+  }
+  .why__line {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 8px 0 0;
+  }
+  .why--home .why__line {
+    margin-top: 12px;
+  }
+  .why__inline-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--jfd-meta-rule);
+  }
+</style>

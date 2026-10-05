@@ -1,0 +1,32 @@
+---
+/**
+ * Just Fire Doors SW logo, vectorised from the supplied logo artwork (src/assets/brand/).
+ * - on-light: azure door and lettering, graphite "SW" (header)
+ * - on-dark: azure door and lettering, white "SW" (original artwork colours; footer)
+ * Served as a cached, hashed SVG file rather than inlined (the paths are ~24 KB).
+ * Decorative here: the surrounding link carries the accessible name.
+ */
+import onDark from '../../assets/brand/logo-on-dark.svg?url';
+import onLight from '../../assets/brand/logo-on-light.svg?url';
+
+interface Props {
+  variant: 'on-light' | 'on-dark';
+  /** Rendered height in px; width follows the artwork's 1012 × 270 aspect ratio. */
+  height: number;
+  lazy?: boolean;
+  class?: string;
+}
+
+const { variant, height, lazy = false, class: className } = Astro.props;
+const width = Math.round((height * 1012) / 270);
+---
+
+<img
+  src={variant === 'on-dark' ? onDark : onLight}
+  alt=""
+  {width}
+  {height}
+  loading={lazy ? 'lazy' : undefined}
+  decoding="async"
+  class={className}
+/>

@@ -1,0 +1,273 @@
+---
+/**
+ * One labelled form control: text, email, tel, textarea, select, or a Yes/No style choice
+ * (native radios styled as buttons). Uploads use FileField.
+ *
+ *   variant  contact  hint under the label in action blue, "Fix" badge on errors
+ *            quote    grey hint above the control
+ *
+ * The error line is empty and hidden until src/scripts/forms.ts fills it. That script also sets
+ * aria-invalid and adds the error to aria-describedby.
+ */
+import { maxLength, type FieldDef } from '../../lib/enquiry/fields';
+
+interface Props {
+  field: FieldDef;
+  /** DOM id prefix, e.g. "c" or "q-survey". Ids must be unique on the page. */
+  prefix: string;
+  variant?: 'contact' | 'quote';
+}
+
+const { field, prefix, variant = 'quote' } = Astro.props;
+const id = `${prefix}-${field.id}`;
+const hintId = field.hint ? `${id}-hint` : undefined;
+const errId = `${id}-err`;
+const tag = field.required ? 'Required' : field.contact ? 'Email or phone' : 'Optional';
+const isKey = field.required || field.contact;
+const shared = {
+  id,
+  name: field.id,
+  class: 'field__control',
+  'aria-describedby': hintId,
+};
+---
+
+<div
+  class:list={['field', `field--${variant}`, { 'field--wide': field.wide }]}
+  data-field={field.id}
+>
+  {field.kind === 'seg' ? (
+    <fieldset class="field__group">
+      <legend class="field__legend">{field.label}</legend>
+      <div class="field__options">
+        {field.options?.map((option) => (
+          <label class="seg">
+            <input class="jfd-visually-hidden" type="radio" name={field.id} value={option} />
+            <span class="seg__box">{option}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  ) : (
+    <>
+      <label class="field__label" for={id}>
+        {field.label}
+        <span class:list={['field__tag', { 'field__tag--key': isKey }]}>{tag}</span>
+      </label>
+      {field.hint && (
+        <p class="field__hint" id={hintId}>
+          {variant === 'contact' && <span class="field__hint-mark" aria-hidden="true" />}
+          {field.hint}
+        </p>
+      )}
+      {field.kind === 'area' ? (
+        <textarea {...shared} rows={variant === 'contact' ? 5 : 4} maxlength={maxLength(field)} />
+      ) : field.kind === 'select' ? (
+        <div class="field__select">
+          <select {...shared}>
+            <option value="">Choose one, or leave blank</option>
+            {field.options?.map((option) => (
+              <option value={option}>{option}</option>
+            ))}
+          </select>
+          <span class="field__chevron" aria-hidden="true" />
+        </div>
+      ) : (
+        <input
+          {...shared}
+          type={field.kind === 'email' || field.kind === 'tel' ? field.kind : 'text'}
+          autocomplete={field.autocomplete ?? 'off'}
+          placeholder={field.placeholder}
+          maxlength={maxLength(field)}
+          required={field.required}
+        />
+      )}
+      <p class="field__error" id={errId} data-error hidden>
+        {variant === 'contact' && (
+          <span class="field__fix" aria-hidden="true">
+            Fix
+          </span>
+        )}
+        <span data-error-text />
+      </p>
+    </>
+  )}
+</div>
+
+<style>
+  .field {
+    min-width: 0;
+  }
+  .field--wide {
+    grid-column: 1 / -1;
+  }
+  .field__label {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  .field--quote .field__label {
+    margin-bottom: 4px;
+  }
+  .field__tag {
+    letter-spacing: normal;
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+    font-weight: 400;
+    margin-left: 6px;
+  }
+  .field__tag--key {
+    color: var(--jfd-action);
+  }
+
+  .field__hint {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--jfd-ink-3);
+    margin: 0 0 8px;
+  }
+  .field--contact .field__hint {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    color: var(--jfd-action);
+    font-weight: 500;
+    margin: 6px 0 0;
+  }
+  .field__hint-mark {
+    width: 16px;
+    height: 2px;
+    background: var(--jfd-azure);
+    flex-shrink: 0;
+  }
+
+  .field__control {
+    display: block;
+    width: 100%;
+    height: 52px;
+    margin-top: 6px;
+    padding: 0 14px;
+    border: 1px solid var(--jfd-rule-strong);
+    border-radius: 0;
+    background: var(--jfd-surface);
+    font: inherit;
+    font-size: 16px;
+    color: var(--jfd-graphite);
+  }
+  .field--contact .field__control {
+    margin-top: 8px;
+  }
+  textarea.field__control {
+    height: auto;
+    min-height: 112px;
+    padding: 12px 14px;
+    line-height: 1.5;
+    resize: vertical;
+  }
+  .field--contact textarea.field__control {
+    min-height: 132px;
+  }
+  .field__control:focus {
+    outline: 2px solid var(--jfd-action);
+    outline-offset: 0;
+    border-color: var(--jfd-action);
+  }
+  .field__control[aria-invalid='true'] {
+    border-color: var(--jfd-status-decide);
+  }
+
+  .field__select {
+    position: relative;
+    margin-top: 8px;
+  }
+  .field__select .field__control {
+    margin-top: 0;
+    padding: 0 44px 0 14px;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+  .field__chevron {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border-right: 1.5px solid var(--jfd-graphite);
+    border-bottom: 1.5px solid var(--jfd-graphite);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+  }
+
+  .field__error {
+    font-size: 14px;
+    color: var(--jfd-status-decide);
+    margin: 8px 0 0;
+    font-weight: 500;
+  }
+  .field--contact .field__error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .field .field__error[hidden] {
+    display: none;
+  }
+  .field__fix {
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    border: 1px solid var(--jfd-status-decide);
+    padding: 1px 5px;
+  }
+
+  /* Yes / No / Not sure: native radios styled as buttons. */
+  .field__group {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+  .field__legend {
+    padding: 0;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+  .field__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .seg {
+    position: relative;
+    display: block;
+    cursor: pointer;
+  }
+  .seg__box {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 20px;
+    border: 1px solid var(--jfd-rule-strong);
+    background: var(--jfd-surface);
+    color: var(--jfd-graphite);
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .seg:hover .seg__box {
+    border-color: var(--jfd-action);
+  }
+  .seg input:checked + .seg__box {
+    border-color: var(--jfd-action);
+    background: var(--jfd-action);
+    color: #ffffff;
+  }
+  .seg input:focus-visible + .seg__box {
+    outline: var(--focus-ring-width) solid var(--focus-ring);
+    outline-offset: var(--focus-ring-offset);
+  }
+</style>

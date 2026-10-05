@@ -1,0 +1,1578 @@
+---
+/**
+ * /about/ (nav label "Why JFD"). Ported from docs/prototype/pages/why-jfd.dc.html.
+ * Not ported until JFD supplies them (CONTENT-TODO.md): the "people behind JFD" team section
+ * (founder name, photo, year founded, team facts), placeholder stats and testimonials, and
+ * pending credentials.
+ */
+import { getCollection, getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import ProofStrip from '../components/sections/ProofStrip.astro';
+import Section from '../components/sections/Section.astro';
+import SectionHead from '../components/sections/SectionHead.astro';
+import CapabilityMap from '../components/sections/CapabilityMap.astro';
+import EvidenceBlock from '../components/sections/EvidenceBlock.astro';
+import FaqList from '../components/sections/FaqList.astro';
+import FinalCta from '../components/sections/FinalCta.astro';
+import StatusLabel from '../components/records/StatusLabel.astro';
+import Img from '../components/ui/Img.astro';
+import { business, getCredential } from '../data/business';
+import { paths, projectPath } from '../data/paths';
+import { quoteHref } from '../data/quote-routes';
+import { faqPage } from '../lib/schema';
+import daveyCorridor from '../assets/images/photos/davey-corridor.jpeg';
+import daveyLab from '../assets/images/photos/davey-lab-doorset.jpeg';
+import gapChecks from '../assets/images/evidence/dds-gap-checks.jpeg';
+import installChecks from '../assets/images/evidence/dds-install-checks.jpeg';
+
+const site = Astro.site!;
+const faqs = (await getEntry('faqs', 'about'))!.data;
+const projects = (await getCollection('projects', (p) => !p.data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const [firstProject, ...otherProjects] = projects;
+const bluesky = getCredential('bluesky');
+const crumbs = [{ name: 'Why JFD', path: paths.about }];
+const n2 = (i: number) => String(i + 1).padStart(2, '0');
+
+const starts = [
+  'one site',
+  'one survey',
+  'one job sheet',
+  'an ageing remedial list',
+  'a group of replacement doors',
+  'a maintenance requirement',
+  'overflow your provider can’t take',
+];
+const scale = [
+  'One job',
+  'One site',
+  'A defined backlog',
+  'Several properties',
+  'An ongoing programme',
+];
+const regionScale = [
+  { t: 'One problem site', size: 10 },
+  { t: 'A defined backlog', size: 15 },
+  { t: 'Several properties', size: 20 },
+  { t: 'An ongoing programme', size: 25 },
+];
+const regionProof = [
+  { k: 'Base', v: business.serviceArea.base },
+  { k: 'Coverage', v: 'Devon, Cornwall and the wider South West' },
+  { k: 'Contact', v: 'Direct with the people delivering the work' },
+];
+const stats = [
+  { n: '~150', label: 'doors across two schools, one holiday programme' },
+  { n: '~35', label: 'laboratory doorsets, University of Plymouth — with a return for Level 2' },
+  { n: 'Repeat', label: 'a high proportion of work comes from returning customers and referrals' },
+];
+const onboarding = [
+  {
+    t: 'Send us what you have',
+    b: 'A survey, inspection report, job sheet, remedial list or simply the requirement you need help with.',
+  },
+  {
+    t: 'Get a clear route forward',
+    b: 'We’ll establish what the work involves and what needs to happen next.',
+  },
+  {
+    t: 'Get the work completed',
+    b: 'JFD carries out the agreed work, with a clear view of progress as it moves forward.',
+  },
+  {
+    t: 'Finish with clear evidence',
+    b: 'See what has been completed and what, if anything, still needs attention.',
+  },
+];
+const quoteMini = [
+  { k: 'Repair', t: 'Adjust leaf, replace seals', c: '£185', tone: 'closed' as const },
+  { k: 'Replace', t: 'Supply & fit doorset', c: '£1,420', tone: 'onsite' as const },
+  { k: 'Investigate', t: 'Site check before specifying', c: '—', tone: 'decide' as const },
+];
+const credentialMark = { bluesky: '', carpenters: 'INST', dds: '' } as const;
+---
+
+<BaseLayout
+  title="Why Just Fire Doors | Fire Door Specialists, South West"
+  description="Just Fire Doors SW is a Plymouth-based fire door specialist: inspection, remedial works, maintenance and installation, with clear close-out evidence for every job."
+  breadcrumbs={crumbs}
+  schema={[faqPage(site, paths.about, faqs.items)]}
+>
+  <PageHero
+    breadcrumbs={crumbs}
+    size="large"
+    align="center"
+    contentWidth={560}
+    eyebrow="Specialist fire door contractors across the South West"
+  >
+    <Fragment slot="title">Why Just Fire Doors?</Fragment>
+    <p class="about-kicker">Fire doors are what we do.</p>
+    <p class="about-lead">
+      And we believe getting them inspected, repaired, replaced and properly closed out shouldn’t be
+      harder to manage than it needs to be.
+    </p>
+    <p class="about-tagline">{business.tagline}</p>
+    <div class="hero-actions hero-actions--stack">
+      <a class="jfd-btn" href={quoteHref()}>
+        Talk through your fire-door work
+      </a>
+      <p class="hero-prompt">
+        <span>Already have a survey or job sheet?</span>
+        <a class="jfd-link prompt-link" href={quoteHref('survey')}>
+          Send it over →
+        </a>
+      </p>
+    </div>
+
+    <div slot="aside" class="about-mosaic">
+      <figure class="about-mosaic__main">
+        <Img
+          src={daveyCorridor}
+          alt="JFD installer working on a laboratory corridor doorset, University of Plymouth Davey Building"
+          position="50% 35%"
+          priority
+          sizes="(min-width: 1240px) 340px, (min-width: 760px) 28vw, 55vw"
+          widths={[360, 640, 960]}
+        />
+        <figcaption>JFD on site · Davey Building</figcaption>
+      </figure>
+      <div class="about-mosaic__side">
+        <figure class="about-mosaic__phone">
+          <div>
+            <Img
+              src={gapChecks}
+              alt="Door Data Systems record showing gap checks with photos"
+              position="50% 0%"
+              sizes="(min-width: 1240px) 230px, 40vw"
+              widths={[360, 640]}
+            />
+          </div>
+          <figcaption>Door-level record · DDS</figcaption>
+        </figure>
+        <figure class="about-mosaic__small">
+          <Img
+            src={daveyLab}
+            alt="Completed PVC-wrapped laboratory doorset"
+            position="50% 45%"
+            sizes="(min-width: 1240px) 230px, 40vw"
+            widths={[360, 640]}
+          />
+        </figure>
+      </div>
+    </div>
+  </PageHero>
+
+  <ProofStrip />
+
+  <!-- 01 · Specialist focus -->
+  <Section tone="surface" labelledby="focus-title">
+    <SectionHead
+      id="focus-title"
+      layout="split"
+      eyebrow="01 · Specialist focus"
+      title="The clue is in the name."
+      spacing={44}
+    >
+      <p class="strong-17">Just Fire Doors is focused on fire doors.</p>
+      <p class="t-body">
+        That means the work in front of you is our specialist area, whether you need:
+      </p>
+    </SectionHead>
+    <CapabilityMap closeOutHref="#close-out" />
+    <div class="pair">
+      <p class="pair__lead">
+        We’re not trying to be a general contractor with fire doors somewhere in a long list of
+        trades.
+      </p>
+      <p class="pair__statement">
+        We focus on the work your Estates, Facilities or Maintenance team actually needs help
+        getting done.
+      </p>
+    </div>
+    {bluesky?.logo && (
+      <p class="badge-row">
+        <Image
+          src={bluesky.logo.src}
+          alt={bluesky.logo.alt}
+          width={44}
+          height={44}
+          densities={[1, 2]}
+          class="badge-row__img"
+        />
+        <span>
+          BlueSky third-party certified for fire door installation and fire stopping. Installers are
+          qualified carpenters with fire-door-specific training.{' '}
+          <a class="jfd-link" href="#credentials">
+            See credentials ↓
+          </a>
+        </span>
+      </p>
+    )}
+  </Section>
+
+  <!-- 02 · How the work runs -->
+  <Section labelledby="runs-title">
+    <SectionHead
+      id="runs-title"
+      layout="split"
+      eyebrow="02 · How the work runs"
+      title="A straightforward way to get from finding to finished work."
+      titleWidth={18}
+      spacing={44}
+    >
+      <p class="runs__p">The fire-door work itself can be technical.</p>
+      <p class="runs__p runs__p--strong">Managing it shouldn’t have to be.</p>
+      <p class="t-muted">
+        JFD works around three simple stages — and each one ends with something you actually
+        receive.
+      </p>
+    </SectionHead>
+    <ol class="runs" role="list">
+      <li>
+        <div class="runs__head">
+          <span
+            class="runs__dot"
+            style="background: var(--jfd-status-decide)"
+            aria-hidden="true"
+          ></span>
+          <h3>Decide</h3>
+          <span class="runs__rule" aria-hidden="true"></span>
+          <span class="runs__arrow" aria-hidden="true">
+            →
+          </span>
+        </div>
+        <p class="runs__title">
+          Know what actually needs repairing or replacing, why and what it will cost.
+        </p>
+        <p class="runs__body">
+          Start with the survey, inspection report, job sheet or requirement you already have.
+          Clarify what needs repair, replacement or further investigation before the work moves
+          forward.
+        </p>
+        <span class="runs__receive">You receive · a clear quote</span>
+        <div class="mini">
+          <div class="mini__head">Quotation · Q-2291</div>
+          <table class="mini__table">
+            <caption class="jfd-visually-hidden">Illustrative quotation extract</caption>
+            <tbody>
+              {quoteMini.map((q) => (
+                <tr>
+                  <td>
+                    <StatusLabel tone={q.tone} class="mini__label">
+                      {q.k}
+                    </StatusLabel>
+                  </td>
+                  <td class="mini__t">{q.t}</td>
+                  <td class="mini__c">{q.c}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <span class="runs__note">Illustrative example</span>
+      </li>
+      <li>
+        <div class="runs__head">
+          <span
+            class="runs__dot"
+            style="background: var(--jfd-status-onsite)"
+            aria-hidden="true"
+          ></span>
+          <h3>Deliver</h3>
+          <span class="runs__rule" aria-hidden="true"></span>
+          <span class="runs__arrow" aria-hidden="true">
+            →
+          </span>
+        </div>
+        <p class="runs__title">
+          Get the work done with a clear view of what’s complete along the way.
+        </p>
+        <p class="runs__body">
+          Agree the scope, organise the work and keep sight of what has been completed and what is
+          still outstanding.
+        </p>
+        <span class="runs__receive">You receive · a progress view</span>
+        <div class="mini">
+          <div class="mini__head">Programme · 38 actions</div>
+          <div class="mini__progress">
+            <div class="mini__bar" aria-hidden="true">
+              <span style="flex: 21; background: var(--jfd-status-closed)"></span>
+              <span style="flex: 9; background: var(--jfd-status-onsite)"></span>
+              <span style="flex: 8; background: var(--jfd-rule-strong)"></span>
+            </div>
+            <ul class="mini__legend" role="list">
+              <li>
+                <StatusLabel tone="closed" class="mini__label">
+                  Complete · 21
+                </StatusLabel>
+              </li>
+              <li>
+                <StatusLabel tone="onsite" class="mini__label">
+                  Underway · 9
+                </StatusLabel>
+              </li>
+              <li>
+                <StatusLabel tone="neutral" class="mini__label">
+                  Planned · 8
+                </StatusLabel>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <span class="runs__note">Illustrative example</span>
+      </li>
+      <li>
+        <div class="runs__head">
+          <span
+            class="runs__dot"
+            style="background: var(--jfd-status-closed)"
+            aria-hidden="true"
+          ></span>
+          <h3>Close</h3>
+          <span class="runs__rule" aria-hidden="true"></span>
+        </div>
+        <p class="runs__title">Finish with clear evidence of what’s closed on the job sheet.</p>
+        <p class="runs__body">
+          Leave the work with records that show what was done and make anything still requiring
+          attention clear.
+        </p>
+        <span class="runs__receive">You receive · a door-level record</span>
+        <div class="runs__phone">
+          <div>
+            <Img
+              src={installChecks}
+              alt="Door Data Systems installation checks with photo evidence"
+              position="50% 18%"
+              sizes="(min-width: 1240px) 360px, 90vw"
+              widths={[360, 640]}
+            />
+          </div>
+        </div>
+        <span class="runs__note">Live JFD record · Door Data Systems</span>
+      </li>
+    </ol>
+    <p class="runs__foot">
+      <span class="runs__foot-label">Decide → Deliver → Close</span>That should show up in the
+      practical things you receive from JFD, not just in the words on this website.
+    </p>
+  </Section>
+
+  <!-- 03 · Starting points -->
+  <Section tone="tint" layout="split" min={340} labelledby="starting-title">
+    <div>
+      <SectionHead
+        id="starting-title"
+        eyebrow="03 · Starting points"
+        title="You don’t have to change everything to work with us."
+        titleWidth={16}
+      />
+      <p class="t-lead p17 start__lead">
+        Sometimes you need a new fire-door contractor across a programme. Sometimes you just need
+        somebody capable to take one piece of work off the list.
+      </p>
+      <p class="t-muted start__small">You can start with:</p>
+      <ul class="start__chips" role="list">
+        {starts.map((s) => (
+          <li class="jfd-chip">{s}</li>
+        ))}
+      </ul>
+      <p class="t-muted start__body">
+        You don’t need to move your whole estate or replace a supplier that is otherwise working
+        well.
+      </p>
+      <p class="statement-26 start__statement">
+        Start with the fire-door work that needs attention now.
+      </p>
+      <a class="jfd-btn" href={quoteHref()}>
+        Send us the work you need help with
+      </a>
+    </div>
+    <div>
+      <p class="t-mono-label">Start small · prove the relationship · expand if useful</p>
+      <ol class="scale" role="list">
+        {scale.map((s, i) => (
+          <li class:list={{ 'is-last': i === scale.length - 1 }} style={`margin-left: ${i * 18}px`}>
+            <span class="scale__n">{n2(i)}</span>
+            <span class="scale__t">{s}</span>
+            {i < scale.length - 1 && (
+              <span class="scale__arrow" aria-hidden="true">
+                ↓
+              </span>
+            )}
+          </li>
+        ))}
+      </ol>
+      <p class="side-route">
+        <span class="side-route__label">Side route</span>
+        <span>Overflow work alongside your existing provider</span>
+      </p>
+    </div>
+  </Section>
+
+  <!-- 04 · Real buildings -->
+  <Section tone="surface" labelledby="buildings-title">
+    <SectionHead
+      id="buildings-title"
+      layout="split"
+      eyebrow="04 · Real buildings"
+      title="Good fire-door work has to work around the building too."
+      titleWidth={18}
+    >
+      <p class="t-lead p17 buildings__p">
+        The specification matters. So does everything happening around it.
+      </p>
+      <p class="t-muted">
+        Fire-door work may need to happen around patients, staff, students, residents, other
+        contractors, access restrictions or a fixed programme deadline. JFD already has relevant
+        experience across healthcare and education environments.
+      </p>
+    </SectionHead>
+    <div class="buildings">
+      {firstProject && (
+        <a class="bcard bcard--big" href={projectPath(firstProject.id)}>
+          <span class="bcard__media">
+            <Img
+              src={firstProject.data.hero.image}
+              alt=""
+              position={firstProject.data.hero.position}
+              sizes="(min-width: 1240px) 580px, (min-width: 760px) 48vw, 90vw"
+            />
+          </span>
+          <div class="bcard__body">
+            <span class="bcard__tags">{firstProject.data.tags.join(' · ')}</span>
+            <span class="bcard__title bcard__title--big">{firstProject.data.title}</span>
+            <dl class="bcard__rows">
+              {firstProject.data.summary.map((r) => (
+                <div>
+                  <dt>{r.label}</dt>
+                  <dd>{r.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </a>
+      )}
+      <div class="buildings__side">
+        {otherProjects.map((p) => (
+          <a class="bcard bcard--side" href={projectPath(p.id)}>
+            <span class="bcard__media">
+              <Img
+                src={p.data.hero.image}
+                alt=""
+                position={p.data.card.position ?? p.data.hero.position}
+                sizes="130px"
+                widths={[360]}
+              />
+            </span>
+            <div class="bcard__body">
+              <span class="bcard__tags">{p.data.tags.join(' · ')}</span>
+              <span class="bcard__title">{p.data.title}</span>
+              <dl class="bcard__rows bcard__rows--small">
+                {p.data.summary.map((r) => (
+                  <div>
+                    <dt>{r.label}</dt>
+                    <dd>{r.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+    <div class="buildings__foot">
+      <p class="t-body buildings__close">
+        The useful proof isn’t simply that these names appear in a client list. It’s that JFD has
+        worked in environments where the fire-door requirement has to fit around the practical
+        realities of the building.
+      </p>
+      <a class="jfd-link" href={paths.projects}>
+        See our projects →
+      </a>
+    </div>
+  </Section>
+
+  <div id="close-out" class="close-out-anchor">
+    <EvidenceBlock
+      eyebrow="05 · Close-out"
+      title="The job isn’t finished just because somebody attended site."
+      intro={[
+        'Getting someone through the door is not the useful finish line. Your team needs to know what actually happened afterwards.',
+      ]}
+      listTitle="Clear close-out should help you see"
+      items={[
+        'which door or action the work relates to',
+        'what work was carried out',
+        'supporting photographs or evidence',
+        'whether the action is complete',
+        'relevant documentation or certification',
+        'anything that still needs attention',
+      ]}
+      outcome="Know what’s complete. Know what still needs doing."
+      closing="So when somebody asks whether an action can be closed, you aren’t left pulling apart emails and contractor notes to work it out."
+    />
+  </div>
+
+  <!-- 06 · Competence -->
+  <Section id="credentials" labelledby="credentials-title">
+    <div class="cred-head">
+      <div>
+        <p class="jfd-eyebrow">06 · Competence</p>
+        <h2 id="credentials-title" class="jfd-h2 cred-head__title">
+          Qualified to do the work properly.
+        </h2>
+        <p class="t-lead p17 cred-head__lead">
+          Fire-door work needs competent people making and carrying out the right decisions.
+        </p>
+      </div>
+      <p class="statement-26 cred-head__q">
+        Who is doing the work, what are they qualified to do, and what backs that up?
+      </p>
+    </div>
+    <div class="creds" role="table" aria-label="JFD credentials">
+      <div class="creds__row creds__row--head" role="row">
+        <span role="columnheader">Credential</span>
+        <span role="columnheader">What it proves</span>
+        <span role="columnheader">Verify</span>
+      </div>
+      {business.credentials.map((c) => (
+        <div class="creds__row" role="row">
+          <span class="creds__name" role="cell">
+            {c.logo ? (
+              <Image
+                src={c.logo.src}
+                alt=""
+                width={46}
+                height={46}
+                densities={[1, 2]}
+                class="creds__logo"
+              />
+            ) : (
+              <span class="creds__mark" aria-hidden="true">
+                {credentialMark[c.id]}
+              </span>
+            )}
+            <span>
+              <span class="creds__type">{c.type}</span>
+              <span class="creds__title">{c.name}</span>
+            </span>
+          </span>
+          <span class="creds__proves" role="cell">
+            {c.proves}
+          </span>
+          <span class="creds__verify" role="cell">
+            {c.verify}
+          </span>
+        </div>
+      ))}
+    </div>
+    <p class="creds__foot">
+      JFD’s current materials state that work is carried out with reference to relevant legislation,
+      guidance, manufacturer instructions and fire-test evidence.
+    </p>
+  </Section>
+
+  <!-- 07 · Regional -->
+  <Section tone="surface" labelledby="regional-title">
+    <div class="regional-head">
+      <div>
+        <p class="jfd-eyebrow">07 · Regional</p>
+        <h2 id="regional-title" class="jfd-h2 regional-head__title">
+          Based in the South West. Built to be responsive.
+        </h2>
+      </div>
+      <div>
+        <p class="t-lead p17 regional-head__p">
+          JFD is based in Plymouth and works across Devon, Cornwall and the wider South West. For
+          customers managing buildings across the region, that means working with a specialist
+          contractor that is close to the estates it serves.
+        </p>
+        <p class="strong-17 regional-head__strong">
+          And when you need to discuss the work, you’re dealing with the people responsible for
+          getting it delivered.
+        </p>
+      </div>
+    </div>
+    <p class="t-mono-label regional__label">Take on work at the size it actually arrives</p>
+    <ol class="region-scale" role="list">
+      {regionScale.map((r, i) => (
+        <li>
+          <span class="region-scale__marker" aria-hidden="true">
+            <span class="region-scale__box" style={`width: ${r.size}px; height: ${r.size}px`} />
+            {i < regionScale.length - 1 && (
+              <>
+                <span class="region-scale__line" />
+                <span class="region-scale__arrow" aria-hidden="true">
+                  →
+                </span>
+              </>
+            )}
+          </span>
+          <span class="region-scale__t">{r.t}</span>
+        </li>
+      ))}
+    </ol>
+    <dl class="region-proof">
+      {regionProof.map((r) => (
+        <div>
+          <dt>{r.k}</dt>
+          <dd>{r.v}</dd>
+        </div>
+      ))}
+    </dl>
+  </Section>
+
+  <!-- 08 · Proof -->
+  <Section tone="dark" labelledby="proof-title">
+    <div class="proof-head">
+      <div>
+        <p class="dark-eyebrow">08 · Proof</p>
+        <h2 id="proof-title" class="proof-head__title">
+          The proof matters more than the adjectives.
+        </h2>
+      </div>
+      <p class="t-lead p17 proof-head__lead">
+        We could tell you JFD is reliable, experienced and easy to work with. Here is what we can
+        show you.
+      </p>
+    </div>
+    <ul class="stats" role="list">
+      {stats.map((s) => (
+        <li>
+          <span class="stats__n">{s.n}</span>
+          <span class="stats__label">{s.label}</span>
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  <!-- 10 · Getting started -->
+  <Section tone="surface" labelledby="started-title">
+    <div class="started-head">
+      <div>
+        <p class="jfd-eyebrow">10 · Getting started</p>
+        <h2 id="started-title" class="jfd-h2 started-head__title">
+          Straightforward from the first job.
+        </h2>
+      </div>
+      <a class="jfd-btn jfd-btn--sm" href={quoteHref()}>
+        Talk through your fire-door work
+      </a>
+    </div>
+    <ol class="onboarding" role="list">
+      {onboarding.map((o, i) => (
+        <li>
+          <span class="onboarding__n" aria-hidden="true">
+            <span>{i + 1}</span>
+            <span class="onboarding__rule" />
+          </span>
+          <h3>{o.t}</h3>
+          <p>{o.b}</p>
+        </li>
+      ))}
+    </ol>
+  </Section>
+
+  <FaqList title={faqs.title} items={faqs.items} />
+
+  <FinalCta
+    labelA="Next step"
+    title="Got fire-door work that needs a clear route forward?"
+    body={['Start with the survey, job sheet or requirement you already have.']}
+    cta={{ label: 'Send us your survey or job sheet', href: quoteHref('survey') }}
+    labelB="Or"
+    altTitle="Rather talk it through first?"
+    altBody="Tell us about the building and the work in front of you."
+    altCta={{ label: 'Talk through your fire-door work', href: paths.contact }}
+  />
+</BaseLayout>
+
+<style>
+  .prompt-link {
+    font-size: 15.5px;
+  }
+  p.hero-prompt {
+    margin: 0;
+  }
+  .about-kicker {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(28px, 3vw, 36px);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--jfd-action);
+    margin: 0 0 18px;
+  }
+  .about-lead {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0 0 20px;
+    max-width: 48ch;
+    text-wrap: pretty;
+  }
+  .about-tagline {
+    font-family: var(--jfd-font-mono);
+    font-size: 13px;
+    text-transform: uppercase;
+    color: var(--jfd-graphite);
+    margin: 0 0 30px;
+  }
+  .p17 {
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .strong-17 {
+    font-size: 17.5px;
+    line-height: 1.6;
+    color: var(--jfd-graphite);
+    font-weight: 500;
+    margin: 0 0 8px;
+    max-width: 50ch;
+  }
+  .statement-26 {
+    font-family: var(--jfd-font-display);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0;
+  }
+  .dark-eyebrow {
+    font-family: var(--jfd-font-mono);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    color: var(--jfd-azure-soft);
+    margin: 0 0 20px;
+  }
+
+  /* Hero mosaic */
+  .about-mosaic {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 10px;
+    align-items: stretch;
+  }
+  .about-mosaic figure {
+    margin: 0;
+  }
+  .about-mosaic :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .about-mosaic__main,
+  .about-mosaic__small {
+    position: relative;
+    overflow: hidden;
+    background: var(--jfd-media-bg);
+    border: 1px solid var(--jfd-rule);
+  }
+  .about-mosaic__main {
+    min-height: clamp(320px, 80vw, 460px);
+  }
+  .about-mosaic__main :global(picture),
+  .about-mosaic__small :global(picture),
+  .about-mosaic__main :global(img),
+  .about-mosaic__small :global(img) {
+    position: absolute;
+    inset: 0;
+  }
+  .about-mosaic__main figcaption {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: var(--jfd-surface);
+    padding: 8px 12px;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-graphite);
+  }
+  .about-mosaic__side {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 10px;
+    min-width: 0;
+  }
+  .about-mosaic__phone {
+    background: #121620;
+    border: 1px solid var(--jfd-dark-rule);
+    padding: 8px;
+  }
+  .about-mosaic__phone > div {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+  }
+  .about-mosaic__phone figcaption {
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #c8d0d6;
+    padding: 8px 2px 2px;
+  }
+  .about-mosaic__small {
+    min-height: 140px;
+  }
+
+  /* 01 */
+  .pair {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 16px 80px;
+    margin-top: 40px;
+  }
+  .pair__lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0;
+  }
+  .pair__statement {
+    font-family: var(--jfd-font-display);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0;
+  }
+  .badge-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 28px 0 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--jfd-rule);
+    font-size: 15px;
+    color: var(--jfd-ink-2);
+  }
+  .badge-row :global(.badge-row__img) {
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .badge-row .jfd-link {
+    font-size: 15px;
+  }
+
+  /* 02 How the work runs */
+  .runs__p {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0 0 6px;
+  }
+  .runs__p--strong {
+    color: var(--jfd-graphite);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .runs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 1px;
+    border: 1px solid var(--jfd-rule);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .runs > li {
+    outline: 1px solid var(--jfd-rule);
+    background: var(--jfd-surface);
+    padding: 28px 24px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .runs__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .runs__dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+  }
+  .runs h3 {
+    font-family: var(--jfd-font-mono);
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--jfd-action);
+    margin: 0;
+  }
+  .runs__rule {
+    flex: 1;
+    height: 1px;
+    background: var(--jfd-rule);
+  }
+  .runs__arrow {
+    color: var(--jfd-underline);
+  }
+  .runs__title {
+    font-family: var(--jfd-font-display);
+    font-size: 23px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 10px;
+  }
+  .runs__body {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--jfd-ink-3);
+    margin: 0 0 22px;
+    flex: 1;
+  }
+  .runs__receive,
+  .runs__note {
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-4);
+    margin-bottom: 8px;
+  }
+  .runs__note {
+    margin: 8px 0 0;
+  }
+  .mini {
+    border: 1px solid var(--jfd-rule-strong);
+    background: var(--jfd-surface);
+  }
+  .mini__head {
+    padding: 9px 12px;
+    background: var(--jfd-tint);
+    border-bottom: 1px solid var(--jfd-rule);
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+  }
+  .mini__table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .mini__table td {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--jfd-rule-soft);
+    vertical-align: baseline;
+  }
+  .mini__table td:first-child {
+    padding-left: 12px;
+    width: 88px;
+  }
+  .mini__table td:last-child {
+    padding-right: 12px;
+    text-align: right;
+  }
+  .mini :global(.mini__label) {
+    font-size: 9.5px;
+    letter-spacing: normal;
+    gap: 6px;
+  }
+  .mini__t {
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 0 10px !important;
+  }
+  .mini__c {
+    font-family: var(--jfd-font-mono);
+    font-size: 12px;
+  }
+  .mini__progress {
+    padding: 14px 12px 12px;
+  }
+  .mini__bar {
+    display: flex;
+    height: 10px;
+    gap: 2px;
+    margin-bottom: 10px;
+  }
+  .mini__legend {
+    display: grid;
+    gap: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .mini__legend :global(.mini__label) {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+  .runs__phone {
+    background: #121620;
+    border: 1px solid var(--jfd-dark-rule);
+    padding: 6px;
+  }
+  .runs__phone > div {
+    height: 176px;
+    overflow: hidden;
+  }
+  .runs__phone :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .runs__foot {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 32px 0 0;
+    max-width: 70ch;
+  }
+  .runs__foot-label {
+    font-family: var(--jfd-font-mono);
+    font-size: 13px;
+    text-transform: uppercase;
+    color: var(--jfd-action);
+    margin-right: 14px;
+  }
+
+  /* 03 Starting points */
+  .start__lead {
+    margin-bottom: 10px;
+    max-width: 46ch;
+  }
+  .start__small {
+    margin-bottom: 8px;
+  }
+  .start__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+  }
+  .start__chips li {
+    background: var(--jfd-surface);
+    padding: 7px 10px;
+    font-size: 11.5px;
+  }
+  .start__body {
+    color: var(--jfd-ink-2);
+    margin-bottom: 8px;
+    max-width: 48ch;
+  }
+  .start__statement {
+    margin-bottom: 26px;
+  }
+  .scale {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 6px;
+  }
+  .scale li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--jfd-surface);
+    color: var(--jfd-graphite);
+    border: 1px solid var(--jfd-rule-strong);
+    padding: 14px 18px;
+  }
+  .scale li.is-last {
+    background: var(--jfd-action);
+    color: #ffffff;
+  }
+  .scale__n,
+  .scale__arrow {
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    opacity: 0.8;
+  }
+  .scale__arrow {
+    font-size: 12px;
+  }
+  /* Production: full opacity on action blue for AA contrast (0.8 gives 4.03:1). */
+  .scale li.is-last .scale__n {
+    opacity: 1;
+  }
+  .scale__t {
+    font-family: var(--jfd-font-display);
+    font-size: 22px;
+    font-weight: 600;
+    flex: 1;
+  }
+  .side-route {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 16px 0 0;
+    padding: 14px 18px;
+    border: 1px dashed #7fa6c2;
+    background: var(--jfd-surface);
+    font-size: 15.5px;
+    font-weight: 500;
+  }
+  .side-route__label {
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: var(--jfd-action);
+  }
+
+  /* 04 Real buildings */
+  .buildings__p {
+    margin-bottom: 8px;
+  }
+  .buildings {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: 24px;
+  }
+  .buildings__side {
+    min-width: 0;
+    display: grid;
+    gap: 24px;
+  }
+  .bcard {
+    background: var(--jfd-ground);
+    border: 1px solid var(--jfd-rule);
+    color: var(--jfd-graphite);
+    transition: border-color 0.2s ease;
+  }
+  .bcard:hover {
+    border-color: var(--jfd-action);
+    color: var(--jfd-graphite);
+  }
+  .bcard--big {
+    display: flex;
+    flex-direction: column;
+  }
+  .bcard--side {
+    display: grid;
+    grid-template-columns: 130px minmax(0, 1fr);
+  }
+  .bcard__media {
+    display: block;
+    overflow: hidden;
+    background: var(--jfd-media-bg);
+  }
+  .bcard--big .bcard__media {
+    aspect-ratio: 16 / 9;
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .bcard--side .bcard__media {
+    border-right: 1px solid var(--jfd-rule);
+  }
+  /* Production: stack the side cards on small phones so the fact rows have room. */
+  @media (max-width: 479px) {
+    .bcard--side {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .bcard--side .bcard__media {
+      height: 170px;
+      border-right: 0;
+      border-bottom: 1px solid var(--jfd-rule);
+    }
+  }
+  .bcard__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .bcard__body {
+    display: block;
+    padding: 20px 22px 22px;
+    min-width: 0;
+  }
+  .bcard--big .bcard__body {
+    padding: 24px 24px 26px;
+  }
+  .bcard__tags {
+    display: block;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-action);
+    margin-bottom: 8px;
+  }
+  .bcard--big .bcard__tags {
+    margin-bottom: 10px;
+  }
+  .bcard__title {
+    display: block;
+    font-family: var(--jfd-font-display);
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1.12;
+    margin-bottom: 12px;
+  }
+  .bcard__title--big {
+    font-size: 32px;
+    line-height: 1.1;
+    margin-bottom: 18px;
+  }
+  .bcard__rows {
+    margin: 0;
+    border-top: 1px solid var(--jfd-rule);
+  }
+  .bcard__rows > div {
+    display: grid;
+    grid-template-columns: 104px minmax(0, 1fr);
+    gap: 14px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--jfd-rule-soft);
+    align-items: baseline;
+  }
+  .bcard__rows dt {
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+  }
+  .bcard__rows dd {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  .bcard__rows--small {
+    border-top: 0;
+  }
+  .bcard__rows--small > div {
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: 10px;
+    padding: 7px 0;
+    border-top: 1px solid var(--jfd-rule-soft);
+    border-bottom: 0;
+  }
+  .bcard__rows--small dt {
+    font-size: 9.5px;
+  }
+  .bcard__rows--small dd {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .buildings__foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px 40px;
+    margin-top: 32px;
+  }
+  .buildings__close {
+    line-height: 1.6;
+    margin: 0;
+    max-width: 64ch;
+  }
+
+  /* 05 anchor */
+  .close-out-anchor {
+    scroll-margin-top: 72px;
+  }
+
+  /* 06 Credentials */
+  .cred-head {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 24px 80px;
+    align-items: end;
+    margin-bottom: 40px;
+  }
+  .cred-head > * {
+    min-width: 0;
+  }
+  .cred-head__title {
+    margin: 0 0 16px;
+  }
+  .cred-head__lead {
+    margin: 0;
+    max-width: 46ch;
+  }
+  .cred-head__q {
+    max-width: 28ch;
+  }
+  .creds {
+    border: 1px solid var(--jfd-rule);
+    background: var(--jfd-surface);
+  }
+  .creds__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    padding: 20px clamp(16px, 4.5vw, 22px);
+    border-bottom: 1px solid var(--jfd-rule-soft);
+    align-items: center;
+  }
+  .creds__row:last-child {
+    border-bottom: 0;
+  }
+  .creds__row--head {
+    display: none;
+    padding: 12px 22px;
+    background: var(--jfd-tint);
+    border-bottom: 1px solid var(--jfd-rule);
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+  }
+  @media (min-width: 720px) {
+    .creds__row {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) minmax(0, 0.7fr);
+      gap: 20px;
+    }
+    .creds__row--head {
+      display: grid;
+    }
+  }
+  .creds__name {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+  }
+  .creds__name > span {
+    min-width: 0;
+  }
+  .creds :global(.creds__logo) {
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .creds__mark {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border: 1px solid var(--jfd-rule-strong);
+    display: grid;
+    place-items: center;
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    color: var(--jfd-ink-3);
+  }
+  .creds__type {
+    display: block;
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+    margin-bottom: 4px;
+  }
+  .creds__title {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--jfd-graphite);
+  }
+  .creds__proves {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--jfd-ink-2);
+  }
+  .creds__verify {
+    font-family: var(--jfd-font-mono);
+    font-size: 11.5px;
+    color: var(--jfd-ink-3);
+  }
+  .creds__foot {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--jfd-ink-3);
+    margin: 20px 0 0;
+    max-width: 76ch;
+  }
+  /* 07 Regional */
+  .regional-head {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: 32px 80px;
+    align-items: start;
+    margin-bottom: 44px;
+  }
+  .regional-head > * {
+    min-width: 0;
+  }
+  .regional-head__title {
+    margin: 0;
+    max-width: 16ch;
+  }
+  .regional-head__p {
+    margin-bottom: 12px;
+  }
+  .regional-head__strong {
+    font-size: 16.5px;
+    margin: 0;
+  }
+  .regional__label {
+    margin-bottom: 12px;
+  }
+  .region-scale {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+    gap: 20px 0;
+  }
+  .region-scale li {
+    min-width: 0;
+    padding-right: 16px;
+  }
+  .region-scale__marker {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .region-scale__box {
+    flex-shrink: 0;
+    background: var(--jfd-action);
+  }
+  .region-scale__line {
+    flex: 1;
+    height: 1px;
+    background: var(--jfd-underline);
+    margin-left: 8px;
+  }
+  .region-scale__arrow {
+    font-family: var(--jfd-font-mono);
+    color: var(--jfd-underline);
+    margin-left: 6px;
+  }
+  .region-scale__t {
+    display: block;
+    font-family: var(--jfd-font-display);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.15;
+  }
+  .region-proof {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 1px;
+    border: 1px solid var(--jfd-rule);
+    margin: 40px 0 0;
+  }
+  .region-proof > div {
+    outline: 1px solid var(--jfd-rule);
+    background: var(--jfd-ground);
+    padding: 20px 22px;
+    min-width: 0;
+  }
+  .region-proof dt {
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-action);
+    margin-bottom: 8px;
+  }
+  .region-proof dd {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* 08 Proof */
+  .proof-head {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 24px 80px;
+    align-items: end;
+    margin-bottom: 40px;
+  }
+  .proof-head > * {
+    min-width: 0;
+  }
+  .proof-head__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(36px, 4.4vw, 56px);
+    font-weight: 600;
+    line-height: 1.06;
+    margin: 0;
+    max-width: 16ch;
+  }
+  .proof-head__lead {
+    margin: 0;
+    max-width: 46ch;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: 1px;
+    border: 1px solid var(--jfd-dark-rule);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .stats li {
+    outline: 1px solid var(--jfd-dark-rule);
+    background: var(--jfd-graphite);
+    padding: 26px 24px 28px;
+    min-width: 0;
+  }
+  .stats__n {
+    display: block;
+    font-family: var(--jfd-font-display);
+    font-size: clamp(40px, 10vw, 52px);
+    font-weight: 600;
+    line-height: 1;
+    color: #ffffff;
+  }
+  .stats__label {
+    display: block;
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--jfd-dark-ink);
+    margin-top: 10px;
+  }
+
+  /* 10 Getting started */
+  .started-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: end;
+    gap: 20px 40px;
+    margin-bottom: 40px;
+  }
+  .started-head__title {
+    margin: 0;
+  }
+  .onboarding {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+    gap: 28px;
+  }
+  .onboarding li {
+    min-width: 0;
+  }
+  .onboarding__n {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    font-family: var(--jfd-font-display);
+    font-size: clamp(36px, 9vw, 44px);
+    font-weight: 600;
+    line-height: 1;
+    color: var(--jfd-action);
+  }
+  .onboarding__rule {
+    flex: 1;
+    height: 1px;
+    background: var(--jfd-rule);
+  }
+  .onboarding h3 {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.35;
+    margin: 0 0 6px;
+  }
+  .onboarding p {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--jfd-ink-3);
+    margin: 0;
+  }
+</style>

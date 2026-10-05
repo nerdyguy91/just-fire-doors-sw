@@ -1,0 +1,511 @@
+---
+/**
+ * Case study (prototype JfdCaseStudy), driven by a `projects` collection entry.
+ * On a project page (`asPage`) the project name is the H1 and breadcrumbs sit above it; in a list
+ * it is an H2. Pending facts and stages are never in content, so nothing placeholder renders.
+ */
+import type { CollectionEntry } from 'astro:content';
+import { getService } from '../../data/services';
+import type { Breadcrumb } from '../../lib/seo';
+import Breadcrumbs from '../layout/Breadcrumbs.astro';
+import Img from '../ui/Img.astro';
+
+interface Props {
+  entry: CollectionEntry<'projects'>;
+  asPage?: boolean;
+  breadcrumbs?: Breadcrumb[];
+}
+
+const { entry, asPage = false, breadcrumbs } = Astro.props;
+const p = entry.data;
+const headId = `${entry.id}-title`;
+const Heading = asPage ? 'h1' : 'h2';
+const StageHeading = asPage ? 'h2' : 'h3';
+const STAGE = {
+  decide: { label: 'Decide', colour: 'var(--jfd-status-decide)' },
+  deliver: { label: 'Deliver', colour: 'var(--jfd-status-onsite)' },
+  close: { label: 'Close', colour: 'var(--jfd-status-closed)' },
+} as const;
+const links = p.services.map((id) => getService(id));
+---
+
+<article class="case" id={entry.id} aria-labelledby={headId}>
+  <div class="case__inner">
+    <header class="case__head">
+      <div class="case__intro">
+        {breadcrumbs && <Breadcrumbs items={breadcrumbs} class="case__crumbs" />}
+        <p class="case__kicker">
+          <span class="case__n">Project {String(p.order).padStart(2, '0')}</span>
+          <span>{p.useCase}</span>
+        </p>
+        <Heading
+          id={headId}
+          class:list={['jfd-h2', 'case__title', { 'case__title--page': asPage }]}
+        >
+          {p.title}
+        </Heading>
+        <p class="case__subhead">{p.subhead}</p>
+        <ul class="case__tags" role="list">
+          {p.tags.map((tag) => (
+            <li class="jfd-chip case__tag">{tag}</li>
+          ))}
+        </ul>
+      </div>
+      <figure class="case__hero">
+        <div class="case__hero-media">
+          <Img
+            src={p.hero.image}
+            alt={p.hero.alt}
+            position={p.hero.position}
+            priority={asPage}
+            sizes="(min-width: 1240px) 580px, (min-width: 760px) 48vw, 90vw"
+          />
+        </div>
+        <figcaption class="case__caption">{p.hero.caption}</figcaption>
+      </figure>
+    </header>
+
+    <dl class="case__facts">
+      {p.facts.map((f) => (
+        <div>
+          <dt>{f.label}</dt>
+          <dd>{f.value}</dd>
+        </div>
+      ))}
+    </dl>
+
+    <div class="case__row">
+      <div class="case__row-label">
+        <span class="case__stage-name case__stage-name--plain">Situation</span>
+      </div>
+      <div class="case__row-body">
+        {p.situation.map((line) => (
+          <p class="case__situation">{line}</p>
+        ))}
+      </div>
+    </div>
+
+    {p.stages.map((s) => (
+      <div class="case__row">
+        <div class="case__row-label">
+          <span class="case__stage-name" style={`border-top-color: ${STAGE[s.stage].colour}`}>
+            <span
+              class="case__stage-dot"
+              style={`background: ${STAGE[s.stage].colour}`}
+              aria-hidden="true"
+            />
+            {STAGE[s.stage].label}
+          </span>
+          {(s.weightLabel || s.weight === 'brief') && (
+            <span class="case__weight">{s.weightLabel ?? 'Requirement received'}</span>
+          )}
+        </div>
+        <div class="case__row-body">
+          <StageHeading
+            class:list={['case__stage-title', { 'case__stage-title--brief': s.weight === 'brief' }]}
+          >
+            {s.title}
+          </StageHeading>
+          {s.lines.map((line) => (
+            <p class="case__line">{line}</p>
+          ))}
+          {s.callouts && (
+            <dl class="case__callouts">
+              {s.callouts.map((c) => (
+                <div>
+                  <dt>{c.label}</dt>
+                  <dd>{c.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+          {s.timeline && (
+            <ol class="case__timeline" role="list">
+              {s.timeline.map((t, i) => (
+                <li class:list={{ 'is-last': i === s.timeline!.length - 1 }}>
+                  <span class="case__tl-marker" aria-hidden="true">
+                    <span class="case__tl-box" />
+                    <span class="case__tl-line" />
+                  </span>
+                  <span class="case__tl-title">{t.title}</span>
+                  <span class="case__tl-when">{t.when}</span>
+                </li>
+              ))}
+            </ol>
+          )}
+          {s.shots && (
+            <div class="case__shots">
+              {s.shots.map((shot) => (
+                <figure class="case__shot">
+                  <span class="case__shot-media">
+                    <Img
+                      src={shot.image}
+                      alt={shot.alt}
+                      position={shot.position}
+                      sizes="(min-width: 760px) 330px, 90vw"
+                      widths={[360, 640]}
+                    />
+                  </span>
+                  <figcaption class="case__shot-label">{shot.label}</figcaption>
+                </figure>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    ))}
+
+    <div class="case__outcome jfd-on-dark">
+      <div>
+        <span class="jfd-status case__outcome-label">Outcome</span>
+        <p class="case__outcome-text">{p.outcome}</p>
+      </div>
+      <div>
+        <p class="case__outcome-detail">{p.outcomeDetail}</p>
+        <ul class="case__links" role="list">
+          {links.map((s) => (
+            <li>
+              <a href={s.path}>{s.title} →</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .case {
+    border-bottom: 1px solid var(--jfd-rule);
+    scroll-margin-top: 72px;
+  }
+  .case__inner {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: var(--jfd-section-y-fluid) var(--jfd-gutter-fluid);
+  }
+  .case__head {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: 32px 64px;
+    align-items: end;
+    margin-bottom: 28px;
+  }
+  .case__intro,
+  .case__hero {
+    min-width: 0;
+  }
+  .case :global(.case__crumbs) {
+    margin-bottom: 26px;
+  }
+  .case__kicker {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 14px;
+    font-family: var(--jfd-font-mono);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    color: var(--jfd-action);
+    margin: 0 0 18px;
+  }
+  .case__n {
+    color: var(--jfd-ink-4);
+  }
+  .case__title {
+    margin: 0 0 16px;
+    text-wrap: pretty;
+  }
+  .case__subhead {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(23px, 2.4vw, 29px);
+    font-weight: 500;
+    line-height: 1.22;
+    color: var(--jfd-ink-2);
+    margin: 0 0 22px;
+    max-width: 32ch;
+    text-wrap: pretty;
+  }
+  .case__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .case__tag {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+  .case__hero {
+    margin: 0;
+  }
+  .case__hero-media {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--jfd-media-bg);
+    border: 1px solid var(--jfd-rule);
+  }
+  .case__hero-media :global(img),
+  .case__shot-media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .case__caption {
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-4);
+    margin-top: 10px;
+  }
+  .case__facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
+    gap: 1px;
+    border: 1px solid var(--jfd-rule);
+    margin: 0 0 56px;
+  }
+  .case__facts > div {
+    outline: 1px solid var(--jfd-rule);
+    background: var(--jfd-surface);
+    padding: 14px 16px 16px;
+    min-width: 0;
+  }
+  .case__facts dt,
+  .case__callouts dt {
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+    margin-bottom: 6px;
+  }
+  .case__facts dd {
+    margin: 0;
+    font-size: 15.5px;
+    line-height: 1.35;
+    font-weight: 500;
+    color: var(--jfd-graphite);
+  }
+  .case__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 48px;
+    padding-bottom: 36px;
+  }
+  .case__row-label {
+    flex: 0 0 180px;
+    min-width: 0;
+  }
+  .case__stage-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 2px solid var(--jfd-graphite);
+    font-family: var(--jfd-font-mono);
+    font-size: 13px;
+    text-transform: uppercase;
+    color: var(--jfd-action);
+  }
+  .case__stage-name--plain {
+    display: block;
+    color: var(--jfd-graphite);
+  }
+  .case__stage-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+  }
+  .case__weight {
+    display: block;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+  .case__row-body {
+    flex: 1 1 460px;
+    min-width: 0;
+    padding-top: 12px;
+  }
+  .case__situation {
+    font-size: 17px;
+    line-height: 1.62;
+    color: var(--jfd-ink-2);
+    margin: 0 0 12px;
+    max-width: 62ch;
+    text-wrap: pretty;
+  }
+  .case__stage-title {
+    font-family: var(--jfd-font-display);
+    font-size: 27px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 10px;
+    max-width: 36ch;
+    text-wrap: pretty;
+  }
+  .case__stage-title--brief {
+    font-size: 22px;
+  }
+  .case__line {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0 0 10px;
+    max-width: 62ch;
+  }
+  .case__callouts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+    gap: 1px;
+    border: 1px solid var(--jfd-rule);
+    margin: 18px 0 0;
+  }
+  .case__callouts > div {
+    outline: 1px solid var(--jfd-rule);
+    background: var(--jfd-surface);
+    padding: 18px 18px 20px;
+    min-width: 0;
+  }
+  .case__callouts dt {
+    font-size: 10.5px;
+    margin-bottom: 8px;
+  }
+  .case__callouts dd {
+    margin: 0;
+    font-family: var(--jfd-font-display);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.15;
+  }
+  .case__timeline {
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+    gap: 12px 0;
+  }
+  .case__timeline li {
+    min-width: 0;
+    padding-right: 14px;
+  }
+  .case__tl-marker {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .case__tl-box {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    background: var(--jfd-surface);
+    border: 2px solid var(--jfd-action);
+  }
+  .is-last .case__tl-box {
+    background: var(--jfd-action);
+  }
+  .case__tl-line {
+    flex: 1;
+    height: 2px;
+    background: var(--jfd-underline);
+  }
+  .is-last .case__tl-line {
+    background: transparent;
+  }
+  .case__tl-title {
+    display: block;
+    font-size: 15.5px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .case__tl-when {
+    display: block;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+    margin-top: 4px;
+  }
+  .case__shots {
+    margin: 18px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: 12px;
+    max-width: 680px;
+  }
+  .case__shot {
+    margin: 0;
+    min-width: 0;
+  }
+  .case__shot-media {
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--jfd-media-bg);
+    border: 1px solid var(--jfd-rule);
+  }
+  .case__shot-label {
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-4);
+    margin-top: 8px;
+  }
+  .case__outcome {
+    background: var(--jfd-graphite);
+    color: var(--jfd-dark-heading);
+    padding: 34px clamp(20px, 5.5vw, 32px) 36px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 24px 48px;
+    align-items: end;
+  }
+  .case__outcome > div {
+    min-width: 0;
+  }
+  .case__outcome-label {
+    color: var(--jfd-azure-soft);
+    margin-bottom: 14px;
+  }
+  .case__outcome-text {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(28px, 3.2vw, 40px);
+    font-weight: 600;
+    line-height: 1.1;
+    margin: 0;
+    max-width: 24ch;
+    text-wrap: pretty;
+  }
+  .case__outcome-detail {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--jfd-dark-ink);
+    margin: 0 0 18px;
+    max-width: 46ch;
+  }
+  .case__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 26px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .case__links a {
+    font-size: 15.5px;
+    font-weight: 500;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    padding-bottom: 3px;
+  }
+  .case__links a:hover {
+    color: var(--jfd-azure-soft);
+    border-bottom-color: var(--jfd-azure-soft);
+  }
+</style>

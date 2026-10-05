@@ -1,0 +1,106 @@
+---
+/**
+ * Illustrative backlog handoff on a dark section: a list of open actions where a defined package
+ * is shifted across to JFD and the existing contractor keeps the rest. The rows are decorative;
+ * the summary line carries the meaning in text.
+ */
+interface Props {
+  title: string;
+  rows: { id: string; text: string; jfd: boolean }[];
+  summary: string;
+}
+
+const { title, rows, summary } = Astro.props;
+---
+
+<figure class="backlog">
+  <p class="backlog__title" aria-hidden="true">
+    {title}
+  </p>
+  <ul class="backlog__rows" role="list" aria-hidden="true">
+    {rows.map((r) => (
+      <li class:list={['backlog__row', { 'is-jfd': r.jfd }]}>
+        <span class="backlog__id">{r.id}</span>
+        <span class="backlog__text">{r.text}</span>
+        <span class="backlog__who">{r.jfd ? 'JFD' : 'Existing'}</span>
+      </li>
+    ))}
+  </ul>
+  <figcaption class="backlog__summary">
+    <span aria-hidden="true"></span>
+    {summary}
+  </figcaption>
+</figure>
+
+<style>
+  .backlog {
+    margin: 0;
+    min-width: 0;
+  }
+  .backlog__title {
+    letter-spacing: normal;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-dark-ink-2);
+    margin: 0 0 10px;
+  }
+  .backlog__rows {
+    display: grid;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .backlog__row {
+    display: grid;
+    grid-template-columns: clamp(58px, 16vw, 76px) minmax(0, 1fr) clamp(66px, 18vw, 90px);
+    gap: 12px;
+    align-items: center;
+    padding: 10px 14px;
+    background: #2c3237;
+    border: 1px solid var(--jfd-dark-rule);
+    color: var(--jfd-dark-ink-2);
+  }
+  .backlog__row.is-jfd {
+    background: var(--jfd-action);
+    border-color: var(--jfd-azure);
+    color: #ffffff;
+    margin-left: 28px;
+  }
+  .backlog__id {
+    font-family: var(--jfd-font-mono);
+    font-size: 11.5px;
+  }
+  .backlog__text {
+    font-size: 13.5px;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .backlog__who {
+    letter-spacing: normal;
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    text-align: right;
+  }
+  .backlog__summary {
+    letter-spacing: normal;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-azure-soft);
+    margin: 14px 0 0;
+  }
+  .backlog__summary span {
+    width: 18px;
+    height: 2px;
+    background: var(--jfd-azure);
+    flex-shrink: 0;
+  }
+</style>

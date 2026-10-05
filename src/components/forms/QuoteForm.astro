@@ -1,0 +1,723 @@
+---
+/**
+ * Quote router: step 1 (five route cards, native radios) and step 2 (one form per route), plus
+ * the in-page success receipt. Ported from docs/prototype/pages/get-a-quote.dc.html.
+ *
+ * Each route is its own <form>, so a submission only ever carries the chosen route's fields.
+ *
+ * Without JavaScript the chosen route's form is shown with CSS :has(), a link to
+ * /get-a-quote/#survey (etc.) opens that route with :target, and the form posts to /api/enquiry,
+ * which redirects to /get-a-quote/thanks/. With JavaScript, src/scripts/forms.ts shows the chosen
+ * route (class .is-active), reads the hash, validates, uploads files and shows the receipt.
+ */
+import { business } from '../../data/business';
+import { paths } from '../../data/paths';
+import { quoteRoutes } from '../../data/quote-routes';
+import { quoteSections } from '../../lib/enquiry/fields';
+import ErrorSummary from './ErrorSummary.astro';
+import Field from './Field.astro';
+import FileField from './FileField.astro';
+import SpamGuard from './SpamGuard.astro';
+import { sendErrorMessage } from './copy';
+
+const { phone } = business;
+const n2 = (i: number) => String(i + 1).padStart(2, '0');
+---
+
+<section class="router" id="router" aria-labelledby="router-title" data-router>
+  <div class="router__step1">
+    <div class="router__head">
+      <div>
+        <p class="jfd-eyebrow">Step 1 of 2</p>
+        <h2 id="router-title" class="jfd-h2">
+          What do you need help with?
+        </h2>
+      </div>
+      <p class="router__intro">
+        Choose the option that sounds closest to where you are now. You don’t need to know the exact
+        service you need.
+      </p>
+    </div>
+    <fieldset class="router__cards">
+      <legend class="jfd-visually-hidden">What do you need help with?</legend>
+      {quoteRoutes.map((route, i) => (
+        <label class="route">
+          <input
+            class="jfd-visually-hidden route__input"
+            type="radio"
+            name="route"
+            value={route.id}
+            data-legacy={`route-${route.legacy}`}
+          />
+          <span class="route__card">
+            <span class="route__top">
+              <span class="route__n">{n2(i)}</span>
+              <span class="route__dot" aria-hidden="true">
+                <span />
+              </span>
+            </span>
+            <span class="route__title">{route.title}</span>
+            <span class="route__line">{route.line}</span>
+            <span class="route__cta">{route.cta} →</span>
+          </span>
+        </label>
+      ))}
+    </fieldset>
+  </div>
+
+  <div class="router__empty">
+    <p>Choose an option above and we’ll show only the questions that matter for it.</p>
+  </div>
+
+  {quoteRoutes.map((route) => {
+    const prefix = `q-${route.id}`;
+    return (
+      <div class="route-panel" id={route.id} data-route-panel={route.id}>
+        <div class="route-panel__inner">
+          <div class="route-panel__bar">
+            <a class="route-panel__change" href="#router">
+              ← Change what I need help with
+            </a>
+            <span class="route-panel__step">Step 2 of 2 · {route.title}</span>
+          </div>
+
+          <div class="route-panel__body">
+            <form
+              class="qform"
+              method="post"
+              action="/api/enquiry"
+              aria-labelledby={`${prefix}-title`}
+              data-enquiry="quote"
+              data-route={route.id}
+              data-route-title={route.title}
+              data-error-message={sendErrorMessage}
+            >
+              <h3 id={`${prefix}-title`} class="qform__title">
+                {route.heading}
+              </h3>
+              {route.intro.map((line) => (
+                <p class="qform__intro">{line}</p>
+              ))}
+              {route.bullets && (
+                <ul class="qform__bullets" role="list">
+                  {route.bullets.map((b) => (
+                    <li class="jfd-chip">{b}</li>
+                  ))}
+                </ul>
+              )}
+
+              <ErrorSummary class="qform__alert" />
+
+              {quoteSections[route.id].map((section, i) => (
+                <fieldset class="qform__section">
+                  <legend>
+                    <span class="qform__n">{n2(i)}</span>
+                    <span class="qform__legend">{section.title}</span>
+                  </legend>
+                  {section.note && <p class="qform__note">{section.note}</p>}
+                  <div class="qform__grid">
+                    {section.fields.map((field) =>
+                      field.kind === 'upload' ? (
+                        <FileField {field} {prefix} />
+                      ) : (
+                        <Field {field} {prefix} variant="quote" />
+                      ),
+                    )}
+                  </div>
+                </fieldset>
+              ))}
+
+              <input type="hidden" name="form" value="quote" />
+              <input type="hidden" name="route" value={route.id} />
+              <SpamGuard {prefix} />
+
+              <div class="qform__actions">
+                <button type="submit" class="jfd-btn jfd-btn--lg">
+                  {route.submit}
+                </button>
+                <span class="qform__footnote">{route.footnote}</span>
+              </div>
+            </form>
+
+            <div class="before">
+              <div class="before__dark">
+                <span class="before__mark" aria-hidden="true" />
+                {route.reassure.map((line) => (
+                  <p>{line}</p>
+                ))}
+              </div>
+              <div class="before__card">
+                <p class="before__label">Only what we need</p>
+                <p>
+                  Just your name and one way to reply are required. Everything else is optional —
+                  leave it blank if you don’t know.
+                </p>
+                <p>
+                  Rather talk first?{' '}
+                  {phone ? (
+                    <a class="jfd-link" href={`tel:${phone.e164}`} data-track="tel">
+                      {phone.display}
+                    </a>
+                  ) : (
+                    <a class="jfd-link" href={paths.contact}>
+                      Contact JFD →
+                    </a>
+                  )}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  })}
+
+  <div class="receipt" data-success hidden>
+    <div class="receipt__inner" role="status">
+      <div>
+        <span class="jfd-status jfd-status--closed receipt__status">
+          Received · <span data-receipt="route" />
+        </span>
+        <h3 class="receipt__title" tabindex="-1" data-success-heading>
+          Thanks. We’ve got it.
+        </h3>
+        <p class="receipt__body">
+          We’ll review what you’ve sent and use the contact details provided if we need anything
+          else before confirming the next step.
+        </p>
+        <div class="receipt__actions">
+          <a class="jfd-link" href={paths.projects}>
+            See our projects →
+          </a>
+          <button type="button" class="receipt__reset" data-reset>
+            Send something else
+          </button>
+        </div>
+      </div>
+      <div class="receipt__side">
+        <div class="receipt__card">
+          <p class="receipt__head">What you sent</p>
+          <dl>
+            <div>
+              <dt>Route</dt>
+              <dd data-receipt="route" />
+            </div>
+            <div>
+              <dt>From</dt>
+              <dd data-receipt="from" />
+            </div>
+            <div>
+              <dt>Reply to</dt>
+              <dd data-receipt="reply" />
+            </div>
+            <div>
+              <dt>Where</dt>
+              <dd data-receipt="where" />
+            </div>
+            <div>
+              <dt>Files</dt>
+              <dd data-receipt="files" />
+            </div>
+          </dl>
+        </div>
+        {phone && (
+          <div class="receipt__urgent jfd-on-dark">
+            <p>Need to speak to someone about something urgent?</p>
+            <a href={`tel:${phone.e164}`} data-track="tel">
+              Call JFD: {phone.display}
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../../scripts/forms';
+</script>
+
+<style>
+  .router {
+    background: var(--jfd-surface);
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+
+  /* Step 1: route cards */
+  .router__step1 {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: clamp(38px, 6.4vw, 64px) var(--jfd-gutter-fluid) 40px;
+  }
+  .router__head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: end;
+    gap: 12px 40px;
+    margin-bottom: 28px;
+  }
+  .router__head > div {
+    min-width: 0;
+  }
+  .router__intro {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--jfd-ink-3);
+    margin: 0;
+    max-width: 44ch;
+  }
+  .router__cards {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+    gap: 10px;
+  }
+  .route {
+    position: relative;
+    display: block;
+    min-width: 0;
+    cursor: pointer;
+  }
+  .route__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
+    min-height: 220px;
+    padding: 20px 20px 18px;
+    background: var(--jfd-ground);
+    border: 1px solid var(--jfd-rule);
+    color: var(--jfd-graphite);
+    transition:
+      border-color var(--jfd-ease),
+      background var(--jfd-ease);
+  }
+  .route:hover .route__card {
+    border-color: var(--jfd-action);
+  }
+  .route__input:checked + .route__card {
+    background: #e6f1f9;
+    border-color: var(--jfd-action);
+    box-shadow: inset 0 0 0 1px var(--jfd-action);
+  }
+  .route__input:focus-visible + .route__card {
+    outline: var(--focus-ring-width) solid var(--focus-ring);
+    outline-offset: var(--focus-ring-offset);
+  }
+  .route__top {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .route__n {
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    color: var(--jfd-ink-4);
+  }
+  .route__dot {
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid var(--jfd-dark-ink-2);
+    background: var(--jfd-surface);
+    display: grid;
+    place-items: center;
+  }
+  .route__dot span {
+    width: 8px;
+    height: 8px;
+  }
+  .route__input:checked + .route__card .route__dot {
+    border-color: var(--jfd-action);
+    background: var(--jfd-action);
+  }
+  .route__input:checked + .route__card .route__dot span {
+    background: #ffffff;
+  }
+  .route__title {
+    display: block;
+    font-family: var(--jfd-font-display);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+  .route__line {
+    display: block;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--jfd-ink-3);
+    margin-bottom: 14px;
+  }
+  .route__cta {
+    margin-top: auto;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--jfd-action);
+  }
+
+  .router__empty {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: 0 var(--jfd-gutter-fluid) 64px;
+  }
+  .router__empty p {
+    margin: 0;
+    padding: 18px 20px;
+    border: 1px dashed var(--jfd-rule-strong);
+    background: var(--jfd-ground);
+    font-size: 15px;
+    color: var(--jfd-ink-3);
+  }
+
+  /* Step 2: one panel per route. With JS, forms.ts sets .is-active and .has-route / .is-sent. */
+  .route-panel {
+    display: none;
+    border-top: 1px solid var(--jfd-rule);
+    background: var(--jfd-ground);
+  }
+  .route-panel.is-active {
+    display: block;
+  }
+  .router.has-route .router__empty,
+  .router.is-sent .router__empty {
+    display: none;
+  }
+
+  /* Without JS: the checked card shows its panel; a #route link shows it until a card is chosen.
+     One selector per route id (src/data/quote-routes.ts). */
+  :global(.no-js) .router:has(.route__input[value='survey']:checked) [data-route-panel='survey'],
+  :global(.no-js) .router:has(.route__input[value='backlog']:checked) [data-route-panel='backlog'],
+  :global(.no-js)
+    .router:has(.route__input[value='inspection']:checked)
+    [data-route-panel='inspection'],
+  :global(.no-js)
+    .router:has(.route__input[value='maintenance']:checked)
+    [data-route-panel='maintenance'],
+  :global(.no-js)
+    .router:has(.route__input[value='not-sure']:checked)
+    [data-route-panel='not-sure'],
+  :global(.no-js) .router:not(:has(.route__input:checked)) .route-panel:target {
+    display: block;
+  }
+  :global(.no-js) .router:has(.route__input:checked) .router__empty,
+  :global(.no-js) .router:has(.route-panel:target) .router__empty {
+    display: none;
+  }
+  /* Without JS or :has(): show every route's form. */
+  @supports not selector(:has(*)) {
+    :global(.no-js) .route-panel {
+      display: block;
+    }
+    :global(.no-js) .router__empty {
+      display: none;
+    }
+  }
+
+  .route-panel__inner {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: clamp(29px, 4.8vw, 48px) var(--jfd-gutter-fluid) clamp(43px, 7.2vw, 72px);
+  }
+  .route-panel__bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px 24px;
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--jfd-rule);
+  }
+  .route-panel__change {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 15.5px;
+    font-weight: 600;
+  }
+  .route-panel__step {
+    letter-spacing: normal;
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+  }
+  .route-panel__body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(28px, 6vw, 40px) 64px;
+    align-items: flex-start;
+  }
+
+  .qform {
+    flex: 1 1 560px;
+    min-width: 0;
+    max-width: 720px;
+  }
+  .qform__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(32px, 3.6vw, 44px);
+    font-weight: 600;
+    line-height: 1.08;
+    margin: 0 0 14px;
+  }
+  .qform__intro {
+    font-size: 16.5px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0 0 10px;
+    max-width: 58ch;
+  }
+  .qform__bullets {
+    list-style: none;
+    margin: 4px 0 8px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .qform__bullets li {
+    background: var(--jfd-surface);
+    border: 1px solid var(--jfd-rule);
+    padding: 7px 10px;
+    font-size: 11.5px;
+  }
+  .qform :global(.qform__alert) {
+    margin: 20px 0 0;
+  }
+  .qform__section {
+    border: 0;
+    margin: 32px 0 0;
+    padding: 0;
+    min-width: 0;
+  }
+  .qform__section legend {
+    display: block;
+    width: 100%;
+    padding: 0 0 12px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--jfd-graphite);
+  }
+  .qform__n {
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    color: var(--jfd-ink-4);
+    margin-right: 12px;
+  }
+  .qform__legend {
+    letter-spacing: normal;
+    font-family: var(--jfd-font-mono);
+    font-size: 12.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--jfd-graphite);
+  }
+  .qform__note {
+    font-size: 14px;
+    color: var(--jfd-ink-3);
+    margin: -8px 0 18px;
+  }
+  .qform__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 20px;
+  }
+  .qform__actions {
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid var(--jfd-rule);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 24px;
+  }
+  .qform__footnote {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--jfd-ink-3);
+    max-width: 40ch;
+  }
+
+  /* "Before you send" */
+  .before {
+    flex: 1 1 280px;
+    min-width: 0;
+    position: sticky;
+    top: 96px;
+    display: grid;
+    gap: 12px;
+  }
+  .before__dark {
+    background: var(--jfd-graphite);
+    padding: 26px 24px 28px;
+  }
+  .before__mark {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background: var(--jfd-azure);
+    margin-bottom: 16px;
+  }
+  .before__dark p {
+    font-family: var(--jfd-font-display);
+    font-size: 23px;
+    font-weight: 600;
+    line-height: 1.22;
+    margin: 0 0 12px;
+    color: #ffffff;
+  }
+  .before__card {
+    background: var(--jfd-surface);
+    border: 1px solid var(--jfd-rule);
+    padding: 20px 22px;
+  }
+  .before__card p {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--jfd-ink-2);
+    margin: 0 0 10px;
+  }
+  .before__card p:last-child {
+    margin: 0;
+  }
+  .before__card .before__label {
+    letter-spacing: normal;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+    margin: 0 0 8px;
+  }
+  .before__card .jfd-link {
+    font-size: 15px;
+  }
+
+  /* Success receipt */
+  .receipt {
+    border-top: 1px solid var(--jfd-rule);
+    background: var(--jfd-ground);
+  }
+  .receipt[hidden] {
+    display: none;
+  }
+  .receipt__inner {
+    max-width: var(--jfd-max);
+    margin: 0 auto;
+    padding: clamp(38px, 6.4vw, 64px) var(--jfd-gutter-fluid) clamp(48px, 8vw, 80px);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 32px 64px;
+    align-items: start;
+  }
+  .receipt__inner > div {
+    min-width: 0;
+  }
+  .receipt__status {
+    margin-bottom: 16px;
+  }
+  .receipt__title {
+    font-family: var(--jfd-font-display);
+    font-size: clamp(40px, 5vw, 60px);
+    font-weight: 600;
+    line-height: 1.04;
+    margin: 0 0 18px;
+  }
+  .receipt__title:focus {
+    outline: 0;
+  }
+  .receipt__body {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--jfd-ink-2);
+    margin: 0 0 24px;
+    max-width: 48ch;
+  }
+  .receipt__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 28px;
+    align-items: center;
+  }
+  .receipt__reset {
+    min-height: 44px;
+    padding: 0;
+    background: none;
+    border: 0;
+    font: inherit;
+    font-size: 15.5px;
+    font-weight: 500;
+    color: var(--jfd-ink-3);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  .receipt__reset:hover {
+    color: var(--jfd-action);
+  }
+  .receipt__side {
+    display: grid;
+    gap: 12px;
+  }
+  .receipt__card {
+    background: var(--jfd-surface);
+    border: 1px solid var(--jfd-rule);
+  }
+  .receipt__head {
+    letter-spacing: normal;
+    margin: 0;
+    padding: 12px 18px;
+    background: var(--jfd-tint);
+    border-bottom: 1px solid var(--jfd-rule);
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+  }
+  .receipt__card dl {
+    margin: 0;
+  }
+  .receipt__card dl > div {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 14px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--jfd-rule-soft);
+    font-size: 14.5px;
+  }
+  .receipt__card dt {
+    letter-spacing: normal;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+  }
+  .receipt__card dd {
+    margin: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .receipt__urgent {
+    background: var(--jfd-graphite);
+    color: var(--jfd-dark-heading);
+    padding: 20px 22px;
+  }
+  .receipt__urgent p {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 6px;
+  }
+  .receipt__urgent a {
+    font-family: var(--jfd-font-display);
+    font-size: 28px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  .receipt__urgent a:hover {
+    color: var(--jfd-azure-soft);
+  }
+</style>

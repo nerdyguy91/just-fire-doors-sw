@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="support.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #F4F6F8; color: #23282C; font-family: "Barlow", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a { color: #0E6FAF; text-decoration: none; }
+  a:hover { color: #0B5789; }
+  a:focus-visible, button:focus-visible { outline: 2px solid #0E6FAF; outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+</style>
+</helmet>
+
+
+<dc-import name="JfdHeader" active="" style="position: sticky; top: 0; zIndex: 60; display: block" hint-size="100%,82px"></dc-import>
+
+<main id="top" style="display: block">
+
+  <sc-if value="{{ heroSplit }}" hint-placeholder-val="{{ true }}">
+    <section style="borderBottom: 1px solid #D7DDE3">
+      <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(40px, 8.4vw, 84px) clamp(20px, 5vw, 28px) clamp(43px, 7.2vw, 72px); display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(32px, 6vw, 64px); alignItems: start">
+        <div style="minWidth: 0; maxWidth: 560px">
+          <p style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12.5px; letterSpacing: '0.1em'; textTransform: uppercase; color: #5B646B; margin: 0 0 22px; paddingBottom: 18px; borderBottom: 1px solid #D7DDE3; lineHeight: 1.6">Fire door contractors for estates &amp; facilities teams across the South West</p>
+          <h1 style="fontFamily: 'Barlow Condensed', sans-serif; fontWeight: 600; fontSize: clamp(40px, 6.6vw, 84px); lineHeight: 1.02; letterSpacing: '-0.025em'; margin: 0 0 24px; textWrap: pretty">Fire-door actions.<br><font color="#0e6faf">Properly closed.</font></h1>
+          <p style="fontSize: 18.5px; lineHeight: 1.62; color: #40474D; margin: 0 0 32px; maxWidth: 48ch; textWrap: pretty">Already have a fire door survey, inspection or job sheet? Send it over. We'll turn the findings into clear actions, complete the agreed work and give you clear evidence of what's been closed.</p>
+          <div style="display: flex; flexWrap: wrap; alignItems: center; gap: 16px 28px">
+            <a href="Get%20a%20Quote.dc.html#route-a" style="background: #0E6FAF; color: #FFFFFF; padding: 17px 26px; fontSize: 16.5px; fontWeight: 500; display: inline-flex; alignItems: center; minHeight: 52px; transition: background .18s ease" style-hover="background: #0B5789; color: #FFFFFF">Send us your survey or job sheet</a>
+            <a href="Contact.dc.html" style="fontSize: 16.5px; fontWeight: 500; borderBottom: 1px solid #A9C6DB; paddingBottom: 3px" style-hover="borderBottom: 1px solid #0E6FAF">Talk through your fire-door work →</a>
+          </div>
+        </div>
+
+        <div style="minWidth: 0">
+          <div style="background: #FFFFFF; border: 1px solid #C9D2DA; boxShadow: 0 26px 60px -34px rgba(35,40,44,0.42)">
+            <div style="display: flex; justifyContent: space-between; alignItems: center; gap: 16px; padding: 14px 18px; borderBottom: 1px solid #D7DDE3; background: #E9EDF1; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: '0.06em'; textTransform: uppercase; color: #5C554C">
+              <span>Job sheet · JFD-1042</span>
+              <span>Site: redacted</span>
+            </div>
+            <div style="display: grid; gridTemplateColumns: clamp(64px, 18vw, 88px) minmax(0, 1fr) clamp(78px, 21vw, 92px); gap: 0; padding: 11px 18px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: '0.08em'; textTransform: uppercase; color: #5B646B; borderBottom: 1px solid #D7DDE3">
+              <span>Door</span><span>Finding → action</span><span style="textAlign: right">Status</span>
+            </div>
+            <sc-for list="{{ records }}" as="r" hint-placeholder-count="5">
+              <div style="display: grid; gridTemplateColumns: clamp(64px, 18vw, 88px) minmax(0, 1fr) clamp(78px, 21vw, 92px); gap: 0; padding: 15px 18px; borderBottom: 1px solid #EAEEF2; alignItems: baseline">
+                <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 13px; color: #23282C">{{ r.id }}</span>
+                <span style="minWidth: 0; paddingRight: 14px"><span style="display: block; fontSize: 14px; color: #23282C; lineHeight: 1.45">{{ r.finding }}</span><span style="display: block; fontSize: 13.5px; color: #5B646B; lineHeight: 1.45">→ {{ r.action }}</span></span>
+                <span style="justifySelf: end; display: inline-flex; alignItems: center; gap: 7px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: '0.06em'; textTransform: uppercase; color: {{ r.tone }}"><span style="width: 7px; height: 7px; borderRadius: 50%; background: {{ r.tone }}; flexShrink: 0"></span>{{ r.status }}</span>
+              </div>
+            </sc-for>
+            <div style="display: flex; justifyContent: space-between; alignItems: center; gap: 12px; padding: 15px 18px; background: #E9EDF1; fontSize: 13px; color: #40474D">
+              <span><strong style="fontWeight: 600">4 of 5 actions closed</strong> · evidence attached per door</span>
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; color: #5B646B">14 MAR</span>
+            </div>
+          </div>
+          <p style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: '0.06em'; textTransform: uppercase; color: #5F6970; margin: 12px 0 0">Placeholder — anonymised JFD record to supply</p>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ heroLedger }}" hint-placeholder-val="{{ false }}">
+    <section style="borderBottom: 1px solid #D7DDE3; background: #FFFFFF">
+      <div style="maxWidth: 1240px; margin: 0 auto; padding: 76px 28px 0">
+        <p style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12.5px; letterSpacing: '0.1em'; textTransform: uppercase; color: #5B646B; margin: 0 0 20px">Fire door contractors for estates &amp; facilities teams across the South West</p>
+        <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: clamp(28px, 6vw, 40px) 64px; alignItems: end; paddingBottom: 52px">
+          <h1 style="fontFamily: 'Barlow Condensed', sans-serif; fontWeight: 600; fontSize: clamp(42px, 8vw, 104px); lineHeight: 0.98; letterSpacing: '-0.03em'; margin: 0; textWrap: balance">Fire door safety. <span style="color: #0E6FAF">Kept simple.</span></h1>
+          <div style="minWidth: 0">
+            <p style="fontSize: 18px; lineHeight: 1.62; color: #40474D; margin: 0 0 28px; maxWidth: 46ch; textWrap: pretty">Already have a fire door survey, inspection or job sheet? Send it over. We'll turn the findings into clear actions, complete the agreed work and give you clear evidence of what's been closed.</p>
+            <div style="display: flex; flexWrap: wrap; alignItems: center; gap: 14px 24px">
+              <a href="Get%20a%20Quote.dc.html#route-a" style="background: #0E6FAF; color: #FFFFFF; padding: 17px 26px; fontSize: 16.5px; fontWeight: 500; display: inline-flex; alignItems: center; minHeight: 52px" style-hover="background: #0B5789; color: #FFFFFF">Send us your survey or job sheet</a>
+              <a href="Contact.dc.html" style="fontSize: 16.5px; fontWeight: 500; borderBottom: 1px solid #A9C6DB; paddingBottom: 3px" style-hover="borderBottom: 1px solid #0E6FAF">Talk through your fire-door work →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="borderTop: 1px solid #D7DDE3; background: #E9EDF1">
+        <div style="maxWidth: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 28px)">
+          <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 210px), 1fr))">
+            <sc-for list="{{ records }}" as="r" hint-placeholder-count="5">
+              <div style="padding: 24px 22px 26px; borderRight: 1px solid #D7DDE3; minWidth: 0">
+                <span style="display: flex; alignItems: center; gap: 7px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: '0.07em'; textTransform: uppercase; color: {{ r.tone }}; marginBottom: 12px"><span style="width: 7px; height: 7px; borderRadius: 50%; background: {{ r.tone }}"></span>{{ r.status }}</span>
+                <span style="display: block; fontFamily: 'IBM Plex Mono', monospace; fontSize: 12.5px; color: #5B646B; marginBottom: 6px">{{ r.id }}</span>
+                <span style="display: block; fontSize: 14.5px; color: #23282C; lineHeight: 1.45; marginBottom: 4px">{{ r.finding }}</span>
+                <span style="display: block; fontSize: 13.5px; color: #5B646B; lineHeight: 1.45">→ {{ r.action }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <p style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: '0.06em'; textTransform: uppercase; color: #5F6970; margin: 0; padding: 14px 0 18px">Placeholder — live job sheet JFD-1042, anonymised record to supply</p>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <section aria-label="Credibility" style="background: #E9EDF1; borderTop: 3px solid #29A9E9; borderBottom: 1px solid #D7DDE3">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: 44px clamp(20px, 5vw, 28px) 40px">
+      <h2 style="fontFamily: 'Barlow Condensed', sans-serif; fontSize: 30px; fontWeight: 600; letterSpacing: '-0.005em'; margin: 0 0 30px">Fire door specialists. Keeping the route to finished work simple.</h2>
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 1px; background: #D7DDE3; border: 1px solid #D7DDE3">
+        <div style="background: #E9EDF1; padding: 20px 22px"><span style="display: block; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: '0.08em'; textTransform: uppercase; color: #0E6FAF; marginBottom: 9px">01</span><span style="display: block; fontSize: 16px; fontWeight: 500; lineHeight: 1.4">South West specialist</span><span style="display: block; fontSize: 14px; color: #5B646B; lineHeight: 1.5; marginTop: 5px">Plymouth-based, working across Devon and Cornwall.</span></div>
+        <div style="background: #E9EDF1; padding: 20px 22px"><span style="display: block; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: '0.08em'; textTransform: uppercase; color: #0E6FAF; marginBottom: 9px">02</span><span style="display: block; fontSize: 16px; fontWeight: 500; lineHeight: 1.4">Demanding environments</span><span style="display: block; fontSize: 14px; color: #5B646B; lineHeight: 1.5; marginTop: 5px">Live healthcare, education and laboratory settings.</span></div>
+        <div style="background: #E9EDF1; padding: 20px 22px"><span style="display: block; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: '0.08em'; textTransform: uppercase; color: #0E6FAF; marginBottom: 9px">03</span><span style="display: block; fontSize: 16px; fontWeight: 500; lineHeight: 1.4">Inspection → remedials</span><span style="display: block; fontSize: 14px; color: #5B646B; lineHeight: 1.5; marginTop: 5px">One contractor from finding to completed work.</span></div>
+        <div style="background: #E9EDF1; padding: 20px 22px"><span style="display: block; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: '0.08em'; textTransform: uppercase; color: #0E6FAF; marginBottom: 9px">04</span><span style="display: block; fontSize: 16px; fontWeight: 500; lineHeight: 1.4">Evidence on completion</span><span style="display: block; fontSize: 14px; color: #5B646B; lineHeight: 1.5; marginTop: 5px">Door-level records you can hand to anyone who asks.</span></div>
+      </div>
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); gap: 24px 40px; marginTop: 30px; alignItems: stretch">
+        <div style="minWidth: 0; display: flex; flexDirection: column; justifyContent: space-between; gap: 22px">
+          <div style="display: flex; alignItems: center; gap: 26px; flexWrap: wrap">
+            <img src="src/assets/images/logos/bsc-fire-door-installation.jpg" alt="BlueSky Certified Installer — Fire Door Installation, FDI-146" style="width: 58px; height: 58px; borderRadius: 50%; objectFit: cover; transform: scale(1.03)">
+            <img src="src/assets/images/logos/door-data-systems.jpeg" alt="Door Data Systems — compliance in construction" style="height: 70px; width: auto; mixBlendMode: multiply">
+            <span style="width: 1px; height: 40px; background: #D0D7DE"></span>
+            <img src="src/assets/images/logos/university-of-plymouth.png" alt="University of Plymouth" style="height: 40px; width: auto">
+          </div>
+          <div style="display: flex; flexWrap: wrap; gap: 22px 44px; paddingTop: 20px; borderTop: 1px solid #D0D7DE">
+            <span style="display: block"><span style="display: block; fontFamily: 'Barlow Condensed', sans-serif; fontSize: 34px; fontWeight: 600; letterSpacing: '-0.02em'; lineHeight: 1">~150</span><span style="display: block; fontSize: 13.5px; color: #5B646B; marginTop: 3px">doors across two schools</span></span>
+            <span style="display: block"><span style="display: block; fontFamily: 'Barlow Condensed', sans-serif; fontSize: 34px; fontWeight: 600; letterSpacing: '-0.02em'; lineHeight: 1">~35</span><span style="display: block; fontSize: 13.5px; color: #5B646B; marginTop: 3px">laboratory doorsets, University of Plymouth</span></span>
+          </div>
+        </div>
+        <a href="Projects.dc.html" style="minWidth: 0; display: grid; gridTemplateColumns: 116px minmax(0, 1fr); background: #FFFFFF; border: 1px solid #D7DDE3; color: #23282C; transition: border-color .2s ease" style-hover="border-color: #0E6FAF; color: #23282C">
+          <span style="display: block; borderRight: 1px solid #D7DDE3; overflow: hidden; background: #E4E9EE"><img src="src/assets/images/photos/weston-corridor.jpeg" alt="Replacement oak-veneer doorsets in a school corridor, Weston-super-Mare" style="width: 100%; height: 100%; objectFit: cover; display: block; objectPosition: 70% 50%"></span>
+          <span style="display: block; padding: 18px 20px 18px">
+            <span style="display: flex; alignItems: center; gap: 8px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: '0.08em'; textTransform: uppercase; color: #0E6FAF; marginBottom: 8px"><span style="width: 7px; height: 7px; borderRadius: 50%; background: #1F6B4D"></span>Completed · Weston-super-Mare</span>
+            <span style="display: block; fontFamily: 'Barlow Condensed', sans-serif; fontSize: 23px; fontWeight: 600; lineHeight: 1.16; marginBottom: 8px">150 doors, two schools, one holiday programme.</span>
+            <span style="display: block; fontSize: 14px; color: #5B646B; lineHeight: 1.5; marginBottom: 12px">Delivered within the required programme and budget.</span>
+            <span style="display: inline-block; fontSize: 14.5px; fontWeight: 600; color: #0E6FAF; borderBottom: 1px solid #A9C6DB; paddingBottom: 2px">View project →</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="The problem" style="borderBottom: 1px solid #D7DDE3">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px); display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: clamp(28px, 6vw, 56px) 72px; alignItems: start">
+      <div style="minWidth: 0; maxWidth: 480px">
+        <p style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: '0.1em'; textTransform: uppercase; color: #0E6FAF; margin: 0 0 20px">The actual problem</p>
+        <h2 style="fontFamily: 'Barlow Condensed', sans-serif; fontSize: clamp(36px, 4.4vw, 56px); fontWeight: 600; lineHeight: 1.08; letterSpacing: '-0.025em'; margin: 0 0 22px; textWrap: pretty">You don't need another fire door report. You need the actions dealt with.</h2>
+        <p style="fontSize: 17.5px; lineHeight: 1.62; color: #40474D; margin: 0; maxWidth: 44ch; textWrap: pretty">Most estates teams we meet already know roughly what's wrong. The difficulty is getting it scoped, instructed, completed and evidenced while the building stays open.</p>
+      </div>
+      <div style="minWidth: 0">
+        <sc-for list="{{ problems }}" as="p" hint-placeholder-count="5">
+          <div style="display: grid; gridTemplateColumns: 46px 1fr; gap: 18px; padding: 22px 0; borderTop: 1px solid #D7DDE3; alignItems: start">
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12px; color: #5F6970; paddingTop: 4px">{{ p.n }}</span>
+            <span style="minWidth: 0"><span style="display: block; fontSize: 18px; fontWeight: 500; lineHeight: 1.4; marginBottom: 6px">{{ p.title }}</span><span style="display: block; fontSize: 15.5px; color: #5B646B; lineHeight: 1.55">{{ p.body }}</span></span>
+          </div>
+        </sc-for>
+        <div style="borderTop: 1px solid #D7DDE3; paddingTop: 26px; marginTop: 4px; display: flex; flexWrap: wrap; alignItems: center; gap: 10px 14px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 12.5px; letterSpacing: '0.06em'; textTransform: uppercase; color: #23282C">
+          <span>finding</span><span style="color: #A9C6DB">→</span><span>decision</span><span style="color: #A9C6DB">→</span><span>completed work</span><span style="color: #A9C6DB">→</span><span style="color: #0E6FAF">clear close-out</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Our principle" style="background: #23282C; color: #EEF3F7">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(62px, 10.4vw, 104px) clamp(20px, 5vw, 28px); textAlign: center">
+      <h2 style="fontFamily: 'Barlow Condensed', sans-serif; fontSize: clamp(40px, 5.4vw, 68px); fontWeight: 600; lineHeight: 1.06; letterSpacing: '-0.025em'; margin: 0 auto 44px; maxWidth: 20ch">We keep fire door safety simple.</h2>
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 32px; maxWidth: 900px; margin: 0 auto 56px; textAlign: left">
+        <p style="fontSize: 19px; lineHeight: 1.5; margin: 0; paddingTop: 18px; borderTop: 1px solid #3C4348; color: #EEF3F7">You know what needs doing.</p>
+        <p style="fontSize: 19px; lineHeight: 1.5; margin: 0; paddingTop: 18px; borderTop: 1px solid #3C4348; color: #EEF3F7">You know what is happening.</p>
+        <p style="fontSize: 19px; lineHeight: 1.5; margin: 0; paddingTop: 18px; borderTop: 1px solid #3C4348; color: #EEF3F7">You know what has been completed.</p>
+      </div>
+      <p style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 13px; letterSpacing: '0.16em'; textTransform: uppercase; color: #6FC4F2; margin: 0">Decide &nbsp;→&nbsp; Deliver &nbsp;→&nbsp; Close</p>
+    </div>
+  </section>
+
+  <section id="process" aria-label="Decide, Deliver, Close" style="borderBottom: 1px solid #D7DDE3; background: #FFFFFF">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px)">
+      <div style="display: flex; flexWrap: wrap; justifyContent: space-between; alignItems: end; gap: 20px; marginBottom: 48px">
+        <h2 style="fontFamily: 'Barlow Condensed', sans-serif; fontSize: clamp(34px, 4vw, 50px); fontWeight: 600; letterSpacing: '-0.025em'; lineHeight: 1.1; margin: 0; maxWidth: 24ch">How the work moves, end to end.</h2>
+        <p style="fontSize: 16px; color: #5B646B; margin: 0; maxWidth: 34ch; lineHeight: 1.55">Three stages. Each one ends with something you can act on or hand over.</p>
+      </div>
+
+      <sc-if value="{{ processRail }}" hint-placeholder-val="{{ true }}">
+        <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 252px), 1fr)); gap: 1px; background: #D7DDE3; border: 1px solid #D7DDE3">
+          <sc-for list="{{ stages }}" as="s" hint-placeholder-count="3">
+            <div sc-camel-on-mouse-enter="{{ s.focus }}" style="background: #FFFFFF; padding: 30px clamp(20px, 5vw, 28px) 32px; minWidth: 0; position: relative; transition: background .2s ease" style-hover="background: #F4F6F8">
+              <div style="display: flex; alignItems: center; gap: 14px; marginBottom: 22px">
+                <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12px; letterSpacing: '0.08em'; color: #5F6970">{{ s.n }}</span>
+                <span style="flex: 1; height: 1px; background: #D7DDE3"></span>
+                <span style="width: 9px; height: 9px; background: {{ s.dot }}; borderRadius: 50%"></span>
+              </div>
+              <h3 style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 15px; fontWeight: 500; letterSpacing: '0.14em'; textTransform: uppercase; color: #0E6FAF; margin: 0 0 16px">{{ s.label }}</h3>
+              <p style="fontFamily: 'Barlow Condensed', sans-serif; fontSize: 27px; fontWeight: 600; lineHeight: 1.22; letterSpacing: '-0.015em'; margin: 0 0 14px; textWrap: pretty">{{ s.headline }}</p>
+              <p style="fontSize: 15.5px; lineHeight: 1.58; color: #5B646B; margin: 0 0 22px">{{ s.body }}</p>
+              <div style="borderTop: 1px solid #D7DDE3; paddingTop: 16px; marginBottom: 20px">
+                <span style="display: block; fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: '0.08em'; textTransform: uppercase; color: #5F6970; marginBottom: 7px">You end up with</span>
+                <span style="display: block; fontSize: 15.5px; fontWeight: 500; lineHeight: 1.45">{{ s.outcome }}</span>
+              </div>
+              <div style="aspectRatio: 4 / 3; overflow: hidden; background: #E4E9EE; border: 1px solid #D7DDE3"><img src="{{ s.img }}" alt="{{ s.proof }}" style="width: 100%; height: 100%; objectFit: cover; display: block; objectPosition: {{ s.pos }}"></div>
+              </div>
+            </sc-for></div>
+          
+        </sc-if></div>
+      
+
+      <sc-if value="{{ processLedger }}" hint-placeholder-val="{{ false }}">
+        <div style="display: block">
+          <sc-for list="{{ stages }}" as="s" hint-placeholder-count="3">
+            <div style="display: grid; gridTemplateColumns: clamp(44px, 6vw, 64px) minmax(0, 1fr); gap: 0 clamp(16px, 3.5vw, 40px); alignItems: start; borderTop: 1px solid #D7DDE3; padding: 36px 0">
+              <div style="display: flex; flexDirection: column; alignItems: center; gap: 12px; paddingTop: 4px">
+                <span style="width: 44px; height: 44px; border: 1px solid #C9D2DA; display: grid; placeItems: center; fontFamily: 'IBM Plex Mono', monospace; fontSize: 14px; color: #0E6FAF; background: #F4F6F8">{{ s.n }}</span>
+                <span style="width: 1px; flex: 1; minHeight: 60px; background: #D7DDE3"></span>
+              </div>
+              <div style="minWidth: 0; display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 24px 40px; alignItems: start">
+              <div style="minWidth: 0">
+                <h3 style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 15px; fontWeight: 500; letterSpacing: '0.14em'; textTransform: uppercase; color: #0E6FAF; margin: 0 0 14px">{{ s.label }}</h3>
+                <p style="fontFamily: 'Barlow Condensed', sans-serif; fontSize: clamp(28px, 3vw, 38px); fontWeight: 600; lineHeight: 1.16; letterSpacing: '-0.02em'; margin: 0 0 14px; textWrap: pretty">{{ s.headline }}</p>
+                <p style="fontSize: 16.5px; lineHeight: 1.6; color: #5B646B; margin: 0 0 20px; maxWidth: 52ch">{{ s.body }}</p>
+                <span style="display: inline-flex; alignItems: center; gap: 9px; background: #E9EDF1; padding: 10px 14px; fontSize: 15px; fontWeight: 500"><span style="width: 8px; height: 8px; borderRadius: 50%; background: {{ s.dot }}"></span>{{ s.outcome }}</span>
+              </div>
+              <div style="height: 240px; overflow: hidden; background: #E4E9EE; border: 1px solid #D7DDE3"><img src="{{ s.img }}" alt="{{ s.proof }}" style="width: 100%; height: 100%; objectFit: cover; display: block; objectPosition: {{ s.pos }}"></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    
+  </section>
+
+  <section aria-label="Where we help" style="borderBottom: 1px solid #D7DDE3">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px)">
+      <h2 style="fontFamily: 'Barlow Condensed', sans-serif; fontSize: clamp(34px, 4vw, 52px); fontWeight: 600; letterSpacing: '-0.025em'; lineHeight: 1.1; margin: 0 0 40px; maxWidth: 22ch">Where can we take some weight off your list?</h2>
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 1px; background: #D7DDE3; border: 1px solid #D7DDE3">
+        <sc-for list="{{ situations }}" as="u" hint-placeholder-count="4">
+          <a href="Get%20a%20Quote.dc.html" style="background: #F4F6F8; padding: 34px clamp(20px, 5.5vw, 32px) 30px; minWidth: 0; display: block; color: #23282C; transition: background .2s ease" style-hover="background: #FFFFFF; color: #23282C">
+            <span style="display: block; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: '0.09em'; textTransform: uppercase; color: #5F6970; marginBottom: 18px">{{ u.n }}</span>
+            <span style="display: block; fontFamily: 'Barlow Condensed', sans-serif; fontSize: 28px; fontWeight: 600; lineHeight: 1.22; letterSpacing: '-0.015em'; marginBottom: 12px; textWrap: pretty">{{ u.title }}</span>
+            <span style="display: block; fontSize: 16px; lineHeight: 1.58; color: #5B646B; marginBottom: 20px; maxWidth: 42ch">{{ u.body }}</span>
+            <span style="display: inline-block; fontSize: 15px; fontWeight: 500; color: #0E6FAF; borderBottom: 1px solid #A9C6DB; paddingBottom: 2px">{{ u.cta }} →</span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" aria-label="Services" style="background: #E9EDF1; borderBottom: 1px solid #D7DDE3">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px)">
+      <div style="display: flex; flexWrap: wrap; justifyContent: space-between; alignItems: end; gap: 20px; marginBottom: 40px">
+        <h2 style="fontFamily: 'Barlow Condensed', sans-serif; fontSize: clamp(34px, 4vw, 52px); fontWeight: 600; letterSpacing: '-0.025em'; lineHeight: 1.1; margin: 0">Fire door services across the South West</h2>
+        <p style="fontSize: 16px; color: #5B646B; margin: 0; maxWidth: 30ch; lineHeight: 1.55">Certification and records come as part of each.</p>
+      </div>
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); gap: 24px">
+        <sc-for list="{{ services }}" as="sv" hint-placeholder-count="4">
+          <a href="{{ sv.href }}" style="display: block; background: #FFFFFF; border: 1px solid #D7DDE3; color: #23282C; transition: border-color .2s ease, transform .2s ease" style-hover="border-color: #0E6FAF; color: #23282C">
+            <span style="display: block; aspectRatio: 3 / 2; overflow: hidden; borderBottom: 1px solid #D7DDE3; background: #E4E9EE"><img src="{{ sv.img }}" alt="{{ sv.shot }}" style="width: 100%; height: 100%; objectFit: cover; display: block; objectPosition: {{ sv.pos }}"></span>
+            <span style="display: block; padding: 24px 24px 26px">
+              <span style="display: block; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: '0.08em'; textTransform: uppercase; color: #0E6FAF; marginBottom: 12px">{{ sv.n }}</span>
+              <span style="display: block; fontSize: 20px; fontWeight: 600; lineHeight: 1.28; letterSpacing: '-0.01em'; marginBottom: 10px; fontFamily: 'Barlow Condensed', sans-serif">{{ sv.title }}</span>
+              <span style="display: block; fontSize: 15.5px; lineHeight: 1.55; color: #5B646B">{{ sv.body }}</span>
+            </span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" aria-label="Projects" style="borderBottom: 1px solid #D7DDE3">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px)">
+      <h2 style="fontFamily: 'Barlow Condensed', sans-serif; fontSize: clamp(34px, 4vw, 52px); fontWeight: 600; letterSpacing: '-0.025em'; lineHeight: 1.1; margin: 0 0 20px; maxWidth: 24ch">Fire door work has to work in the real world.</h2>
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 12px 48px; marginBottom: 44px; maxWidth: 940px; alignItems: baseline">
+        <p style="fontFamily: 'Barlow Condensed', sans-serif; fontSize: 27px; fontWeight: 600; letterSpacing: '-0.015em'; lineHeight: 1.25; margin: 0">Specifications matter.</p>
+        <p style="fontSize: 17.5px; lineHeight: 1.6; color: #40474D; margin: 0; maxWidth: 52ch; textWrap: pretty">So do deadlines, occupied buildings, specialist requirements and the people who need to keep using the site while the work is happening.</p>
+      </div>
+      <div style="display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 40px; alignItems: start">
+        <article style="minWidth: 0">
+          <div style="aspectRatio: 16 / 10; overflow: hidden; background: #E4E9EE; border: 1px solid #D7DDE3; marginBottom: 24px"><img src="src/assets/images/photos/weston-doorsets.jpeg" alt="New double and single fire doorsets with vision panels, Weston-super-Mare school" style="width: 100%; height: 100%; objectFit: cover; display: block; objectPosition: 50% 55%"></div>
+          <p style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: '0.09em'; textTransform: uppercase; color: #0E6FAF; margin: 0 0 14px">Featured project · Weston-super-Mare</p>
+          <h3 style="fontFamily: 'Barlow Condensed', sans-serif; fontSize: clamp(30px, 3.4vw, 40px); fontWeight: 600; lineHeight: 1.16; letterSpacing: '-0.02em'; margin: 0 0 16px; textWrap: pretty">150 doors. Two schools. One restricted holiday programme.</h3>
+          <p style="fontSize: 17px; lineHeight: 1.6; color: #40474D; margin: 0 0 24px; maxWidth: 52ch; textWrap: pretty">JFD was appointed relatively late to complete fire-door replacement works across two schools for an education trust — around 150 doors, with a significant amount of work to coordinate inside the available school-holiday period. The work was completed within the required programme and budget.</p>
+          <div style="display: grid; gridTemplateColumns: repeat(3, minmax(0, 1fr)); gap: 1px; background: #D7DDE3; border: 1px solid #D7DDE3; marginBottom: 26px">
+            <span style="background: #F4F6F8; padding: 16px 18px"><span style="display: block; fontFamily: 'Barlow Condensed', sans-serif; fontSize: 25px; fontWeight: 600">~150</span><span style="display: block; fontSize: 13.5px; color: #5B646B; marginTop: 2px">doors replaced</span></span>
+            <span style="background: #F4F6F8; padding: 16px 18px"><span style="display: block; fontFamily: 'Barlow Condensed', sans-serif; fontSize: 25px; fontWeight: 600">Two</span><span style="display: block; fontSize: 13.5px; color: #5B646B; marginTop: 2px">schools, one trust</span></span>
+            <span style="background: #F4F6F8; padding: 16px 18px"><span style="display: block; fontFamily: 'Barlow Condensed', sans-serif; fontSize: 25px; fontWeight: 600">On time</span><span style="display: block; fontSize: 13.5px; color: #5B646B; marginTop: 2px">and on budget</span></span>
+          </div>
+          <a href="Projects.dc.html" style="fontSize: 16.5px; fontWeight: 500; borderBottom: 1px solid #A9C6DB; paddingBottom: 3px" style-hover="borderBottom: 1px solid #0E6FAF">View project →</a>
+        </article>
+        <div style="minWidth: 0; display: grid; gap: 24px">
+          <sc-for list="{{ projects }}" as="pr" hint-placeholder-count="2">
+            <a href="{{ pr.href }}" style="display: block; color: #23282C; border: 1px solid #D7DDE3; background: #FFFFFF; transition: border-color .2s ease" style-hover="border-color: #0E6FAF; color: #23282C">
+              <sc-if value="{{ pr.img }}" hint-placeholder-val="{{ false }}"><span style="display: block; height: 200px; overflow: hidden; borderBottom: 1px solid #D7DDE3; background: #E4E9EE"><img src="{{ pr.img }}" alt="{{ pr.shot }}" style="width: 100%; height: 100%; objectFit: cover; display: block; objectPosition: {{ pr.pos }}"></span></sc-if>
+              <sc-if value="{{ pr.noImg }}" hint-placeholder-val="{{ false }}"><span style="display: grid; placeItems: center; background: repeating-linear-gradient(135deg, #E4E9EE 0 8px, #DCE3E9 8px 16px); borderBottom: 1px solid #D7DDE3; minHeight: 128px; padding: 16px"><span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: '0.06em'; textTransform: uppercase; color: #5B646B; textAlign: center; lineHeight: 1.5">{{ pr.shot }}</span></span></sc-if>
+              <span style="display: block; minWidth: 0; padding: 20px 22px 22px">
+                <span style="display: block; fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: '0.08em'; textTransform: uppercase; color: #5F6970; marginBottom: 8px">{{ pr.sector }}</span>
+                <span style="display: block; fontFamily: 'Barlow Condensed', sans-serif; fontSize: 23px; fontWeight: 600; lineHeight: 1.24; letterSpacing: '-0.015em'; marginBottom: 8px">{{ pr.title }}</span>
+                <span style="display: block; fontSize: 14.5px; color: #5B646B; lineHeight: 1.5; marginBottom: 12px">{{ pr.body }}</span>
+                <span style="display: block; fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: '0.07em'; textTransform: uppercase; color: #5B646B; paddingTop: 10px; borderTop: 1px solid #E5EAEF; marginBottom: 12px; lineHeight: 1.6">{{ pr.meta }}</span>
+                <span style="display: inline-block; fontSize: 14.5px; fontWeight: 500; color: #0E6FAF; borderBottom: 1px solid #A9C6DB; paddingBottom: 2px">View project →</span>
+              </span>
+            </a>
+          </sc-for>
+          <div style="display: flex; flexWrap: wrap; justifyContent: space-between; alignItems: baseline; gap: 12px 24px">
+            <p style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: '0.06em'; textTransform: uppercase; color: #5F6970; margin: 0">University Hospitals Plymouth NHS Trust — slot reserved, pending approval</p>
+            <a href="Projects.dc.html" style="fontSize: 15.5px; fontWeight: 500; borderBottom: 1px solid #A9C6DB; paddingBottom: 2px" style-hover="borderBottom: 1px solid #0E6FAF">All projects →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why" aria-label="Why JFD" style="background: #FFFFFF; borderBottom: 1px solid #D7DDE3">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(53px, 8.8vw, 88px) clamp(20px, 5vw, 28px); display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(28px, 6vw, 48px) 80px; alignItems: start">
+      <div style="minWidth: 0; maxWidth: 440px; position: sticky; top: 108px">
+        <h2 style="fontFamily: 'Barlow Condensed', sans-serif; fontSize: clamp(34px, 4.2vw, 54px); fontWeight: 600; letterSpacing: '-0.025em'; lineHeight: 1.08; margin: 0 0 18px">Why Just Fire Doors?</h2>
+        <p style="fontSize: 17.5px; lineHeight: 1.62; color: #40474D; margin: 0 0 26px; maxWidth: 40ch; textWrap: pretty">It's in the name.</p>
+        <figure style="margin: 0 0 24px"><div style="aspectRatio: 5 / 4; overflow: hidden; background: #E4E9EE; border: 1px solid #D7DDE3"><img src="src/assets/images/photos/bodmin-installer.jpeg" alt="JFD installer checking a frame for plumb in a live hospital corridor, Bodmin" style="width: 100%; height: 100%; objectFit: cover; display: block; objectPosition: 40% 45%"></div><figcaption style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: '0.07em'; textTransform: uppercase; color: #5F6970; marginTop: 10px">JFD installer on site · Bodmin Hospital</figcaption></figure>
+        <a href="Why%20JFD.dc.html" style="fontSize: 16.5px; fontWeight: 500; borderBottom: 1px solid #A9C6DB; paddingBottom: 3px" style-hover="borderBottom: 1px solid #0E6FAF">Why JFD →</a>
+      </div>
+      <div style="minWidth: 0">
+        <sc-for list="{{ reasons }}" as="rz" hint-placeholder-count="6">
+          <div style="display: grid; gridTemplateColumns: 46px minmax(0, 1fr); gap: 4px 18px; padding: 26px 0 30px; borderTop: 1px solid #D7DDE3; alignItems: start">
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12px; color: #5F6970; paddingTop: 6px">{{ rz.n }}</span>
+            <h3 style="fontFamily: 'Barlow Condensed', sans-serif; fontSize: 27px; fontWeight: 600; lineHeight: 1.26; letterSpacing: '-0.015em'; margin: 0; textWrap: pretty">{{ rz.title }}</h3>
+            <span></span>
+            <div style="minWidth: 0; maxWidth: 56ch">
+              <sc-if value="{{ rz.list }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; flexWrap: wrap; gap: 8px; margin: 14px 0 2px">
+                  <sc-for list="{{ rz.list }}" as="li" hint-placeholder-count="3">
+                    <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12.5px; letterSpacing: '0.04em'; textTransform: uppercase; color: #23282C; background: #E9EDF1; padding: 8px 12px">{{ li }}</span>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-for list="{{ rz.lines }}" as="ln" hint-placeholder-count="2">
+                <p style="fontSize: 16px; lineHeight: 1.6; color: #40474D; margin: 12px 0 0">{{ ln }}</p>
+              </sc-for>
+              <sc-if value="{{ rz.badge }}" hint-placeholder-val="{{ false }}">
+                <span style="display: inline-flex; alignItems: center; gap: 12px; marginTop: 18px; paddingTop: 16px; borderTop: 1px solid #E5EAEF">
+                  <img src="src/assets/images/logos/bsc-fire-door-installation.jpg" alt="BlueSky Certified Installer, FDI-146" style="width: 46px; height: 46px; borderRadius: 50%; objectFit: cover; transform: scale(1.03)">
+                  <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: '0.07em'; textTransform: uppercase; color: #5B646B; lineHeight: 1.6">Third-party certified<br>installation &amp; fire stopping</span>
+                </span>
+              </sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" aria-label="Send us your job sheet" style="background: #0B5789; color: #FFFFFF">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(58px, 9.6vw, 96px) clamp(20px, 5vw, 28px); display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(28px, 6vw, 48px) 72px; alignItems: center">
+      <div style="minWidth: 0">
+        <h2 style="fontFamily: 'Barlow Condensed', sans-serif; fontSize: clamp(38px, 4.8vw, 62px); fontWeight: 600; lineHeight: 1.06; letterSpacing: '-0.025em'; margin: 0 0 18px; textWrap: pretty">Already have a fire door survey or job sheet?</h2>
+        <p style="fontFamily: 'Barlow Condensed', sans-serif; fontSize: 34px; margin: 0 0 22px; color: #FFFFFF">Send it over.</p>
+        <p style="fontSize: 17.5px; lineHeight: 1.6; color: #C8E4F7; margin: 0; maxWidth: 46ch">Share the survey or job sheet, tell us the site and anything we need to know about access. We'll come back with the actions, the schedule and a price.</p>
+      </div>
+      <div style="minWidth: 0">
+        <div style="display: flex; flexDirection: column; alignItems: start; gap: 20px">
+          <a href="Get%20a%20Quote.dc.html#route-a" style="background: #FFFFFF; color: #0B5789; padding: 19px clamp(20px, 5vw, 28px); fontSize: 17px; fontWeight: 600; display: inline-flex; alignItems: center; minHeight: 56px; transition: background .18s ease" style-hover="background: #23282C; color: #FFFFFF">Send us your survey or job sheet</a>
+          <a href="Contact.dc.html" style="fontSize: 16.5px; fontWeight: 500; color: #FFFFFF; borderBottom: 1px solid rgba(255,255,255,0.5); paddingBottom: 3px" style-hover="color: #FFFFFF; borderBottom: 1px solid #FFFFFF">Talk through your fire-door work →</a>
+          <p style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12.5px; letterSpacing: '0.08em'; textTransform: uppercase; color: #A8D7F3; margin: 14px 0 0; lineHeight: 1.8">One site. One backlog.<br>One defined piece of work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #23282C; color: #E4E9ED">
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: clamp(43px, 7.2vw, 72px) clamp(20px, 5vw, 28px) 32px; display: grid; gridTemplateColumns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 44px">
+      <div style="minWidth: 0">
+        <span style="display: flex; alignItems: center; gap: 10px; marginBottom: 16px">
+          <span style="display: flex; alignItems: center; gap: 3px">
+            <span style="width: 4px; height: 28px; background: #29A9E9"></span>
+            <span style="position: relative; width: 16px; height: 28px; display: block">
+              <span style="position: absolute; inset: 0; width: 0; height: 0; borderTop: 14px solid transparent; borderBottom: 14px solid transparent; borderLeft: 16px solid #29A9E9"></span>
+              <span style="position: absolute; top: 5px; left: 0; width: 0; height: 0; borderTop: 9px solid transparent; borderBottom: 9px solid transparent; borderLeft: 10px solid #23282C"></span>
+            </span>
+          </span>
+          <span style="fontFamily: 'Barlow Condensed', sans-serif; fontSize: 22px; fontWeight: 700">Just Fire Doors<sup style="fontSize: 11px; fontWeight: 600; letterSpacing: '0.04em'; marginLeft: 2px">SW</sup></span>
+        </span>
+        <p style="fontFamily: 'Barlow Condensed', sans-serif; fontSize: 21px; margin: 0; color: #E4E9ED">Fire door safety. Kept simple.</p>
+      </div>
+      <div style="minWidth: 0">
+        <p style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: '0.1em'; textTransform: uppercase; color: #9BA7B1; margin: 0 0 16px">Services</p>
+        <a href="Service%20Inspections.dc.html" style="display: block; padding: 7px 0; fontSize: 15px; color: #E4E9ED" style-hover="color: #6FC4F2">Inspections &amp; Surveys</a>
+        <a href="Service%20Repairs.dc.html" style="display: block; padding: 7px 0; fontSize: 15px; color: #E4E9ED" style-hover="color: #6FC4F2">Repairs &amp; Remedial Works</a>
+        <a href="Service%20Maintenance.dc.html" style="display: block; padding: 7px 0; fontSize: 15px; color: #E4E9ED" style-hover="color: #6FC4F2">Maintenance</a>
+        <a href="Service%20Replacement.dc.html" style="display: block; padding: 7px 0; fontSize: 15px; color: #E4E9ED" style-hover="color: #6FC4F2">Replacement &amp; Installation</a>
+      </div>
+      <div style="minWidth: 0">
+        <p style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: '0.1em'; textTransform: uppercase; color: #9BA7B1; margin: 0 0 16px">Company</p>
+        <a href="Projects.dc.html" style="display: block; padding: 7px 0; fontSize: 15px; color: #E4E9ED" style-hover="color: #6FC4F2">Projects</a>
+        <a href="Why%20JFD.dc.html" style="display: block; padding: 7px 0; fontSize: 15px; color: #E4E9ED" style-hover="color: #6FC4F2">Why JFD</a>
+        <a href="Contact.dc.html" style="display: block; padding: 7px 0; fontSize: 15px; color: #E4E9ED" style-hover="color: #6FC4F2">Contact</a>
+      </div>
+      <div style="minWidth: 0">
+        <p style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: '0.1em'; textTransform: uppercase; color: #9BA7B1; margin: 0 0 16px">Get started</p>
+        <a href="Get%20a%20Quote.dc.html#route-a" style="display: inline-flex; alignItems: center; minHeight: 46px; padding: 12px 18px; border: 1px solid #424A50; fontSize: 15px; color: #E4E9ED" style-hover="border-color: #6FC4F2; color: #6FC4F2">Send us your survey or job sheet</a>
+      </div>
+      <div style="minWidth: 0">
+        <p style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: '0.1em'; textTransform: uppercase; color: #9BA7B1; margin: 0 0 16px">Contact</p>
+        <p style="fontSize: 15px; lineHeight: 1.8; margin: 0; color: #E4E9ED">01752 000 000<br>hello@justfiredoors.co.uk<br>Plymouth · South West</p>
+      </div>
+    </div>
+    <div style="maxWidth: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 28px) 44px">
+      <div style="borderTop: 1px solid #363C41; paddingTop: 22px; display: flex; flexWrap: wrap; gap: 12px 28px; alignItems: center; fontSize: 13.5px; color: #9BA7B1">
+        <span>© 2026 Just Fire Doors South West Ltd</span>
+        <a href="#top" style="color: #9BA7B1; fontSize: 13.5px" style-hover="color: #6FC4F2">Privacy</a>
+        <a href="#top" style="color: #9BA7B1; fontSize: 13.5px" style-hover="color: #6FC4F2">Terms</a>
+      </div>
+    </div>
+  </footer>
+</main>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;heroVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;split&quot;,&quot;ledger&quot;],&quot;default&quot;:&quot;split&quot;,&quot;tsType&quot;:&quot;'split' | 'ledger'&quot;,&quot;section&quot;:&quot;Variants&quot;},&quot;processVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;ledger&quot;,&quot;rail&quot;],&quot;default&quot;:&quot;ledger&quot;,&quot;tsType&quot;:&quot;'ledger' | 'rail'&quot;,&quot;section&quot;:&quot;Variants&quot;}}">
+class Component extends DCLogic {
+  state = { servicesOpen: false, scrolled: false };
+
+  componentDidMount() {
+    this._onScroll = () => {
+      const s = window.scrollY > 40;
+      if (s !== this.state.scrolled) this.setState({ scrolled: s });
+    };
+    this._onDoc = (e) => {
+      if (this.state.servicesOpen && !e.target.closest('[aria-haspopup]') && !e.target.closest('a')) {
+        this.setState({ servicesOpen: false });
+      }
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    document.addEventListener('click', this._onDoc);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    document.removeEventListener('click', this._onDoc);
+  }
+
+  renderVals() {
+    const hero = this.props.heroVariant ?? 'split';
+    const proc = this.props.processVariant ?? 'ledger';
+    const green = '#1F6B4D', amber = '#8A6100', red = '#A33A2A', grey = '#5B646B';
+    return {
+      headerH: this.state.scrolled ? '64px' : '82px',
+      servicesOpen: this.state.servicesOpen,
+      toggleServices: (e) => { e.preventDefault(); e.stopPropagation(); this.setState(s => ({ servicesOpen: !s.servicesOpen })); },
+      closeServices: () => this.setState({ servicesOpen: false }),
+      navKeyDown: (e) => { if (e.key === 'Escape') this.setState({ servicesOpen: false }); },
+      heroSplit: hero === 'split',
+      heroLedger: hero === 'ledger',
+      processRail: proc === 'rail',
+      processLedger: proc === 'ledger',
+      records: [
+        { id: 'FD30-014', finding: 'Gaps over 4mm, head and hinge side', action: 'Adjust and reseal', status: 'Closed', tone: green },
+        { id: 'FD60-003', finding: 'Damaged self-closer, plant room', action: 'Repair', status: 'Closed', tone: green },
+        { id: 'FD30-021', finding: 'Missing intumescent to leaf edge', action: 'Replace doorset', status: 'On site', tone: amber },
+        { id: 'FD30-045', finding: 'Unknown specification, stair core', action: 'Investigate', status: 'Decide', tone: red },
+        { id: 'FD30-052', finding: 'Signage and vision panel defects', action: 'Remedial', status: 'Closed', tone: green }
+      ],
+      problems: [
+        { n: '01', title: 'You have a survey. You need the actions turned into work.', body: 'The findings are there. The next job is checking what can actually be repaired, what needs replacing, whether anything needs further investigation and what the work will cost.' },
+        { n: '02', title: 'Remedials have stayed open longer than anyone wanted.', body: 'Actions carry over month to month and before long, what started as a manageable list becomes another operational headache.' },
+        { n: '03', title: 'The evidence from previous work is not good enough.', body: 'Photos, records and completion information should make it easier to see what happened against each action, not create another round of chasing.' },
+        { n: '04', title: 'Your existing contractor can do the work. They just can’t take all of it right now.', body: 'You may simply need another capable fire door contractor to take a defined job sheet and get it moving.' },
+        { n: '05', title: 'You’re tired of dealing with fire doors reactively.', body: 'Instead of waiting for the next problem to appear, you want a clearer approach to inspections, remedials and planned maintenance across the estate.' }
+      ],
+      stages: [
+        { n: '01', label: 'Decide', headline: 'Know what actually needs doing before you instruct it.', body: 'We survey or work from yours, visit site, then split every door into repair, replace or investigate with a price against each line.', outcome: 'A scoped, priced schedule you can sign off', proof: 'Anonymised quote / scope extract — repair · replace · investigate lines with callouts', dot: red, img: ((window.__resources||{})["src/assets/images/photos/stoke-lock.jpeg"]||"assets/stoke-lock.jpeg"), pos: '50% 30%' },
+        { n: '02', label: 'Deliver', headline: 'Get the agreed work done without losing sight of the job.', body: 'We plan around the building and the people using it, whether that means school holidays, live healthcare areas or occupied sites. \n\nWe work through agreed areas, keep disruption under control and make sure you have sight on progress.', outcome: 'Visible progress against the agreed programme', proof: 'Programme / progress view plus site team photography', dot: amber, img: ((window.__resources||{})["src/assets/images/photos/davey-corridor.jpeg"]||"assets/davey-corridor.jpeg"), pos: '50% 35%' },
+        { n: '03', label: 'Close', headline: 'Finish with evidence you can actually use.', body: 'Each door closes out with its own record in Door Data Systems (DDS): what was found, what was done, before and after, and anything still outstanding.', outcome: 'Door-level evidence, ready to hand over', proof: 'Evidence app record — door, before/after, completion status', dot: green, img: ((window.__resources||{})["src/assets/images/evidence/dds-gap-checks.jpeg"]||"assets/dds-gap-checks.jpeg"), pos: '50% 28%' }
+      ],
+      situations: [
+        { n: 'Situation 01', title: 'Clear an ageing backlog', body: 'A list of open fire-door remedial actions that needs clearing in a defensible order.', cta: 'Send us the list' },
+        { n: 'Situation 02', title: 'Extra specialist capacity', body: 'Your existing contractor is at capacity and the fire-door work is queueing.', cta: 'Talk about capacity' },
+        { n: 'Situation 03', title: 'Get clearer evidence against completed work', body: 'We can establish what still needs attention and make the completion trail clearer', cta: 'Ask about evidence' },
+        { n: 'Situation 04', title: 'Planned fire-door maintenance', body: 'Moving from reactive findings to a scheduled cycle across the estate.', cta: 'Plan a cycle' }
+      ],
+      services: [
+        { n: '01', title: 'Fire Door Inspections & Surveys', href: 'Service%20Inspections.dc.html', body: 'Inspections of doors, frames and associated components, with reporting to identify remedial actions and inform the next stage of work.', shot: 'Detail photography — inspection in progress', img: ((window.__resources||{})["src/assets/images/photos/exmouth-bsc-label.jpeg"]||"assets/exmouth-bsc-label.jpeg"), pos: '50% 62%' },
+        { n: '02', title: 'Fire Door Repairs & Remedial Works', href: 'Service%20Repairs.dc.html', body: 'Practical remedial work to address identified issues including door closers, hinges, seals, gaps, alignment and other defects where appropriate.', shot: 'Detail photography — remedial work to leaf edge', img: ((window.__resources||{})["src/assets/images/photos/council-hinges.jpeg"]||"assets/council-hinges.jpeg"), pos: '70% 30%' },
+        { n: '03', title: 'Fire Door Maintenance', href: 'Service%20Maintenance.dc.html', body: 'Scheduled and planned maintenance to help keep fire doors functioning correctly and reduce the build-up of outstanding issues.', shot: 'Detail photography — closer and seal check', img: ((window.__resources||{})["src/assets/images/photos/pub-closer.jpeg"]||"assets/pub-closer.jpeg"), pos: '60% 30%' },
+        { n: '04', title: 'Fire Door Replacement & Installation', href: 'Service%20Replacement.dc.html', body: 'Supply and installation where replacement is required, delivered to the relevant specification and project requirements.', shot: 'Detail photography — new doorset installed', img: ((window.__resources||{})["src/assets/images/photos/penryn-doorset.jpeg"]||"assets/penryn-doorset.jpeg"), pos: '40% 45%' }
+      ],
+      projects: [
+        { sector: 'Education · Plymouth', title: 'University of Plymouth, Davey Building', href: 'Projects.dc.html', body: 'Refurbishment and replacement of around 35 doorsets across the Level 1 laboratories, in a PVC-wrapped finish suited to surfaces that need to be easily cleaned while maintaining the required fire performance. JFD is due to return for Level 2.', meta: '~35 doorsets · Laboratory environment · Repeat work', shot: 'Laboratory doorset, PVC-wrapped finish', img: ((window.__resources||{})["src/assets/images/photos/davey-lab-doorset.jpeg"]||"assets/davey-lab-doorset.jpeg"), pos: '50% 45%' },
+        { sector: 'Healthcare · Plymouth', title: 'Plymouth Mammography Unit', href: 'Projects.dc.html#mammography', body: 'Specialist PVC-wrapped doorsets, some incorporating lead-lined frames, architraves and associated components to provide radiation shielding around X-ray areas while maintaining the required fire performance.', meta: 'Specialist requirements · Installation', shot: 'Lead-lined doorsets to Mammography Rooms 1 and 2 with radiation warning signage, Plymouth Mammography Unit', img: ((window.__resources||{})["src/assets/images/photos/mammo-rooms.jpeg"]||"assets/mammo-rooms.jpeg"), pos: '50% 45%' }
+      ],
+      reasons: [
+        { n: '01', title: 'Because fire doors are what we do.', badge: true, lines: [
+          'The clue is in the name. JFD is a specialist fire-door contractor, with BlueSky third-party certification for fire door installation and fire stopping of penetrations.',
+          'Our installers are qualified carpenters with additional fire-door-specific training.',
+          ''
+        ] },
+        { n: '02', title: 'Because you can start with the job you actually need help with.', list: ['One survey', 'One site', 'One backlog', 'One package your contractor can\u2019t take on'], lines: [
+          'There\u2019s no need to turn a defined piece of work into an estate-wide supplier change.'
+        ] },
+        { n: '03', title: 'Because we understand occupied buildings.', lines: [
+          'Schools, hospitals, laboratories and residential buildings each put different demands on a programme.',
+          'We plan around access, building users and the work happening around us rather than treating every site the same.'
+        ] },
+        { n: '04', title: 'Because clear completion matters as much as starting the job.', lines: [
+          'The useful finish line isn\u2019t simply \u201cengineer attended\u201d. It\u2019s being able to see what was completed and having the records your team needs afterwards.'
+        ] },
+        { n: '05', title: 'Because customers come back.', lines: [
+          'A high proportion of JFD\u2019s work comes from returning customers and referrals from contractors, Estates teams and other fire-safety specialists.',
+          ''
+        ] },
+        { n: '06', title: 'Because straightforward is a feature.', list: ['Clear scope', 'Clear work', 'Clear evidence'], lines: [
+          'Fire door safety already carries enough complexity. Your contractor doesn\u2019t need to add more.'
+        ] }
+      ]
+    };
+  }
+}
+</script>
+
+
+</body></html>

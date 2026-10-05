@@ -1,0 +1,100 @@
+---
+/**
+ * Illustrative list of the documents people usually send (quote hero, contact page).
+ * Decorative: the example file names are hidden from assistive tech; label and footnote are not.
+ *   framed  dashed upload-style box with a label, sizes and a footnote (quote hero)
+ *   plain   compact list (contact page card)
+ */
+import { fileTone } from '../../lib/tones';
+
+interface Props {
+  files: { ext: string; name: string; size?: string }[];
+  variant?: 'framed' | 'plain';
+  label?: string;
+  footnote?: string;
+}
+
+const { files, variant = 'plain', label, footnote } = Astro.props;
+---
+
+<div class:list={['files', `files--${variant}`]}>
+  {label && <p class="files__label">{label}</p>}
+  <ul class="files__list" role="list" aria-hidden="true">
+    {files.map((f) => (
+      <li class="files__item">
+        <span class="files__ext" style={`background: ${fileTone(f.ext)}`}>
+          {f.ext}
+        </span>
+        <span class="files__name">{f.name}</span>
+        {f.size && variant === 'framed' && <span class="files__size">{f.size}</span>}
+      </li>
+    ))}
+  </ul>
+  {footnote && <p class="files__footnote">{footnote}</p>}
+</div>
+
+<style>
+  .files--framed {
+    border: 2px dashed #9db7ca;
+    background: var(--jfd-surface);
+    padding: 22px;
+  }
+  .files__label {
+    letter-spacing: normal;
+    font-family: var(--jfd-font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: var(--jfd-ink-3);
+    margin: 0 0 14px;
+  }
+  .files__list {
+    display: grid;
+    gap: 5px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .files--framed .files__list {
+    gap: 6px;
+  }
+  .files__item {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+    padding: 9px 12px;
+    background: var(--jfd-surface);
+    border: 1px solid var(--jfd-rule);
+  }
+  .files--framed .files__item {
+    grid-template-columns: 46px minmax(0, 1fr) auto;
+    padding: 11px 12px;
+    background: var(--jfd-ground);
+  }
+  .files__ext {
+    letter-spacing: normal;
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    color: #ffffff;
+    padding: 4px 0;
+    text-align: center;
+  }
+  .files__name {
+    font-size: 14px;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .files__size {
+    font-family: var(--jfd-font-mono);
+    font-size: 10px;
+    color: var(--jfd-ink-3);
+  }
+  .files__footnote {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--jfd-ink-2);
+    margin: 14px 0 0;
+  }
+</style>

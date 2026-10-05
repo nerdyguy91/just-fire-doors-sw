@@ -1,0 +1,104 @@
+---
+/**
+ * Illustrative job sheet: door → finding → action → status (home hero record).
+ */
+import type { Tone } from '../../lib/tones';
+import RecordFrame from './RecordFrame.astro';
+import StatusLabel from './StatusLabel.astro';
+
+export interface JobSheetRow {
+  id: string;
+  finding: string;
+  action: string;
+  status: string;
+  tone: Tone;
+}
+
+interface Props {
+  title: string;
+  meta?: string;
+  rows: JobSheetRow[];
+  /** Summary footer, e.g. { strong: '4 of 5 actions closed', text: 'evidence attached per door', date: '14 Mar' }. */
+  summary?: { strong: string; text: string; date?: string };
+  caption?: string;
+  shadow?: boolean;
+}
+
+const { title, meta, rows, summary, caption, shadow = true } = Astro.props;
+---
+
+<RecordFrame {title} {meta} {caption} {shadow} class="job-sheet">
+  <table class="js-table">
+    <caption class="jfd-visually-hidden">
+      Illustrative job sheet: each door, the finding, the action and its status
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Door</th>
+        <th scope="col">
+          Finding <span aria-hidden="true">→</span> action
+        </th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((r) => (
+        <tr>
+          <td class="record__id">{r.id}</td>
+          <td class="cell-main">
+            <span class="record__main">{r.finding}</span>
+            <span class="record__sub">
+              <span aria-hidden="true">→ </span>
+              {r.action}
+            </span>
+          </td>
+          <td>
+            <StatusLabel tone={r.tone}>{r.status}</StatusLabel>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  {summary && (
+    <p class="job-sheet__summary">
+      <span>
+        <strong>{summary.strong}</strong> · {summary.text}
+      </span>
+      {summary.date && <span class="job-sheet__date">{summary.date}</span>}
+    </p>
+  )}
+</RecordFrame>
+
+<style>
+  table.js-table th:first-child,
+  table.js-table td:first-child {
+    width: calc(clamp(64px, 18vw, 88px) + 18px);
+  }
+  table.js-table th:last-child,
+  table.js-table td:last-child {
+    width: calc(clamp(78px, 21vw, 92px) + 18px);
+  }
+  .cell-main {
+    padding-right: 14px !important;
+  }
+  .job-sheet__summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    padding: 15px 18px;
+    background: var(--jfd-tint);
+    font-size: 13px;
+    color: var(--jfd-ink-2);
+  }
+  .job-sheet__summary strong {
+    font-weight: 600;
+  }
+  .job-sheet__date {
+    font-family: var(--jfd-font-mono);
+    font-size: 11px;
+    color: var(--jfd-ink-3);
+    text-transform: uppercase;
+  }
+</style>
