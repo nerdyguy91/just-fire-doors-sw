@@ -54,6 +54,8 @@ interface Enquiry {
   session?: { token: string; at: number };
   widget?: string;
   token?: string;
+  /** True while Turnstile is showing the visitor a challenge to complete. */
+  challenge?: boolean;
   waiting: ((token: string) => void)[];
 }
 
@@ -266,14 +268,25 @@ function mountTurnstile(enquiry: Enquiry) {
           enquiry.waiting.splice(0).forEach((resolve) => resolve(token));
         },
         'expired-callback': () => (enquiry.token = undefined),
-        'error-callback': () => (enquiry.token = undefined),
+        // The check failed: stop waiting, so the visitor sees the send error straight away.
+        'error-callback': () => {
+          enquiry.token = undefined;
+          enquiry.challenge = false;
+          enquiry.waiting.splice(0).forEach((resolve) => resolve(''));
+        },
+        // Cloudflare wants the visitor to tick the box: wait for them rather than timing out.
+        'before-interactive-callback': () => (enquiry.challenge = true),
+        'after-interactive-callback': () => (enquiry.challenge = false),
       });
     })
     // Blocked or offline: the server refuses the session and the visitor sees the send error.
     .catch(() => {});
 }
 
-/** A fresh Turnstile token, or '' when there is no site key (local dev) or the check timed out. */
+/**
+ * A fresh Turnstile token, or '' when there is no site key (local dev), the check failed, or no
+ * token arrived within 15 seconds. The wait doesn't time out while a challenge is on screen.
+ */
 function turnstileToken(enquiry: Enquiry): Promise<string> {
   if (!siteKey(enquiry)) return Promise.resolve('');
   mountTurnstile(enquiry);
@@ -287,7 +300,12 @@ function turnstileToken(enquiry: Enquiry): Promise<string> {
     return Promise.resolve(token);
   }
   return new Promise((resolve) => {
-    const timer = setTimeout(() => resolve(''), TURNSTILE_WAIT_MS);
+    let timer: ReturnType<typeof setTimeout>;
+    const giveUp = () => {
+      if (enquiry.challenge) timer = setTimeout(giveUp, 1000);
+      else resolve('');
+    };
+    timer = setTimeout(giveUp, TURNSTILE_WAIT_MS);
     enquiry.waiting.push((token) => {
       clearTimeout(timer);
       used();
