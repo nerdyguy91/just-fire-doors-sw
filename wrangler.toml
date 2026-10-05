@@ -1,11 +1,23 @@
-# Cloudflare Pages configuration for local development (`npx wrangler pages dev`).
-# Production and Preview bindings and secrets are set in the Pages dashboard (plan step 14);
-# local secrets go in .dev.vars (copy .env.example).
+# Cloudflare Pages configuration. Because this file exists, Pages reads bindings from it (not
+# from the dashboard) for both Preview and Production deploys, and for `npx wrangler pages dev`.
+#
+# - The top-level settings apply to Preview deploys and local development.
+# - [env.production] overrides them for the production branch (main).
+# - Secrets (RESEND_API_KEY, TURNSTILE_SECRET_KEY, FILE_LINK_SECRET, FORM_TO_EMAIL,
+#   FORM_FROM_EMAIL) are set in the Pages dashboard or with `wrangler pages secret put`, never here.
+#   Locally they come from .dev.vars (copy .env.example).
 name = "just-fire-doors"
 pages_build_output_dir = "dist"
 compatibility_date = "2026-09-01"
 
-# Private bucket for enquiry uploads. Locally, Wrangler simulates it on disk (.wrangler/).
+# Private bucket for enquiry uploads: Preview and local. Locally, Wrangler simulates it on disk
+# (.wrangler/) and never touches the real bucket.
 [[r2_buckets]]
 binding = "UPLOADS"
 bucket_name = "jfd-enquiry-uploads-preview"
+
+[env.production]
+
+[[env.production.r2_buckets]]
+binding = "UPLOADS"
+bucket_name = "jfd-enquiry-uploads"
