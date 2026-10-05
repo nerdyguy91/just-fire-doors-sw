@@ -30,11 +30,11 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@lhci/cli": "^0.15.1",
-    "html-validate": "^10.11.3",
+    "html-validate": "^11.16.1",
     "pa11y-ci": "^4.1.1",
     "prettier": "^3.9.9",
     "prettier-plugin-astro": "^1.1.0",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "allowScripts": {
     "esbuild": true
