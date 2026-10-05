@@ -10,6 +10,11 @@ name = "just-fire-doors"
 pages_build_output_dir = "dist"
 compatibility_date = "2026-09-01"
 
+# Plain (non-secret) settings. Also available to the build, so PUBLIC_* values reach the pages.
+# Bindings and vars aren't inherited by [env.production], so production repeats them below.
+[vars]
+PUBLIC_TURNSTILE_SITE_KEY = "0x4AAAAAAFOeXH4D-odAGCjY"
+
 # Private bucket for enquiry uploads: Preview and local. Locally, Wrangler simulates it on disk
 # (.wrangler/) and never touches the real bucket.
 [[r2_buckets]]
@@ -17,6 +22,9 @@ binding = "UPLOADS"
 bucket_name = "jfd-enquiry-uploads-preview"
 
 [env.production]
+
+[env.production.vars]
+PUBLIC_TURNSTILE_SITE_KEY = "0x4AAAAAAFOeXH4D-odAGCjY"
 
 [[env.production.r2_buckets]]
 binding = "UPLOADS"

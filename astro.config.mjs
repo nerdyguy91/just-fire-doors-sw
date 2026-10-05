@@ -2,8 +2,8 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// Canonical origin. Primary domain is still to be confirmed (plan Decision 4).
-const site = process.env.PUBLIC_SITE_URL ?? 'https://justfiredoors.co.uk';
+// Canonical origin: the apex domain (plan Decision 4).
+const site = process.env.PUBLIC_SITE_URL ?? 'https://justfiredoorssw.com';
 
 // Pages that must never appear in the sitemap.
 const excluded = ['/contact/thanks/', '/get-a-quote/thanks/', '/404/'];

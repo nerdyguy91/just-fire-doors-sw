@@ -256,7 +256,7 @@ The site is static files, four small function files and one R2 bucket. If Cloudf
 - **`robots.txt`.** Generated. Allow everything, disallow `/api/`, and point to the sitemap.
 - **Sitemap.** `@astrojs/sitemap`, with the thanks pages and 404 filtered out.
 - **Canonical host.**
-  - Apex domain over HTTPS, e.g. `https://justfiredoors.co.uk/` (domain to be confirmed).
+  - Apex domain over HTTPS: `https://justfiredoorssw.com/` (confirmed in step 14, Decision 4).
   - `www` 301-redirects to the apex using a Cloudflare redirect rule.
   - HTTP → HTTPS via "Always Use HTTPS".
   - HSTS enabled.
@@ -870,7 +870,7 @@ JSON-LD comes from one business-facts file and only ever outputs confirmed facts
    - permission to name the clients and partners: Plymouth Mammography Unit, Tor Bridge High, Mercury Construction, Stoke Damerel Community College, Obedair, Davey Building, Weston-super-Mare schools, Penryn College, Bodmin Hospital and Exmouth. The NHS project slot stays hidden until approved.
 3. **Missing content.** Supply the case-study copy for **Weston-super-Mare** and the **Davey Building**, which the home page features but `/projects/` doesn't include, or accept that the home cards link only to existing projects. Also decide on the About page founder and team section: supply the text and photo, or omit the section at launch. Omitting it is recommended.
 4. **Domain and accounts.**
-   - Which is the primary domain? `justfiredoors.co.uk` is inferred from the placeholder email.
+   - Which is the primary domain? `justfiredoors.co.uk` is inferred from the placeholder email. **Answered in step 14:** `justfiredoorssw.com`, apex, DNS on Cloudflare (registration stays at Squarespace). The domain only served a Squarespace "Coming Soon" page, so there are no old-site URLs to redirect.
    - Apex or `www`? Apex is recommended.
    - Who controls the registrar and DNS? Moving DNS to Cloudflare is recommended.
    - Is there a current website? If so, list its URLs so they can be 301-redirected.
