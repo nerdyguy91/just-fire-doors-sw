@@ -25,7 +25,7 @@ const crumbs = [{ name: 'Contact', path: paths.contact }];
 const docs = [
   { ext: 'PDF', name: 'Fire door survey — Block B.pdf' },
   { ext: 'XLSX', name: 'Remedial schedule.xlsx' },
-  { ext: 'PDF', name: 'Job sheet JS-1042.pdf' },
+  { ext: 'PDF', name: 'Remedial report RR-1042.pdf' },
 ];
 ---
 
@@ -59,7 +59,7 @@ const docs = [
         Contact the team
       </a>
       <span>
-        Already have a survey or job sheet?{' '}
+        Already have a report or survey?{' '}
         <a class="jfd-link" href={quoteHref('survey')}>
           Get a Quote →
         </a>
@@ -95,8 +95,8 @@ const docs = [
           <span class="start__label">Project-ready</span>
           <h3>Have fire-door work ready to progress?</h3>
           <p>
-            If you already have a survey, inspection report, remedial list or job sheet, the
-            quickest route is to send it over.
+            If you already have a report, survey or remedial list, the quickest route is to send it
+            over.
           </p>
           <p class="start__muted">
             You don’t need to type everything out again. Give us the information you already have
@@ -106,7 +106,7 @@ const docs = [
             <FileStack files={docs} />
           </div>
           <a class="jfd-btn start__cta" href={quoteHref('survey')}>
-            Send us your survey or job sheet
+            Send us your report or survey
           </a>
         </div>
         <div class="start__card start__card--dark jfd-on-dark">
@@ -252,12 +252,12 @@ const docs = [
       <div>
         <h2 id="ready-title">Already have the work in front of you?</h2>
         <p>
-          If you’ve got a survey, inspection report, job sheet or remedial list ready, you don’t
-          need to explain it all again. Send it over and we’ll help establish the next step.
+          If you’ve got a report, survey or remedial list ready, you don’t need to explain it all
+          again. Send it over and we’ll help establish the next step.
         </p>
       </div>
       <a class="jfd-btn jfd-btn--inverse jfd-btn--lg" href={quoteHref('survey')}>
-        Send us your survey or job sheet
+        Send us your report or survey
       </a>
     </div>
   </section>

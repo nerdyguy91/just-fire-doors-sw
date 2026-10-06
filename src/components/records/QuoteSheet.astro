@@ -1,7 +1,7 @@
 ---
 /**
- * Illustrative quotation: door → finding → work → treatment → cost, with totals by treatment
- * (remedial works hero). Example prices stay labelled "Illustrative" (plan Decision 8).
+ * Illustrative quotation: door → finding → work → treatment, with door counts by treatment
+ * (remedial works hero). Prices removed at content sign-off (plan Decision 8).
  */
 import type { Tone } from '../../lib/tones';
 import RecordFrame from './RecordFrame.astro';
@@ -13,7 +13,6 @@ export interface QuoteRow {
   work: string;
   treatment: string;
   tone: Tone;
-  cost: string;
 }
 
 interface Props {
@@ -31,7 +30,7 @@ const { title, meta, rows, totals = [], caption, shadow = true } = Astro.props;
 <RecordFrame {title} {meta} {caption} {shadow} class="quote-sheet">
   <table class="qs-table">
     <caption class="jfd-visually-hidden">
-      Illustrative quotation: each door, the finding, the proposed work, treatment and cost
+      Illustrative quotation: each door, the finding, the proposed work and treatment
     </caption>
     <thead>
       <tr>
@@ -40,9 +39,6 @@ const { title, meta, rows, totals = [], caption, shadow = true } = Astro.props;
           Finding <span aria-hidden="true">→</span> work
         </th>
         <th scope="col">Treatment</th>
-        <th scope="col">
-          <abbr title="Cost in pounds">£</abbr>
-        </th>
       </tr>
     </thead>
     <tbody>
@@ -59,7 +55,6 @@ const { title, meta, rows, totals = [], caption, shadow = true } = Astro.props;
           <td class="cell-treat">
             <StatusLabel tone={r.tone}>{r.treatment}</StatusLabel>
           </td>
-          <td class="record__id">{r.cost}</td>
         </tr>
       ))}
     </tbody>
@@ -92,10 +87,6 @@ const { title, meta, rows, totals = [], caption, shadow = true } = Astro.props;
     width: clamp(74px, 21vw, 104px);
     text-align: left;
   }
-  table.qs-table th:nth-child(4),
-  table.qs-table td:nth-child(4) {
-    width: calc(clamp(44px, 12vw, 64px) + 18px);
-  }
   table.qs-table :global(.record__id) {
     font-size: 12.5px;
   }
@@ -107,9 +98,6 @@ const { title, meta, rows, totals = [], caption, shadow = true } = Astro.props;
   }
   .cell-treat :global(.jfd-status) {
     font-size: 10.5px;
-  }
-  abbr {
-    text-decoration: none;
   }
   .quote-sheet__totals {
     display: grid;

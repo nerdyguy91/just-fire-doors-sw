@@ -40,7 +40,7 @@ const n2 = (i: number) => String(i + 1).padStart(2, '0');
 const starts = [
   'one site',
   'one survey',
-  'one job sheet',
+  'one report',
   'an ageing remedial list',
   'a group of replacement doors',
   'a maintenance requirement',
@@ -72,7 +72,7 @@ const stats = [
 const onboarding = [
   {
     t: 'Send us what you have',
-    b: 'A survey, inspection report, job sheet, remedial list or simply the requirement you need help with.',
+    b: 'A report, survey, remedial list or simply the requirement you need help with.',
   },
   {
     t: 'Get a clear route forward',
@@ -88,9 +88,9 @@ const onboarding = [
   },
 ];
 const quoteMini = [
-  { k: 'Repair', t: 'Adjust leaf, replace seals', c: '£185', tone: 'closed' as const },
-  { k: 'Replace', t: 'Supply & fit doorset', c: '£1,420', tone: 'onsite' as const },
-  { k: 'Investigate', t: 'Site check before specifying', c: '—', tone: 'decide' as const },
+  { k: 'Repair', t: 'Adjust leaf, replace seals', tone: 'closed' as const },
+  { k: 'Replace', t: 'Supply & fit doorset', tone: 'onsite' as const },
+  { k: 'Investigate', t: 'Site check before specifying', tone: 'decide' as const },
 ];
 const credentialMark = { bluesky: '', carpenters: 'INST', dds: '' } as const;
 ---
@@ -120,7 +120,7 @@ const credentialMark = { bluesky: '', carpenters: 'INST', dds: '' } as const;
         Talk through your fire-door work
       </a>
       <p class="hero-prompt">
-        <span>Already have a survey or job sheet?</span>
+        <span>Already have a report or survey?</span>
         <a class="jfd-link prompt-link" href={quoteHref('survey')}>
           Send it over →
         </a>
@@ -248,9 +248,8 @@ const credentialMark = { bluesky: '', carpenters: 'INST', dds: '' } as const;
           Know what actually needs repairing or replacing, why and what it will cost.
         </p>
         <p class="runs__body">
-          Start with the survey, inspection report, job sheet or requirement you already have.
-          Clarify what needs repair, replacement or further investigation before the work moves
-          forward.
+          Start with the report, survey or requirement you already have. Clarify what needs repair,
+          replacement or further investigation before the work moves forward.
         </p>
         <span class="runs__receive">You receive · a clear quote</span>
         <div class="mini">
@@ -266,7 +265,6 @@ const credentialMark = { bluesky: '', carpenters: 'INST', dds: '' } as const;
                     </StatusLabel>
                   </td>
                   <td class="mini__t">{q.t}</td>
-                  <td class="mini__c">{q.c}</td>
                 </tr>
               ))}
             </tbody>
@@ -334,7 +332,7 @@ const credentialMark = { bluesky: '', carpenters: 'INST', dds: '' } as const;
           <h3>Close</h3>
           <span class="runs__rule" aria-hidden="true"></span>
         </div>
-        <p class="runs__title">Finish with clear evidence of what’s closed on the job sheet.</p>
+        <p class="runs__title">Finish with clear evidence of what’s closed on the report.</p>
         <p class="runs__body">
           Leave the work with records that show what was done and make anything still requiring
           attention clear.
@@ -681,8 +679,8 @@ const credentialMark = { bluesky: '', carpenters: 'INST', dds: '' } as const;
   <FinalCta
     labelA="Next step"
     title="Got fire-door work that needs a clear route forward?"
-    body={['Start with the survey, job sheet or requirement you already have.']}
-    cta={{ label: 'Send us your survey or job sheet', href: quoteHref('survey') }}
+    body={['Start with the report, survey or requirement you already have.']}
+    cta={{ label: 'Send us your report or survey', href: quoteHref('survey') }}
     labelB="Or"
     altTitle="Rather talk it through first?"
     altBody="Tell us about the building and the work in front of you."
@@ -964,7 +962,6 @@ const credentialMark = { bluesky: '', carpenters: 'INST', dds: '' } as const;
   }
   .mini__table td:last-child {
     padding-right: 12px;
-    text-align: right;
   }
   .mini :global(.mini__label) {
     font-size: 9.5px;
@@ -975,10 +972,6 @@ const credentialMark = { bluesky: '', carpenters: 'INST', dds: '' } as const;
     font-size: 13px;
     line-height: 1.4;
     padding: 0 10px !important;
-  }
-  .mini__c {
-    font-family: var(--jfd-font-mono);
-    font-size: 12px;
   }
   .mini__progress {
     padding: 14px 12px 12px;

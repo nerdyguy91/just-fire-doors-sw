@@ -23,7 +23,7 @@ test('quote email: subject, labelled fields, file links', () => {
     },
     files: [{ name: 'Survey.pdf', size: 4404019, url: 'https://example.org/files/k?exp=1&sig=s' }],
   });
-  assert.equal(subject, '[JFD enquiry] I already have a survey or job sheet — Estates Team');
+  assert.equal(subject, '[JFD enquiry] I already have a report or survey — Estates Team');
   assert.match(text, /^Name: Sam Tester$/m);
   assert.match(text, /^Where is the work\?: Block B$/m);
   assert.match(

@@ -174,7 +174,7 @@ test('full JavaScript path: session, upload, enquiry, email, download', async ()
   assert.equal(email.from, 'forms@example.org');
   assert.deepEqual(email.to, ['inbox@example.org']);
   assert.equal(email.reply_to, 'sam@example.org');
-  assert.equal(email.subject, '[JFD enquiry] I already have a survey or job sheet — Estates');
+  assert.equal(email.subject, '[JFD enquiry] I already have a report or survey — Estates');
   assert.doesNotMatch(email.text, /hack/);
   assert.match(email.text, /- Fire door survey — Block B\.pdf \(1 KB\)/);
 

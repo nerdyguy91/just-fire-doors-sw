@@ -90,13 +90,13 @@ const ifKnow = 'If you know.';
 export const quoteSections: Record<QuoteRouteId, FieldSection[]> = {
   survey: [
     {
-      title: 'Upload your survey, inspection report or job sheet',
+      title: 'Upload your report or survey',
       fields: [
         {
           id: 'docs',
           kind: 'upload',
           primary: true,
-          label: 'Your survey, report or job sheet',
+          label: 'Your report or survey',
           hint: 'PDF, spreadsheet or other relevant project document. Several files are fine.',
           wide: true,
         },
@@ -139,13 +139,13 @@ export const quoteSections: Record<QuoteRouteId, FieldSection[]> = {
   ],
   backlog: [
     {
-      title: 'Got a list, report or job sheet?',
+      title: 'Got a list, report or survey?',
       fields: [
         {
           id: 'docs',
           kind: 'upload',
           primary: true,
-          label: 'Your list, report or job sheet',
+          label: 'Your list, report or survey',
           hint: 'Optional. Send what you have rather than rebuilding the information for us.',
           wide: true,
         },

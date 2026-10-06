@@ -1,7 +1,7 @@
 ---
 /**
  * Close-out evidence section (prototype JfdEvidence): intro, numbered list of what the team
- * needs to know, optional chain, "Closed on the job sheet" outcome, and DDS app screenshots in
+ * needs to know, optional chain, "Closed on the report" outcome, and DDS app screenshots in
  * phone frames.
  */
 import type { ImageMetadata } from 'astro';
@@ -94,7 +94,7 @@ const {
         </p>
       )}
       <div class="evidence__outcome">
-        <span class="jfd-status jfd-status--closed evidence__status">Closed on the job sheet</span>
+        <span class="jfd-status jfd-status--closed evidence__status">Closed on the report</span>
         <p class="evidence__outcome-text">{outcome}</p>
         {closing && <p class="evidence__closing">{closing}</p>}
       </div>

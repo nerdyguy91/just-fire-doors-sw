@@ -24,7 +24,7 @@ export const headerNav = {
     { label: 'Why JFD', href: paths.about },
     { label: 'Contact', href: paths.contact },
   ] satisfies NavLink[],
-  cta: { label: 'Send us your job sheet', href: quoteHref('survey') } satisfies NavLink,
+  cta: { label: 'Send us your report or survey', href: quoteHref('survey') } satisfies NavLink,
 };
 
 export const footerNav = {
@@ -42,7 +42,7 @@ export const footerNav = {
       ],
     },
   ] satisfies { label: string; links: NavLink[] }[],
-  cta: { label: 'Send us your job sheet', href: quoteHref('survey') } satisfies NavLink,
+  cta: { label: 'Send us your report or survey', href: quoteHref('survey') } satisfies NavLink,
   // Terms link omitted until JFD supplies terms (plan section 3).
   legal: [{ label: 'Privacy', href: paths.privacy }] satisfies NavLink[],
 };

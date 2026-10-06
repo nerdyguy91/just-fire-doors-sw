@@ -55,7 +55,7 @@ const problems = [
   },
   {
     title: 'Your existing contractor can do the work. They just can’t take all of it right now.',
-    body: 'You may simply need another capable fire door contractor to take a defined job sheet and get it moving.',
+    body: 'You may simply need another capable fire door contractor to take a defined report or survey and get it moving.',
   },
   {
     title: 'You’re tired of dealing with fire doors reactively.',
@@ -66,7 +66,7 @@ const problems = [
 
 <BaseLayout
   title="Fire Door Contractors, Plymouth & South West | Just Fire Doors"
-  description="Fire door remedial works, inspections and maintenance for estates and facilities teams. Send us your survey or job sheet and we’ll turn it into completed, evidenced work."
+  description="Fire door remedial works, inspections and maintenance for estates and facilities teams. Send us your report or survey and we’ll turn it into completed, evidenced work."
   schema={[website(site), localBusiness(site)]}
 >
   <PageHero
@@ -81,13 +81,12 @@ const problems = [
       <span class="jfd-accent">Properly closed.</span>
     </Fragment>
     <p class="home-lead">
-      Already have a fire door survey, inspection or job sheet? Send it over. We'll turn the
-      findings into clear actions, complete the agreed work and give you clear evidence of what's
-      been closed.
+      Already have a fire door report or survey? Send it over. We'll turn the findings into clear
+      actions, complete the agreed work and give you clear evidence of what's been closed.
     </p>
     <div class="hero-actions">
       <a class="jfd-btn" href={quoteHref('survey')}>
-        Send us your survey or job sheet
+        Send us your report or survey
       </a>
       <a class="jfd-link" href={paths.contact}>
         Talk through your fire-door work →
@@ -95,7 +94,7 @@ const problems = [
     </div>
     <JobSheet
       slot="aside"
-      title="Job sheet · JFD-1042"
+      title="Report · JFD-1042"
       meta="Site: redacted"
       caption="Illustrative example"
       summary={{
@@ -432,12 +431,12 @@ const problems = [
   <FinalCta
     variant="home"
     anchor="contact"
-    title="Already have a fire door survey or job sheet?"
+    title="Already have a fire door report or survey?"
     kicker="Send it over."
     body={[
-      'Share the survey or job sheet, tell us the site and anything we need to know about access. We’ll come back with the actions, the schedule and a price.',
+      'Share the report or survey, tell us the site and anything we need to know about access. We’ll come back with the actions, the schedule and a price.',
     ]}
-    cta={{ label: 'Send us your survey or job sheet', href: quoteHref('survey') }}
+    cta={{ label: 'Send us your report or survey', href: quoteHref('survey') }}
     altCta={{ label: 'Talk through your fire-door work', href: paths.contact }}
   />
 </BaseLayout>

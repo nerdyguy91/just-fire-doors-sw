@@ -37,18 +37,18 @@ export const quoteRoutes: QuoteRoute[] = [
   {
     id: 'survey',
     legacy: 'a',
-    title: 'I already have a survey or job sheet',
+    title: 'I already have a report or survey',
     line: 'You know what needs attention and want help turning it into a clear scope and completed work.',
     cta: 'Send what I have',
     heading: 'Send us what you already have.',
     intro: [
-      'Upload your fire-door survey, inspection report, remedial schedule or job sheet. Give us a little context about the site and we’ll review the requirement with you.',
+      'Upload your fire-door survey, inspection report or remedial schedule. Give us a little context about the site and we’ll review the requirement with you.',
     ],
     reassure: [
-      'You don’t need to copy information out of your survey or job sheet and type it all in again.',
+      'You don’t need to copy information out of your report or survey and type it all in again.',
       'Send us the document you’re already working from.',
     ],
-    submit: 'Send my job sheet',
+    submit: 'Send my report or survey',
     footnote: 'No document to hand? You can still send this — just tell us about the work.',
   },
   {

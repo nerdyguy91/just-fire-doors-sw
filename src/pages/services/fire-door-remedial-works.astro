@@ -30,14 +30,14 @@ const site = Astro.site!;
 const svc = getService('remedial-works');
 const faqs = (await getEntry('faqs', 'remedial-works'))!.data;
 const description =
-  'Fire door repairs and remedial works across Plymouth and the South West. Send us your survey, remedial list or job sheet and we’ll scope, complete and evidence the work.';
+  'Fire door repairs and remedial works across Plymouth and the South West. Send us your report, survey or remedial list and we’ll scope, complete and evidence the work.';
 const quote = quoteHref(svc.quoteRoute);
 
 const inputs = [
   { t: 'Fire door survey', fmt: 'PDF' },
   { t: 'Inspection report', fmt: 'PDF / export' },
   { t: 'Remedial schedule', fmt: 'XLS' },
-  { t: 'Job sheet', fmt: 'Any format' },
+  { t: 'Other report or survey', fmt: 'Any format' },
   { t: 'Backlog of outstanding actions', fmt: 'However it’s kept' },
 ];
 
@@ -125,14 +125,14 @@ const scheduleCols = [
     <Fragment slot="title">
       Fire Door Repairs <span class="jfd-accent">&amp; Remedial Works</span>
     </Fragment>
-    <p class="hero-display">Already have a fire door survey, remedial list or job sheet?</p>
+    <p class="hero-display">Already have a fire door report, survey or remedial list?</p>
     <p class="hero-sub">
       Send it over. We’ll help clarify what needs repairing, replacing or further investigation,
       then get the agreed remedial work moving.
     </p>
     <div class="hero-actions">
       <a class="jfd-btn" href={quote}>
-        Send us your remedial list or job sheet
+        Send us your report or survey
       </a>
       <a class="jfd-link" href={quoteHref()}>
         Talk through the work →
@@ -144,7 +144,7 @@ const scheduleCols = [
     </p>
     <QuoteSheet
       slot="aside"
-      title="Quotation · Q-2291 · from your job sheet"
+      title="Quotation · Q-2291 · from your report"
       meta="Site: redacted"
       caption="Illustrative example"
       rows={[
@@ -154,7 +154,6 @@ const scheduleCols = [
           work: 'Adjust leaf, replace seals',
           treatment: 'Repair',
           tone: 'closed',
-          cost: '185',
         },
         {
           id: 'FD60-003',
@@ -162,7 +161,6 @@ const scheduleCols = [
           work: 'Replace closer',
           treatment: 'Repair',
           tone: 'closed',
-          cost: '240',
         },
         {
           id: 'FD30-021',
@@ -170,7 +168,6 @@ const scheduleCols = [
           work: 'Supply & fit doorset',
           treatment: 'Replace',
           tone: 'onsite',
-          cost: '1,420',
         },
         {
           id: 'FD30-033',
@@ -178,7 +175,6 @@ const scheduleCols = [
           work: 'Replace hinges, rehang',
           treatment: 'Repair',
           tone: 'closed',
-          cost: '160',
         },
         {
           id: 'FD30-045',
@@ -186,7 +182,6 @@ const scheduleCols = [
           work: 'Site check before specifying',
           treatment: 'Investigate',
           tone: 'decide',
-          cost: '—',
         },
         {
           id: 'FD30-052',
@@ -194,13 +189,12 @@ const scheduleCols = [
           work: 'Refit glazing bead',
           treatment: 'Repair',
           tone: 'closed',
-          cost: '95',
         },
       ]}
       totals={[
-        { label: 'Repair', value: '4 doors · £680', tone: 'closed' },
-        { label: 'Replace', value: '1 door · £1,420', tone: 'onsite' },
-        { label: 'Investigate', value: '1 door · priced after visit', tone: 'decide' },
+        { label: 'Repair', value: '4 doors', tone: 'closed' },
+        { label: 'Replace', value: '1 door', tone: 'onsite' },
+        { label: 'Investigate', value: '1 door · after visit', tone: 'decide' },
       ]}
     />
   </PageHero>
@@ -483,7 +477,7 @@ const scheduleCols = [
       'whether anything is still outstanding',
       'what needs to happen next',
     ]}
-    outcome="Finish with clear evidence of what’s closed on the job sheet."
+    outcome="Finish with clear evidence of what’s closed on the report."
     closing="Anything still open should be clearly identified with the next action required."
   />
 
@@ -608,10 +602,10 @@ const scheduleCols = [
     labelA="Have the list?"
     title="Already have fire door remedials waiting to be completed?"
     body={[
-      'Send us your survey, job sheet or remedial list.',
+      'Send us your report, survey or remedial list.',
       'We’ll review the work and help give it a clear route forward.',
     ]}
-    cta={{ label: 'Send us your remedial list or job sheet', href: quote }}
+    cta={{ label: 'Send us your report or survey', href: quote }}
     labelB="Not sure yet?"
     altTitle="Don’t yet know what work is required?"
     altBody="Start with an inspection that’s built to make the next decision easier."

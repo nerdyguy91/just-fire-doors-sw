@@ -18,13 +18,13 @@ const dds = getCredential('dds');
 const heroDocs = [
   { ext: 'PDF', name: 'Fire door survey — Block B.pdf', size: '4.2 MB' },
   { ext: 'XLSX', name: 'Remedial schedule 2026.xlsx', size: '86 KB' },
-  { ext: 'PDF', name: 'Job sheet JS-1042.pdf', size: '640 KB' },
+  { ext: 'PDF', name: 'Remedial report RR-1042.pdf', size: '640 KB' },
   { ext: 'JPG', name: 'Stair core door, L2.jpg', size: '2.1 MB' },
 ];
 const nextSteps = [
   {
     t: 'We review what you’ve sent',
-    b: 'That might be a survey, job sheet, remedial list, existing records or simply your description of the requirement.',
+    b: 'That might be a report, survey, remedial list, existing records or simply your description of the requirement.',
   },
   {
     t: 'We clarify anything we need',
@@ -75,12 +75,12 @@ const stats = [
 
 <BaseLayout
   title="Get a Fire Door Quote | Just Fire Doors South West"
-  description="Have a fire door survey, job sheet or remedial list? Send it to Just Fire Doors for a clear route towards scoped, completed and evidenced work."
+  description="Have a fire door report, survey or remedial list? Send it to Just Fire Doors for a clear route towards scoped, completed and evidenced work."
   breadcrumbs={crumbs}
 >
   <PageHero breadcrumbs={crumbs} size="quote" density="compact" align="center" contentWidth={620}>
     <Fragment slot="title">
-      Send Us Your Fire Door Survey <span class="jfd-accent">or Job Sheet</span>
+      Send Us Your Fire Door Report <span class="jfd-accent">or Survey</span>
     </Fragment>
     <p class="q-lead">
       Already know there’s fire-door work to deal with? Send us what you have and we’ll help
@@ -150,8 +150,8 @@ const stats = [
           Don’t worry about tidying it up for us.
         </h2>
         <p class="tidy__lead">
-          If you’ve already got a survey, inspection report, job sheet or remedial list, send the
-          version you’re working from.
+          If you’ve already got a report, survey or remedial list, send the version you’re working
+          from.
         </p>
         <p class="tidy__body">
           We’d rather start with the information you already have and ask for anything else we
