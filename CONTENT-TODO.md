@@ -8,39 +8,39 @@ When an item is done, update the data or content file and tick it here. **Launch
 
 ### Business facts (Decision 1), `src/data/business.ts`
 
-- [ ] Telephone number. The prototype placeholder is `01752 000 000`.
-- [ ] Customer enquiry email. The prototype shows `hello@justfiredoors.co.uk`, marked "to confirm".
-- [ ] Office hours. The prototype shows `[Confirmed office hours]`.
-- [ ] Registered company name. The prototype footer says "Just Fire Doors South West Ltd".
-- [ ] Company number and registered office address. UK company websites must show these.
-- [ ] Public trading address: yes or no. If no, the Google Business Profile is set up as a service-area business.
-- [ ] Service area. The prototype proposes Plymouth, Devon, Cornwall and the wider South West, and this wording appears in page copy. Confirm it, then set `serviceArea.confirmed: true`.
-- [ ] Google Business Profile and LinkedIn URLs, if they exist, for `sameAs`.
+- [x] Telephone number. The prototype placeholder is `01752 000 000`. **07456 506960** (2026-10-06)
+- [x] Customer enquiry email. The prototype shows `hello@justfiredoors.co.uk`, marked "to confirm". **dec@justfiredoorssw.com** (2026-10-06)
+- [x] Office hours. The prototype shows `[Confirmed office hours]`. **Mon–Fri, 8am–5pm** (2026-10-06)
+- [x] Registered company name. The prototype footer says "Just Fire Doors South West Ltd". **Just Fire Doors SW Ltd** (2026-10-06)
+- [x] Company number and registered office address. UK company websites must show these. **16088943**, 8 Murhill Lane, Plymouth PL9 7FN (2026-10-06)
+- [x] Public trading address: yes or no. If no, the Google Business Profile is set up as a service-area business. **Yes**: Scott Rd, Plymouth PL2 2PQ (used in LocalBusiness schema) (2026-10-06)
+- [x] Service area. The prototype proposes Plymouth, Devon, Cornwall and the wider South West, and this wording appears in page copy. Confirm it, then set `serviceArea.confirmed: true`. Confirmed as proposed (2026-10-06)
+- [x] Google Business Profile and LinkedIn URLs, if they exist, for `sameAs`. No Google Business Profile yet. The LinkedIn link supplied is Declan Stamp's personal profile, so it is not used as the company's `sameAs` (2026-10-06)
 
 ### Credentials and permissions (Decision 2)
 
-- [ ] **BlueSky certificate FDI-146. The prototype notes it expired on 14/08/2026.** Supply the renewed certificate, or remove the BlueSky badge and claims before launch.
-- [ ] Confirm the BlueSky credential wording: "BlueSky Certified Installer — fire door installation & fire stopping of penetrations".
-- [ ] Permission to use the BlueSky logo. Ask for an SVG version too.
-- [ ] Permission to use the Door Data Systems logo. Only a 200 px version exists, so ask for an SVG.
-- [ ] Permission to use the University of Plymouth logo.
-- [ ] Permission to name each client or partner: Plymouth Mammography Unit, Tor Bridge High, Mercury Construction, Stoke Damerel Community College, Obedair, University of Plymouth (Davey Building), the Weston-super-Mare schools and education trust, Penryn College, Bodmin Hospital, Exmouth primary school, and "local council".
-- [ ] University Hospitals Plymouth NHS Trust: stays hidden until approved. The prototype says "slot reserved, pending approval".
+- [x] **BlueSky certificate FDI-146. The prototype notes it expired on 14/08/2026.** Supply the renewed certificate, or remove the BlueSky badge and claims before launch. JFD asked to keep the badge in place while the renewal comes through; update `verify` when it arrives (2026-10-06)
+- [x] Confirm the BlueSky credential wording: "BlueSky Certified Installer — fire door installation & fire stopping of penetrations". Confirmed (2026-10-06)
+- [x] Permission to use the BlueSky logo. Ask for an SVG version too. Granted (2026-10-06)
+- [x] Permission to use the Door Data Systems logo. Only a 200 px version exists, so ask for an SVG. Granted (2026-10-06)
+- [x] Permission to use the University of Plymouth logo. Granted (2026-10-06)
+- [x] Permission to name each client or partner: Plymouth Mammography Unit, Tor Bridge High, Mercury Construction, Stoke Damerel Community College, Obedair, University of Plymouth (Davey Building), the Weston-super-Mare schools and education trust, Penryn College, Bodmin Hospital, Exmouth primary school, and "local council". Granted (2026-10-06)
+- [x] University Hospitals Plymouth NHS Trust: stays hidden until approved. The prototype says "slot reserved, pending approval". Approved (2026-10-06). Nothing to show until there is project content for it
 
 ### Missing project copy (Decision 3)
 
-- [ ] **Weston-super-Mare schools (about 150 doors).** The home page features it, but there's no case study. Supply the case-study copy, or the home card links to `/projects/` only.
-- [ ] **University of Plymouth, Davey Building (about 35 doorsets).** Same as above.
+- [x] **Weston-super-Mare schools (about 150 doors).** The home page features it, but there's no case study. Supply the case-study copy, or the home card links to `/projects/` only. Not needed: the home card keeps linking to `/projects/` (2026-10-06)
+- [x] **University of Plymouth, Davey Building (about 35 doorsets).** Same as above. Not needed, as above (2026-10-06)
 
 ### Forms and privacy
 
-- [ ] Enquiry destination inbox (Decision 4).
-- [ ] Privacy notice wording approved by JFD, including processors (Cloudflare, Resend, analytics) and 90-day file retention (Decision 5).
-- [ ] Upload limits and retention confirmed (Decision 5).
+- [x] Enquiry destination inbox (Decision 4). **dec@justfiredoorssw.com**, set as the `FORM_TO_EMAIL` secret in Cloudflare (2026-10-06)
+- [x] Privacy notice wording approved by JFD, including processors (Cloudflare, Resend, analytics) and 90-day file retention (Decision 5). Approved (2026-10-06)
+- [x] Upload limits and retention confirmed (Decision 5). Approved (2026-10-06)
 
 ### Brand
 
-- [ ] Original vector logo (SVG, AI or EPS) from the logo designer. The site currently uses a trace of the supplied JPEG (see `docs/brand/README.md`).
+- [x] Original vector logo (SVG, AI or EPS) from the logo designer. The site currently uses a trace of the supplied JPEG (see `docs/brand/README.md`). Not needed: keep the trace (2026-10-06)
 
 ## Fact-check before publication
 
@@ -67,7 +67,7 @@ These answers are approved prototype copy and are in the content files, but the 
 
 These apply when the pages are built in step 8.
 
-- [ ] **Home**: the hero job-sheet panel is a placeholder ("anonymised JFD record to supply"). See Decision 8.
+- [ ] **Home**: the hero report panel is a placeholder ("anonymised JFD record to supply"). See Decision 8.
 - [ ] **Inspections**: exact inspection methodology and terminology.
 - [ ] **Inspections**: report fields, photographs, priority/status system and handover format.
 - [ ] **Inspections**: multi-site programme management, reporting format, mobilisation capability.
@@ -95,7 +95,7 @@ These apply when the pages are built in step 8.
 ### New or hedged copy to approve (step 8)
 
 - [ ] **/services/ hub**, hero lead (new copy): “Inspection, repair, maintenance and replacement for estates and facilities teams across the South West, with clear evidence of what’s been completed.”
-- [ ] **/privacy/**: draft privacy notice. Needs JFD (and ideally legal) approval, plus company details in `business.ts`. It assumes 90-day upload retention and no analytics; update it if Decisions 5 or 6 change.
+- [x] **/privacy/**: draft privacy notice. Needs JFD (and ideally legal) approval, plus company details in `business.ts`. It assumes 90-day upload retention and no analytics; update it if Decisions 5 or 6 change. Approved (2026-10-06)
 - [ ] **Installation**, evidence list title (prototype copy): “Depending on JFD’s final confirmed process, the handover may include”. Simplify once the handover process is confirmed.
 - [ ] **About, credentials footnote** and **remedial works FAQ** (prototype copy): “JFD’s current materials state that…”. Reword as a direct statement once confirmed.
 - [ ] **Home**, Weston-super-Mare and Davey Building cards link to “See all projects →” until their case studies exist (Decision 3).
@@ -112,7 +112,7 @@ The prototype had no wording for these states, so they are new.
 - [ ] **Get a quote**, side panel: “Rather talk first? Contact JFD →” stands in for the phone number until it is confirmed.
 - [ ] **Thanks pages** (`/contact/thanks/`, `/get-a-quote/thanks/`): page titles, descriptions and the “Send another message →” / “Send something else →” links. Body copy is the prototype’s success wording.
 - [ ] **Contact**: the telephone, email and office-hours blocks, the “Call the team” photo label, “or call …” and “If the form isn’t working, call or email us directly.” are hidden until the phone and email are confirmed.
-- [ ] Confirm the accepted upload types: PDF, XLS, XLSX, CSV, DOC, DOCX, JPG, PNG, HEIC (Decision 5).
+- [x] Confirm the accepted upload types: PDF, XLS, XLSX, CSV, DOC, DOCX, JPG, PNG, HEIC (Decision 5). Approved (2026-10-06)
 
 ### Analytics (Decision 6: Google Analytics 4, step 12)
 
@@ -137,8 +137,8 @@ These appear in the prototype only as placeholders and are **not ported**. Add t
 
 These show as "Illustrative" until they're replaced with real, anonymised JFD documents, or approved to stay.
 
-- [ ] Home hero job sheet (JFD-1042)
-- [ ] Remedial works quotation (Q-2291, with example £ prices) and the Why JFD mini quote
+- [ ] Home hero report (JFD-1042)
+- [ ] Remedial works quotation (Q-2291) and the Why JFD mini quote. £ prices removed at client feedback (2026-10-06)
 - [ ] Remedial works, maintenance, installation and Why JFD programme / progress views
 - [ ] Remedial works backlog handoff (214 open actions)
 - [ ] Inspections report layout and door record

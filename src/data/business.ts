@@ -11,7 +11,7 @@ import bskyLogo from '../assets/images/logos/bsc-fire-door-installation.jpg';
 import ddsLogo from '../assets/images/logos/door-data-systems.jpeg';
 
 export interface Phone {
-  /** As displayed, e.g. "01752 123 456". */
+  /** As displayed, with non-breaking spaces, e.g. "01752\u00A0123\u00A0456". */
   display: string;
   /** E.164 for tel: links and schema, e.g. "+441752123456". */
   e164: string;
@@ -72,32 +72,42 @@ export const business: Business = {
   // Prototype footer tagline.
   tagline: 'Fire door safety. Kept simple.',
 
-  // The prototype footer shows "Just Fire Doors South West Ltd"; not yet confirmed (plan Decision 1).
-  legalName: null,
-  companyNumber: null,
-  registeredOffice: null,
-  address: null,
+  // Confirmed by JFD at content sign-off, 2026-10-06.
+  legalName: 'Just Fire Doors SW Ltd',
+  companyNumber: '16088943',
+  registeredOffice: {
+    streetAddress: '8 Murhill Lane',
+    addressLocality: 'Plymouth',
+    postalCode: 'PL9 7FN',
+    addressCountry: 'GB',
+  },
+  address: {
+    streetAddress: 'Scott Rd',
+    addressLocality: 'Plymouth',
+    postalCode: 'PL2 2PQ',
+    addressCountry: 'GB',
+  },
 
-  // The prototype uses placeholders (01752 000 000, hello@justfiredoors.co.uk) marked "to confirm".
-  phone: null,
-  email: null,
-  hours: null,
+  // Non-breaking space keeps the number on one line (html-validate tel-non-breaking).
+  phone: { display: '07456\u00A0506960', e164: '+447456506960' },
+  email: 'dec@justfiredoorssw.com',
+  hours: 'Mon–Fri, 8am–5pm',
 
   serviceArea: {
     // Stated as fact throughout the prototype copy ("JFD is based in Plymouth").
     base: 'Plymouth',
     region: 'South West',
-    // Prototype contact page list, marked "To confirm · geographic coverage before publication".
+    // Confirmed by JFD at content sign-off, 2026-10-06.
     areas: ['Plymouth', 'Devon', 'Cornwall', 'Wider South West'],
-    confirmed: false,
+    confirmed: true,
   },
 
   sameAs: [],
 
   // Stated as fact in the prototype (Why JFD "Credentials" section). Placeholder credentials
   // ("[Accreditation]", "[X] years", etc.) are not ported. Wording and logo rights: Decision 2.
-  // LAUNCH BLOCKER: the prototype notes certificate FDI-146 expired 14/08/2026. A renewed
-  // certificate must be supplied, or the BlueSky entry removed, before launch (CONTENT-TODO.md).
+  // Certificate FDI-146 expired 14/08/2026. JFD asked to keep it in place while the renewal comes
+  // through (content sign-off, 2026-10-06). Update `verify` when the new certificate arrives.
   credentials: [
     {
       id: 'bluesky',
