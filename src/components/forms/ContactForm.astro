@@ -45,7 +45,10 @@ const { phone, email } = business;
         Send enquiry
       </button>
       {(phone || email) && (
-        <span class="cform__fallback">If the form isn’t working, call or email us directly.</span>
+        <span class="cform__fallback">
+          If the form isn’t working, {phone && email ? 'call or email' : phone ? 'call' : 'email'} us
+          directly.
+        </span>
       )}
     </div>
   </form>

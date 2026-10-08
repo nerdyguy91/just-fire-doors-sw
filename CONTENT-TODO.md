@@ -8,8 +8,8 @@ When an item is done, update the data or content file and tick it here. **Launch
 
 ### Business facts (Decision 1), `src/data/business.ts`
 
-- [x] Telephone number. The prototype placeholder is `01752 000 000`. **07456 506960** (2026-10-06)
-- [x] Customer enquiry email. The prototype shows `hello@justfiredoors.co.uk`, marked "to confirm". **dec@justfiredoorssw.com** (2026-10-06)
+- [x] Telephone number. The prototype placeholder is `01752 000 000`. ~~07456 506960~~ (2026-10-06). JFD asked for no phone number on the site, so `phone` is `null` and every phone element is hidden (2026-10-08)
+- [x] Customer enquiry email. The prototype shows `hello@justfiredoors.co.uk`, marked "to confirm". **info@justfiredoorssw.com** (2026-10-08; was dec@justfiredoorssw.com, 2026-10-06)
 - [x] Office hours. The prototype shows `[Confirmed office hours]`. **Mon–Fri, 8am–5pm** (2026-10-06)
 - [x] Registered company name. The prototype footer says "Just Fire Doors South West Ltd". **Just Fire Doors SW Ltd** (2026-10-06)
 - [x] Company number and registered office address. UK company websites must show these. **16088943**, 8 Murhill Lane, Plymouth PL9 7FN (2026-10-06)

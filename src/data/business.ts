@@ -88,9 +88,9 @@ export const business: Business = {
     addressCountry: 'GB',
   },
 
-  // Non-breaking space keeps the number on one line (html-validate tel-non-breaking).
-  phone: { display: '07456\u00A0506960', e164: '+447456506960' },
-  email: 'dec@justfiredoorssw.com',
+  // JFD asked for no phone number on the site (2026-10-08). Every phone element hides while null.
+  phone: null,
+  email: 'info@justfiredoorssw.com',
   hours: 'Mon–Fri, 8am–5pm',
 
   serviceArea: {
