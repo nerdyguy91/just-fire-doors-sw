@@ -102,7 +102,8 @@ export const business: Business = {
     confirmed: true,
   },
 
-  sameAs: [],
+  // Google Business Profile (Knowledge Graph ID /g/11xyp1mtfc), supplied by Alex, 2026-10-09.
+  sameAs: ['https://www.google.com/search?kgmid=/g/11xyp1mtfc'],
 
   // Stated as fact in the prototype (Why JFD "Credentials" section). Placeholder credentials
   // ("[Accreditation]", "[X] years", etc.) are not ported. Wording and logo rights: Decision 2.

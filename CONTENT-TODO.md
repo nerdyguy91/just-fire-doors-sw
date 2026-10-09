@@ -15,7 +15,7 @@ When an item is done, update the data or content file and tick it here. **Launch
 - [x] Company number and registered office address. UK company websites must show these. **16088943**, 8 Murhill Lane, Plymouth PL9 7FN (2026-10-06)
 - [x] Public trading address: yes or no. If no, the Google Business Profile is set up as a service-area business. **Yes**: Scott Rd, Plymouth PL2 2PQ (used in LocalBusiness schema) (2026-10-06)
 - [x] Service area. The prototype proposes Plymouth, Devon, Cornwall and the wider South West, and this wording appears in page copy. Confirm it, then set `serviceArea.confirmed: true`. Confirmed as proposed (2026-10-06)
-- [x] Google Business Profile and LinkedIn URLs, if they exist, for `sameAs`. No Google Business Profile yet. The LinkedIn link supplied is Declan Stamp's personal profile, so it is not used as the company's `sameAs` (2026-10-06)
+- [x] Google Business Profile and LinkedIn URLs, if they exist, for `sameAs`. Google Business Profile: **https://www.google.com/search?kgmid=/g/11xyp1mtfc**, used in `sameAs` (2026-10-09). The LinkedIn link supplied is Declan Stamp's personal profile, so it is not used as the company's `sameAs` (2026-10-06)
 
 ### Credentials and permissions (Decision 2)
 
