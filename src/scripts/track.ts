@@ -104,7 +104,14 @@ function locationOf(el: Element): string {
 
 function init() {
   if (!id) return;
-  const banner = document.querySelector<HTMLElement>('[data-consent-banner]');
+  const banner = document.querySelector<HTMLDialogElement>('[data-consent-banner]');
+  // Modal: the page behind is inert until the visitor chooses (or presses Escape, which closes
+  // it for this page only). Focus goes to the heading, not to either button.
+  const open = () => {
+    if (!banner || banner.open) return;
+    banner.showModal();
+    banner.querySelector<HTMLElement>('#consent-title')?.focus();
+  };
 
   const choose = (choice: 'granted' | 'denied') => {
     try {
@@ -112,7 +119,7 @@ function init() {
     } catch {
       // Storage blocked: the choice lasts for this page only.
     }
-    if (banner) banner.hidden = true;
+    banner?.close();
     if (choice === 'granted') start(true);
     else stop();
   };
@@ -120,17 +127,13 @@ function init() {
     button.addEventListener('click', () => choose(button.dataset.consent as 'granted' | 'denied'));
   });
   document.querySelectorAll('[data-consent-open]').forEach((button) => {
-    button.addEventListener('click', () => {
-      if (!banner) return;
-      banner.hidden = false;
-      banner.querySelector<HTMLElement>('[data-consent]')?.focus();
-    });
+    button.addEventListener('click', open);
   });
 
   const choice = stored();
   if (choice === 'granted') start(true);
   else if (choice !== 'denied') {
-    if (banner) banner.hidden = false;
+    open();
     if (cookieless) start(false);
   }
 

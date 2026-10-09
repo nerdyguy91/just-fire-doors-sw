@@ -1,45 +1,48 @@
 ---
 /**
  * Analytics consent banner. Rendered only on builds with a GA4 measurement ID
- * (src/lib/analytics.ts). Hidden until src/scripts/track.ts finds no stored choice; without
- * JavaScript it never shows, and no analytics runs.
+ * (src/lib/analytics.ts). A modal <dialog>, opened by src/scripts/track.ts when it finds no
+ * stored choice: the page behind is dimmed and inert until the visitor chooses. Escape closes it
+ * for the current page only. Without JavaScript it never shows, and no analytics runs.
  *
- * Accept and reject are the same size and style. The wording follows the build's setting:
- * cookie-free statistics before a choice (default), or nothing until accepted.
+ * Accept and reject are the same size and style (ICO guidance: rejecting must be as easy and as
+ * prominent as accepting). The wording follows the build's setting: cookie-free statistics
+ * before a choice (default), or nothing until accepted.
  * "Cookie settings" in the footer reopens it.
  */
 import { gaCookieless } from '../../lib/analytics';
 import { paths } from '../../data/paths';
 ---
 
-<aside class="consent jfd-on-dark" aria-labelledby="consent-title" data-consent-banner hidden>
-  <div class="consent__inner">
-    <div class="consent__text">
-      <p class="consent__title" id="consent-title">
-        Analytics cookies
+<dialog class="consent jfd-on-dark" aria-labelledby="consent-title" data-consent-banner>
+  <div class="consent__text">
+    <h2 class="consent__title jfd-h3" id="consent-title" tabindex="-1">
+      Analytics cookies
+    </h2>
+    {gaCookieless ? (
+      <p>
+        We count visits with Google Analytics, without cookies. Accept analytics cookies to give us
+        more detail, or switch analytics off.
       </p>
-      {gaCookieless ? (
-        <p>
-          We count visits with Google Analytics, without cookies. Accept analytics cookies to give
-          us more detail, or switch analytics off. <a href={paths.privacy}>Privacy notice</a>
-        </p>
-      ) : (
-        <p>
-          We’d like to use Google Analytics to understand how this site is used. It sets cookies, so
-          we only switch it on if you accept. <a href={paths.privacy}>Privacy notice</a>
-        </p>
-      )}
-    </div>
-    <div class="consent__actions">
-      <button type="button" class="jfd-btn jfd-btn--sm jfd-btn--inverse" data-consent="granted">
-        {gaCookieless ? 'Accept cookies' : 'Accept analytics'}
-      </button>
-      <button type="button" class="jfd-btn jfd-btn--sm jfd-btn--inverse" data-consent="denied">
-        {gaCookieless ? 'Switch off' : 'Reject analytics'}
-      </button>
-    </div>
+    ) : (
+      <p>
+        We’d like to use Google Analytics to understand how this site is used. It sets cookies, so
+        we only switch it on if you accept.
+      </p>
+    )}
+    <p>
+      <a href={paths.privacy}>Privacy notice</a>
+    </p>
   </div>
-</aside>
+  <div class="consent__actions">
+    <button type="button" class="jfd-btn jfd-btn--lg" data-consent="granted">
+      {gaCookieless ? 'Accept cookies' : 'Accept analytics'}
+    </button>
+    <button type="button" class="jfd-btn jfd-btn--lg" data-consent="denied">
+      {gaCookieless ? 'Switch off' : 'Reject analytics'}
+    </button>
+  </div>
+</dialog>
 
 <script>
   import '../../scripts/track';
@@ -47,45 +50,46 @@ import { paths } from '../../data/paths';
 
 <style>
   .consent {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 70;
+    box-sizing: border-box;
+    width: min(720px, calc(100% - 32px));
+    max-width: none;
+    max-height: calc(100dvh - 32px);
+    margin: auto;
+    padding: clamp(28px, 6vw, 56px);
+    overflow-y: auto;
+    display: none;
+    flex-direction: column;
+    gap: 40px;
     background: var(--jfd-graphite);
     color: var(--jfd-dark-ink);
-    border-top: 3px solid var(--jfd-azure);
+    border: 0;
+    border-top: 4px solid var(--jfd-azure);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
   }
-  .consent[hidden] {
-    display: none;
-  }
-  .consent__inner {
-    max-width: var(--jfd-max);
-    margin: 0 auto;
-    padding: 18px var(--jfd-gutter-fluid);
+  .consent[open] {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px 40px;
   }
-  .consent__text {
-    flex: 1 1 420px;
-    min-width: 0;
+  .consent::backdrop {
+    background: rgba(20, 24, 27, 0.82);
+  }
+  :global(html:has(.consent[open])) {
+    overflow: hidden;
   }
   .consent__title {
-    font-family: var(--jfd-font-mono);
-    font-size: 10.5px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--jfd-dark-ink-2);
-    margin: 0 0 6px;
+    color: var(--jfd-dark-heading);
+    margin: 0 0 16px;
+  }
+  .consent__title:focus {
+    outline: none;
+  }
+  .consent__text p {
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0 0 12px;
+    max-width: 52ch;
   }
   .consent__text p:last-child {
-    font-size: 15px;
-    line-height: 1.55;
     margin: 0;
-    max-width: 68ch;
   }
   .consent__text a {
     color: #ffffff;
@@ -95,8 +99,17 @@ import { paths } from '../../data/paths';
     border-bottom-color: #ffffff;
   }
   .consent__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .consent__actions .jfd-btn {
+    justify-content: center;
+    min-height: 60px;
+  }
+  @media (max-width: 479px) {
+    .consent__actions {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
