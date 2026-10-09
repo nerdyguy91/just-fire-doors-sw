@@ -116,8 +116,8 @@ The prototype had no wording for these states, so they are new.
 
 ### Analytics (Decision 6: Google Analytics 4, step 12)
 
-- [ ] GA4 measurement ID (`G-XXXXXXXXXX`), set as `PUBLIC_GA_MEASUREMENT_ID` in Cloudflare for Production. Until then no analytics runs and no banner shows.
-- [ ] **Confirm the cookie-free measurement is acceptable.** Before a visitor chooses, the site sends cookie-free Google Analytics pings. Whether that needs consent under UK rules is a legal judgement for JFD or its adviser. If in doubt, set `PUBLIC_GA_BEFORE_CONSENT=off` (nothing loads until accepted).
+- [x] GA4 measurement ID **G-NPRRLTZM83**, set as `PUBLIC_GA_MEASUREMENT_ID` for Production in `wrangler.toml` (Preview stays without analytics) (2026-10-09)
+- [x] **Confirm the cookie-free measurement is acceptable.** Alex chose to keep it (`PUBLIC_GA_BEFORE_CONSENT=cookieless`) (2026-10-09). Before a visitor chooses, the site sends cookie-free Google Analytics pings. Whether that needs consent under UK rules is a legal judgement for JFD or its adviser. If in doubt, set `PUBLIC_GA_BEFORE_CONSENT=off` (nothing loads until accepted).
 - [ ] Consent banner wording to approve: “Analytics cookies. We count visits with Google Analytics, without cookies. Accept analytics cookies to give us more detail, or switch analytics off.” Buttons: “Accept cookies”, “Switch off”. Footer link: “Cookie settings”.
 - [ ] Privacy notice, “Cookies and analytics” section: draft Google Analytics wording (cookie names, two-year lifetime, processing by Google, possible transfer outside the UK). Needs JFD and ideally legal approval with the rest of the notice.
 - [ ] Confirm GA4 settings: Google Signals and ads personalisation off; data retention period.

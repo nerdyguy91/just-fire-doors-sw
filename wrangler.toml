@@ -25,6 +25,9 @@ bucket_name = "jfd-enquiry-uploads-preview"
 
 [env.production.vars]
 PUBLIC_TURNSTILE_SITE_KEY = "0x4AAAAAAFOeXH4D-odAGCjY"
+# Google Analytics 4, production only so Preview traffic stays out. Not a secret: it ships in the page.
+PUBLIC_GA_MEASUREMENT_ID = "G-NPRRLTZM83"
+PUBLIC_GA_BEFORE_CONSENT = "cookieless"
 
 [[env.production.r2_buckets]]
 binding = "UPLOADS"
